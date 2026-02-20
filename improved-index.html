@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 改善1: タイトルタグの最適化（「トップページ」を削除し、キーワードを含む） -->
+  <title>株式会社えんのした | 岡山の人材育成・組織開発コンサルティング</title>
+
+  <!-- 改善2: meta descriptionの最適化（120文字以内、キーワード含む） -->
+  <meta name="description" content="株式会社えんのしたは、岡山を拠点に人材育成・人事制度構築・組織開発を支援するコンサルティング会社です。多様な学びの場の提供により、リーダーの心技体を育み、組織の成長を実現します。">
+
+  <!-- 改善3: OGP（Open Graph Protocol）の設定 -->
+  <meta property="og:title" content="株式会社えんのした | 岡山の人材育成・組織開発コンサルティング">
+  <meta property="og:description" content="人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発の3つの柱で、リーダーの心技体を育みます。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ennoshita.co.jp/">
+  <meta property="og:image" content="https://ennoshita.co.jp/assets/images/ogp.jpg">
+  <meta property="og:site_name" content="株式会社えんのした">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="株式会社えんのした | 岡山の人材育成・組織開発コンサルティング">
+  <meta name="twitter:description" content="人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発で組織の成長を実現します。">
+  <meta name="twitter:image" content="https://ennoshita.co.jp/assets/images/ogp.jpg">
+
+  <!-- 改善: canonical URL -->
+  <link rel="canonical" href="https://ennoshita.co.jp/">
+
+  <!-- 改善: ファビコン -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- 改善6: フォント最適化（font-display: swap + preconnect） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+
+  <!-- 改善4: 構造化データ（JSON-LD） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "株式会社えんのした",
+    "description": "人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発を支援します。",
+    "url": "https://ennoshita.co.jp",
+    "telephone": "",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "磨屋町ビル8階",
+      "addressLocality": "岡山市",
+      "addressRegion": "岡山県",
+      "postalCode": "",
+      "addressCountry": "JP"
+    },
+    "foundingDate": "2012-05-01",
+    "sameAs": []
+  }
+  </script>
+
+  <!-- 改善: Critical CSS のインライン化 -->
+  <style>
+    /* ===== リセット & ベース ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      background-color: #fff;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* 改善10: フォーカス表示（アクセシビリティ） */
+    :focus-visible {
+      outline: 3px solid #2563eb;
+      outline-offset: 2px;
+    }
+
+    /* ===== レイアウト ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== ヘッダー ===== */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .header__logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a5632;
+    }
+
+    .header__logo a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ナビゲーション */
+    .nav__list {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+
+    .nav__link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav__link:hover,
+    .nav__link:focus {
+      color: #1a5632;
+    }
+
+    .nav__link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1a5632;
+      transition: width 0.3s;
+    }
+
+    .nav__link:hover::after {
+      width: 100%;
+    }
+
+    /* 改善12: CTA ボタンの強化 */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      transition: background-color 0.2s, transform 0.2s;
+      /* 改善13: タッチターゲット最低 44x44px */
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    .btn--primary {
+      background: #1a5632;
+      color: #fff;
+      border: 2px solid #1a5632;
+    }
+
+    .btn--primary:hover {
+      background: #14442a;
+      transform: translateY(-1px);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: #1a5632;
+      border: 2px solid #1a5632;
+    }
+
+    .btn--outline:hover {
+      background: #1a5632;
+      color: #fff;
+    }
+
+    .btn--large {
+      padding: 16px 40px;
+      font-size: 1.0625rem;
+    }
+
+    /* ===== ハンバーガーメニュー（モバイル） ===== */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      position: relative;
+    }
+
+    .hamburger__line {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #333;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger__line:nth-child(1) { top: 14px; }
+    .hamburger__line:nth-child(2) { top: 21px; }
+    .hamburger__line:nth-child(3) { top: 28px; }
+
+    /* ===== ヒーローセクション ===== */
+    .hero {
+      background: linear-gradient(135deg, #f0f7f3 0%, #e8f5ec 100%);
+      padding: 80px 0;
+    }
+
+    .hero__inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero__content {
+      flex: 1;
+    }
+
+    /* 改善8: h1は1ページに1つ、適切なキーワード含む */
+    .hero__title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #1a3a25;
+      margin-bottom: 20px;
+    }
+
+    .hero__title span {
+      display: block;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1a5632;
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .hero__description {
+      font-size: 1.0625rem;
+      color: #555;
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+
+    .hero__image {
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .hero__buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== 特徴セクション ===== */
+    .features {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-header__label {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #1a5632;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-header__title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1a3a25;
+      margin-bottom: 16px;
+    }
+
+    .section-header__description {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .feature-card__icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: #f0f7f3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .feature-card__title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #1a3a25;
+      margin-bottom: 8px;
+    }
+
+    .feature-card__subtitle {
+      font-size: 0.8125rem;
+      color: #1a5632;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .feature-card__text {
+      font-size: 0.9375rem;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* ===== 実績・信頼セクション ===== */
+    .trust {
+      background: #f8faf9;
+      padding: 64px 0;
+    }
+
+    .trust__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+
+    .trust__item-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a5632;
+      line-height: 1.2;
+    }
+
+    .trust__item-label {
+      font-size: 0.875rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    /* ===== ブログセクション ===== */
+    .blog {
+      padding: 80px 0;
+    }
+
+    .blog__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .blog-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .blog-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .blog-card__image {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #f0f7f3;
+    }
+
+    .blog-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blog-card__body {
+      padding: 20px;
+    }
+
+    .blog-card__category {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1a5632;
+      background: #f0f7f3;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .blog-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .blog-card__date {
+      font-size: 0.8125rem;
+      color: #999;
+    }
+
+    /* ===== CTAセクション ===== */
+    .cta {
+      background: linear-gradient(135deg, #1a5632 0%, #1a3a25 100%);
+      color: #fff;
+      padding: 72px 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta__text {
+      font-size: 1.0625rem;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta .btn--primary {
+      background: #fff;
+      color: #1a5632;
+      border-color: #fff;
+    }
+
+    .cta .btn--primary:hover {
+      background: #f0f7f3;
+    }
+
+    /* ===== フッター ===== */
+    .footer {
+      background: #1a3a25;
+      color: #ccc;
+      padding: 48px 0 24px;
+    }
+
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer__logo {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .footer__description {
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+
+    .footer__heading {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer__list {
+      list-style: none;
+    }
+
+    .footer__list li {
+      margin-bottom: 8px;
+    }
+
+    .footer__list a {
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer__list a:hover {
+      color: #fff;
+    }
+
+    .footer__bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.8125rem;
+    }
+
+    /* ===== レスポンシブ対応 ===== */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s, opacity 0.3s;
+        pointer-events: none;
+        z-index: 99;
+      }
+
+      .nav.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav__list {
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 0;
+      }
+
+      .nav__link {
+        display: block;
+        padding: 12px 0;
+        font-size: 1rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .hero {
+        padding: 48px 0;
+      }
+
+      .hero__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero__title {
+        font-size: 1.5rem;
+      }
+
+      .hero__description {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero__buttons {
+        justify-content: center;
+      }
+
+      .features__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .trust__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .blog__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer__inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .section-header__title {
+        font-size: 1.375rem;
+      }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .features__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .blog__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* 改善: prefers-reduced-motion 対応 */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="header" role="banner">
+    <div class="container header__inner">
+      <div class="header__logo">
+        <a href="/" aria-label="株式会社えんのした トップページへ">
+          <!-- ロゴ画像がある場合: -->
+          <!-- <img src="/assets/images/logo.svg" alt="株式会社えんのした" width="180" height="40" loading="eager"> -->
+          えんのした
+        </a>
+      </div>
+
+      <!-- 改善13: モバイルハンバーガーメニュー -->
+      <button class="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+
+      <nav class="nav" id="main-nav" role="navigation" aria-label="メインナビゲーション">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="/about/">会社概要</a></li>
+          <li><a class="nav__link" href="/service/">サービス</a></li>
+          <li><a class="nav__link" href="/representative/">代表者紹介</a></li>
+          <li><a class="nav__link" href="/blog/">ブログ</a></li>
+          <li><a class="nav__link btn btn--primary" href="/contact/">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- ===== ヒーローセクション（改善14: ファーストビュー訴求力） ===== -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <!-- 改善8: h1にキーワードを含む -->
+          <h1 class="hero__title">
+            <span>CONSULTING FOR GROWTH</span>
+            人・職場・組織を支え、<br>リーダーの心技体を育む
+          </h1>
+          <p class="hero__description">
+            株式会社えんのしたは、岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、
+            組織の持続的な成長を支援するコンサルティング会社です。
+          </p>
+          <div class="hero__buttons">
+            <a href="/contact/" class="btn btn--primary btn--large">無料相談はこちら</a>
+            <a href="/service/" class="btn btn--outline btn--large">サービスを見る</a>
+          </div>
+        </div>
+        <div class="hero__image">
+          <!-- 改善5: 画像最適化（WebP, width/height, lazy不要=LCP） -->
+          <picture>
+            <source srcset="/assets/images/hero.webp" type="image/webp">
+            <img
+              src="/assets/images/hero.jpg"
+              alt="チームで会議をしているビジネスパーソン"
+              width="480"
+              height="360"
+              fetchpriority="high"
+            >
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== サービス紹介（改善8: 適切な見出し階層） ===== -->
+    <section class="features" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-header__label">Services</p>
+          <h2 class="section-header__title" id="services-title">3つの支援で組織の成長を実現</h2>
+          <p class="section-header__description">
+            「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。
+          </p>
+        </div>
+        <div class="features__grid">
+          <!-- サービス1: 人材育成 -->
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <!-- アイコンSVGまたはアイコンフォント -->
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a5632" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">組織の頭脳を育む</h3>
+            <p class="feature-card__subtitle">人材育成サービス</p>
+            <p class="feature-card__text">
+              多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。
+            </p>
+          </article>
+
+          <!-- サービス2: 人事制度構築 -->
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a5632" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">組織の背骨を整える</h3>
+            <p class="feature-card__subtitle">人事制度構築支援</p>
+            <p class="feature-card__text">
+              評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。
+            </p>
+          </article>
+
+          <!-- サービス3: 組織開発 -->
+          <article class="feature-card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a5632" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">組織の筋力を鍛える</h3>
+            <p class="feature-card__subtitle">組織開発支援</p>
+            <p class="feature-card__text">
+              チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 実績セクション（改善14: 信頼性の訴求） ===== -->
+    <section class="trust" aria-labelledby="trust-title">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-header__label">Results</p>
+          <h2 class="section-header__title" id="trust-title">えんのしたの実績</h2>
+        </div>
+        <div class="trust__grid">
+          <div class="trust__item">
+            <p class="trust__item-number">10<small>年以上</small></p>
+            <p class="trust__item-label">コンサルティング実績</p>
+          </div>
+          <div class="trust__item">
+            <p class="trust__item-number">100<small>社+</small></p>
+            <p class="trust__item-label">支援企業数</p>
+          </div>
+          <div class="trust__item">
+            <p class="trust__item-number">500<small>名+</small></p>
+            <p class="trust__item-label">研修受講者数</p>
+          </div>
+          <div class="trust__item">
+            <p class="trust__item-number">95<small>%</small></p>
+            <p class="trust__item-label">顧客満足度</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ブログセクション ===== -->
+    <section class="blog" aria-labelledby="blog-title">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-header__label">Blog</p>
+          <h2 class="section-header__title" id="blog-title">最新のコラム</h2>
+          <p class="section-header__description">
+            人材育成・組織開発に関する知見をお届けします。
+          </p>
+        </div>
+        <div class="blog__grid">
+          <article class="blog-card">
+            <a href="/767/">
+              <div class="blog-card__image">
+                <!-- 改善5: 画像にlazy loading, width/height, alt属性 -->
+                <img
+                  src="/assets/images/blog/mbti-03.jpg"
+                  alt="MBTIの4つの指標解説のイメージ"
+                  width="400"
+                  height="225"
+                  loading="lazy"
+                >
+              </div>
+              <div class="blog-card__body">
+                <span class="blog-card__category">MBTI入門</span>
+                <h3 class="blog-card__title">第3回：MBTIの4つの指標をやさしく解説</h3>
+                <time class="blog-card__date" datetime="2025-01-01">2025.01.01</time>
+              </div>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <a href="/763/">
+              <div class="blog-card__image">
+                <img
+                  src="/assets/images/blog/mbti-02.jpg"
+                  alt="ユングとブリッグス母娘の物語のイメージ"
+                  width="400"
+                  height="225"
+                  loading="lazy"
+                >
+              </div>
+              <div class="blog-card__body">
+                <span class="blog-card__category">MBTI入門</span>
+                <h3 class="blog-card__title">第2回：ユングとブリッグス母娘の物語</h3>
+                <time class="blog-card__date" datetime="2025-01-01">2025.01.01</time>
+              </div>
+            </a>
+          </article>
+
+          <article class="blog-card">
+            <a href="/674/">
+              <div class="blog-card__image">
+                <img
+                  src="/assets/images/blog/goal-05.jpg"
+                  alt="目標管理の解説イメージ"
+                  width="400"
+                  height="225"
+                  loading="lazy"
+                >
+              </div>
+              <div class="blog-card__body">
+                <span class="blog-card__category">目標管理</span>
+                <h3 class="blog-card__title">【第5回】数値じゃない目標って、アリ？</h3>
+                <time class="blog-card__date" datetime="2025-01-01">2025.01.01</time>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA セクション（改善12: CTA強化） ===== -->
+    <section class="cta">
+      <div class="container">
+        <h2 class="cta__title">組織の課題、一緒に解決しませんか？</h2>
+        <p class="cta__text">
+          まずはお気軽にご相談ください。貴社の状況をお伺いし、最適なアプローチをご提案します。
+        </p>
+        <a href="/contact/" class="btn btn--primary btn--large">無料相談のお申し込み</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <p class="footer__logo">株式会社えんのした</p>
+          <p class="footer__description">
+            人・職場・組織を支えるコンサルティング会社。<br>
+            多様な学びの場の提供により、リーダーの心技体を育みます。
+          </p>
+        </div>
+        <div>
+          <p class="footer__heading">サービス</p>
+          <ul class="footer__list">
+            <li><a href="/service/training/">人材育成サービス</a></li>
+            <li><a href="/service/hr-system/">人事制度構築支援</a></li>
+            <li><a href="/service/organization/">組織開発支援</a></li>
+            <li><a href="/flow/">導入の流れ</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__heading">企業情報</p>
+          <ul class="footer__list">
+            <li><a href="/about/">会社概要</a></li>
+            <li><a href="/representative/">代表者紹介</a></li>
+            <li><a href="/blog/">ブログ</a></li>
+            <li><a href="/contact/">お問い合わせ</a></li>
+            <li><a href="/privacy/">プライバシーポリシー</a></li>
+            <li><a href="/sitemap/">サイトマップ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2012-2026 株式会社えんのした All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // ハンバーガーメニューの開閉
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+
+    if (hamburger && nav) {
+      hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('is-open');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+      });
+    }
+  </script>
+</body>
+</html>
