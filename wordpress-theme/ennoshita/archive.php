@@ -1,14 +1,16 @@
 <?php
 /**
- * ブログ一覧テンプレート (index.php)
+ * アーカイブ (カテゴリ / タグ / 日付) テンプレート
  */
 get_header();
 ?>
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-header__title">コラム</h1>
-      <p class="archive-header__description">人材育成・組織開発に関する知見をお届けします。</p>
+      <h1 class="archive-header__title"><?php the_archive_title(); ?></h1>
+      <?php if (get_the_archive_description()) : ?>
+        <p class="archive-header__description"><?php echo wp_strip_all_tags(get_the_archive_description()); ?></p>
+      <?php endif; ?>
     </div>
   </div>
 

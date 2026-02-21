@@ -1,14 +1,21 @@
 <?php
 /**
- * ブログ一覧テンプレート (index.php)
+ * 検索結果テンプレート
  */
 get_header();
 ?>
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-header__title">コラム</h1>
-      <p class="archive-header__description">人材育成・組織開発に関する知見をお届けします。</p>
+      <h1 class="archive-header__title">
+        「<?php echo esc_html(get_search_query()); ?>」の検索結果
+      </h1>
+      <p class="archive-header__description">
+        <?php
+        global $wp_query;
+        printf('%d件の記事が見つかりました', $wp_query->found_posts);
+        ?>
+      </p>
     </div>
   </div>
 
@@ -16,6 +23,10 @@ get_header();
 
   <div class="archive-content">
     <div class="container">
+      <div style="margin-bottom: var(--space-2xl);">
+        <?php get_search_form(); ?>
+      </div>
+
       <?php if (have_posts()) : ?>
         <div class="blog__grid">
           <?php while (have_posts()) : the_post(); ?>
