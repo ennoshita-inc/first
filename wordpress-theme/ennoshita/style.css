@@ -1,5 +1,5 @@
 /*
-Theme Name: えんのした
+Theme Name: 株式会社えんのした
 Theme URI: https://ennoshita.co.jp
 Author: 株式会社えんのした
 Description: 人・職場・組織を支える — 岡山発の人材育成・組織開発コンサルティング会社の公式テーマ
@@ -16,15 +16,15 @@ Text Domain: ennoshita
    Design System — Custom Properties
    ========================================================================== */
 :root {
-  --color-primary: #1a5632;
-  --color-primary-dark: #0d3a1e;
-  --color-primary-light: #2d7a4a;
-  --color-primary-50: #f0f7f3;
-  --color-primary-100: #dceee3;
-  --color-primary-200: #b8ddc6;
-  --color-primary-900: #0a2615;
+  --color-primary: #8b2252;
+  --color-primary-dark: #6b1a3f;
+  --color-primary-light: #a83268;
+  --color-primary-50: #fdf2f6;
+  --color-primary-100: #f5d6e3;
+  --color-primary-200: #e8a8c4;
+  --color-primary-900: #3d0e24;
 
-  --color-accent: #b8922e;
+  --color-accent: #c49a2a;
   --color-accent-light: #d4af37;
   --color-accent-50: #fdf8eb;
 
@@ -72,8 +72,8 @@ Text Domain: ennoshita
   --shadow-md: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
   --shadow-lg: 0 10px 30px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
   --shadow-xl: 0 20px 50px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.05);
-  --shadow-card: 0 2px 8px rgba(26,86,50,0.06);
-  --shadow-card-hover: 0 12px 32px rgba(26,86,50,0.12);
+  --shadow-card: 0 2px 8px rgba(139,34,82,0.06);
+  --shadow-card-hover: 0 12px 32px rgba(139,34,82,0.12);
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -313,7 +313,7 @@ ul, ol { list-style: none; }
   background: var(--color-primary-dark);
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26,86,50,0.25);
+  box-shadow: 0 4px 12px rgba(139,34,82,0.25);
 }
 
 .hamburger {
@@ -621,7 +621,7 @@ ul, ol { list-style: none; }
   border-color: var(--color-primary-dark);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(26,86,50,0.3);
+  box-shadow: 0 8px 24px rgba(139,34,82,0.3);
 }
 
 .btn--accent {
@@ -832,7 +832,7 @@ ul, ol { list-style: none; }
   position: absolute;
   inset: 0;
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(26,86,50,0.1);
+  border: 1px solid rgba(139,34,82,0.1);
 }
 
 .philosophy__text h3 {

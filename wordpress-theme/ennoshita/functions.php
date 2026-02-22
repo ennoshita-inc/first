@@ -528,7 +528,7 @@ function ennoshita_the_logo($class = 'site-logo') {
     }
 
     echo '<span class="site-logo__text">';
-    echo '<span class="site-logo__main">えんのした</span>';
+    echo '<span class="site-logo__main">株式会社えんのした</span>';
     echo '<span class="site-logo__sub">ENNOSHITA</span>';
     echo '</span>';
     echo '</a>';
