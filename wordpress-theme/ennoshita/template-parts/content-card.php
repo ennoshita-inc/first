@@ -1,6 +1,7 @@
 <?php
 /**
  * ブログカード パーツ (一覧・関連記事で共通利用)
+ * v3.1 — 抜粋文追加でクリック率向上
  */
 ?>
 <article class="blog-card reveal">
@@ -21,6 +22,7 @@
         <span class="blog-card__category"><?php echo esc_html($categories[0]->name); ?></span>
       <?php endif; ?>
       <h3 class="blog-card__title"><?php the_title(); ?></h3>
+      <p class="blog-card__excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt(), 40, '…')); ?></p>
       <time class="blog-card__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
         <?php echo esc_html(get_the_date('Y.m.d')); ?>
       </time>

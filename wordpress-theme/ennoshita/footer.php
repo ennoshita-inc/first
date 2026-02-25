@@ -61,19 +61,15 @@
             <dt>電話番号</dt>
             <dd><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>"><?php echo esc_html($phone); ?></a></dd>
           <?php endif; ?>
-          <?php
-          $email = get_theme_mod('ennoshita_email');
-          if ($email) : ?>
-            <dt>メール</dt>
-            <dd><a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></dd>
-          <?php endif; ?>
+          <dt>お問い合わせ</dt>
+          <dd><a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせフォーム</a></dd>
         </dl>
       </div>
 
     </div><!-- /.footer__inner -->
 
     <div class="footer__bottom">
-      <p>&copy; <?php echo date('Y'); ?> 株式会社えんのした. All rights reserved.</p>
+      <p>&copy; <?php echo esc_html(wp_date('Y')); ?> 株式会社えんのした. All rights reserved.</p>
       <nav class="footer__bottom-nav" aria-label="フッター補足ナビゲーション">
         <a href="<?php echo esc_url(home_url('/privacy/')); ?>">プライバシーポリシー</a>
         <a href="<?php echo esc_url(home_url('/sitemap/')); ?>">サイトマップ</a>
@@ -81,6 +77,19 @@
     </div>
   </div>
 </footer>
+
+<!-- Cookie同意バナー -->
+<div class="cookie-consent" id="cookie-consent" role="dialog" aria-label="Cookie使用の同意">
+  <div class="cookie-consent__inner">
+    <p class="cookie-consent__text">
+      当サイトでは、サービス向上のためCookieを使用しています。
+      詳しくは<a href="<?php echo esc_url(home_url('/privacy/')); ?>">プライバシーポリシー</a>をご覧ください。
+    </p>
+    <div class="cookie-consent__buttons">
+      <button class="cookie-consent__accept" id="cookie-accept">同意する</button>
+    </div>
+  </div>
+</div>
 
 <button class="back-to-top" aria-label="ページトップへ戻る">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

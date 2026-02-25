@@ -171,7 +171,26 @@
   }
 
 
-  // ===== 6. 数字カウントアップ =====
+  // ===== 6. Cookie同意バナー =====
+  var cookieConsent = document.getElementById('cookie-consent');
+  var cookieAccept = document.getElementById('cookie-accept');
+
+  if (cookieConsent && cookieAccept) {
+    // 同意済みでなければ表示
+    if (!localStorage.getItem('cookie_consent')) {
+      setTimeout(function () {
+        cookieConsent.classList.add('is-visible');
+      }, 1500);
+    }
+
+    cookieAccept.addEventListener('click', function () {
+      localStorage.setItem('cookie_consent', '1');
+      cookieConsent.classList.remove('is-visible');
+    });
+  }
+
+
+  // ===== 7. 数字カウントアップ =====
   const countElements = document.querySelectorAll('[data-count]');
 
   if (countElements.length > 0 && 'IntersectionObserver' in window) {

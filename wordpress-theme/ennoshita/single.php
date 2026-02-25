@@ -57,6 +57,39 @@ if (have_posts()) : the_post();
         </div>
       <?php endif; ?>
 
+      <!-- SNSシェアボタン -->
+      <div class="share-buttons">
+        <p class="share-buttons__label">この記事をシェア</p>
+        <div class="share-buttons__list">
+          <a href="https://twitter.com/intent/tweet?url=<?php echo rawurlencode(get_permalink()); ?>&amp;text=<?php echo rawurlencode(get_the_title()); ?>"
+             class="share-buttons__item share-buttons__item--x"
+             target="_blank" rel="noopener noreferrer" aria-label="Xでシェア">X</a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo rawurlencode(get_permalink()); ?>"
+             class="share-buttons__item share-buttons__item--fb"
+             target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">Facebook</a>
+          <a href="https://b.hatena.ne.jp/add?mode=confirm&amp;url=<?php echo rawurlencode(get_permalink()); ?>"
+             class="share-buttons__item share-buttons__item--hatena"
+             target="_blank" rel="noopener noreferrer" aria-label="はてなブックマークに追加">はてブ</a>
+          <a href="https://social-plugins.line.me/lineit/share?url=<?php echo rawurlencode(get_permalink()); ?>"
+             class="share-buttons__item share-buttons__item--line"
+             target="_blank" rel="noopener noreferrer" aria-label="LINEで送る">LINE</a>
+        </div>
+      </div>
+
+      <!-- 会社紹介バナー（コラム経由ユーザー向け） -->
+      <aside class="author-box" aria-label="この記事を書いた会社">
+        <div class="author-box__inner">
+          <div class="author-box__content">
+            <p class="author-box__name">株式会社えんのした</p>
+            <p class="author-box__desc">岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、企業の持続的な成長を支援するコンサルティング会社です。</p>
+            <div class="author-box__links">
+              <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn btn--small btn--outline">会社概要</a>
+              <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--small btn--primary">お問い合わせ</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
       <!-- 前後の記事ナビ -->
       <?php
       $prev = get_previous_post();
