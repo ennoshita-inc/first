@@ -1,16 +1,33 @@
 /**
- * えんのした テーマ — main.js v3.0
+ * えんのした テーマ — main.js v4.0
  *
  * 機能:
- * 1. スティッキーヘッダー (スクロール検知)
- * 2. ハンバーガーメニュー (キーボード対応)
- * 3. スムーススクロール (アンカーリンク)
- * 4. Intersection Observer スクロールリビール
- * 5. 数字カウントアップアニメーション
+ * 1. ページローディング演出
+ * 2. スティッキーヘッダー (スクロール検知)
+ * 3. ハンバーガーメニュー (キーボード対応)
+ * 4. スムーススクロール (アンカーリンク)
+ * 5. Intersection Observer スクロールリビール
+ * 6. トップへ戻るボタン
+ * 7. Cookie同意バナー
+ * 8. 数字カウントアップアニメーション
  */
 
 (function () {
   'use strict';
+
+  // ===== 0. ページローディング =====
+  var pageLoading = document.querySelector('.page-loading');
+  if (pageLoading) {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        pageLoading.classList.add('is-loaded');
+      }, 200);
+    });
+    // Fallback: force hide after 3 seconds
+    setTimeout(function () {
+      if (pageLoading) pageLoading.classList.add('is-loaded');
+    }, 3000);
+  }
 
   // ===== 1. スティッキーヘッダー =====
   const header = document.querySelector('.site-header');

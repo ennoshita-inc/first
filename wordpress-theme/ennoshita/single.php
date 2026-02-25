@@ -29,10 +29,9 @@ if (have_posts()) : the_post();
   <div class="post-content">
     <div class="container container--narrow">
       <?php if (has_post_thumbnail()) : ?>
-        <figure class="post-content__thumbnail" style="margin-bottom: var(--space-2xl);">
+        <figure class="post-thumbnail">
           <?php the_post_thumbnail('large', [
             'loading'  => 'eager',
-            'style'    => 'border-radius: var(--radius-lg); width: 100%; height: auto;',
           ]); ?>
         </figure>
       <?php endif; ?>
@@ -45,11 +44,10 @@ if (have_posts()) : the_post();
       // タグ表示
       $tags = get_the_tags();
       if ($tags) : ?>
-        <div style="margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border);">
-          <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm);">
+        <div class="post-tags">
+          <div class="post-tags__list">
             <?php foreach ($tags as $tag) : ?>
-              <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"
-                 style="display: inline-block; font-size: var(--font-size-xs); color: var(--color-text-muted); background: var(--color-bg-section); padding: 4px 12px; border-radius: var(--radius-full);">
+              <a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>" class="post-tags__link">
                 #<?php echo esc_html($tag->name); ?>
               </a>
             <?php endforeach; ?>

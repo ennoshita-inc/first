@@ -26,10 +26,10 @@ if (have_posts()) : the_post();
         </div>
         <div class="philosophy__text reveal reveal--right">
           <p class="section-header__label">Philosophy</p>
-          <h2 style="font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: var(--space-lg); line-height: var(--line-height-tight);">
+          <h2 class="philosophy__heading">
             人・職場・組織を支え、<br>リーダーの心技体を育む
           </h2>
-          <span class="section-header__line" style="margin: var(--space-md) 0;" aria-hidden="true"></span>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
           <p>私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。</p>
           <p>多様な学びの場を提供し、次世代のリーダーに必要な「心」「技」「体」を育む。それが、えんのしたの使命です。</p>
         </div>
@@ -62,7 +62,7 @@ if (have_posts()) : the_post();
       <?php
       $content = get_the_content();
       if ($content) : ?>
-        <div class="entry-content reveal" style="margin-top: var(--space-2xl);">
+        <div class="entry-content reveal entry-content--spaced">
           <?php the_content(); ?>
         </div>
       <?php endif; ?>

@@ -1812,3 +1812,286 @@ ul, ol { list-style: none; }
 @media (max-width: 768px) {
   .cookie-consent__inner { flex-direction: column; text-align: center; }
 }
+
+/* ==========================================================================
+   Page Loading Animation
+   ========================================================================== */
+.page-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.page-loading.is-loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loading__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-primary-100);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: pageLoadSpin 0.8s linear infinite;
+}
+
+@keyframes pageLoadSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Section Header — Left-aligned modifier
+   ========================================================================== */
+.section-header__line--left {
+  margin: var(--space-md) 0;
+}
+
+/* ==========================================================================
+   Representative Message Section
+   ========================================================================== */
+.section--message {
+  background: var(--color-bg-warm);
+  position: relative;
+  overflow: hidden;
+}
+
+.section--message::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid var(--color-primary-100);
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.message__inner {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+.message__image {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.message__image img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+}
+
+.message__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(133,34,40,0.08);
+}
+
+.message__text p {
+  font-size: var(--font-size-base);
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 2.1;
+  margin-bottom: var(--space-md);
+}
+
+.message__lead {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl) !important;
+  font-weight: 700 !important;
+  color: var(--color-text) !important;
+  line-height: 1.8 !important;
+  margin-bottom: var(--space-lg) !important;
+}
+
+.message__signature {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-top: var(--space-xl) !important;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.message__position {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.message__name-text {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   Testimonials Section
+   ========================================================================== */
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.testimonial-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.testimonial-card__quote {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.testimonial-card__icon {
+  width: 28px;
+  height: 28px;
+  color: var(--color-primary-200);
+  margin-bottom: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.testimonial-card__quote p {
+  font-size: var(--font-size-sm);
+  font-weight: 300;
+  line-height: 2;
+  color: var(--color-text-secondary);
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.testimonial-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary-50), var(--color-primary-100));
+  flex-shrink: 0;
+}
+
+.testimonial-card__company {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.testimonial-card__role {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Post Tags (replacing inline styles)
+   ========================================================================== */
+.post-tags {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.post-tags__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.post-tags__link {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-section);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.post-tags__link:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-50);
+}
+
+/* ==========================================================================
+   Post Thumbnail (replacing inline styles)
+   ========================================================================== */
+.post-thumbnail {
+  margin-bottom: var(--space-2xl);
+}
+
+.post-thumbnail img {
+  border-radius: var(--radius-lg);
+  width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   Philosophy Heading (about page, replacing inline styles)
+   ========================================================================== */
+.philosophy__heading {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-tight);
+}
+
+/* ==========================================================================
+   Entry Content Spaced modifier (replacing inline styles)
+   ========================================================================== */
+.entry-content--spaced {
+  margin-top: var(--space-2xl);
+}
+
+/* ==========================================================================
+   Responsive additions — Tablet
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .testimonials__grid { grid-template-columns: 1fr; }
+  .message__inner { grid-template-columns: 1fr; gap: var(--space-2xl); }
+  .message__image { max-width: 280px; }
+}
+
+/* ==========================================================================
+   Responsive additions — Mobile
+   ========================================================================== */
+@media (max-width: 768px) {
+  .message__inner { grid-template-columns: 1fr; }
+  .message__image { max-width: 240px; margin: 0 auto; }
+  .message__signature { flex-direction: column; gap: var(--space-xs); }
+}

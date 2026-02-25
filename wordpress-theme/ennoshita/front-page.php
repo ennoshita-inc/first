@@ -1,15 +1,17 @@
 <?php
 /**
- * トップページテンプレート v3.0
+ * トップページテンプレート v4.0
  *
  * セクション構成:
- * 1. ヒーロー (改善14: ファーストビュー)
- * 2. サービス紹介 (改善8: 見出し階層, 改善9: alt属性)
- * 3. 実績・数字 (改善14: 信頼性)
+ * 1. ヒーロー
+ * 2. サービス紹介
+ * 3. 実績・数字
  * 4. 理念 / 私たちについて
- * 5. 導入の流れ
- * 6. ブログ
- * 7. CTA (改善12: CTA強化)
+ * 5. 代表メッセージ
+ * 6. 導入の流れ
+ * 7. お客様の声
+ * 8. ブログ
+ * 9. CTA
  */
 get_header();
 ?>
@@ -179,7 +181,7 @@ get_header();
         <div class="philosophy__text reveal reveal--right">
           <p class="section-header__label">Philosophy</p>
           <h2 class="section-header__title" id="philosophy-title">人と組織の<br>可能性を信じて</h2>
-          <span class="section-header__line" style="margin: var(--space-md) 0;" aria-hidden="true"></span>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
           <p>
             私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。
           </p>
@@ -197,7 +199,42 @@ get_header();
   </section>
 
 
-  <!-- ===== 5. 導入の流れ ===== -->
+  <!-- ===== 5. 代表メッセージ ===== -->
+  <section class="section section--message" aria-labelledby="message-title">
+    <div class="container">
+      <div class="message__inner">
+        <div class="message__image reveal reveal--left">
+          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/representative.jpg"
+               alt="代表取締役の写真"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="message__text reveal reveal--right">
+          <p class="section-header__label">Message</p>
+          <h2 class="section-header__title" id="message-title">代表メッセージ</h2>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
+          <p class="message__lead">
+            「縁の下の力持ち」として、<br>
+            人と組織の成長を支え続けます。
+          </p>
+          <p>
+            私が「えんのした」を立ち上げたのは、企業の成長の源泉は「人」にあるという確信からでした。
+            どんなに優れた戦略も、それを実行する人材と組織がなければ絵に描いた餅に終わります。
+          </p>
+          <p>
+            岡山という地域に根ざしながら、全国の企業様の組織課題に真摯に向き合い、
+            一社一社に最適な解決策をご提案し続けてまいります。
+          </p>
+          <p class="message__signature">
+            <span class="message__position">代表取締役</span>
+            <span class="message__name-text">【代表者のお名前】</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. 導入の流れ ===== -->
   <section class="section section--gray" aria-labelledby="process-title">
     <div class="container">
       <div class="section-header reveal">
@@ -230,8 +267,67 @@ get_header();
   </section>
 
 
-  <!-- ===== 6. ブログセクション ===== -->
-  <section class="section" aria-labelledby="blog-title">
+  <!-- ===== 7. お客様の声 ===== -->
+  <section class="section" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__label">Voice</p>
+        <h2 class="section-header__title" id="testimonials-title">お客様の声</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+        <p class="section-header__description">
+          導入企業様の人事ご担当者様からいただいたお声をご紹介します。
+        </p>
+      </div>
+
+      <div class="testimonials__grid">
+        <article class="testimonial-card reveal reveal--delay-1">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>管理職研修を導入してから、部下との1on1の質が目に見えて変わりました。現場からも「相談しやすくなった」という声が上がっています。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">製造業 A社様（従業員300名）</p>
+              <p class="testimonial-card__role">人事部長</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card reveal reveal--delay-2">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>人事制度の再構築を依頼しましたが、現場の声を丁寧にヒアリングし、当社の文化に合った制度を設計してくれました。社員の納得感が段違いです。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">IT企業 B社様（従業員150名）</p>
+              <p class="testimonial-card__role">代表取締役</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card reveal reveal--delay-3">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>組織開発のワークショップを通じて、部署間の壁が徐々になくなりました。「チーム全体で考える」文化が根付き始めています。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">サービス業 C社様（従業員500名）</p>
+              <p class="testimonial-card__role">経営企画室 室長</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 8. ブログセクション ===== -->
+  <section class="section section--gray" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Blog</p>
@@ -250,35 +346,9 @@ get_header();
         ]);
 
         if ($blog_query->have_posts()) :
-          $delay = 1;
           while ($blog_query->have_posts()) :
             $blog_query->the_post();
-        ?>
-            <article class="blog-card reveal reveal--delay-<?php echo $delay++; ?>">
-              <a href="<?php the_permalink(); ?>">
-                <div class="blog-card__image">
-                  <?php if (has_post_thumbnail()) : ?>
-                    <?php the_post_thumbnail('blog-card', [
-                      'loading' => 'lazy',
-                      'alt'     => get_the_title(),
-                    ]); ?>
-                  <?php else : ?>
-                    <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/no-image.jpg"
-                         alt="" width="400" height="225" loading="lazy">
-                  <?php endif; ?>
-                </div>
-                <div class="blog-card__body">
-                  <?php $categories = get_the_category(); if ($categories) : ?>
-                    <span class="blog-card__category"><?php echo esc_html($categories[0]->name); ?></span>
-                  <?php endif; ?>
-                  <h3 class="blog-card__title"><?php the_title(); ?></h3>
-                  <time class="blog-card__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                    <?php echo esc_html(get_the_date('Y.m.d')); ?>
-                  </time>
-                </div>
-              </a>
-            </article>
-        <?php
+            get_template_part('template-parts/content', 'card');
           endwhile;
           wp_reset_postdata();
         endif;

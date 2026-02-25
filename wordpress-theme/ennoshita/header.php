@@ -9,6 +9,10 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<div class="page-loading" aria-hidden="true">
+  <div class="page-loading__spinner"></div>
+</div>
+
 <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
 
 <header class="site-header" role="banner">
