@@ -11,6 +11,10 @@
 </head>
 <body class="home page-template-front-page">
 
+<div class="page-loading" aria-hidden="true">
+  <div class="page-loading__spinner"></div>
+</div>
+
 <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
 
 <!-- ===== ヘッダー ===== -->
@@ -202,7 +206,7 @@
         <div class="philosophy__text reveal reveal--right">
           <p class="section-header__label">Philosophy</p>
           <h2 class="section-header__title" id="philosophy-title">人と組織の<br>可能性を信じて</h2>
-          <span class="section-header__line" style="margin: var(--space-md) 0;" aria-hidden="true"></span>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
           <p>
             私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。
           </p>
@@ -220,7 +224,42 @@
   </section>
 
 
-  <!-- ===== 5. 導入の流れ ===== -->
+  <!-- ===== 5. 代表メッセージ ===== -->
+  <section class="section section--message" aria-labelledby="message-title">
+    <div class="container">
+      <div class="message__inner">
+        <div class="message__image reveal reveal--left">
+          <img src="wordpress-theme/ennoshita/assets/images/hero.jpg"
+               alt="代表取締役の写真"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="message__text reveal reveal--right">
+          <p class="section-header__label">Message</p>
+          <h2 class="section-header__title" id="message-title">代表メッセージ</h2>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
+          <p class="message__lead">
+            「縁の下の力持ち」として、<br>
+            人と組織の成長を支え続けます。
+          </p>
+          <p>
+            私が「えんのした」を立ち上げたのは、企業の成長の源泉は「人」にあるという確信からでした。
+            どんなに優れた戦略も、それを実行する人材と組織がなければ絵に描いた餅に終わります。
+          </p>
+          <p>
+            岡山という地域に根ざしながら、全国の企業様の組織課題に真摯に向き合い、
+            一社一社に最適な解決策をご提案し続けてまいります。
+          </p>
+          <p class="message__signature">
+            <span class="message__position">代表取締役</span>
+            <span class="message__name-text">【代表者のお名前】</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. 導入の流れ ===== -->
   <section class="section section--gray" aria-labelledby="process-title">
     <div class="container">
       <div class="section-header reveal">
@@ -258,8 +297,67 @@
   </section>
 
 
-  <!-- ===== 6. ブログ ===== -->
-  <section class="section" id="blog" aria-labelledby="blog-title">
+  <!-- ===== 7. お客様の声 ===== -->
+  <section class="section" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__label">Voice</p>
+        <h2 class="section-header__title" id="testimonials-title">お客様の声</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+        <p class="section-header__description">
+          導入企業様の人事ご担当者様からいただいたお声をご紹介します。
+        </p>
+      </div>
+
+      <div class="testimonials__grid">
+        <article class="testimonial-card reveal reveal--delay-1">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>管理職研修を導入してから、部下との1on1の質が目に見えて変わりました。現場からも「相談しやすくなった」という声が上がっています。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">製造業 A社様（従業員300名）</p>
+              <p class="testimonial-card__role">人事部長</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card reveal reveal--delay-2">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>人事制度の再構築を依頼しましたが、現場の声を丁寧にヒアリングし、当社の文化に合った制度を設計してくれました。社員の納得感が段違いです。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">IT企業 B社様（従業員150名）</p>
+              <p class="testimonial-card__role">代表取締役</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial-card reveal reveal--delay-3">
+          <div class="testimonial-card__quote">
+            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p>組織開発のワークショップを通じて、部署間の壁が徐々になくなりました。「チーム全体で考える」文化が根付き始めています。</p>
+          </div>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar" aria-hidden="true"></div>
+            <div class="testimonial-card__info">
+              <p class="testimonial-card__company">サービス業 C社様（従業員500名）</p>
+              <p class="testimonial-card__role">経営企画室 室長</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 8. ブログ ===== -->
+  <section class="section section--gray" id="blog" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Blog</p>
@@ -280,6 +378,7 @@
             <div class="blog-card__body">
               <span class="blog-card__category">目標管理</span>
               <h3 class="blog-card__title">数値じゃない目標って、アリ？ 〜定性目標の立て方と評価のコツ〜</h3>
+              <p class="blog-card__excerpt">定性的な目標を設定する際のポイントと、公正に評価するためのフレームワークを解説します。</p>
               <time class="blog-card__date" datetime="2024-01-15">2024.01.15</time>
             </div>
           </a>
@@ -294,6 +393,7 @@
             <div class="blog-card__body">
               <span class="blog-card__category">MBTI入門</span>
               <h3 class="blog-card__title">ユングとブリッグス母娘の物語 〜MBTI誕生の歴史〜</h3>
+              <p class="blog-card__excerpt">MBTIはどのようにして生まれたのか？ ユング心理学から始まる壮大な歴史を紐解きます。</p>
               <time class="blog-card__date" datetime="2024-01-10">2024.01.10</time>
             </div>
           </a>
@@ -308,6 +408,7 @@
             <div class="blog-card__body">
               <span class="blog-card__category">MBTI入門</span>
               <h3 class="blog-card__title">MBTIの4つの指標 〜あなたのタイプを知ろう〜</h3>
+              <p class="blog-card__excerpt">外向・内向、感覚・直観、思考・感情、判断・知覚の4軸について分かりやすく解説します。</p>
               <time class="blog-card__date" datetime="2024-01-05">2024.01.05</time>
             </div>
           </a>
@@ -324,7 +425,7 @@
   </section>
 
 
-  <!-- ===== 7. CTA ===== -->
+  <!-- ===== 9. CTA ===== -->
   <section class="cta">
     <div class="container cta__inner reveal">
       <h2 class="cta__title">組織の課題、一緒に解決しませんか？</h2>
@@ -395,7 +496,7 @@
     </div>
 
     <div class="footer__bottom">
-      <p>&copy; 2024 株式会社えんのした. All rights reserved.</p>
+      <p>&copy; 2025 株式会社えんのした. All rights reserved.</p>
       <nav class="footer__bottom-nav" aria-label="フッター補足ナビゲーション">
         <a href="#">プライバシーポリシー</a>
         <a href="#">サイトマップ</a>
@@ -409,6 +510,18 @@
     <path d="M18 15l-6-6-6 6"/>
   </svg>
 </button>
+
+<!-- Cookie Consent -->
+<div class="cookie-consent" role="dialog" aria-label="Cookie利用への同意">
+  <div class="cookie-consent__inner">
+    <p class="cookie-consent__text">
+      当サイトではCookieを使用して、閲覧体験の向上に努めています。
+      サイトの利用を続けることで、Cookieの使用に同意したものとみなします。
+      <a href="#">プライバシーポリシー</a>
+    </p>
+    <button class="cookie-consent__accept" type="button">同意する</button>
+  </div>
+</div>
 
 <script src="wordpress-theme/ennoshita/assets/js/main.js"></script>
 </body>
