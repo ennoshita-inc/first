@@ -154,7 +154,24 @@
   }
 
 
-  // ===== 5. 数字カウントアップ =====
+  // ===== 5. トップへ戻るボタン =====
+  var backToTop = document.querySelector('.back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 600) {
+        backToTop.classList.add('is-visible');
+      } else {
+        backToTop.classList.remove('is-visible');
+      }
+    }, { passive: true });
+
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+
+  // ===== 6. 数字カウントアップ =====
   const countElements = document.querySelectorAll('[data-count]');
 
   if (countElements.length > 0 && 'IntersectionObserver' in window) {

@@ -71,7 +71,7 @@ function ennoshita_enqueue_assets() {
     // Google Fonts (font-display: swap)
     wp_enqueue_style(
         'ennoshita-fonts',
-        'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap',
         [],
         null
     );
