@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ヒーローデザイン 10パターン — 株式会社えんのした</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      color: #1a1a2e;
+      background: #f5f5f5;
+    }
+
+    /* ===== Pattern Selector ===== */
+    .pattern-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .pattern-nav__label {
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      color: #666;
+    }
+    .pattern-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      background: #f0f0f0;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .pattern-nav a:hover {
+      background: #1a1a2e;
+      color: #fff;
+    }
+
+    .pattern-divider {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+    .pattern-divider h2 {
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .pattern-divider h2::before,
+    .pattern-divider h2::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: #ddd;
+    }
+
+    /* ===== Common hero layout ===== */
+    .hero-pattern {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-pattern .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-pattern .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 48px;
+    }
+    .hero-pattern .btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s;
+    }
+    .hero-pattern .btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* =====================================================================
+       PATTERN 1 — Gradient Mesh (Apple-style blurred orbs)
+       ===================================================================== */
+    #p1 {
+      background: #fafafa;
+    }
+    #p1 .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    #p1 .orb--1 { width: 500px; height: 500px; background: #c49a2a; top: -10%; right: -5%; animation-delay: 0s; }
+    #p1 .orb--2 { width: 400px; height: 400px; background: #852228; bottom: -10%; left: -5%; animation-delay: -3s; opacity: 0.35; }
+    #p1 .orb--3 { width: 300px; height: 300px; background: #2563eb; top: 50%; left: 40%; animation-delay: -5s; opacity: 0.2; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(20px, -20px) scale(1.05); }
+      66% { transform: translate(-10px, 15px) scale(0.95); }
+    }
+
+    #p1 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #852228;
+      margin-bottom: 16px;
+    }
+    #p1 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+    #p1 .hero__title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #852228, #c49a2a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    #p1 .hero__desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #666;
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+    #p1 .btn--primary { background: #1a1a2e; color: #fff; }
+    #p1 .btn--primary:hover { background: #2d2d4e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,26,46,0.2); }
+    #p1 .btn--ghost { background: transparent; color: #1a1a2e; border: 2px solid #ddd; }
+    #p1 .btn--ghost:hover { border-color: #1a1a2e; }
+
+
+    /* =====================================================================
+       PATTERN 2 — Dark Luxury (Gold accent on deep dark)
+       ===================================================================== */
+    #p2 {
+      background: #0a0a0f;
+      color: #fff;
+    }
+    #p2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(196,154,42,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(133,34,40,0.08) 0%, transparent 50%);
+    }
+    #p2::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(196,154,42,0.3), transparent);
+      right: 30%;
+    }
+    #p2 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c49a2a;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    #p2 .hero__label::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: #c49a2a;
+    }
+    #p2 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 5vw, 60px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    #p2 .hero__title em {
+      font-style: normal;
+      color: #c49a2a;
+    }
+    #p2 .hero__desc {
+      font-size: 15px;
+      line-height: 2;
+      color: rgba(255,255,255,0.6);
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+    #p2 .btn--primary { background: linear-gradient(135deg, #c49a2a, #d4af37); color: #0a0a0f; font-weight: 800; }
+    #p2 .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(196,154,42,0.3); }
+    #p2 .btn--ghost { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+    #p2 .btn--ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+
+    /* =====================================================================
+       PATTERN 3 — Minimal Clean (White space + thin accent)
+       ===================================================================== */
+    #p3 {
+      background: #fff;
+    }
+    #p3 .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    #p3 .hero__accent-line {
+      width: 48px;
+      height: 3px;
+      background: #852228;
+      margin-bottom: 24px;
+      border-radius: 2px;
+    }
+    #p3 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    #p3 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.35;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+    #p3 .hero__desc {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #777;
+      margin-bottom: 36px;
+    }
+    #p3 .hero__visual {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #f8f8f8, #eee);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    #p3 .hero__visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+    }
+    #p3 .hero__visual-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #bbb;
+    }
+    #p3 .btn--primary { background: #852228; color: #fff; border-radius: 6px; }
+    #p3 .btn--primary:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.2); }
+    #p3 .btn--ghost { background: transparent; color: #555; border: 1.5px solid #ddd; border-radius: 6px; }
+    #p3 .btn--ghost:hover { border-color: #852228; color: #852228; }
+
+
+    /* =====================================================================
+       PATTERN 4 — Glassmorphism (Frosted panels on gradient)
+       ===================================================================== */
+    #p4 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+    }
+    #p4 .glass-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(196,154,42,0.15);
+      filter: blur(60px);
+    }
+    #p4 .glass-shape--1 { width: 400px; height: 400px; top: 10%; right: 10%; }
+    #p4 .glass-shape--2 { width: 300px; height: 300px; bottom: 10%; left: 5%; background: rgba(133,34,40,0.15); }
+
+    #p4 .hero__card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 640px;
+    }
+    #p4 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c49a2a;
+      margin-bottom: 20px;
+    }
+    #p4 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.35;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    #p4 .hero__desc {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 32px;
+    }
+    #p4 .btn--primary { background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); color: #fff; border-radius: 12px; }
+    #p4 .btn--primary:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+    #p4 .btn--ghost { color: rgba(255,255,255,0.6); border: none; padding-left: 0; }
+    #p4 .btn--ghost:hover { color: #fff; }
+
+
+    /* =====================================================================
+       PATTERN 5 — Split Diagonal (Asymmetric layout)
+       ===================================================================== */
+    #p5 {
+      background: #fff;
+    }
+    #p5::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(160deg, #1a1a2e, #2d2d4e);
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    }
+    #p5 .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    #p5 .hero__tag {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #852228;
+      background: rgba(133,34,40,0.08);
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    #p5 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+    #p5 .hero__desc {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #777;
+      margin-bottom: 32px;
+    }
+    #p5 .hero__stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #eee;
+    }
+    #p5 .hero__stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #852228;
+    }
+    #p5 .hero__stat-label {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+    #p5 .hero__visual {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 14px;
+      min-height: 400px;
+    }
+    #p5 .btn--primary { background: #852228; color: #fff; }
+    #p5 .btn--primary:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.2); }
+    #p5 .btn--ghost { color: #555; border: 1.5px solid #ddd; }
+    #p5 .btn--ghost:hover { border-color: #852228; color: #852228; }
+
+
+    /* =====================================================================
+       PATTERN 6 — Geometric Lines (Modern grid pattern)
+       ===================================================================== */
+    #p6 {
+      background: #fafaf8;
+    }
+    #p6 .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(133,34,40,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(133,34,40,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    #p6 .grid-accent {
+      position: absolute;
+      top: 20%;
+      right: 10%;
+      width: 180px;
+      height: 180px;
+      border: 2px solid rgba(196,154,42,0.2);
+      border-radius: 50%;
+    }
+    #p6 .grid-accent::after {
+      content: '';
+      position: absolute;
+      top: 30px; left: 30px; right: 30px; bottom: 30px;
+      border: 1px solid rgba(133,34,40,0.15);
+      border-radius: 50%;
+    }
+    #p6 .hero__content { max-width: 600px; }
+    #p6 .hero__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #852228;
+      margin-bottom: 16px;
+    }
+    #p6 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+    #p6 .hero__title span {
+      position: relative;
+      display: inline;
+    }
+    #p6 .hero__title span::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(196,154,42,0.2);
+      z-index: -1;
+    }
+    #p6 .hero__desc {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #666;
+      margin-bottom: 36px;
+    }
+    #p6 .btn--primary { background: #1a1a2e; color: #fff; }
+    #p6 .btn--primary:hover { background: #2d2d4e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,26,46,0.15); }
+    #p6 .btn--ghost { background: #fff; color: #555; border: 1.5px solid #ddd; }
+    #p6 .btn--ghost:hover { border-color: #1a1a2e; color: #1a1a2e; }
+
+
+    /* =====================================================================
+       PATTERN 7 — Duotone Overlay (Photo overlay with color wash)
+       ===================================================================== */
+    #p7 {
+      background: linear-gradient(135deg, #1a1a2e 0%, #352238 100%);
+      color: #fff;
+    }
+    #p7::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 30%, rgba(196,154,42,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(133,34,40,0.15) 0%, transparent 40%);
+    }
+    #p7 .noise-overlay {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    #p7 .hero__inner {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    #p7 .hero__badge {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c49a2a;
+      border: 1px solid rgba(196,154,42,0.3);
+      padding: 8px 24px;
+      border-radius: 30px;
+      margin-bottom: 32px;
+    }
+    #p7 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+    #p7 .hero__desc {
+      font-size: 16px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px;
+    }
+    #p7 .hero__buttons { display: flex; gap: 16px; justify-content: center; }
+    #p7 .btn--primary { background: #fff; color: #1a1a2e; font-weight: 800; }
+    #p7 .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,255,255,0.2); }
+    #p7 .btn--ghost { color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+    #p7 .btn--ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+
+    /* =====================================================================
+       PATTERN 8 — Blur Circles (Soft color blobs — Instagram/Apple style)
+       ===================================================================== */
+    #p8 {
+      background: #fff;
+    }
+    #p8 .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: blobMove 10s ease-in-out infinite;
+    }
+    #p8 .blob--1 { width: 600px; height: 600px; background: rgba(133,34,40,0.08); top: -20%; right: -10%; }
+    #p8 .blob--2 { width: 400px; height: 400px; background: rgba(196,154,42,0.1); bottom: -15%; left: 10%; animation-delay: -4s; }
+    #p8 .blob--3 { width: 300px; height: 300px; background: rgba(37,99,235,0.06); top: 40%; left: 50%; animation-delay: -7s; }
+
+    @keyframes blobMove {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, -20px); }
+    }
+
+    #p8 .hero__inner {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    #p8 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #852228;
+      margin-bottom: 20px;
+    }
+    #p8 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+    #p8 .hero__title em {
+      font-style: normal;
+      position: relative;
+    }
+    #p8 .hero__title em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: -4px;
+      right: -4px;
+      height: 12px;
+      background: rgba(196,154,42,0.2);
+      z-index: -1;
+      border-radius: 2px;
+    }
+    #p8 .hero__desc {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #777;
+      margin-bottom: 36px;
+    }
+    #p8 .hero__buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    #p8 .btn--primary { background: #1a1a2e; color: #fff; border-radius: 50px; }
+    #p8 .btn--primary:hover { background: #2d2d4e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,26,46,0.2); }
+    #p8 .btn--ghost { color: #555; border: 1.5px solid #ddd; border-radius: 50px; }
+    #p8 .btn--ghost:hover { border-color: #1a1a2e; color: #1a1a2e; }
+    #p8 .hero__trust {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid #eee;
+    }
+    #p8 .hero__trust-item {
+      text-align: center;
+    }
+    #p8 .hero__trust-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+    #p8 .hero__trust-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+
+    /* =====================================================================
+       PATTERN 9 — Bold Typography (Type-driven, editorial)
+       ===================================================================== */
+    #p9 {
+      background: #f5f3ef;
+    }
+    #p9 .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 80px 0 40px;
+    }
+    #p9 .hero__mega-title {
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      font-size: clamp(60px, 10vw, 140px);
+      font-weight: 800;
+      line-height: 0.95;
+      color: rgba(26,26,46,0.06);
+      letter-spacing: -0.03em;
+      margin-bottom: -40px;
+      user-select: none;
+    }
+    #p9 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #852228;
+      margin-bottom: 16px;
+    }
+    #p9 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.4;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+    }
+    #p9 .hero__desc {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #888;
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+    #p9 .hero__buttons { display: flex; gap: 16px; justify-content: center; }
+    #p9 .btn--primary { background: #852228; color: #fff; }
+    #p9 .btn--primary:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.2); }
+    #p9 .btn--ghost { color: #555; border: 1.5px solid #ccc; }
+    #p9 .btn--ghost:hover { border-color: #852228; color: #852228; }
+    #p9 .hero__bottom-bar {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 60px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    #p9 .hero__bottom-item {
+      text-align: center;
+    }
+    #p9 .hero__bottom-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #852228;
+    }
+    #p9 .hero__bottom-label {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+
+    /* =====================================================================
+       PATTERN 10 — Side Gradient Card (Modern SaaS style)
+       ===================================================================== */
+    #p10 {
+      background: #fff;
+    }
+    #p10 .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    #p10 .hero__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #852228;
+      margin-bottom: 16px;
+    }
+    #p10 .hero__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      line-height: 1.35;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+    #p10 .hero__desc {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #777;
+      margin-bottom: 32px;
+    }
+    #p10 .hero__feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    #p10 .hero__feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #444;
+    }
+    #p10 .hero__feature-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(133,34,40,0.1);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23852228' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    #p10 .hero__card-area {
+      position: relative;
+    }
+    #p10 .hero__gradient-card {
+      background: linear-gradient(135deg, #1a1a2e, #2d2d4e);
+      border-radius: 24px;
+      padding: 48px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    #p10 .hero__gradient-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -50%;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(196,154,42,0.2) 0%, transparent 60%);
+    }
+    #p10 .hero__card-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: #c49a2a;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    #p10 .hero__card-stat {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    #p10 .hero__card-stat small {
+      font-size: 20px;
+      font-weight: 500;
+    }
+    #p10 .hero__card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      position: relative;
+    }
+    #p10 .hero__floating-badge {
+      position: absolute;
+      bottom: -16px;
+      right: 32px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #p10 .hero__floating-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(133,34,40,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #852228;
+    }
+    #p10 .hero__floating-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    #p10 .hero__floating-sub {
+      font-size: 11px;
+      color: #999;
+    }
+    #p10 .btn--primary { background: #852228; color: #fff; }
+    #p10 .btn--primary:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.2); }
+    #p10 .btn--ghost { color: #555; border: 1.5px solid #ddd; }
+    #p10 .btn--ghost:hover { border-color: #852228; color: #852228; }
+
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .pattern-nav { padding: 8px 12px; gap: 8px; }
+      .pattern-nav a { min-width: 32px; height: 32px; padding: 0 10px; font-size: 12px; }
+      #p3 .hero__inner,
+      #p5 .hero__inner,
+      #p10 .hero__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      #p5::before { display: none; }
+      #p5 .hero__stats { justify-content: center; }
+      #p8 .hero__trust { gap: 24px; flex-wrap: wrap; }
+      #p9 .hero__mega-title { font-size: 48px; margin-bottom: -20px; }
+      #p9 .hero__bottom-bar { gap: 24px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="pattern-nav">
+  <span class="pattern-nav__label">PATTERN:</span>
+  <a href="#p1">1</a>
+  <a href="#p2">2</a>
+  <a href="#p3">3</a>
+  <a href="#p4">4</a>
+  <a href="#p5">5</a>
+  <a href="#p6">6</a>
+  <a href="#p7">7</a>
+  <a href="#p8">8</a>
+  <a href="#p9">9</a>
+  <a href="#p10">10</a>
+</nav>
+
+
+<!-- ===== PATTERN 1: Gradient Mesh ===== -->
+<div class="pattern-divider" style="padding-top: 80px;"><h2>Pattern 1 — Gradient Mesh</h2></div>
+<section class="hero-pattern" id="p1">
+  <div class="orb orb--1" aria-hidden="true"></div>
+  <div class="orb orb--2" aria-hidden="true"></div>
+  <div class="orb orb--3" aria-hidden="true"></div>
+  <div class="container">
+    <p class="hero__label">Consulting for Growth</p>
+    <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+    <p class="hero__desc">「人が育てば組織が変わる」――岡山を拠点に100社以上の組織変革を支援。初回相談は無料です。</p>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+      <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a href="#" class="btn btn--ghost">サービスを見る</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 2: Dark Luxury ===== -->
+<div class="pattern-divider"><h2>Pattern 2 — Dark Luxury</h2></div>
+<section class="hero-pattern" id="p2">
+  <div class="container">
+    <p class="hero__label">Consulting for Growth</p>
+    <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+    <p class="hero__desc">岡山を拠点に13年。100社以上の組織変革を支援してきたコンサルティング会社です。初回相談は無料。</p>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+      <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a href="#" class="btn btn--ghost">サービスを見る</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 3: Minimal Clean ===== -->
+<div class="pattern-divider"><h2>Pattern 3 — Minimal Clean</h2></div>
+<section class="hero-pattern" id="p3">
+  <div class="container">
+    <div class="hero__inner">
+      <div>
+        <div class="hero__accent-line"></div>
+        <p class="hero__label">Consulting for Growth</p>
+        <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+        <p class="hero__desc">「人が育てば組織が変わる」――岡山を拠点に100社以上の組織変革を支援してきました。初回相談は無料です。</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="#" class="btn btn--ghost">サービスを見る</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <span class="hero__visual-text">Image Area</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 4: Glassmorphism ===== -->
+<div class="pattern-divider"><h2>Pattern 4 — Glassmorphism</h2></div>
+<section class="hero-pattern" id="p4">
+  <div class="glass-shape glass-shape--1" aria-hidden="true"></div>
+  <div class="glass-shape glass-shape--2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__card">
+      <p class="hero__label">Consulting for Growth</p>
+      <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+      <p class="hero__desc">岡山を拠点に13年。人材育成・人事制度構築・組織開発の3つの柱で、100社以上の組織変革を支援。</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#" class="btn btn--ghost">サービスを見る &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 5: Split Diagonal ===== -->
+<div class="pattern-divider"><h2>Pattern 5 — Split Diagonal</h2></div>
+<section class="hero-pattern" id="p5">
+  <div class="container">
+    <div class="hero__inner">
+      <div>
+        <span class="hero__tag">Consulting for Growth</span>
+        <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+        <p class="hero__desc">「人が育てば組織が変わる」――初回相談は無料です。お気軽にご相談ください。</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="#" class="btn btn--ghost">サービスを見る</a>
+        </div>
+        <div class="hero__stats">
+          <div>
+            <p class="hero__stat-number">13<small style="font-size:16px">年</small></p>
+            <p class="hero__stat-label">コンサルティング実績</p>
+          </div>
+          <div>
+            <p class="hero__stat-number">100<small style="font-size:16px">社+</small></p>
+            <p class="hero__stat-label">支援企業数</p>
+          </div>
+          <div>
+            <p class="hero__stat-number">95<small style="font-size:16px">%</small></p>
+            <p class="hero__stat-label">顧客満足度</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero__visual">Image Area</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 6: Geometric Lines ===== -->
+<div class="pattern-divider"><h2>Pattern 6 — Geometric Lines</h2></div>
+<section class="hero-pattern" id="p6">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="grid-accent" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Consulting for Growth</p>
+      <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの<span>心技体</span>を育む</h1>
+      <p class="hero__desc">岡山を拠点に13年。100社以上の企業様の組織変革を支援してきました。初回相談は無料です。</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#" class="btn btn--ghost">サービスを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 7: Duotone Overlay ===== -->
+<div class="pattern-divider"><h2>Pattern 7 — Duotone Center</h2></div>
+<section class="hero-pattern" id="p7">
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__inner">
+      <span class="hero__badge">Consulting for Growth</span>
+      <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+      <p class="hero__desc">岡山を拠点に13年。人材育成・人事制度構築・組織開発の3つの柱で、100社以上の組織変革を支援。</p>
+      <div class="hero__buttons">
+        <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#" class="btn btn--ghost">サービスを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 8: Blur Circles ===== -->
+<div class="pattern-divider"><h2>Pattern 8 — Blur Circles</h2></div>
+<section class="hero-pattern" id="p8">
+  <div class="blob blob--1" aria-hidden="true"></div>
+  <div class="blob blob--2" aria-hidden="true"></div>
+  <div class="blob blob--3" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__inner">
+      <p class="hero__label">Consulting for Growth</p>
+      <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+      <p class="hero__desc">「人が育てば組織が変わる」――岡山を拠点に100社以上の組織変革を支援。初回相談は無料です。</p>
+      <div class="hero__buttons">
+        <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#" class="btn btn--ghost">サービスを見る</a>
+      </div>
+      <div class="hero__trust">
+        <div class="hero__trust-item">
+          <p class="hero__trust-num">13<small style="font-size:14px">年</small></p>
+          <p class="hero__trust-label">実績</p>
+        </div>
+        <div class="hero__trust-item">
+          <p class="hero__trust-num">100<small style="font-size:14px">社+</small></p>
+          <p class="hero__trust-label">支援企業</p>
+        </div>
+        <div class="hero__trust-item">
+          <p class="hero__trust-num">500<small style="font-size:14px">名+</small></p>
+          <p class="hero__trust-label">受講者</p>
+        </div>
+        <div class="hero__trust-item">
+          <p class="hero__trust-num">95<small style="font-size:14px">%</small></p>
+          <p class="hero__trust-label">満足度</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 9: Bold Typography ===== -->
+<div class="pattern-divider"><h2>Pattern 9 — Bold Typography</h2></div>
+<section class="hero-pattern" id="p9">
+  <div class="container">
+    <div class="hero__inner">
+      <p class="hero__mega-title" aria-hidden="true">ENNOSHITA</p>
+      <p class="hero__label">Consulting for Growth</p>
+      <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+      <p class="hero__desc">岡山を拠点に13年。100社以上の組織変革を支援してきました。初回相談は無料です。</p>
+      <div class="hero__buttons">
+        <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#" class="btn btn--ghost">サービスを見る</a>
+      </div>
+      <div class="hero__bottom-bar">
+        <div class="hero__bottom-item">
+          <p class="hero__bottom-num">13年</p>
+          <p class="hero__bottom-label">実績</p>
+        </div>
+        <div class="hero__bottom-item">
+          <p class="hero__bottom-num">100社+</p>
+          <p class="hero__bottom-label">支援企業</p>
+        </div>
+        <div class="hero__bottom-item">
+          <p class="hero__bottom-num">500名+</p>
+          <p class="hero__bottom-label">受講者</p>
+        </div>
+        <div class="hero__bottom-item">
+          <p class="hero__bottom-num">95%</p>
+          <p class="hero__bottom-label">満足度</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== PATTERN 10: SaaS Card ===== -->
+<div class="pattern-divider"><h2>Pattern 10 — SaaS Card</h2></div>
+<section class="hero-pattern" id="p10">
+  <div class="container">
+    <div class="hero__inner">
+      <div>
+        <p class="hero__label">Consulting for Growth</p>
+        <h1 class="hero__title">人・職場・組織を支え、<br>リーダーの心技体を育む</h1>
+        <p class="hero__desc">「人が育てば組織が変わる」――岡山を拠点に13年のコンサルティング実績。</p>
+        <ul class="hero__feature-list">
+          <li>人材育成 — 次世代リーダーのスキル・マインドを体系的に育成</li>
+          <li>人事制度 — 公正で納得感のある評価・報酬制度を構築</li>
+          <li>組織開発 — チームの関係性と自律性を強化</li>
+        </ul>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#" class="btn btn--primary">無料相談はこちら <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="#" class="btn btn--ghost">サービスを見る</a>
+        </div>
+      </div>
+      <div class="hero__card-area">
+        <div class="hero__gradient-card">
+          <p class="hero__card-label">TRACK RECORD</p>
+          <p class="hero__card-stat">100<small>社+</small></p>
+          <p class="hero__card-desc">2012年の創業以来、岡山を拠点に<br>多くの企業様の組織変革を支援</p>
+          <div style="display: flex; gap: 24px; margin-top: 24px; position: relative;">
+            <div>
+              <p style="font-family: 'Montserrat'; font-size: 24px; font-weight: 800;">95%</p>
+              <p style="font-size: 11px; color: rgba(255,255,255,0.5);">満足度</p>
+            </div>
+            <div>
+              <p style="font-family: 'Montserrat'; font-size: 24px; font-weight: 800;">500+</p>
+              <p style="font-size: 11px; color: rgba(255,255,255,0.5);">受講者数</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero__floating-badge">
+          <div class="hero__floating-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <p class="hero__floating-text">初回相談無料</p>
+            <p class="hero__floating-sub">お気軽にご相談ください</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height: 100px;"></div>
+
+</body>
+</html>
