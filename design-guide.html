@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Guide — ヒーローセクション 10パターン比較</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      color: #1a1a2e;
+      background: #f8f8f8;
+      line-height: 1.6;
+    }
+
+    /* ===== Cover ===== */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(133,34,40,0.04) 0%, transparent 70%);
+      top: -200px; right: -200px;
+    }
+    .cover__logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 40px;
+    }
+    .cover__title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.3;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+    }
+    .cover__sub {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 48px;
+      max-width: 500px;
+    }
+    .cover__meta {
+      display: flex;
+      gap: 32px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .cover__meta dt { font-weight: 700; color: #666; }
+    .cover__scroll {
+      position: absolute;
+      bottom: 32px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .cover__scroll::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, #ccc, transparent);
+    }
+
+    /* ===== Overview Grid ===== */
+    .overview {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .overview__title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #852228;
+      margin-bottom: 8px;
+    }
+    .overview__heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .overview__desc {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+    .overview__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .overview-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .overview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border-color: #ddd;
+    }
+    .overview-card__preview {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-card__number {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    .overview-card__body {
+      padding: 20px;
+    }
+    .overview-card__name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .overview-card__style {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+    .overview-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .overview-card__tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #f5f5f5;
+      color: #666;
+    }
+    .overview-card__tag--dark { background: #1a1a2e; color: #fff; }
+    .overview-card__tag--accent { background: rgba(133,34,40,0.08); color: #852228; }
+    .overview-card__tag--gold { background: rgba(196,154,42,0.1); color: #9a7b1a; }
+
+    /* Preview backgrounds (mini versions) */
+    .preview--1 { background: #fafafa; }
+    .preview--1 .orb { position: absolute; border-radius: 50%; filter: blur(40px); }
+    .preview--1 .orb-a { width: 200px; height: 200px; background: rgba(196,154,42,0.3); top: -40px; right: -20px; }
+    .preview--1 .orb-b { width: 150px; height: 150px; background: rgba(133,34,40,0.2); bottom: -30px; left: -20px; }
+
+    .preview--2 { background: linear-gradient(135deg, #0a0a0f, #1a1a2e); }
+    .preview--2::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(196,154,42,0.12), transparent 60%); }
+
+    .preview--3 { background: #fff; display: flex; }
+    .preview--3 .half { width: 50%; }
+    .preview--3 .half--right { background: linear-gradient(135deg, #f8f8f8, #eee); }
+
+    .preview--4 { background: linear-gradient(135deg, #1a1a2e, #0f3460); }
+    .preview--4::after { content: ''; position: absolute; top: 20%; left: 20%; width: 60%; height: 60%; background: rgba(255,255,255,0.06); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; }
+
+    .preview--5 { background: #fff; }
+    .preview--5::before { content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%; background: linear-gradient(160deg, #1a1a2e, #2d2d4e); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%); }
+
+    .preview--6 { background: #fafaf8; }
+    .preview--6::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(133,34,40,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(133,34,40,0.05) 1px, transparent 1px); background-size: 30px 30px; }
+
+    .preview--7 { background: linear-gradient(135deg, #1a1a2e, #352238); }
+    .preview--7::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 80% 30%, rgba(196,154,42,0.15), transparent 50%), radial-gradient(circle at 20% 80%, rgba(133,34,40,0.1), transparent 40%); }
+
+    .preview--8 { background: #fff; }
+    .preview--8 .blob { position: absolute; border-radius: 50%; filter: blur(50px); }
+    .preview--8 .blob-a { width: 200px; height: 200px; background: rgba(133,34,40,0.08); top: -40px; right: -20px; }
+    .preview--8 .blob-b { width: 150px; height: 150px; background: rgba(196,154,42,0.1); bottom: -30px; left: 20px; }
+
+    .preview--9 { background: #f5f3ef; display: flex; align-items: center; justify-content: center; }
+    .preview--9::after { content: 'ENNOSHITA'; font-family: 'Montserrat'; font-size: 60px; font-weight: 800; color: rgba(26,26,46,0.05); letter-spacing: -0.02em; }
+
+    .preview--10 { background: #fff; }
+    .preview--10 .card-mock { position: absolute; right: 24px; top: 24px; bottom: 24px; width: 45%; background: linear-gradient(135deg, #1a1a2e, #2d2d4e); border-radius: 12px; }
+    .preview--10 .card-mock::before { content: ''; position: absolute; top: -40%; right: -40%; width: 80%; height: 80%; background: radial-gradient(circle, rgba(196,154,42,0.2), transparent 60%); }
+
+    /* Mini text in previews */
+    .preview__text {
+      position: absolute;
+      z-index: 2;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 55%;
+    }
+    .preview__text-line {
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .preview__text-line--title { width: 80%; }
+    .preview__text-line--sub { width: 60%; opacity: 0.5; }
+    .preview__text-line--btn { width: 30%; border-radius: 4px; height: 12px; margin-top: 10px; }
+
+    .dark-text .preview__text-line { background: rgba(255,255,255,0.25); }
+    .dark-text .preview__text-line--btn { background: rgba(255,255,255,0.15); }
+    .light-text .preview__text-line { background: rgba(26,26,46,0.12); }
+    .light-text .preview__text-line--btn { background: rgba(133,34,40,0.15); }
+
+
+    /* ===== Detail Section ===== */
+    .detail-section {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .detail-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .detail-header__num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(133,34,40,0.1);
+      line-height: 1;
+    }
+    .detail-header__info h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .detail-header__info p {
+      font-size: 14px;
+      color: #888;
+      margin-top: 4px;
+    }
+    .detail-body {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 40px;
+    }
+    .detail-preview {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .detail-preview iframe {
+      width: 100%;
+      height: 560px;
+      border: none;
+      display: block;
+      pointer-events: none;
+    }
+    .detail-preview__link {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: #fafafa;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+      font-weight: 600;
+      color: #852228;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .detail-preview__link:hover { background: #f0f0f0; }
+
+    .detail-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .spec-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #eee;
+    }
+    .spec-card__title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    .color-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .color-swatch__circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+    .color-swatch__label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+    }
+    .color-swatch__hex {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      color: #aaa;
+    }
+    .font-sample {
+      margin-bottom: 12px;
+    }
+    .font-sample__name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    .font-sample__preview {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .font-sample__preview--jp { font-family: 'Noto Sans JP', sans-serif; }
+    .font-sample__preview--en { font-family: 'Montserrat', sans-serif; }
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+    }
+    .keyword-list li {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 16px;
+      background: #f5f5f5;
+      color: #555;
+    }
+    .pros-cons {
+      font-size: 13px;
+      color: #555;
+    }
+    .pros-cons dt {
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+    .pros-cons dt.pro { color: #16a34a; }
+    .pros-cons dt.con { color: #dc2626; }
+    .pros-cons dd {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .match-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .match-badge--best { background: rgba(133,34,40,0.1); color: #852228; }
+    .match-badge--good { background: rgba(196,154,42,0.12); color: #8a6d15; }
+
+    /* ===== Comparison Table ===== */
+    .comparison {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .comparison__title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #852228;
+      margin-bottom: 8px;
+    }
+    .comparison__heading {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 32px;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+    .comparison-table th {
+      text-align: left;
+      padding: 14px 16px;
+      background: #fafafa;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #888;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+    }
+    .comparison-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f5f5f5;
+      vertical-align: middle;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover td { background: #fafafa; }
+    .comparison-table .num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: #852228;
+    }
+    .comparison-table .name { font-weight: 700; }
+    .comparison-table .chip {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .chip--light { background: #fff8e1; color: #9a7b1a; }
+    .chip--dark { background: #e8eaf6; color: #3949ab; }
+    .chip--white { background: #f5f5f5; color: #666; }
+    .stars { color: #c49a2a; letter-spacing: 2px; }
+
+    @media (max-width: 900px) {
+      .detail-body { grid-template-columns: 1fr; }
+      .overview__grid { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 11px; }
+      .comparison-table th, .comparison-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<section class="cover">
+  <p class="cover__logo">Ennoshita Design System</p>
+  <h1 class="cover__title">Hero Section<br>Design Guide</h1>
+  <p class="cover__sub">ヒーローセクション10パターンのデザイン比較ガイド。<br>お好みのパターンを選んで本体に反映させます。</p>
+  <div class="cover__meta">
+    <dl><dt>Project</dt><dd>株式会社えんのした</dd></dl>
+    <dl><dt>Version</dt><dd>1.0</dd></dl>
+    <dl><dt>Patterns</dt><dd>10</dd></dl>
+  </div>
+  <div class="cover__scroll">SCROLL<br></div>
+</section>
+
+
+<!-- ===== DESIGN PRINCIPLES ===== -->
+<section style="padding: 80px 24px; max-width: 800px; margin: 0 auto; text-align: center;">
+  <p style="font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.25em; color: #852228; margin-bottom: 8px;">DESIGN PRINCIPLES</p>
+  <h2 style="font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 32px;">全パターン共通のデザイン方針</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; text-align: left;">
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee;">
+      <p style="font-size: 24px; margin-bottom: 8px;">Aa</p>
+      <p style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">ゴシック体のみ</p>
+      <p style="font-size: 12px; color: #888;">明朝体を排除。Noto Sans JP + Montserrat でモダンな印象に。</p>
+    </div>
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee;">
+      <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, rgba(133,34,40,0.1), rgba(196,154,42,0.1)); margin-bottom: 8px;"></div>
+      <p style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">べた塗りなし</p>
+      <p style="font-size: 12px; color: #888;">グラデーション・透かし・ブラーを活用。奥行きと上品さを演出。</p>
+    </div>
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee;">
+      <div style="font-family: 'Montserrat'; font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px;">800</div>
+      <p style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">太字ウェイト</p>
+      <p style="font-size: 12px; color: #888;">見出しは700-800の太めウェイト。力強さと信頼感を表現。</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== OVERVIEW GRID ===== -->
+<section class="overview">
+  <p class="overview__title">Pattern Overview</p>
+  <h2 class="overview__heading">10パターン一覧</h2>
+  <p class="overview__desc">各カードをクリックすると詳細 + 実寸プレビューにジャンプします。</p>
+
+  <div class="overview__grid">
+
+    <a href="#detail-1" class="overview-card">
+      <div class="overview-card__preview preview--1 light-text">
+        <span class="overview-card__number">#01</span>
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Gradient Mesh</h3>
+        <p class="overview-card__style">ぼかしオーブが漂うApple風デザイン</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">白ベース</span>
+          <span class="overview-card__tag overview-card__tag--accent">グラデーション文字</span>
+          <span class="overview-card__tag">アニメーション</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-2" class="overview-card">
+      <div class="overview-card__preview preview--2 dark-text">
+        <span class="overview-card__number">#02</span>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Dark Luxury</h3>
+        <p class="overview-card__style">高級感あるダーク + ゴールドアクセント</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag overview-card__tag--dark">ダーク</span>
+          <span class="overview-card__tag overview-card__tag--gold">ゴールド</span>
+          <span class="overview-card__tag">高級感</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-3" class="overview-card">
+      <div class="overview-card__preview preview--3 light-text">
+        <span class="overview-card__number">#03</span>
+        <div class="half"></div>
+        <div class="half half--right"></div>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Minimal Clean</h3>
+        <p class="overview-card__style">余白重視の2カラム + アクセントライン</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">白ベース</span>
+          <span class="overview-card__tag overview-card__tag--accent">2カラム</span>
+          <span class="overview-card__tag">ミニマル</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-4" class="overview-card">
+      <div class="overview-card__preview preview--4 dark-text">
+        <span class="overview-card__number">#04</span>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Glassmorphism</h3>
+        <p class="overview-card__style">磨りガラスカードが浮くUI</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag overview-card__tag--dark">ダーク</span>
+          <span class="overview-card__tag">ガラス効果</span>
+          <span class="overview-card__tag">トレンド</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-5" class="overview-card">
+      <div class="overview-card__preview preview--5 light-text">
+        <span class="overview-card__number">#05</span>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Split Diagonal</h3>
+        <p class="overview-card__style">斜め分割レイアウト + 実績数字</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">白+紺</span>
+          <span class="overview-card__tag overview-card__tag--accent">実績表示</span>
+          <span class="overview-card__tag">ダイナミック</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-6" class="overview-card">
+      <div class="overview-card__preview preview--6 light-text">
+        <span class="overview-card__number">#06</span>
+        <div class="preview__text" style="z-index:3;">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Geometric Lines</h3>
+        <p class="overview-card__style">グリッドパターン + マーカー装飾</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">ウォーム</span>
+          <span class="overview-card__tag overview-card__tag--gold">マーカー</span>
+          <span class="overview-card__tag">幾何学</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-7" class="overview-card">
+      <div class="overview-card__preview preview--7 dark-text">
+        <span class="overview-card__number">#07</span>
+        <div class="preview__text" style="left:50%;transform:translate(-50%,-50%);text-align:center;max-width:70%;">
+          <div class="preview__text-line preview__text-line--title" style="margin:0 auto 6px;"></div>
+          <div class="preview__text-line preview__text-line--sub" style="margin:0 auto 6px;"></div>
+          <div class="preview__text-line preview__text-line--btn" style="margin:10px auto 0;"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Duotone Center</h3>
+        <p class="overview-card__style">中央配置 + ノイズ + バッジ</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag overview-card__tag--dark">ダーク</span>
+          <span class="overview-card__tag">中央配置</span>
+          <span class="overview-card__tag">ノイズ</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-8" class="overview-card">
+      <div class="overview-card__preview preview--8 light-text">
+        <span class="overview-card__number">#08</span>
+        <div class="blob blob-a"></div>
+        <div class="blob blob-b"></div>
+        <div class="preview__text" style="left:50%;transform:translate(-50%,-50%);text-align:center;max-width:70%;">
+          <div class="preview__text-line preview__text-line--title" style="margin:0 auto 6px;"></div>
+          <div class="preview__text-line preview__text-line--sub" style="margin:0 auto 6px;"></div>
+          <div class="preview__text-line preview__text-line--btn" style="margin:10px auto 0;"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Blur Circles</h3>
+        <p class="overview-card__style">ソフトブロブ + 実績バー付き</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">白ベース</span>
+          <span class="overview-card__tag overview-card__tag--accent">中央配置</span>
+          <span class="overview-card__tag">実績表示</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-9" class="overview-card">
+      <div class="overview-card__preview preview--9 light-text">
+        <span class="overview-card__number">#09</span>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">Bold Typography</h3>
+        <p class="overview-card__style">巨大透かし文字 + エディトリアル風</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">ベージュ</span>
+          <span class="overview-card__tag overview-card__tag--accent">タイポグラフィ</span>
+          <span class="overview-card__tag">実績表示</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#detail-10" class="overview-card">
+      <div class="overview-card__preview preview--10 light-text">
+        <span class="overview-card__number">#10</span>
+        <div class="card-mock"></div>
+        <div class="preview__text">
+          <div class="preview__text-line preview__text-line--title"></div>
+          <div class="preview__text-line preview__text-line--sub"></div>
+          <div class="preview__text-line preview__text-line--btn"></div>
+        </div>
+      </div>
+      <div class="overview-card__body">
+        <h3 class="overview-card__name">SaaS Card</h3>
+        <p class="overview-card__style">カード型実績 + フローティングバッジ</p>
+        <div class="overview-card__tags">
+          <span class="overview-card__tag">白ベース</span>
+          <span class="overview-card__tag overview-card__tag--dark">カード</span>
+          <span class="overview-card__tag overview-card__tag--gold">バッジ</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- ===== COMPARISON TABLE ===== -->
+<section class="comparison">
+  <p class="comparison__title">Comparison</p>
+  <h2 class="comparison__heading">スペック比較表</h2>
+  <div style="overflow-x: auto;">
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>パターン名</th>
+        <th>背景</th>
+        <th>レイアウト</th>
+        <th>印象</th>
+        <th>実績表示</th>
+        <th>おすすめ度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="num">01</td>
+        <td class="name">Gradient Mesh</td>
+        <td><span class="chip chip--white">白系</span></td>
+        <td>左寄せ</td>
+        <td>先進的・柔らかい</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">02</td>
+        <td class="name">Dark Luxury</td>
+        <td><span class="chip chip--dark">ダーク</span></td>
+        <td>左寄せ</td>
+        <td>高級・重厚</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">03</td>
+        <td class="name">Minimal Clean</td>
+        <td><span class="chip chip--white">白系</span></td>
+        <td>2カラム</td>
+        <td>清潔・信頼</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">04</td>
+        <td class="name">Glassmorphism</td>
+        <td><span class="chip chip--dark">ダーク</span></td>
+        <td>カード</td>
+        <td>未来的・洗練</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">05</td>
+        <td class="name">Split Diagonal</td>
+        <td><span class="chip chip--white">白+紺</span></td>
+        <td>2カラム斜め</td>
+        <td>力強い・動的</td>
+        <td>3つ</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">06</td>
+        <td class="name">Geometric Lines</td>
+        <td><span class="chip chip--light">ウォーム</span></td>
+        <td>左寄せ</td>
+        <td>知的・構造的</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">07</td>
+        <td class="name">Duotone Center</td>
+        <td><span class="chip chip--dark">ダーク</span></td>
+        <td>中央</td>
+        <td>堂々・インパクト</td>
+        <td>-</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">08</td>
+        <td class="name">Blur Circles</td>
+        <td><span class="chip chip--white">白系</span></td>
+        <td>中央</td>
+        <td>柔らかい・親しみ</td>
+        <td>4つ</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">09</td>
+        <td class="name">Bold Typography</td>
+        <td><span class="chip chip--light">ベージュ</span></td>
+        <td>中央</td>
+        <td>大胆・個性的</td>
+        <td>4つ</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+      <tr>
+        <td class="num">10</td>
+        <td class="name">SaaS Card</td>
+        <td><span class="chip chip--white">白系</span></td>
+        <td>2カラム+カード</td>
+        <td>先進的・信頼</td>
+        <td>カード内</td>
+        <td class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+
+<!-- ===== RECOMMENDATION ===== -->
+<section style="padding: 60px 24px 100px; max-width: 800px; margin: 0 auto;">
+  <p style="font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.25em; color: #852228; margin-bottom: 8px;">RECOMMENDATION</p>
+  <h2 style="font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 24px;">用途別おすすめ</h2>
+
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee; border-left: 4px solid #852228;">
+      <p style="font-weight: 800; font-size: 15px; margin-bottom: 4px;">信頼感 + スタイリッシュさのバランス重視</p>
+      <p style="font-size: 13px; color: #888;">→ <strong style="color:#852228;">#05 Split Diagonal</strong> or <strong style="color:#852228;">#10 SaaS Card</strong></p>
+      <p style="font-size: 12px; color: #aaa; margin-top: 4px;">コンサル会社として実績を見せつつ、モダンな印象を両立</p>
+    </div>
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee; border-left: 4px solid #c49a2a;">
+      <p style="font-weight: 800; font-size: 15px; margin-bottom: 4px;">高級感・ブランド感を最大化</p>
+      <p style="font-size: 13px; color: #888;">→ <strong style="color:#852228;">#02 Dark Luxury</strong> or <strong style="color:#852228;">#07 Duotone Center</strong></p>
+      <p style="font-size: 12px; color: #aaa; margin-top: 4px;">ダーク背景で差別化。ゴールドアクセントで格の高さを演出</p>
+    </div>
+    <div style="background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #eee; border-left: 4px solid #2563eb;">
+      <p style="font-weight: 800; font-size: 15px; margin-bottom: 4px;">親しみやすさ + 先進性</p>
+      <p style="font-size: 13px; color: #888;">→ <strong style="color:#852228;">#08 Blur Circles</strong> or <strong style="color:#852228;">#01 Gradient Mesh</strong></p>
+      <p style="font-size: 12px; color: #aaa; margin-top: 4px;">白ベースで親しみやすく、ぼかしエフェクトでモダンさを演出</p>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 60px; padding: 40px; background: #fff; border-radius: 16px; border: 1px solid #eee;">
+    <p style="font-size: 14px; color: #888; margin-bottom: 8px;">実寸プレビューは</p>
+    <p style="font-size: 18px; font-weight: 800;"><a href="hero-patterns.html" style="color: #852228; text-decoration: none; border-bottom: 2px solid rgba(133,34,40,0.2);">hero-patterns.html</a></p>
+    <p style="font-size: 14px; color: #888; margin-top: 8px;">で各パターンを全画面サイズで確認できます</p>
+  </div>
+</section>
+
+</body>
+</html>
