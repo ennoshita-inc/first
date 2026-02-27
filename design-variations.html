@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デザインバリエーション 10パターン — 株式会社えんのした</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a2e; background: #f5f5f5; }
+
+    /* ===== Pattern Selector Nav ===== */
+    .pattern-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+    .pattern-nav__label { font-size: 12px; font-weight: 700; white-space: nowrap; color: #852228; }
+    .pattern-nav a {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 32px; height: 32px; padding: 0 12px; border-radius: 16px;
+      font-size: 12px; font-weight: 600; color: #555; background: #f0f0f0;
+      text-decoration: none; white-space: nowrap; transition: all 0.2s; border: 2px solid transparent;
+    }
+    .pattern-nav a:hover, .pattern-nav a.active { background: #852228; color: #fff; border-color: #852228; }
+
+    /* ===== Pattern sections ===== */
+    .pattern-section { display: none; padding-top: 52px; }
+    .pattern-section.active { display: block; }
+
+    .pattern-divider {
+      text-align: center; padding: 40px 20px 10px; background: #f5f5f5;
+    }
+    .pattern-divider h2 {
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; color: #852228;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+    }
+    .pattern-divider h2::before, .pattern-divider h2::after {
+      content: ''; width: 40px; height: 2px; background: #852228;
+    }
+    .pattern-divider p { color: #888; font-size: 13px; margin-top: 8px; }
+
+    /* ===== Common Section Styles ===== */
+    .v-container { max-width: 1140px; margin: 0 auto; padding: 0 24px; width: 100%; }
+    .v-section { padding: 80px 0; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .v-hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+      .v-hero-grid .v-hero-img { order: -1; }
+      .v-services-grid { grid-template-columns: 1fr !important; }
+      .v-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .v-footer-grid { grid-template-columns: 1fr !important; }
+      .v-hero-btns { justify-content: center !important; }
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideRight { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  </style>
+</head>
+<body>
+
+<!-- ===== PATTERN SELECTOR ===== -->
+<nav class="pattern-nav">
+  <span class="pattern-nav__label">PATTERN:</span>
+  <a href="#p1" class="active" onclick="showPattern(1)">1. 金ゴールド</a>
+  <a href="#p2" onclick="showPattern(2)">2. モダン白</a>
+  <a href="#p3" onclick="showPattern(3)">3. えんじ×紺</a>
+  <a href="#p4" onclick="showPattern(4)">4. アース</a>
+  <a href="#p5" onclick="showPattern(5)">5. 深緑重厚</a>
+  <a href="#p6" onclick="showPattern(6)">6. グラデ</a>
+  <a href="#p7" onclick="showPattern(7)">7. 和モダン</a>
+  <a href="#p8" onclick="showPattern(8)">8. ライト</a>
+  <a href="#p9" onclick="showPattern(9)">9. えんじ×ティール</a>
+  <a href="#p10" onclick="showPattern(10)">10. プレミアム黒</a>
+</nav>
+
+
+<!-- ============================================================
+     PATTERN 1: Classic Gold — えんじ + 金（Design1ベース洗練版）
+     ============================================================ -->
+<div class="pattern-section active" id="p1">
+  <div class="pattern-divider"><h2>Pattern 1 — Classic Gold</h2><p>えんじ色 × ゴールドアクセント — 格調高いクラシックスタイル</p></div>
+  <style>
+    #p1 { --p: #852228; --pd: #641a1f; --pl: #a03038; --acc: #c49a2a; --accl: #d4af37; --bg: #fff; --bgs: #f7f5f2; --txt: #1a1a2e; --txts: #4a5568; }
+    #p1 .v-hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, #3a0f13 0%, #641a1f 40%, #852228 100%); position: relative; overflow: hidden; }
+    #p1 .v-hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,255,255,0.05) 0%, transparent 70%); pointer-events: none; }
+    #p1 .v-hero-content { color: #fff; animation: fadeUp 0.8s ease forwards; }
+    #p1 .v-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accl); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    #p1 .v-hero-label::before { content:''; width: 24px; height: 1px; background: var(--accl); }
+    #p1 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4.5vw, 3.5rem); font-weight: 900; line-height: 1.4; margin-bottom: 20px; }
+    #p1 .v-hero h1 em { color: var(--accl); font-style: italic; }
+    #p1 .v-hero p.desc { font-size: 1rem; font-weight: 300; line-height: 2; color: rgba(255,255,255,0.75); max-width: 500px; margin-bottom: 32px; }
+    #p1 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p1 .v-btn-w { padding: 14px 32px; background: #fff; color: var(--p); border-radius: 999px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p1 .v-btn-w:hover { background: #fdf2f3; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    #p1 .v-btn-o { padding: 14px 32px; background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); border-radius: 999px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p1 .v-btn-o:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+    #p1 .v-hero-img { position: relative; animation: fadeIn 1s 0.4s both; }
+    #p1 .v-hero-img img { border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #e2e8f0; }
+    #p1 .v-hero-img::before { content:''; position: absolute; top: -12px; right: -12px; bottom: 12px; left: 12px; border: 2px solid rgba(196,154,42,0.3); border-radius: 16px; z-index: -1; }
+
+    #p1 .v-services { background: var(--bgs); }
+    #p1 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p1 .v-section-hdr .label { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
+    #p1 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 12px; }
+    #p1 .v-section-hdr .line { width: 48px; height: 3px; background: linear-gradient(90deg, var(--p), var(--acc)); margin: 12px auto; border-radius: 2px; }
+    #p1 .v-section-hdr p { color: var(--txts); font-size: 15px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p1 .v-card { background: #fff; border-radius: 16px; padding: 32px 24px 24px; text-align: center; border: 1px solid #edf2f7; box-shadow: 0 2px 8px rgba(133,34,40,0.06); transition: all 0.3s; position: relative; overflow: hidden; }
+    #p1 .v-card::before { content:''; position: absolute; top:0; left:0; right:0; height: 3px; background: linear-gradient(90deg, var(--p), var(--pl)); transition: height 0.3s; }
+    #p1 .v-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(133,34,40,0.12); }
+    #p1 .v-card:hover::before { height: 4px; }
+    #p1 .v-card-icon { width: 64px; height: 64px; border-radius: 12px; background: #fdf2f3; color: var(--p); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 28px; transition: all 0.3s; }
+    #p1 .v-card:hover .v-card-icon { background: var(--p); color: #fff; }
+    #p1 .v-card-num { font-size: 11px; font-weight: 700; color: var(--acc); letter-spacing: 0.15em; margin-bottom: 8px; }
+    #p1 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    #p1 .v-card .sub { font-size: 13px; color: var(--p); font-weight: 500; margin-bottom: 12px; }
+    #p1 .v-card p.txt { font-size: 14px; color: var(--txts); line-height: 1.8; }
+
+    #p1 .v-stats { background: linear-gradient(135deg, #3a0f13 0%, #641a1f 100%); color: #fff; }
+    #p1 .v-stat { text-align: center; }
+    #p1 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: var(--accl); }
+    #p1 .v-stat-label { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p1 .v-cta { background: linear-gradient(135deg, var(--pd) 0%, var(--p) 100%); color: #fff; text-align: center; padding: 80px 24px; }
+    #p1 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p1 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    #p1 .v-footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 48px 24px 24px; font-size: 13px; }
+    #p1 .v-footer strong { color: #fff; font-family: 'Noto Serif JP', serif; font-size: 16px; display: block; margin-bottom: 12px; }
+    #p1 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; }
+  </style>
+
+  <section class="v-hero">
+    <div class="v-container">
+      <div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:80px 0;">
+        <div class="v-hero-content">
+          <p class="v-hero-label">Consulting for Growth</p>
+          <h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+          <p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p>
+          <div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div>
+        </div>
+        <div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%23d4c5b0'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23852228' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-services">
+    <div class="v-container">
+      <div class="v-section-hdr">
+        <p class="label">Services</p>
+        <h2>3つの支援で組織の成長を実現</h2>
+        <span class="line"></span>
+        <p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p>
+      </div>
+      <div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+        <div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div>
+        <div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div>
+        <div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-stats">
+    <div class="v-container">
+      <div class="v-section-hdr" style="margin-bottom:48px;"><p class="label" style="color:#d4af37;">Results</p><h2 style="color:#fff;">えんのしたが選ばれる理由</h2><span class="line" style="background:linear-gradient(90deg,#d4af37,rgba(255,255,255,0.3));"></span></div>
+      <div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;">
+        <div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div>
+        <div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div>
+        <div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div>
+        <div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-cta">
+    <h2>組織の課題、一緒に解決しませんか？</h2>
+    <p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p>
+    <a href="#" class="v-btn-w">無料相談はこちら →</a>
+  </section>
+
+  <footer class="v-footer">
+    <div class="v-container">
+      <div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;">
+        <div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。岡山を拠点とした人材育成・組織開発コンサルティング。</p></div>
+        <div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div>
+        <div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>代表挨拶<br>コラム<br>お問い合わせ</p></div>
+      </div>
+      <div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ============================================================
+     PATTERN 2: Modern Clean — えんじ + 白 ミニマルモダン
+     ============================================================ -->
+<div class="pattern-section" id="p2">
+  <div class="pattern-divider"><h2>Pattern 2 — Modern Clean</h2><p>えんじ色 × 白基調 — 余白を活かしたモダンスタイル</p></div>
+  <style>
+    #p2 .v-hero { min-height: 100vh; display: flex; align-items: center; background: #fff; position: relative; }
+    #p2 .v-hero::after { content:''; position: absolute; right: 0; top: 0; bottom: 0; width: 45%; background: #852228; }
+    #p2 .v-hero-content { color: #1a1a2e; position: relative; z-index: 1; animation: slideRight 0.8s ease; }
+    #p2 .v-hero-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #852228; margin-bottom: 20px; }
+    #p2 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; line-height: 1.45; margin-bottom: 20px; color: #1a1a2e; }
+    #p2 .v-hero h1 em { color: #852228; font-style: normal; border-bottom: 3px solid #852228; }
+    #p2 .v-hero p.desc { font-size: 15px; line-height: 2; color: #4a5568; max-width: 480px; margin-bottom: 32px; }
+    #p2 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p2 .v-btn-w { padding: 14px 32px; background: #852228; color: #fff; border-radius: 4px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p2 .v-btn-w:hover { background: #641a1f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.3); }
+    #p2 .v-btn-o { padding: 14px 32px; background: transparent; color: #852228; border: 2px solid #852228; border-radius: 4px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p2 .v-btn-o:hover { background: #852228; color: #fff; }
+    #p2 .v-hero-img { position: relative; z-index: 1; animation: fadeIn 1s 0.3s both; }
+    #p2 .v-hero-img img { border-radius: 0; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #d4c5b0; }
+
+    #p2 .v-services { background: #fafafa; }
+    #p2 .v-section-hdr { text-align: left; margin-bottom: 48px; }
+    #p2 .v-section-hdr .label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #852228; margin-bottom: 8px; }
+    #p2 .v-section-hdr h2 { font-family: 'Noto Sans JP', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 0; }
+    #p2 .v-section-hdr .line { width: 48px; height: 2px; background: #852228; margin: 16px 0; }
+    #p2 .v-section-hdr p { color: #4a5568; font-size: 14px; line-height: 1.9; }
+    #p2 .v-card { background: #fff; border-radius: 0; padding: 32px; text-align: left; border: none; border-left: 4px solid #852228; box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: all 0.3s; }
+    #p2 .v-card:hover { transform: translateX(8px); box-shadow: 0 4px 16px rgba(133,34,40,0.1); }
+    #p2 .v-card-num { font-size: 10px; font-weight: 700; color: #852228; letter-spacing: 0.2em; margin-bottom: 12px; display: block; }
+    #p2 .v-card h3 { font-family: 'Noto Sans JP', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    #p2 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p2 .v-card p.txt { font-size: 13px; color: #4a5568; line-height: 1.8; }
+    #p2 .v-card-icon { display: none; }
+
+    #p2 .v-stats { background: #852228; color: #fff; }
+    #p2 .v-stat-num { font-family: 'Inter', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; }
+    #p2 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p2 .v-cta { background: #fff; color: #1a1a2e; text-align: center; padding: 80px 24px; }
+    #p2 .v-cta h2 { font-family: 'Noto Sans JP', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p2 .v-cta p { color: #4a5568; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p2 .v-cta .v-btn-w { background: #852228; color: #fff; border-radius: 4px; }
+
+    #p2 .v-footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 48px 24px 24px; font-size: 13px; }
+    #p2 .v-footer strong { color: #fff; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p2 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; }
+  </style>
+
+  <section class="v-hero">
+    <div class="v-container">
+      <div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:0; align-items:center; padding:80px 0;">
+        <div class="v-hero-content" style="padding-right:48px;">
+          <p class="v-hero-label">CONSULTING FOR GROWTH</p>
+          <h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+          <p class="desc">「人が育てば組織が変わる」――岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p>
+          <div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div>
+        </div>
+        <div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%23d4c5b0'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23852228' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-services">
+    <div class="v-container">
+      <div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div>
+      <div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+        <div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon"></div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div>
+        <div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon"></div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div>
+        <div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon"></div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-stats">
+    <div class="v-container">
+      <div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;">
+        <div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div>
+        <div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div>
+        <div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div>
+        <div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+
+<!-- ============================================================
+     PATTERN 3: えんじ × 紺 — 信頼感のあるコーポレートスタイル
+     ============================================================ -->
+<div class="pattern-section" id="p3">
+  <div class="pattern-divider"><h2>Pattern 3 — Burgundy & Navy</h2><p>えんじ色 × 紺 — 信頼感と品格を両立するスタイル</p></div>
+  <style>
+    #p3 .v-hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(160deg, #0d1b3e 0%, #1a2d5e 50%, #2a1520 100%); position: relative; overflow: hidden; }
+    #p3 .v-hero::before { content:''; position:absolute; top: -50%; right: -20%; width: 70%; height: 200%; background: radial-gradient(ellipse, rgba(133,34,40,0.2) 0%, transparent 70%); pointer-events: none; }
+    #p3 .v-hero-content { color: #fff; animation: fadeUp 0.8s ease; }
+    #p3 .v-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #e8a0a5; margin-bottom: 16px; }
+    #p3 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4.5vw, 3.5rem); font-weight: 900; line-height: 1.4; margin-bottom: 20px; }
+    #p3 .v-hero h1 em { color: #f0b8bc; font-style: normal; }
+    #p3 .v-hero p.desc { font-size: 1rem; font-weight: 300; line-height: 2; color: rgba(255,255,255,0.7); max-width: 500px; margin-bottom: 32px; }
+    #p3 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p3 .v-btn-w { padding: 14px 32px; background: #852228; color: #fff; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p3 .v-btn-w:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.4); }
+    #p3 .v-btn-o { padding: 14px 32px; background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 8px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p3 .v-btn-o:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+    #p3 .v-hero-img img { border-radius: 12px; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #2a3a5e; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+
+    #p3 .v-services { background: #f8f9fc; }
+    #p3 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p3 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #1a2d5e; margin-bottom: 8px; }
+    #p3 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #0d1b3e; }
+    #p3 .v-section-hdr .line { width: 48px; height: 3px; background: linear-gradient(90deg, #1a2d5e, #852228); margin: 14px auto; border-radius: 2px; }
+    #p3 .v-section-hdr p { color: #4a5568; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p3 .v-card { background: #fff; border-radius: 12px; padding: 28px 24px; text-align: center; border: 1px solid #e8ecf4; box-shadow: 0 2px 8px rgba(13,27,62,0.06); transition: all 0.3s; }
+    #p3 .v-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(13,27,62,0.12); border-color: #1a2d5e; }
+    #p3 .v-card-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #1a2d5e, #852228); color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
+    #p3 .v-card-num { font-size: 10px; font-weight: 700; color: #1a2d5e; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p3 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; color: #0d1b3e; }
+    #p3 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p3 .v-card p.txt { font-size: 13px; color: #4a5568; line-height: 1.8; }
+
+    #p3 .v-stats { background: #0d1b3e; color: #fff; }
+    #p3 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #e8a0a5; }
+    #p3 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+
+    #p3 .v-cta { background: linear-gradient(135deg, #852228, #1a2d5e); color: #fff; text-align: center; padding: 80px 24px; }
+    #p3 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p3 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p3 .v-cta .v-btn-w { background: #fff; color: #852228; border-radius: 8px; }
+
+    #p3 .v-footer { background: #0a1530; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p3 .v-footer strong { color: #fff; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p3 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero">
+    <div class="v-container">
+      <div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:80px 0;">
+        <div class="v-hero-content">
+          <p class="v-hero-label">— Consulting for Growth</p>
+          <h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+          <p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p>
+          <div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div>
+        </div>
+        <div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%232a3a5e'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23e8a0a5' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ============================================================
+     PATTERN 4: Warm Earth — えんじ + アースカラー
+     ============================================================ -->
+<div class="pattern-section" id="p4">
+  <div class="pattern-divider"><h2>Pattern 4 — Warm Earth</h2><p>えんじ色 × アースカラー — 温かみと安心感のあるスタイル</p></div>
+  <style>
+    #p4 .v-hero { min-height: 100vh; display: flex; align-items: center; background: #f5f0e8; position: relative; overflow: hidden; }
+    #p4 .v-hero::before { content:''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23852228' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; pointer-events: none; }
+    #p4 .v-hero-content { color: #3e2723; position: relative; z-index: 1; animation: fadeUp 0.8s ease; }
+    #p4 .v-hero-label { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #852228; margin-bottom: 20px; display: inline-block; padding: 4px 16px; background: rgba(133,34,40,0.08); border-radius: 20px; }
+    #p4 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.5; margin-bottom: 20px; color: #3e2723; }
+    #p4 .v-hero h1 em { color: #852228; font-style: normal; }
+    #p4 .v-hero p.desc { font-size: 15px; line-height: 2; color: #5d4037; max-width: 500px; margin-bottom: 32px; }
+    #p4 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p4 .v-btn-w { padding: 14px 32px; background: #852228; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p4 .v-btn-w:hover { background: #641a1f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.3); }
+    #p4 .v-btn-o { padding: 14px 32px; background: transparent; color: #852228; border: 1.5px solid #852228; border-radius: 999px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p4 .v-btn-o:hover { background: #852228; color: #fff; }
+    #p4 .v-hero-img img { border-radius: 24px; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #d7ccc8; box-shadow: 0 20px 40px rgba(62,39,35,0.15); }
+
+    #p4 .v-services { background: #fff; }
+    #p4 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p4 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #c0755a; }
+    #p4 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #3e2723; }
+    #p4 .v-section-hdr .line { width: 48px; height: 3px; background: linear-gradient(90deg, #852228, #c0755a); margin: 14px auto; border-radius: 2px; }
+    #p4 .v-section-hdr p { color: #5d4037; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p4 .v-card { background: #faf8f5; border-radius: 20px; padding: 32px 24px; text-align: center; border: none; box-shadow: 0 4px 12px rgba(62,39,35,0.06); transition: all 0.3s; }
+    #p4 .v-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(62,39,35,0.1); }
+    #p4 .v-card-icon { width: 64px; height: 64px; border-radius: 50%; background: #f5e6dc; color: #852228; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 28px; }
+    #p4 .v-card-num { font-size: 10px; font-weight: 700; color: #c0755a; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p4 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: #3e2723; margin-bottom: 4px; }
+    #p4 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p4 .v-card p.txt { font-size: 13px; color: #5d4037; line-height: 1.8; }
+
+    #p4 .v-stats { background: #3e2723; color: #fff; }
+    #p4 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #c0755a; }
+    #p4 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+
+    #p4 .v-cta { background: linear-gradient(135deg, #852228, #c0755a); color: #fff; text-align: center; padding: 80px 24px; }
+    #p4 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p4 .v-cta p { color: rgba(255,255,255,0.8); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p4 .v-cta .v-btn-w { background: #fff; color: #852228; border-radius: 999px; }
+
+    #p4 .v-footer { background: #2c1810; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p4 .v-footer strong { color: #d7ccc8; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p4 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero">
+    <div class="v-container">
+      <div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:80px 0;">
+        <div class="v-hero-content">
+          <p class="v-hero-label">Consulting for Growth</p>
+          <h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1>
+          <p class="desc">「人が育てば組織が変わる」――岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p>
+          <div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div>
+        </div>
+        <div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%23d7ccc8'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23852228' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+
+<!-- ============================================================
+     PATTERN 5: Deep Green — えんじ + 深緑 重厚感
+     ============================================================ -->
+<div class="pattern-section" id="p5">
+  <div class="pattern-divider"><h2>Pattern 5 — Deep Green</h2><p>えんじ色 × 深緑 — 重厚で格調高い和のテイスト</p></div>
+  <style>
+    #p5 .v-hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, #0a2218 0%, #1a3a25 40%, #2d5a3e 100%); position: relative; overflow: hidden; }
+    #p5 .v-hero::before { content:''; position: absolute; inset:0; background: radial-gradient(ellipse 50% 80% at 80% 50%, rgba(133,34,40,0.15) 0%, transparent 70%); pointer-events: none; }
+    #p5 .v-hero-content { color: #fff; animation: fadeUp 0.8s ease; }
+    #p5 .v-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #e8a0a5; margin-bottom: 16px; }
+    #p5 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.4; margin-bottom: 20px; }
+    #p5 .v-hero h1 em { color: #e8a0a5; font-style: italic; }
+    #p5 .v-hero p.desc { font-size: 1rem; line-height: 2; color: rgba(255,255,255,0.7); max-width: 520px; margin-bottom: 32px; }
+    #p5 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p5 .v-btn-w { padding: 16px 36px; background: #852228; color: #fff; border-radius: 4px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; letter-spacing: 0.05em; }
+    #p5 .v-btn-w:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.4); }
+    #p5 .v-btn-o { padding: 16px 36px; background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 4px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p5 .v-btn-o:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+    #p5 .v-hero-img img { border-radius: 4px; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #1a3a25; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }
+
+    #p5 .v-services { background: #f5f7f5; }
+    #p5 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p5 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #1a3a25; }
+    #p5 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #0a2218; }
+    #p5 .v-section-hdr .line { width: 48px; height: 3px; background: linear-gradient(90deg, #1a3a25, #852228); margin: 14px auto; border-radius: 2px; }
+    #p5 .v-section-hdr p { color: #4a5a50; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p5 .v-card { background: #fff; border-radius: 4px; padding: 32px 24px; text-align: center; border: 1px solid #dce6dc; box-shadow: none; transition: all 0.3s; position: relative; }
+    #p5 .v-card::after { content:''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 3px; background: #852228; transition: width 0.3s; }
+    #p5 .v-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,58,37,0.1); }
+    #p5 .v-card:hover::after { width: 100%; }
+    #p5 .v-card-icon { width: 56px; height: 56px; border-radius: 4px; background: #e8f0e8; color: #1a3a25; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
+    #p5 .v-card-num { font-size: 10px; font-weight: 700; color: #852228; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p5 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.15rem; font-weight: 700; color: #0a2218; margin-bottom: 4px; }
+    #p5 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p5 .v-card p.txt { font-size: 13px; color: #4a5a50; line-height: 1.8; }
+
+    #p5 .v-stats { background: #852228; color: #fff; }
+    #p5 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; }
+    #p5 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p5 .v-cta { background: #1a3a25; color: #fff; text-align: center; padding: 80px 24px; }
+    #p5 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p5 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p5 .v-cta .v-btn-w { background: #852228; color: #fff; border-radius: 4px; }
+
+    #p5 .v-footer { background: #0a1a10; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p5 .v-footer strong { color: #c8d8c8; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p5 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:80px 0;"><div class="v-hero-content"><p class="v-hero-label">Consulting for Growth</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div><div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%232d5a3e'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23e8a0a5' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ============================================================
+     PATTERN 6: Gradient — えんじグラデーション多用
+     ============================================================ -->
+<div class="pattern-section" id="p6">
+  <div class="pattern-divider"><h2>Pattern 6 — Burgundy Gradient</h2><p>えんじ色グラデーション — モダンで流動的なデザイン</p></div>
+  <style>
+    #p6 .v-hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(150deg, #3a0f13 0%, #852228 30%, #a03038 60%, #c0755a 100%); position: relative; overflow: hidden; }
+    #p6 .v-hero::before { content:''; position: absolute; bottom: -5%; left: -5%; width: 110%; height: 30%; background: #fff; border-radius: 50% 50% 0 0; pointer-events: none; }
+    #p6 .v-hero-content { color: #fff; text-align: center; max-width: 700px; margin: 0 auto; animation: fadeUp 0.8s ease; position: relative; z-index: 1; }
+    #p6 .v-hero-label { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    #p6 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.45; margin-bottom: 20px; }
+    #p6 .v-hero h1 em { background: linear-gradient(90deg, #ffd700, #f5e6dc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: normal; }
+    #p6 .v-hero p.desc { font-size: 1rem; line-height: 2; color: rgba(255,255,255,0.75); margin: 0 auto 32px; max-width: 560px; }
+    #p6 .v-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    #p6 .v-btn-w { padding: 16px 40px; background: #fff; color: #852228; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    #p6 .v-btn-w:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+    #p6 .v-btn-o { padding: 16px 40px; background: rgba(255,255,255,0.15); color: #fff; border: none; border-radius: 999px; font-weight: 500; font-size: 15px; text-decoration: none; transition: all 0.3s; backdrop-filter: blur(8px); }
+    #p6 .v-btn-o:hover { background: rgba(255,255,255,0.25); }
+    #p6 .v-hero-img { display: none; }
+
+    #p6 .v-services { background: #fff; }
+    #p6 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p6 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #a03038; }
+    #p6 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; background: linear-gradient(90deg, #641a1f, #a03038); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    #p6 .v-section-hdr .line { width: 60px; height: 3px; background: linear-gradient(90deg, #641a1f, #c0755a); margin: 14px auto; border-radius: 2px; }
+    #p6 .v-section-hdr p { color: #4a5568; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p6 .v-card { background: linear-gradient(135deg, #fdf2f3, #fff); border-radius: 24px; padding: 32px 24px; text-align: center; border: 1px solid rgba(133,34,40,0.08); box-shadow: 0 4px 16px rgba(133,34,40,0.06); transition: all 0.3s; }
+    #p6 .v-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 16px 40px rgba(133,34,40,0.15); }
+    #p6 .v-card-icon { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #852228, #a03038); color: #fff; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 26px; box-shadow: 0 4px 12px rgba(133,34,40,0.2); }
+    #p6 .v-card-num { font-size: 10px; font-weight: 700; color: #a03038; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p6 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+    #p6 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p6 .v-card p.txt { font-size: 13px; color: #4a5568; line-height: 1.8; }
+
+    #p6 .v-stats { background: linear-gradient(135deg, #641a1f, #852228, #a03038); color: #fff; }
+    #p6 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #fff; }
+    #p6 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p6 .v-cta { background: linear-gradient(135deg, #3a0f13, #852228, #c0755a); color: #fff; text-align: center; padding: 80px 24px; }
+    #p6 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p6 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p6 .v-cta .v-btn-w { background: #fff; color: #852228; border-radius: 999px; }
+
+    #p6 .v-footer { background: #1a0a0c; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p6 .v-footer strong { color: #e8aab0; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p6 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="padding:120px 0 160px;"><div class="v-hero-content"><p class="v-hero-label">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+
+<!-- ============================================================
+     PATTERN 7: 和モダン — えんじ + 墨色 日本的美意識
+     ============================================================ -->
+<div class="pattern-section" id="p7">
+  <div class="pattern-divider"><h2>Pattern 7 — 和モダン Japanese Modern</h2><p>えんじ色 × 墨色 — 日本的な美意識を活かした上品なデザイン</p></div>
+  <style>
+    #p7 .v-hero { min-height: 100vh; display: flex; align-items: center; background: #faf8f5; position: relative; overflow: hidden; }
+    #p7 .v-hero::before { content:''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #852228; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); }
+    #p7 .v-hero::after { content: '心技体'; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); font-family: 'Noto Serif JP', serif; font-size: clamp(6rem, 15vw, 14rem); font-weight: 900; color: rgba(255,255,255,0.06); writing-mode: vertical-rl; pointer-events: none; letter-spacing: 0.3em; }
+    #p7 .v-hero-content { color: #2c2c2c; position: relative; z-index: 1; animation: slideRight 0.8s ease; }
+    #p7 .v-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; color: #852228; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    #p7 .v-hero-label::before { content:''; width: 40px; height: 1px; background: #852228; }
+    #p7 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; line-height: 1.6; margin-bottom: 24px; color: #2c2c2c; }
+    #p7 .v-hero h1 em { color: #852228; font-style: normal; position: relative; }
+    #p7 .v-hero h1 em::after { content:''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: #852228; }
+    #p7 .v-hero p.desc { font-size: 15px; line-height: 2.2; color: #555; max-width: 460px; margin-bottom: 36px; }
+    #p7 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p7 .v-btn-w { padding: 14px 36px; background: #852228; color: #fff; border-radius: 2px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; letter-spacing: 0.08em; }
+    #p7 .v-btn-w:hover { background: #641a1f; transform: translateY(-2px); }
+    #p7 .v-btn-o { padding: 14px 36px; background: transparent; color: #2c2c2c; border: 1px solid #2c2c2c; border-radius: 2px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; letter-spacing: 0.08em; }
+    #p7 .v-btn-o:hover { background: #2c2c2c; color: #fff; }
+    #p7 .v-hero-img { display: none; }
+
+    #p7 .v-services { background: #fff; }
+    #p7 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p7 .v-section-hdr .label { font-family: 'Noto Serif JP', serif; font-size: 12px; font-weight: 500; letter-spacing: 0.3em; color: #852228; }
+    #p7 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: #2c2c2c; letter-spacing: 0.1em; }
+    #p7 .v-section-hdr .line { width: 1px; height: 40px; background: #852228; margin: 16px auto; }
+    #p7 .v-section-hdr p { color: #666; font-size: 14px; max-width: 500px; margin: 0 auto; line-height: 2; }
+    #p7 .v-card { background: #faf8f5; border-radius: 2px; padding: 32px 24px; text-align: left; border: none; border-top: 2px solid #852228; box-shadow: none; transition: all 0.3s; }
+    #p7 .v-card:hover { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    #p7 .v-card-icon { display: none; }
+    #p7 .v-card-num { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #852228; letter-spacing: 0.2em; margin-bottom: 12px; display: block; }
+    #p7 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: #2c2c2c; margin-bottom: 4px; letter-spacing: 0.06em; }
+    #p7 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 16px; }
+    #p7 .v-card p.txt { font-size: 13px; color: #555; line-height: 2; }
+
+    #p7 .v-stats { background: #2c2c2c; color: #fff; }
+    #p7 .v-stat-num { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #e8a0a5; }
+    #p7 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 0.1em; }
+
+    #p7 .v-cta { background: #852228; color: #fff; text-align: center; padding: 80px 24px; }
+    #p7 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.3rem, 3vw, 1.8rem); margin-bottom: 16px; letter-spacing: 0.1em; }
+    #p7 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p7 .v-cta .v-btn-w { background: #fff; color: #852228; border-radius: 2px; letter-spacing: 0.08em; }
+
+    #p7 .v-footer { background: #1a1a1a; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p7 .v-footer strong { color: #e8a0a5; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; letter-spacing: 0.1em; }
+    #p7 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="padding:100px 0;"><div class="v-hero-content" style="max-width:520px;"><p class="v-hero-label">Consulting for Growth</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">サービス</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ============================================================
+     PATTERN 8: Light & Airy — えんじ + 淡いピンク + 白
+     ============================================================ -->
+<div class="pattern-section" id="p8">
+  <div class="pattern-divider"><h2>Pattern 8 — Light & Airy</h2><p>えんじ色 × 淡いピンク — 明るく軽やかな印象</p></div>
+  <style>
+    #p8 .v-hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(180deg, #fdf2f3 0%, #fff 100%); position: relative; overflow: hidden; }
+    #p8 .v-hero::before { content:''; position: absolute; top: -20%; right: -10%; width: 50%; height: 80%; background: radial-gradient(ellipse, rgba(133,34,40,0.06) 0%, transparent 70%); pointer-events: none; }
+    #p8 .v-hero-content { color: #1a1a2e; text-align: center; max-width: 680px; margin: 0 auto; animation: fadeUp 0.8s ease; position: relative; z-index: 1; }
+    #p8 .v-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #852228; margin-bottom: 20px; }
+    #p8 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.5; margin-bottom: 24px; color: #2c2c2c; }
+    #p8 .v-hero h1 em { color: #852228; font-style: normal; }
+    #p8 .v-hero p.desc { font-size: 15px; line-height: 2; color: #666; margin: 0 auto 36px; }
+    #p8 .v-hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    #p8 .v-btn-w { padding: 16px 40px; background: #852228; color: #fff; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p8 .v-btn-w:hover { background: #a03038; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.2); }
+    #p8 .v-btn-o { padding: 16px 40px; background: #fff; color: #852228; border: 1.5px solid #e8aab0; border-radius: 12px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p8 .v-btn-o:hover { border-color: #852228; background: #fdf2f3; }
+    #p8 .v-hero-img { display: none; }
+
+    #p8 .v-services { background: #fff; }
+    #p8 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p8 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #e8aab0; }
+    #p8 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: #2c2c2c; }
+    #p8 .v-section-hdr .line { width: 48px; height: 2px; background: linear-gradient(90deg, #e8aab0, #852228); margin: 14px auto; border-radius: 2px; }
+    #p8 .v-section-hdr p { color: #666; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p8 .v-card { background: #fdf8f8; border-radius: 16px; padding: 32px 24px; text-align: center; border: 1px solid #f5d5d8; box-shadow: none; transition: all 0.3s; }
+    #p8 .v-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(133,34,40,0.08); border-color: #e8aab0; }
+    #p8 .v-card-icon { width: 56px; height: 56px; border-radius: 14px; background: #fdf2f3; color: #852228; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; border: 1px solid #f5d5d8; }
+    #p8 .v-card-num { font-size: 10px; font-weight: 600; color: #e8aab0; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p8 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: #2c2c2c; margin-bottom: 4px; }
+    #p8 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p8 .v-card p.txt { font-size: 13px; color: #666; line-height: 1.8; }
+
+    #p8 .v-stats { background: #852228; color: #fff; }
+    #p8 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; }
+    #p8 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p8 .v-cta { background: #fdf2f3; color: #2c2c2c; text-align: center; padding: 80px 24px; }
+    #p8 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; color: #852228; }
+    #p8 .v-cta p { color: #666; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p8 .v-cta .v-btn-w { background: #852228; color: #fff; border-radius: 12px; }
+
+    #p8 .v-footer { background: #2c2c2c; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p8 .v-footer strong { color: #e8aab0; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p8 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="padding:100px 0;"><div class="v-hero-content"><p class="v-hero-label">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+
+<!-- ============================================================
+     PATTERN 9: えんじ × ティール — 補色コントラスト
+     ============================================================ -->
+<div class="pattern-section" id="p9">
+  <div class="pattern-divider"><h2>Pattern 9 — Burgundy & Teal</h2><p>えんじ色 × ティール — 補色を使った現代的コントラスト</p></div>
+  <style>
+    #p9 .v-hero { min-height: 100vh; display: flex; align-items: center; background: #fff; position: relative; overflow: hidden; }
+    #p9 .v-hero::before { content:''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #852228 0%, #852228 50%, #1a6b6b 50%, #1a6b6b 100%); opacity: 0.04; pointer-events: none; }
+    #p9 .v-hero-content { color: #1a1a2e; animation: fadeUp 0.8s ease; position: relative; z-index: 1; }
+    #p9 .v-hero-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #1a6b6b; margin-bottom: 16px; display: inline-block; padding: 6px 16px; background: rgba(26,107,107,0.08); border-radius: 4px; }
+    #p9 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4.5vw, 3.2rem); font-weight: 900; line-height: 1.4; margin-bottom: 20px; }
+    #p9 .v-hero h1 em { color: #852228; font-style: normal; }
+    #p9 .v-hero p.desc { font-size: 15px; line-height: 2; color: #4a5568; max-width: 500px; margin-bottom: 32px; }
+    #p9 .v-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    #p9 .v-btn-w { padding: 14px 32px; background: #852228; color: #fff; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p9 .v-btn-w:hover { background: #641a1f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(133,34,40,0.3); }
+    #p9 .v-btn-o { padding: 14px 32px; background: transparent; color: #1a6b6b; border: 2px solid #1a6b6b; border-radius: 8px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; }
+    #p9 .v-btn-o:hover { background: #1a6b6b; color: #fff; }
+    #p9 .v-hero-img img { border-radius: 12px; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #e0f0f0; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 3px solid #1a6b6b; }
+
+    #p9 .v-services { background: #f0f7f7; }
+    #p9 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p9 .v-section-hdr .label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #1a6b6b; }
+    #p9 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #1a1a2e; }
+    #p9 .v-section-hdr .line { width: 48px; height: 3px; background: linear-gradient(90deg, #852228, #1a6b6b); margin: 14px auto; border-radius: 2px; }
+    #p9 .v-section-hdr p { color: #4a5568; font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p9 .v-card { background: #fff; border-radius: 12px; padding: 28px 24px; text-align: center; border: 1px solid #d0e8e8; box-shadow: 0 2px 8px rgba(26,107,107,0.06); transition: all 0.3s; position: relative; overflow: hidden; }
+    #p9 .v-card::before { content:''; position: absolute; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #852228, #1a6b6b); transition: width 0.3s; }
+    #p9 .v-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(26,107,107,0.12); }
+    #p9 .v-card:hover::before { width: 100%; }
+    #p9 .v-card-icon { width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, rgba(133,34,40,0.08), rgba(26,107,107,0.08)); color: #852228; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
+    #p9 .v-card-num { font-size: 10px; font-weight: 700; color: #1a6b6b; letter-spacing: 0.15em; margin-bottom: 8px; display: block; }
+    #p9 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    #p9 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p9 .v-card p.txt { font-size: 13px; color: #4a5568; line-height: 1.8; }
+
+    #p9 .v-stats { background: linear-gradient(135deg, #852228, #1a6b6b); color: #fff; }
+    #p9 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #fff; }
+    #p9 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p9 .v-cta { background: #1a6b6b; color: #fff; text-align: center; padding: 80px 24px; }
+    #p9 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p9 .v-cta p { color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p9 .v-cta .v-btn-w { background: #852228; color: #fff; border-radius: 8px; }
+
+    #p9 .v-footer { background: #0d2e2e; color: rgba(255,255,255,0.5); padding: 48px 24px 24px; font-size: 13px; }
+    #p9 .v-footer strong { color: #e8aab0; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p9 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:80px 0;"><div class="v-hero-content"><p class="v-hero-label">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div><div class="v-hero-img"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='360'%3E%3Crect width='480' height='360' fill='%23e0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='16' fill='%23852228' text-anchor='middle' dy='.3em'%3EConsulting Image%3C/text%3E%3C/svg%3E" alt="コンサルティングイメージ" width="480" height="360"></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ============================================================
+     PATTERN 10: Premium Black & Gold — 黒 × えんじ × 金
+     ============================================================ -->
+<div class="pattern-section" id="p10">
+  <div class="pattern-divider"><h2>Pattern 10 — Premium Black & Gold</h2><p>黒 × えんじ × 金 — 最上級のプレミアム感</p></div>
+  <style>
+    #p10 .v-hero { min-height: 100vh; display: flex; align-items: center; background: #0a0a0a; position: relative; overflow: hidden; }
+    #p10 .v-hero::before { content:''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(133,34,40,0.12) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 70% 70%, rgba(196,154,42,0.08) 0%, transparent 60%); pointer-events: none; }
+    #p10 .v-hero::after { content:''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(196,154,42,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(196,154,42,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+    #p10 .v-hero-content { color: #fff; text-align: center; max-width: 720px; margin: 0 auto; animation: fadeUp 0.8s ease; position: relative; z-index: 1; }
+    #p10 .v-hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #c49a2a; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    #p10 .v-hero-label::before, #p10 .v-hero-label::after { content:''; width: 40px; height: 1px; background: linear-gradient(90deg, transparent, #c49a2a); }
+    #p10 .v-hero-label::after { background: linear-gradient(90deg, #c49a2a, transparent); }
+    #p10 .v-hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.45; margin-bottom: 24px; letter-spacing: 0.06em; }
+    #p10 .v-hero h1 em { color: #c49a2a; font-style: italic; }
+    #p10 .v-hero p.desc { font-size: 1rem; line-height: 2.2; color: rgba(255,255,255,0.6); margin: 0 auto 40px; max-width: 560px; }
+    #p10 .v-hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    #p10 .v-btn-w { padding: 16px 44px; background: linear-gradient(135deg, #c49a2a, #d4af37); color: #0a0a0a; border-radius: 2px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.3s; letter-spacing: 0.08em; }
+    #p10 .v-btn-w:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(196,154,42,0.3); }
+    #p10 .v-btn-o { padding: 16px 44px; background: transparent; color: #c49a2a; border: 1px solid rgba(196,154,42,0.4); border-radius: 2px; font-weight: 500; font-size: 14px; text-decoration: none; transition: all 0.3s; letter-spacing: 0.08em; }
+    #p10 .v-btn-o:hover { border-color: #c49a2a; background: rgba(196,154,42,0.08); }
+    #p10 .v-hero-img { display: none; }
+
+    #p10 .v-services { background: #111; }
+    #p10 .v-section-hdr { text-align: center; margin-bottom: 48px; }
+    #p10 .v-section-hdr .label { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: #c49a2a; }
+    #p10 .v-section-hdr h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #fff; }
+    #p10 .v-section-hdr .line { width: 48px; height: 1px; background: linear-gradient(90deg, transparent, #c49a2a, transparent); margin: 16px auto; }
+    #p10 .v-section-hdr p { color: rgba(255,255,255,0.5); font-size: 14px; max-width: 560px; margin: 0 auto; line-height: 1.9; }
+    #p10 .v-card { background: #1a1a1a; border-radius: 4px; padding: 32px 24px; text-align: center; border: 1px solid rgba(196,154,42,0.15); box-shadow: none; transition: all 0.3s; }
+    #p10 .v-card:hover { border-color: #c49a2a; box-shadow: 0 0 24px rgba(196,154,42,0.1); transform: translateY(-4px); }
+    #p10 .v-card-icon { width: 56px; height: 56px; border-radius: 2px; background: rgba(133,34,40,0.15); color: #852228; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; border: 1px solid rgba(133,34,40,0.2); }
+    #p10 .v-card-num { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #c49a2a; letter-spacing: 0.2em; margin-bottom: 8px; display: block; }
+    #p10 .v-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    #p10 .v-card .sub { font-size: 12px; color: #852228; font-weight: 500; margin-bottom: 12px; }
+    #p10 .v-card p.txt { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+
+    #p10 .v-stats { background: #852228; color: #fff; }
+    #p10 .v-stat-num { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; color: #c49a2a; }
+    #p10 .v-stat-label { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    #p10 .v-cta { background: #0a0a0a; color: #fff; text-align: center; padding: 80px 24px; border-top: 1px solid rgba(196,154,42,0.1); }
+    #p10 .v-cta h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 16px; }
+    #p10 .v-cta p { color: rgba(255,255,255,0.5); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    #p10 .v-cta .v-btn-w { background: linear-gradient(135deg, #c49a2a, #d4af37); color: #0a0a0a; border-radius: 2px; }
+
+    #p10 .v-footer { background: #050505; color: rgba(255,255,255,0.4); padding: 48px 24px 24px; font-size: 13px; }
+    #p10 .v-footer strong { color: #c49a2a; font-family: 'Noto Serif JP', serif; font-size: 15px; display: block; margin-bottom: 12px; }
+    #p10 .v-footer-copy { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid rgba(196,154,42,0.1); font-size: 12px; }
+  </style>
+
+  <section class="v-hero"><div class="v-container"><div class="v-hero-grid" style="padding:120px 0;"><div class="v-hero-content"><p class="v-hero-label">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="desc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。初回相談は無料です。</p><div class="v-hero-btns"><a href="#" class="v-btn-w">無料相談はこちら →</a><a href="#" class="v-btn-o">サービスを見る</a></div></div></div></div></section>
+
+  <section class="v-section v-services"><div class="v-container"><div class="v-section-hdr"><p class="label">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="line"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="v-services-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;"><div class="v-card"><span class="v-card-num">SERVICE 01</span><div class="v-card-icon">📚</div><h3>組織の頭脳を育む</h3><p class="sub">人材育成サービス</p><p class="txt">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 02</span><div class="v-card-icon">🏗️</div><h3>組織の背骨を整える</h3><p class="sub">人事制度構築支援</p><p class="txt">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="v-card"><span class="v-card-num">SERVICE 03</span><div class="v-card-icon">👥</div><h3>組織の筋力を鍛える</h3><p class="sub">組織開発支援</p><p class="txt">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+
+  <section class="v-section v-stats"><div class="v-container"><div class="v-stats-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center;"><div class="v-stat"><div class="v-stat-num">10年以上</div><p class="v-stat-label">の支援実績</p></div><div class="v-stat"><div class="v-stat-num">100社+</div><p class="v-stat-label">導入企業数</p></div><div class="v-stat"><div class="v-stat-num">500名+</div><p class="v-stat-label">研修受講者</p></div><div class="v-stat"><div class="v-stat-num">95%</div><p class="v-stat-label">顧客満足度</p></div></div></div></section>
+
+  <section class="v-cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="v-btn-w">無料相談はこちら →</a></section>
+  <footer class="v-footer"><div class="v-container"><div class="v-footer-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px;"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。</p></div><div><strong style="font-size:13px;">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:13px;">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="v-footer-copy">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+function showPattern(n) {
+  document.querySelectorAll('.pattern-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.pattern-nav a').forEach(a => a.classList.remove('active'));
+  const target = document.getElementById('p' + n);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  const navLinks = document.querySelectorAll('.pattern-nav a');
+  if (navLinks[n - 1]) navLinks[n - 1].classList.add('active');
+}
+</script>
+
+</body>
+</html>
