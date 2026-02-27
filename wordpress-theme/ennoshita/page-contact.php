@@ -19,6 +19,18 @@ if (have_posts()) : the_post();
   <div class="page-content">
     <div class="container">
 
+      <?php
+      $contact_status = isset($_GET['contact']) ? sanitize_text_field($_GET['contact']) : '';
+      if ($contact_status === 'success') : ?>
+        <div class="contact-alert contact-alert--success" role="alert">
+          <p>お問い合わせありがとうございます。内容を確認の上、担当者よりご連絡いたします。</p>
+        </div>
+      <?php elseif ($contact_status === 'error') : ?>
+        <div class="contact-alert contact-alert--error" role="alert">
+          <p>送信に失敗しました。必須項目をご確認の上、もう一度お試しください。</p>
+        </div>
+      <?php endif; ?>
+
       <div class="contact-info__grid reveal">
         <div class="contact-info__item">
           <div class="contact-info__icon" aria-hidden="true">
@@ -38,7 +50,7 @@ if (have_posts()) : the_post();
           else :
             // Contact Form 7 未設定時のフォールバック
           ?>
-            <p style="text-align: center; color: var(--color-text-secondary); margin-bottom: var(--space-xl);">
+            <p class="contact-form__setup-hint">
               お問い合わせフォームを表示するには、WordPress管理画面でこのページの本文に
               Contact Form 7 のショートコードを貼り付けてください。<br>
               例: <code>[contact-form-7 id="xxx" title="お問い合わせ"]</code>
@@ -83,7 +95,7 @@ if (have_posts()) : the_post();
                 <textarea id="contact-message" name="message" rows="6" required></textarea>
               </div>
 
-              <div class="form-group" style="text-align: center;">
+              <div class="form-group form-group--center">
                 <button type="submit" class="btn btn--primary btn--large">
                   送信する
                   <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>

@@ -23,7 +23,7 @@ get_header();
 
   <div class="archive-content">
     <div class="container">
-      <div style="margin-bottom: var(--space-2xl);">
+      <div class="search-results__form">
         <?php get_search_form(); ?>
       </div>
 

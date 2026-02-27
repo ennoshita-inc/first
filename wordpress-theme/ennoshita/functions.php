@@ -424,7 +424,7 @@ function ennoshita_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_setting('ennoshita_hero_description', [
-        'default'           => '株式会社えんのしたは、岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、組織の持続的な成長を支援するコンサルティング会社です。',
+        'default'           => '「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。',
         'sanitize_callback' => 'sanitize_textarea_field',
     ]);
     $wp_customize->add_control('ennoshita_hero_description', [

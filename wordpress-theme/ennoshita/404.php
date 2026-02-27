@@ -13,7 +13,7 @@ get_header();
         お探しのページは移動または削除された可能性があります。<br>
         URLをご確認いただくか、以下のリンクからお探しください。
       </p>
-      <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+      <div class="error-404__buttons">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn--primary">
           トップページへ戻る
         </a>

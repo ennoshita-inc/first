@@ -951,6 +951,14 @@ a.service-card__link:hover { color: var(--color-primary-dark); }
 
 .blog-section__more { text-align: center; margin-top: var(--space-2xl); }
 
+.blog__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  padding: var(--space-3xl) 0;
+}
+
 /* ==========================================================================
    CTA Section
    ========================================================================== */
@@ -1501,6 +1509,37 @@ a.footer__logo:hover { color: #fff; }
 
 .contact-form textarea { min-height: 160px; resize: vertical; }
 
+.contact-form__setup-hint {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.form-group--center { text-align: center; }
+
+/* Contact form alert messages */
+.contact-alert {
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-2xl);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+.contact-alert p { margin: 0; }
+
+.contact-alert--success {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.contact-alert--error {
+  background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-200);
+  color: var(--color-primary-dark);
+}
+
 /* ==========================================================================
    Service Detail Page
    ========================================================================== */
@@ -1690,6 +1729,40 @@ a.footer__logo:hover { color: #fff; }
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.error-404__buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Content None (empty search / no posts)
+   ========================================================================== */
+.content-none {
+  text-align: center;
+  padding: var(--space-4xl) 0;
+}
+
+.content-none__title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.content-none__text {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2xl);
+}
+
+.content-none__search {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.search-results__form {
+  margin-bottom: var(--space-2xl);
 }
 
 /* ==========================================================================

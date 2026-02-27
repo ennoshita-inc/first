@@ -203,7 +203,7 @@ get_header();
         <div class="message__image reveal reveal--left">
           <?php
           $rep_photo = get_theme_mod('ennoshita_representative_photo');
-          $rep_photo_url = $rep_photo ? $rep_photo : get_template_directory_uri() . '/assets/images/representative.jpg';
+          $rep_photo_url = $rep_photo ? $rep_photo : get_template_directory_uri() . '/assets/images/representative.svg';
           ?>
           <img src="<?php echo esc_url($rep_photo_url); ?>"
                alt="代表取締役の写真"
@@ -371,6 +371,10 @@ get_header();
             get_template_part('template-parts/content', 'card');
           endwhile;
           wp_reset_postdata();
+        else :
+        ?>
+          <p class="blog__empty">コラム記事を準備中です。近日公開予定です。</p>
+        <?php
         endif;
         ?>
       </div>
@@ -385,7 +389,7 @@ get_header();
   </section>
 
 
-  <!-- ===== 7. CTA セクション ===== -->
+  <!-- ===== 9. CTA セクション ===== -->
   <section class="cta">
     <div class="container cta__inner reveal">
       <h2 class="cta__title">

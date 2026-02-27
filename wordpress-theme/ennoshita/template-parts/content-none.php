@@ -3,9 +3,9 @@
  * コンテンツが見つからない場合のテンプレート
  */
 ?>
-<div style="text-align: center; padding: var(--space-4xl) 0;">
-  <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-md);">記事が見つかりませんでした</h2>
-  <p style="color: var(--color-text-secondary); margin-bottom: var(--space-2xl);">
+<div class="content-none">
+  <h2 class="content-none__title">記事が見つかりませんでした</h2>
+  <p class="content-none__text">
     <?php if (is_search()) : ?>
       「<?php echo esc_html(get_search_query()); ?>」に一致する記事はありませんでした。<br>別のキーワードでお試しください。
     <?php else : ?>
@@ -14,7 +14,7 @@
   </p>
 
   <?php if (is_search()) : ?>
-    <div style="max-width: 480px; margin: 0 auto;">
+    <div class="content-none__search">
       <?php get_search_form(); ?>
     </div>
   <?php else : ?>
