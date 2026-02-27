@@ -674,3 +674,56 @@ function ennoshita_the_logo($class = 'site-logo') {
     echo '</span>';
     echo '</a>';
 }
+
+
+// ==============================================
+// 15. お問い合わせフォーム処理
+// ==============================================
+function ennoshita_handle_contact_form() {
+    if (!isset($_POST['_wpnonce_contact']) || !wp_verify_nonce($_POST['_wpnonce_contact'], 'ennoshita_contact_nonce')) {
+        wp_die('不正なリクエストです。');
+    }
+
+    $company = sanitize_text_field($_POST['company'] ?? '');
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
+    $phone   = sanitize_text_field($_POST['phone'] ?? '');
+    $subject = sanitize_text_field($_POST['subject'] ?? '');
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+
+    if (empty($company) || empty($name) || empty($email) || empty($subject) || empty($message)) {
+        wp_safe_redirect(add_query_arg('contact', 'error', wp_get_referer()));
+        exit;
+    }
+
+    $admin_email = get_option('admin_email');
+    $site_name   = get_bloginfo('name');
+
+    $mail_subject = "【{$site_name}】お問い合わせ: {$subject}";
+    $mail_body    = "以下のお問い合わせがありました。\n\n"
+                  . "━━━━━━━━━━━━━━━━━━━━━━\n"
+                  . "会社名: {$company}\n"
+                  . "お名前: {$name}\n"
+                  . "メール: {$email}\n"
+                  . "電話番号: {$phone}\n"
+                  . "ご相談内容: {$subject}\n"
+                  . "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                  . "メッセージ:\n{$message}\n";
+
+    $headers = [
+        "From: {$site_name} <{$admin_email}>",
+        "Reply-To: {$name} <{$email}>",
+        "Content-Type: text/plain; charset=UTF-8",
+    ];
+
+    $sent = wp_mail($admin_email, $mail_subject, $mail_body, $headers);
+
+    if ($sent) {
+        wp_safe_redirect(add_query_arg('contact', 'success', wp_get_referer()));
+    } else {
+        wp_safe_redirect(add_query_arg('contact', 'error', wp_get_referer()));
+    }
+    exit;
+}
+add_action('admin_post_nopriv_ennoshita_contact', 'ennoshita_handle_contact_form');
+add_action('admin_post_ennoshita_contact', 'ennoshita_handle_contact_form');

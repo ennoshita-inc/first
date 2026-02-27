@@ -117,7 +117,9 @@ h1, h2, h3, h4, h5, h6 {
 
 img { max-width: 100%; height: auto; display: block; }
 
-a {
+a,
+a:link,
+a:visited {
   color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
@@ -289,7 +291,10 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   gap: var(--space-xl);
 }
 
-.main-nav__link {
+.main-nav__link,
+a.main-nav__link:link,
+a.main-nav__link:visited,
+.main-nav__list a .main-nav__link {
   position: relative;
   font-size: var(--font-size-sm);
   font-weight: 500;
@@ -297,6 +302,11 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   letter-spacing: var(--letter-spacing-wide);
   padding: var(--space-sm) 0;
   transition: color var(--transition-fast);
+}
+
+/* wp_nav_menu wraps link text in span, so target the parent a too */
+.main-nav__list a {
+  color: var(--color-text);
 }
 
 .main-nav__link::after {
@@ -310,10 +320,13 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   transition: width var(--transition-base), left var(--transition-base);
 }
 
-.main-nav__link:hover { color: var(--color-primary); }
+.main-nav__link:hover,
+.main-nav__list a:hover { color: var(--color-primary); }
 .main-nav__link:hover::after { width: 100%; left: 0; }
 
-.main-nav__contact {
+a.main-nav__contact,
+a.main-nav__contact:link,
+a.main-nav__contact:visited {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -608,7 +621,10 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   white-space: nowrap;
 }
 
-.btn--primary {
+a.btn--primary,
+a.btn--primary:link,
+a.btn--primary:visited,
+button.btn--primary {
   background: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
@@ -661,7 +677,9 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   transform: translateY(-2px);
 }
 
-.btn--white {
+a.btn--white,
+a.btn--white:link,
+a.btn--white:visited {
   background: #fff;
   color: var(--color-primary);
   border-color: #fff;
@@ -755,7 +773,9 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   margin-bottom: var(--space-lg);
 }
 
-.service-card__link {
+a.service-card__link,
+a.service-card__link:link,
+a.service-card__link:visited {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -765,7 +785,7 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   letter-spacing: var(--letter-spacing-wide);
 }
 
-.service-card__link:hover { color: var(--color-primary-dark); }
+a.service-card__link:hover { color: var(--color-primary-dark); }
 .service-card__link svg { transition: transform var(--transition-fast); }
 .service-card__link:hover svg { transform: translateX(4px); }
 
@@ -1072,7 +1092,12 @@ a.footer__logo:visited {
 }
 
 a.footer__logo:hover { color: #fff; }
-.footer__logo img { height: 36px; width: auto; }
+.footer__logo img {
+  height: 36px;
+  width: auto;
+  /* 白背景のロゴ画像でもダーク背景に馴染むよう処理 */
+  filter: brightness(0) invert(1);
+}
 
 .footer__description {
   font-size: var(--font-size-sm);
@@ -1364,7 +1389,53 @@ a.footer__logo:hover { color: #fff; }
 }
 
 .page-header__subtitle { font-size: var(--font-size-lg); color: rgba(255,255,255,0.7); }
+
+.page-header__label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-accent-light);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
 .page-content { padding: var(--space-4xl) 0 var(--space-5xl); }
+
+/* Form elements */
+.form-group { margin-bottom: var(--space-lg); }
+.form-group label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+.form-required { color: var(--color-primary); font-weight: 700; }
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  background: var(--color-bg);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.form-group textarea { min-height: 160px; resize: vertical; }
 
 /* ==========================================================================
    Contact Page

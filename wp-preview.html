@@ -128,7 +128,9 @@ h1, h2, h3, h4, h5, h6 {
 
 img { max-width: 100%; height: auto; display: block; }
 
-a {
+a,
+a:link,
+a:visited {
   color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
@@ -300,7 +302,9 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
   gap: var(--space-xl);
 }
 
-.main-nav__link {
+.main-nav__link,
+a.main-nav__link:link,
+a.main-nav__link:visited {
   position: relative;
   font-size: var(--font-size-sm);
   font-weight: 500;
@@ -324,7 +328,9 @@ a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
 .main-nav__link:hover { color: var(--color-primary); }
 .main-nav__link:hover::after { width: 100%; left: 0; }
 
-.main-nav__contact {
+a.main-nav__contact,
+a.main-nav__contact:link,
+a.main-nav__contact:visited {
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -2107,7 +2113,7 @@ a.footer__logo:hover { color: #fff; }
       <ul class="main-nav__list">
         <li><a href="/about/" class="main-nav__link">会社概要</a></li>
         <li><a href="/#services" class="main-nav__link">サービス</a></li>
-        <li><a href="/blog/" class="main-nav__link">コラム</a></li>
+        <li><a href="#blog" class="main-nav__link">コラム</a></li>
         <li><a href="/#process" class="main-nav__link">導入の流れ</a></li>
         <li><a href="/contact/" class="main-nav__contact">お問い合わせ</a></li>
       </ul>
