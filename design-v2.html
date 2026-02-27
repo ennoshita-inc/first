@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザインバリエーション V2 — パターン6ベース 10種 — 株式会社えんのした</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Noto+Serif+JP:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@400;700;900&family=Shippori+Mincho:wght@400;500;600;700;800&family=M+PLUS+1p:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;overflow-x:hidden;background:#f5f5f5}
+
+/* ===== Selector Bar ===== */
+.sel{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(58,15,19,0.97);backdrop-filter:blur(12px);padding:8px 12px;display:flex;align-items:center;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sel::-webkit-scrollbar{height:3px}
+.sel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);border-radius:2px}
+.sel .lb{color:#e8aab0;font-size:11px;font-weight:700;white-space:nowrap;letter-spacing:1px;font-family:'Inter',sans-serif}
+.sel button{padding:5px 12px;border:1.5px solid rgba(232,170,176,0.3);border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .25s;background:transparent;color:#e8aab0;font-family:'Inter',sans-serif}
+.sel button:hover,.sel button.on{background:#852228;color:#fff;border-color:#852228;transform:translateY(-1px);box-shadow:0 4px 12px rgba(133,34,40,0.4)}
+
+.pg{display:none;margin-top:44px}
+.pg.on{display:block}
+
+/* ===== Shared ===== */
+.ctn{max-width:1100px;margin:0 auto;padding:0 24px;width:100%}
+@keyframes fu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@media(max-width:768px){
+  .hg2{grid-template-columns:1fr!important}
+  .sg3{grid-template-columns:1fr!important}
+  .st4{grid-template-columns:repeat(2,1fr)!important}
+  .fg3{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="sel">
+<span class="lb">V2:</span>
+<button class="on" onclick="sw(1)">1.Classic</button>
+<button onclick="sw(2)">2.Split</button>
+<button onclick="sw(3)">3.Diagonal</button>
+<button onclick="sw(4)">4.Minimal</button>
+<button onclick="sw(5)">5.Dark</button>
+<button onclick="sw(6)">6.Organic</button>
+<button onclick="sw(7)">7.Bold</button>
+<button onclick="sw(8)">8.Glass</button>
+<button onclick="sw(9)">9.Warm</button>
+<button onclick="sw(10)">10.Gold</button>
+</nav>
+
+<!-- ===== V2-1: Gradient Classic (Pattern6原型) ===== -->
+<div class="pg on" id="v1">
+<style>
+#v1{--p:#852228;--pd:#641a1f;--pl:#a03038;--acc:#c49a2a;font-family:'Noto Serif JP','Noto Sans JP',serif}
+#v1 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(150deg,#3a0f13 0%,#852228 30%,#a03038 60%,#c0755a 100%);position:relative;overflow:hidden}
+#v1 .hero::before{content:'';position:absolute;bottom:-2px;left:0;right:0;height:100px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23fff' d='M0,40C360,100,720,0,1080,40C1260,60,1380,50,1440,40L1440,100L0,100Z'/%3E%3C/svg%3E") no-repeat bottom/cover;pointer-events:none}
+#v1 .hero .lbl{color:rgba(255,255,255,.6);font-size:12px;font-weight:500;letter-spacing:.25em;margin-bottom:20px;font-family:'Noto Sans JP',sans-serif}
+#v1 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.6rem);font-weight:900;line-height:1.45;margin-bottom:20px}
+#v1 .hero h1 em{background:linear-gradient(90deg,#ffd700,#f5e6dc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic}
+#v1 .hero .dsc{color:rgba(255,255,255,.72);font-size:15px;line-height:2.1;max-width:560px;margin:0 auto 36px;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v1 .hero .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v1 .b1{padding:15px 40px;background:#fff;color:#852228;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+#v1 .b1:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+#v1 .b2{padding:15px 40px;background:rgba(255,255,255,.12);color:#fff;border:none;border-radius:999px;font-weight:500;font-size:14px;text-decoration:none;transition:all .3s;backdrop-filter:blur(8px)}
+#v1 .b2:hover{background:rgba(255,255,255,.22)}
+#v1 .svc{padding:80px 0;background:#fff}
+#v1 .shdr{text-align:center;margin-bottom:48px}
+#v1 .shdr .sl{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--pl);margin-bottom:8px;font-family:'Noto Sans JP',sans-serif}
+#v1 .shdr h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;margin-bottom:12px}
+#v1 .shdr .ln{width:60px;height:3px;background:linear-gradient(90deg,var(--pd),var(--pl),#c0755a);margin:12px auto;border-radius:2px}
+#v1 .shdr p{color:#666;font-size:14px;max-width:520px;margin:0 auto;line-height:1.9;font-family:'Noto Sans JP',sans-serif}
+#v1 .cd{background:linear-gradient(135deg,#fdf2f3,#fff);border-radius:20px;padding:32px 24px;text-align:center;border:1px solid rgba(133,34,40,.06);box-shadow:0 4px 16px rgba(133,34,40,.05);transition:all .3s}
+#v1 .cd:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 16px 40px rgba(133,34,40,.12)}
+#v1 .cd .ic{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:24px;box-shadow:0 4px 12px rgba(133,34,40,.2)}
+#v1 .cd .nm{font-size:10px;font-weight:700;color:var(--pl);letter-spacing:.15em;margin-bottom:6px;display:block;font-family:'Noto Sans JP',sans-serif}
+#v1 .cd h3{font-size:1.15rem;font-weight:700;margin-bottom:4px}
+#v1 .cd .sb{font-size:12px;color:var(--p);font-weight:500;margin-bottom:10px}
+#v1 .cd .tx{font-size:13px;color:#666;line-height:1.8;font-family:'Noto Sans JP',sans-serif}
+#v1 .sts{padding:72px 0;background:linear-gradient(135deg,var(--pd),var(--p),var(--pl));color:#fff}
+#v1 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:#fff}
+#v1 .sl2{font-size:13px;color:rgba(255,255,255,.65);margin-top:6px}
+#v1 .cta{background:linear-gradient(135deg,#3a0f13,var(--p),#c0755a);color:#fff;text-align:center;padding:80px 24px}
+#v1 .cta h2{font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:16px}
+#v1 .cta p{color:rgba(255,255,255,.7);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;font-family:'Noto Sans JP',sans-serif;font-size:14px}
+#v1 .ft{background:#1a0a0c;color:rgba(255,255,255,.5);padding:40px 24px 20px;font-size:12px}
+#v1 .ft strong{color:#e8aab0;font-size:15px;display:block;margin-bottom:10px}
+#v1 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>人・職場・組織を支え、リーダーの心技体を育む。岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成サービス<br>人事制度構築支援<br>組織開発支援</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要<br>コラム<br>お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした All Rights Reserved.</div></div></footer>
+</div>
+
+<!-- ===== V2-2: Gradient Split (左右分割+ゴシック体) ===== -->
+<div class="pg" id="v2">
+<style>
+#v2{font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif}
+#v2 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+@media(max-width:768px){#v2 .hero{grid-template-columns:1fr}}
+#v2 .hero .left{display:flex;align-items:center;padding:80px 48px;background:#fff}
+#v2 .hero .right{background:linear-gradient(160deg,#3a0f13 0%,#852228 40%,#a03038 70%,#c0755a 100%);display:flex;align-items:center;justify-content:center;position:relative}
+#v2 .hero .right::before{content:'心技体';position:absolute;font-family:'Noto Serif JP',serif;font-size:clamp(5rem,12vw,10rem);font-weight:900;color:rgba(255,255,255,.04);writing-mode:vertical-rl;letter-spacing:.4em}
+#v2 .hero .lbl{font-size:11px;font-weight:700;letter-spacing:.2em;color:#852228;margin-bottom:16px;text-transform:uppercase}
+#v2 .hero h1{font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:700;line-height:1.5;margin-bottom:20px;color:#1a1a2e}
+#v2 .hero h1 em{color:#852228;font-style:normal;border-bottom:3px solid #852228}
+#v2 .hero .dsc{font-size:14px;line-height:2;color:#555;margin-bottom:32px;max-width:440px}
+#v2 .btns{display:flex;gap:10px;flex-wrap:wrap}
+#v2 .b1{padding:13px 32px;background:#852228;color:#fff;border-radius:6px;font-weight:700;font-size:13px;text-decoration:none;transition:all .3s}
+#v2 .b1:hover{background:#641a1f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(133,34,40,.3)}
+#v2 .b2{padding:13px 32px;background:transparent;color:#852228;border:2px solid #852228;border-radius:6px;font-weight:600;font-size:13px;text-decoration:none;transition:all .3s}
+#v2 .b2:hover{background:#852228;color:#fff}
+#v2 .svc{padding:80px 0;background:#fafafa}
+#v2 .shdr{text-align:left;margin-bottom:48px}
+#v2 .shdr .sl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#852228;margin-bottom:8px}
+#v2 .shdr h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#1a1a2e}
+#v2 .shdr .ln{width:48px;height:3px;background:linear-gradient(90deg,#852228,#c0755a);margin:14px 0;border-radius:2px}
+#v2 .shdr p{color:#666;font-size:14px;line-height:1.9}
+#v2 .cd{background:#fff;border-radius:0;padding:28px 24px;text-align:left;border-left:4px solid #852228;box-shadow:0 1px 6px rgba(0,0,0,.04);transition:all .3s}
+#v2 .cd:hover{transform:translateX(8px);box-shadow:0 4px 20px rgba(133,34,40,.08);border-left-width:6px}
+#v2 .cd .ic{display:none}
+#v2 .cd .nm{font-size:10px;font-weight:700;color:#a03038;letter-spacing:.18em;margin-bottom:10px;display:block}
+#v2 .cd h3{font-size:1.05rem;font-weight:700;margin-bottom:3px;color:#1a1a2e}
+#v2 .cd .sb{font-size:11px;color:#852228;font-weight:600;margin-bottom:10px}
+#v2 .cd .tx{font-size:13px;color:#666;line-height:1.8}
+#v2 .sts{padding:72px 0;background:linear-gradient(135deg,#641a1f,#852228);color:#fff}
+#v2 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff}
+#v2 .sl2{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px}
+#v2 .cta{background:#fff;color:#1a1a2e;text-align:center;padding:72px 24px}
+#v2 .cta h2{font-size:clamp(1.3rem,3vw,1.8rem);margin-bottom:14px;font-weight:700}
+#v2 .cta p{color:#666;margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto;font-size:14px}
+#v2 .cta .b1{background:#852228;color:#fff;border-radius:6px}
+#v2 .ft{background:#1a1a2e;color:rgba(255,255,255,.5);padding:40px 24px 20px;font-size:12px}
+#v2 .ft strong{color:#e8aab0;font-size:14px;display:block;margin-bottom:10px}
+#v2 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="left"><div><p class="lbl">CONSULTING FOR GROWTH</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">「人が育てば組織が変わる」――岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></div><div class="right"></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span><p>「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px"><div class="cd"><span class="nm">SERVICE 01</span><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-3: Gradient Diagonal (斜めグラデ+大胆タイポ) ===== -->
+<div class="pg" id="v3">
+<style>
+#v3{font-family:'M PLUS 1p','Noto Sans JP',sans-serif}
+#v3 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(45deg,#1a0a0c 0%,#3a0f13 20%,#852228 50%,#b85050 80%,#d4879c 100%);position:relative;overflow:hidden}
+#v3 .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 120px)}
+#v3 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:80px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23f8f5f2' d='M0,0L48,8C96,16,192,32,288,40C384,48,480,48,576,40C672,32,768,16,864,16C960,16,1056,32,1152,40C1248,48,1344,48,1392,48L1440,48L1440,80L0,80Z'/%3E%3C/svg%3E") no-repeat bottom/cover}
+#v3 .hero .lbl{font-size:12px;letter-spacing:.3em;color:rgba(255,255,255,.5);margin-bottom:20px;text-transform:uppercase;font-weight:500}
+#v3 .hero h1{color:#fff;font-size:clamp(2.4rem,6vw,4.5rem);font-weight:800;line-height:1.3;margin-bottom:24px;letter-spacing:-.02em}
+#v3 .hero h1 em{display:block;font-size:.5em;font-style:normal;font-weight:300;letter-spacing:.15em;color:rgba(255,255,255,.6);margin-top:12px}
+#v3 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v3 .b1{padding:16px 44px;background:#fff;color:#852228;border-radius:4px;font-weight:800;font-size:14px;text-decoration:none;transition:all .3s;letter-spacing:.05em}
+#v3 .b1:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+#v3 .b2{padding:16px 44px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:4px;font-weight:500;font-size:14px;text-decoration:none;transition:all .3s}
+#v3 .b2:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+#v3 .svc{padding:80px 0;background:#f8f5f2}
+#v3 .shdr{text-align:center;margin-bottom:56px}
+#v3 .shdr .sl{font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#852228;margin-bottom:8px}
+#v3 .shdr h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#1a1a2e;letter-spacing:-.01em}
+#v3 .shdr .ln{width:80px;height:2px;background:linear-gradient(90deg,transparent,#852228,transparent);margin:16px auto;border-radius:2px}
+#v3 .shdr p{color:#777;font-size:14px;line-height:1.9}
+#v3 .cd{background:#fff;border-radius:16px;padding:36px 28px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.04);transition:all .35s;position:relative;overflow:hidden}
+#v3 .cd::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#852228,#d4879c);transform:scaleX(0);transition:transform .35s;transform-origin:left}
+#v3 .cd:hover{transform:translateY(-10px);box-shadow:0 20px 48px rgba(133,34,40,.1)}
+#v3 .cd:hover::before{transform:scaleX(1)}
+#v3 .cd .ic{width:60px;height:60px;border-radius:12px;background:linear-gradient(45deg,#852228,#b85050);color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:28px;transform:rotate(-5deg)}
+#v3 .cd .nm{font-size:10px;font-weight:800;color:#b85050;letter-spacing:.15em;margin-bottom:8px;display:block}
+#v3 .cd h3{font-size:1.1rem;font-weight:800;margin-bottom:4px;color:#1a1a2e}
+#v3 .cd .sb{font-size:11px;color:#852228;font-weight:600;margin-bottom:10px}
+#v3 .cd .tx{font-size:13px;color:#777;line-height:1.85}
+#v3 .sts{padding:72px 0;background:linear-gradient(45deg,#3a0f13,#852228,#b85050);color:#fff}
+#v3 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#fff}
+#v3 .sl2{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px}
+#v3 .cta{background:#f8f5f2;color:#1a1a2e;text-align:center;padding:80px 24px}
+#v3 .cta h2{font-size:clamp(1.3rem,3vw,1.9rem);margin-bottom:14px;font-weight:800}
+#v3 .cta p{color:#777;margin-bottom:28px;font-size:14px;max-width:480px;margin-left:auto;margin-right:auto}
+#v3 .ft{background:#1a0a0c;color:rgba(255,255,255,.5);padding:40px 24px 20px;font-size:12px}
+#v3 .ft strong{color:#d4879c;font-size:14px;display:block;margin-bottom:10px}
+#v3 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">ENNO SHITA INC.</p><h1>心技体<em>CONSULTING FOR GROWTH — 人・職場・組織を支え、リーダーを育む</em></h1><div class="btns"><a href="#" class="b1">無料相談 →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談 →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-4: Gradient Minimal (繊細グラデ+Inter+極薄カード) ===== -->
+<div class="pg" id="v4">
+<style>
+#v4{font-family:'Inter','Noto Sans JP',sans-serif;color:#2d2d2d}
+#v4 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(180deg,#fff 0%,#fdf2f3 30%,#f5d6d9 70%,#e8aab0 100%);position:relative}
+#v4 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:60px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath fill='%23ffffff' d='M0,30Q360,0,720,30Q1080,60,1440,30L1440,60L0,60Z'/%3E%3C/svg%3E") no-repeat bottom/cover}
+#v4 .hero .lbl{font-size:11px;letter-spacing:.3em;color:#852228;margin-bottom:24px;font-weight:600;text-transform:uppercase}
+#v4 .hero h1{color:#1a1a2e;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;line-height:1.6;margin-bottom:20px;letter-spacing:.02em}
+#v4 .hero h1 strong{font-weight:700;color:#852228}
+#v4 .hero .dsc{font-size:14px;line-height:2;color:#666;margin:0 auto 36px;max-width:500px;font-weight:300}
+#v4 .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#v4 .b1{padding:12px 36px;background:#852228;color:#fff;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;transition:all .3s;letter-spacing:.03em}
+#v4 .b1:hover{background:#641a1f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(133,34,40,.2)}
+#v4 .b2{padding:12px 36px;background:transparent;color:#852228;border:1px solid rgba(133,34,40,.3);border-radius:999px;font-weight:500;font-size:13px;text-decoration:none;transition:all .3s}
+#v4 .b2:hover{border-color:#852228;background:rgba(133,34,40,.04)}
+#v4 .svc{padding:80px 0;background:#fff}
+#v4 .shdr{text-align:center;margin-bottom:56px}
+#v4 .shdr .sl{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#a03038;margin-bottom:10px}
+#v4 .shdr h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:300;color:#1a1a2e;letter-spacing:.02em}
+#v4 .shdr h2 strong{font-weight:700}
+#v4 .shdr .ln{width:1px;height:32px;background:linear-gradient(to bottom,#852228,transparent);margin:16px auto}
+#v4 .shdr p{color:#888;font-size:13px;line-height:1.9;font-weight:300}
+#v4 .cd{background:#fff;border-radius:24px;padding:36px 28px;text-align:center;border:1px solid rgba(0,0,0,.04);transition:all .4s}
+#v4 .cd:hover{box-shadow:0 12px 36px rgba(133,34,40,.06);border-color:rgba(133,34,40,.08)}
+#v4 .cd .ic{width:48px;height:48px;border-radius:50%;background:linear-gradient(180deg,#fdf2f3,#f5d6d9);color:#852228;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+#v4 .cd .nm{font-size:9px;font-weight:600;color:#b85050;letter-spacing:.2em;margin-bottom:8px;display:block;text-transform:uppercase}
+#v4 .cd h3{font-size:1rem;font-weight:600;margin-bottom:4px;color:#1a1a2e}
+#v4 .cd .sb{font-size:11px;color:#a03038;font-weight:400;margin-bottom:10px}
+#v4 .cd .tx{font-size:12.5px;color:#888;line-height:1.85;font-weight:300}
+#v4 .sts{padding:64px 0;background:linear-gradient(180deg,#fff,#fdf2f3,#f5d6d9)}
+#v4 .sn{font-family:'Montserrat','Inter',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:#852228}
+#v4 .sn strong{font-weight:700}
+#v4 .sl2{font-size:12px;color:#999;margin-top:6px;font-weight:300}
+#v4 .cta{background:#fff;text-align:center;padding:72px 24px}
+#v4 .cta h2{font-size:clamp(1.2rem,3vw,1.7rem);font-weight:300;margin-bottom:14px;color:#1a1a2e}
+#v4 .cta h2 strong{font-weight:700}
+#v4 .cta p{color:#888;margin-bottom:28px;font-size:13px;max-width:440px;margin-left:auto;margin-right:auto;font-weight:300}
+#v4 .ft{background:#f8f5f2;color:#999;padding:40px 24px 20px;font-size:12px;font-weight:300}
+#v4 .ft strong{color:#852228;font-size:13px;display:block;margin-bottom:10px;font-weight:600}
+#v4 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(0,0,0,.05);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">ENNO SHITA</p><h1>人・職場・組織を支え、<br>リーダーの<strong>心技体</strong>を育む</h1><p class="dsc">岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で<strong>組織の成長</strong>を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px"><div class="cd"><span class="nm">Service 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">Service 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">Service 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn"><strong>10</strong>年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn"><strong>100</strong>社+</div><p class="sl2">導入企業数</p></div><div><div class="sn"><strong>500</strong>名+</div><p class="sl2">研修受講者</p></div><div><div class="sn"><strong>95</strong>%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、<strong>一緒に解決</strong>しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong>サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong>企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-5: Gradient Dark (ダーク+えんじ→黒) ===== -->
+<div class="pg" id="v5">
+<style>
+#v5{font-family:'Montserrat','Noto Sans JP',sans-serif;color:#e0e0e0}
+#v5 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(160deg,#0d0d0d 0%,#1a0a0c 25%,#3a0f13 50%,#852228 80%,#641a1f 100%);position:relative;overflow:hidden}
+#v5 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 40%,rgba(133,34,40,.15),transparent 60%)}
+#v5 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:80px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%230d0d0d' d='M0,40C480,80,960,0,1440,40L1440,80L0,80Z'/%3E%3C/svg%3E") no-repeat bottom/cover}
+#v5 .hero .lbl{font-size:11px;letter-spacing:.4em;color:rgba(232,170,176,.5);margin-bottom:20px;font-weight:500;text-transform:uppercase}
+#v5 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.4;margin-bottom:20px;letter-spacing:.02em}
+#v5 .hero h1 em{font-style:normal;color:#e8aab0;text-shadow:0 0 40px rgba(232,170,176,.3)}
+#v5 .hero .dsc{font-size:14px;line-height:2;color:rgba(255,255,255,.5);margin:0 auto 36px;max-width:540px;font-weight:300}
+#v5 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v5 .b1{padding:14px 40px;background:linear-gradient(135deg,#852228,#a03038);color:#fff;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;transition:all .3s;letter-spacing:.05em;box-shadow:0 4px 20px rgba(133,34,40,.4)}
+#v5 .b1:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(133,34,40,.5)}
+#v5 .b2{padding:14px 40px;background:transparent;color:#e8aab0;border:1px solid rgba(232,170,176,.25);border-radius:8px;font-weight:500;font-size:13px;text-decoration:none;transition:all .3s}
+#v5 .b2:hover{border-color:#e8aab0;background:rgba(232,170,176,.08)}
+#v5 .svc{padding:80px 0;background:#0d0d0d}
+#v5 .shdr{text-align:center;margin-bottom:48px}
+#v5 .shdr .sl{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#e8aab0;margin-bottom:8px}
+#v5 .shdr h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#fff}
+#v5 .shdr .ln{width:48px;height:2px;background:linear-gradient(90deg,#852228,#e8aab0);margin:14px auto;border-radius:2px}
+#v5 .shdr p{color:rgba(255,255,255,.4);font-size:13px;line-height:1.9;font-weight:300}
+#v5 .cd{background:linear-gradient(135deg,rgba(133,34,40,.08),rgba(255,255,255,.02));border-radius:12px;padding:32px 24px;text-align:center;border:1px solid rgba(232,170,176,.08);backdrop-filter:blur(4px);transition:all .35s}
+#v5 .cd:hover{transform:translateY(-6px);border-color:rgba(232,170,176,.2);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+#v5 .cd .ic{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#852228,#3a0f13);color:#e8aab0;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:24px;border:1px solid rgba(232,170,176,.1)}
+#v5 .cd .nm{font-size:9px;font-weight:700;color:#e8aab0;letter-spacing:.2em;margin-bottom:8px;display:block}
+#v5 .cd h3{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:4px}
+#v5 .cd .sb{font-size:11px;color:#d4879c;font-weight:500;margin-bottom:10px}
+#v5 .cd .tx{font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.85;font-weight:300;font-family:'Noto Sans JP',sans-serif}
+#v5 .sts{padding:72px 0;background:linear-gradient(135deg,#1a0a0c,#3a0f13)}
+#v5 .sn{font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#e8aab0}
+#v5 .sl2{font-size:12px;color:rgba(255,255,255,.35);margin-top:6px}
+#v5 .cta{background:#0d0d0d;text-align:center;padding:72px 24px;border-top:1px solid rgba(232,170,176,.06)}
+#v5 .cta h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;color:#fff;margin-bottom:14px}
+#v5 .cta p{color:rgba(255,255,255,.4);margin-bottom:28px;font-size:13px;max-width:440px;margin-left:auto;margin-right:auto;font-weight:300}
+#v5 .ft{background:#060606;color:rgba(255,255,255,.3);padding:40px 24px 20px;font-size:12px}
+#v5 .ft strong{color:#e8aab0;font-size:13px;display:block;margin-bottom:10px}
+#v5 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">ENNO SHITA INC.</p><h1>リーダーの<em>心技体</em>を育み、<br>組織の未来を切り拓く</h1><p class="dsc">岡山を拠点に、人材育成・人事制度構築・組織開発で100社以上の組織変革を支援。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong>サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong>企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-6: Gradient Organic (有機的曲線+えんじ→ローズ+丸み) ===== -->
+<div class="pg" id="v6">
+<style>
+#v6{font-family:'Shippori Mincho','Noto Sans JP',serif}
+#v6 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 160px;background:linear-gradient(135deg,#852228 0%,#a03038 25%,#c4606a 50%,#d4879c 75%,#f0c4cc 100%);position:relative;overflow:hidden}
+#v6 .hero::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);top:-100px;right:-100px}
+#v6 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23fffaf8' d='M0,60C240,120,480,20,720,60C960,100,1200,20,1440,60L1440,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom/cover}
+#v6 .hero .lbl{font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.6);margin-bottom:20px;font-family:'Noto Sans JP',sans-serif;font-weight:400}
+#v6 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;line-height:1.55;margin-bottom:24px}
+#v6 .hero h1 em{font-style:italic;position:relative}
+#v6 .hero h1 em::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:8px;background:rgba(255,255,255,.2);border-radius:4px;z-index:-1}
+#v6 .hero .dsc{font-size:15px;line-height:2.1;color:rgba(255,255,255,.7);margin:0 auto 36px;max-width:520px;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v6 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v6 .b1{padding:14px 40px;background:#fff;color:#852228;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;font-family:'Noto Sans JP',sans-serif}
+#v6 .b1:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 36px rgba(0,0,0,.15)}
+#v6 .b2{padding:14px 40px;background:rgba(255,255,255,.15);color:#fff;border-radius:999px;font-weight:500;font-size:14px;text-decoration:none;transition:all .3s;font-family:'Noto Sans JP',sans-serif;backdrop-filter:blur(6px)}
+#v6 .b2:hover{background:rgba(255,255,255,.25)}
+#v6 .svc{padding:80px 0;background:#fffaf8}
+#v6 .shdr{text-align:center;margin-bottom:56px}
+#v6 .shdr .sl{font-size:11px;font-weight:500;letter-spacing:.2em;color:#c4606a;margin-bottom:8px;font-family:'Noto Sans JP',sans-serif}
+#v6 .shdr h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#3a0f13}
+#v6 .shdr .ln{width:60px;height:2px;background:linear-gradient(90deg,#d4879c,#852228,#d4879c);margin:16px auto;border-radius:1px}
+#v6 .shdr p{color:#888;font-size:14px;line-height:1.9;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v6 .cd{background:#fff;border-radius:32px;padding:36px 28px;text-align:center;box-shadow:0 4px 20px rgba(133,34,40,.04);transition:all .4s;position:relative;overflow:hidden}
+#v6 .cd::before{content:'';position:absolute;inset:0;border-radius:32px;padding:2px;background:linear-gradient(135deg,#f0c4cc,transparent,#d4879c);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+#v6 .cd:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 20px 48px rgba(133,34,40,.08)}
+#v6 .cd:hover::before{opacity:1}
+#v6 .cd .ic{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f0c4cc,#d4879c);color:#852228;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:28px}
+#v6 .cd .nm{font-size:10px;font-weight:500;color:#c4606a;letter-spacing:.15em;margin-bottom:8px;display:block;font-family:'Noto Sans JP',sans-serif}
+#v6 .cd h3{font-size:1.15rem;font-weight:700;margin-bottom:4px;color:#3a0f13}
+#v6 .cd .sb{font-size:11px;color:#a03038;margin-bottom:10px;font-family:'Noto Sans JP',sans-serif}
+#v6 .cd .tx{font-size:13px;color:#888;line-height:1.85;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v6 .sts{padding:72px 0;background:linear-gradient(135deg,#852228,#c4606a,#d4879c);color:#fff}
+#v6 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#fff}
+#v6 .sl2{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;font-family:'Noto Sans JP',sans-serif}
+#v6 .cta{background:linear-gradient(180deg,#fffaf8,#fdf2f3);text-align:center;padding:80px 24px}
+#v6 .cta h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:700;color:#3a0f13;margin-bottom:14px}
+#v6 .cta p{color:#888;margin-bottom:28px;font-size:14px;max-width:480px;margin-left:auto;margin-right:auto;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v6 .ft{background:#3a0f13;color:rgba(255,255,255,.5);padding:40px 24px 20px;font-size:12px;font-family:'Noto Sans JP',sans-serif}
+#v6 .ft strong{color:#f0c4cc;font-size:14px;display:block;margin-bottom:10px}
+#v6 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">株式会社えんのした</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">「人が育てば組織が変わる」——岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。お気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-7: Gradient Bold (大胆+太字+角ばったカード) ===== -->
+<div class="pg" id="v7">
+<style>
+#v7{font-family:'Noto Sans JP',sans-serif}
+#v7 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:left;padding:100px 24px;background:linear-gradient(135deg,#852228 0%,#641a1f 40%,#3a0f13 100%);position:relative;overflow:hidden}
+#v7 .hero::before{content:'えんのした';position:absolute;right:-5%;top:50%;transform:translateY(-50%);font-size:clamp(6rem,15vw,14rem);font-weight:900;color:rgba(255,255,255,.025);letter-spacing:-.05em;white-space:nowrap}
+#v7 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#852228,#c49a2a,#852228)}
+#v7 .hero .lbl{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.15em;color:#fff;padding:6px 16px;background:rgba(255,255,255,.1);margin-bottom:20px;text-transform:uppercase}
+#v7 .hero h1{color:#fff;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.3;margin-bottom:20px}
+#v7 .hero h1 em{font-style:normal;color:#c49a2a}
+#v7 .hero .dsc{font-size:14px;line-height:2;color:rgba(255,255,255,.55);margin-bottom:36px;max-width:520px;font-weight:300}
+#v7 .btns{display:flex;gap:12px;flex-wrap:wrap}
+#v7 .b1{padding:16px 44px;background:#c49a2a;color:#3a0f13;border-radius:0;font-weight:800;font-size:14px;text-decoration:none;transition:all .3s;letter-spacing:.05em}
+#v7 .b1:hover{background:#d4aa3a;transform:translateY(-3px);box-shadow:0 8px 24px rgba(196,154,42,.4)}
+#v7 .b2{padding:16px 44px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.3);border-radius:0;font-weight:600;font-size:14px;text-decoration:none;transition:all .3s}
+#v7 .b2:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+#v7 .svc{padding:80px 0;background:#f5f3f0}
+#v7 .shdr{text-align:left;margin-bottom:48px}
+#v7 .shdr .sl{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#852228;margin-bottom:8px}
+#v7 .shdr h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;color:#1a1a2e}
+#v7 .shdr .ln{width:48px;height:4px;background:#852228;margin:14px 0}
+#v7 .cd{background:#fff;border-radius:0;padding:32px 24px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .3s;border-bottom:4px solid transparent}
+#v7 .cd:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(0,0,0,.08);border-bottom-color:#852228}
+#v7 .cd .ic{width:56px;height:56px;border-radius:0;background:#852228;color:#fff;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:24px}
+#v7 .cd .nm{font-size:10px;font-weight:800;color:#852228;letter-spacing:.15em;margin-bottom:8px;display:block}
+#v7 .cd h3{font-size:1.15rem;font-weight:800;margin-bottom:4px;color:#1a1a2e}
+#v7 .cd .sb{font-size:11px;color:#a03038;font-weight:600;margin-bottom:10px}
+#v7 .cd .tx{font-size:13px;color:#666;line-height:1.85;font-weight:400}
+#v7 .sts{padding:72px 0;background:#852228;color:#fff}
+#v7 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(2.2rem,5vw,3.2rem);font-weight:900;color:#fff}
+#v7 .sl2{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px}
+#v7 .cta{background:#3a0f13;color:#fff;text-align:center;padding:80px 24px}
+#v7 .cta h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;margin-bottom:14px}
+#v7 .cta p{color:rgba(255,255,255,.5);margin-bottom:28px;font-size:14px;max-width:460px;margin-left:auto;margin-right:auto;font-weight:300}
+#v7 .ft{background:#1a0a0c;color:rgba(255,255,255,.4);padding:40px 24px 20px;font-size:12px}
+#v7 .ft strong{color:#c49a2a;font-size:14px;display:block;margin-bottom:10px}
+#v7 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="max-width:800px;position:relative;z-index:1"><p class="lbl">CONSULTING FOR GROWTH</p><h1>心技体<em>。</em><br>リーダーを育て、<br>組織を変える。</h1><p class="dsc">「人が育てば組織が変わる」——岡山を拠点に、100社以上の組織変革を支援。</p><div class="btns"><a href="#" class="b1">無料相談 →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織を変える</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談 →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-8: Gradient Glass (フロストガラス+多層グラデ) ===== -->
+<div class="pg" id="v8">
+<style>
+#v8{font-family:'Inter','Noto Sans JP',sans-serif}
+#v8 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(135deg,#3a0f13 0%,#641a1f 30%,#852228 60%,#a04848 100%);position:relative;overflow:hidden}
+#v8 .hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(196,154,42,.12),transparent 70%);top:-100px;left:-100px}
+#v8 .hero::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,135,156,.1),transparent 70%);bottom:-80px;right:-80px}
+#v8 .hero .glass{background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:56px 48px;max-width:640px;margin:0 auto}
+#v8 .hero .lbl{font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.5);margin-bottom:20px;font-weight:500;text-transform:uppercase}
+#v8 .hero h1{color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.5;margin-bottom:20px}
+#v8 .hero h1 em{font-style:normal;background:linear-gradient(135deg,#f0c4cc,#c49a2a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#v8 .hero .dsc{font-size:14px;line-height:2;color:rgba(255,255,255,.55);margin-bottom:32px;font-weight:300}
+#v8 .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#v8 .b1{padding:13px 36px;background:rgba(255,255,255,.95);color:#852228;border-radius:12px;font-weight:700;font-size:13px;text-decoration:none;transition:all .3s}
+#v8 .b1:hover{background:#fff;transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+#v8 .b2{padding:13px 36px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:12px;font-weight:500;font-size:13px;text-decoration:none;transition:all .3s;backdrop-filter:blur(8px)}
+#v8 .b2:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25)}
+#v8 .svc{padding:80px 0;background:#f9f7f5}
+#v8 .shdr{text-align:center;margin-bottom:56px}
+#v8 .shdr .sl{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#a03038;margin-bottom:8px}
+#v8 .shdr h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#1a1a2e}
+#v8 .shdr .ln{width:48px;height:2px;background:linear-gradient(90deg,#852228,#d4879c);margin:14px auto;border-radius:2px}
+#v8 .cd{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:20px;padding:32px 24px;text-align:center;border:1px solid rgba(133,34,40,.06);transition:all .35s}
+#v8 .cd:hover{transform:translateY(-8px);background:rgba(255,255,255,.9);box-shadow:0 16px 40px rgba(133,34,40,.08)}
+#v8 .cd .ic{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(133,34,40,.08),rgba(212,135,156,.12));color:#852228;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:24px;border:1px solid rgba(133,34,40,.08)}
+#v8 .cd .nm{font-size:9px;font-weight:600;color:#a03038;letter-spacing:.2em;margin-bottom:8px;display:block}
+#v8 .cd h3{font-size:1.05rem;font-weight:700;margin-bottom:4px;color:#1a1a2e}
+#v8 .cd .sb{font-size:11px;color:#852228;font-weight:500;margin-bottom:10px}
+#v8 .cd .tx{font-size:12.5px;color:#777;line-height:1.85;font-weight:300;font-family:'Noto Sans JP',sans-serif}
+#v8 .sts{padding:72px 0;background:linear-gradient(135deg,#852228,#a04848);color:#fff;position:relative}
+#v8 .sts::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.03);backdrop-filter:blur(1px)}
+#v8 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:#fff;position:relative;z-index:1}
+#v8 .sl2{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;position:relative;z-index:1}
+#v8 .cta{background:#f9f7f5;text-align:center;padding:72px 24px}
+#v8 .cta h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;color:#1a1a2e;margin-bottom:14px}
+#v8 .cta p{color:#888;margin-bottom:28px;font-size:13px;max-width:440px;margin-left:auto;margin-right:auto;font-weight:300}
+#v8 .ft{background:#2a1012;color:rgba(255,255,255,.4);padding:40px 24px 20px;font-size:12px}
+#v8 .ft strong{color:#e8aab0;font-size:13px;display:block;margin-bottom:10px}
+#v8 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.05);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><div class="glass"><p class="lbl">ENNO SHITA INC.</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">岡山を拠点に、人材育成・人事制度構築・組織開発で100社以上の組織変革を支援。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong>サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong>企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-9: Gradient Warm (えんじ→暖色+セリフ体+やわらかい) ===== -->
+<div class="pg" id="v9">
+<style>
+#v9{font-family:'Zen Old Mincho','Noto Serif JP',serif}
+#v9 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(135deg,#852228 0%,#a04838 30%,#c07050 60%,#d4a070 85%,#e8c8a0 100%);position:relative;overflow:hidden}
+#v9 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:100px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23faf6f1' d='M0,50C320,100,640,0,960,50C1120,75,1280,40,1440,50L1440,100L0,100Z'/%3E%3C/svg%3E") no-repeat bottom/cover}
+#v9 .hero .lbl{font-size:13px;letter-spacing:.15em;color:rgba(255,255,255,.5);margin-bottom:24px;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v9 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1.55;margin-bottom:24px}
+#v9 .hero h1 em{font-style:italic;color:#fce8c0}
+#v9 .hero .dsc{font-size:15px;line-height:2.2;color:rgba(255,255,255,.65);margin:0 auto 36px;max-width:540px;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v9 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v9 .b1{padding:14px 40px;background:#fff;color:#852228;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;font-family:'Noto Sans JP',sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+#v9 .b1:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.15)}
+#v9 .b2{padding:14px 40px;background:rgba(255,255,255,.12);color:#fff;border-radius:999px;font-weight:400;font-size:14px;text-decoration:none;transition:all .3s;backdrop-filter:blur(6px)}
+#v9 .b2:hover{background:rgba(255,255,255,.22)}
+#v9 .svc{padding:80px 0;background:#faf6f1}
+#v9 .shdr{text-align:center;margin-bottom:56px}
+#v9 .shdr .sl{font-size:11px;letter-spacing:.2em;color:#a04838;margin-bottom:8px;font-family:'Noto Sans JP',sans-serif;font-weight:400}
+#v9 .shdr h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#3a1a10}
+#v9 .shdr .ln{width:48px;height:2px;background:linear-gradient(90deg,#852228,#d4a070);margin:16px auto;border-radius:2px}
+#v9 .shdr p{color:#888;font-size:14px;line-height:1.9;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v9 .cd{background:#fff;border-radius:20px;padding:36px 28px;text-align:center;box-shadow:0 2px 12px rgba(133,34,40,.03);transition:all .4s;border:1px solid rgba(212,160,112,.1)}
+#v9 .cd:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(133,34,40,.06);border-color:rgba(212,160,112,.2)}
+#v9 .cd .ic{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#fce8c0,#e8c8a0);color:#852228;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:24px}
+#v9 .cd .nm{font-size:10px;font-weight:500;color:#a04838;letter-spacing:.15em;margin-bottom:8px;display:block;font-family:'Noto Sans JP',sans-serif}
+#v9 .cd h3{font-size:1.15rem;font-weight:700;margin-bottom:4px;color:#3a1a10}
+#v9 .cd .sb{font-size:11px;color:#852228;margin-bottom:10px;font-family:'Noto Sans JP',sans-serif}
+#v9 .cd .tx{font-size:13px;color:#888;line-height:1.85;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v9 .sts{padding:72px 0;background:linear-gradient(135deg,#852228,#a04838,#c07050);color:#fff}
+#v9 .sn{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:#fff}
+#v9 .sl2{font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;font-family:'Noto Sans JP',sans-serif}
+#v9 .cta{background:linear-gradient(180deg,#faf6f1,#f5ede4);text-align:center;padding:80px 24px}
+#v9 .cta h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:700;color:#3a1a10;margin-bottom:14px}
+#v9 .cta p{color:#888;margin-bottom:28px;font-size:14px;max-width:480px;margin-left:auto;margin-right:auto;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v9 .ft{background:#2a1510;color:rgba(255,255,255,.45);padding:40px 24px 20px;font-size:12px;font-family:'Noto Sans JP',sans-serif}
+#v9 .ft strong{color:#e8c8a0;font-size:14px;display:block;margin-bottom:10px}
+#v9 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">— 株式会社えんのした —</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">「人が育てば組織が変わる」——温かみのある支援で、100社以上の企業様の組織変革に寄り添ってきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">Services</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px"><div class="cd"><span class="nm">SERVICE 01</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE 02</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE 03</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10年以上</div><p class="sl2">の支援実績</p></div><div><div class="sn">100社+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500名+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<!-- ===== V2-10: Gradient Gold (えんじ→金+高級感+細ライン) ===== -->
+<div class="pg" id="v10">
+<style>
+#v10{font-family:'Playfair Display','Noto Serif JP',serif}
+#v10 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 140px;background:linear-gradient(160deg,#1a0a0c 0%,#3a0f13 25%,#852228 55%,#8a3a2a 75%,#a07040 100%);position:relative;overflow:hidden}
+#v10 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(196,154,42,.06),transparent 70%)}
+#v10 .hero::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c49a2a,transparent)}
+#v10 .hero .lbl{font-size:11px;letter-spacing:.4em;color:#c49a2a;margin-bottom:24px;font-family:'Montserrat',sans-serif;font-weight:500}
+#v10 .hero .lbl::before,#v10 .hero .lbl::after{content:'—';margin:0 12px;opacity:.4}
+#v10 .hero h1{color:#fff;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;line-height:1.5;margin-bottom:24px}
+#v10 .hero h1 em{font-style:italic;color:#c49a2a}
+#v10 .hero .dsc{font-size:14px;line-height:2.1;color:rgba(255,255,255,.5);margin:0 auto 36px;max-width:540px;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v10 .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+#v10 .b1{padding:14px 44px;background:linear-gradient(135deg,#c49a2a,#d4aa3a);color:#1a0a0c;border-radius:2px;font-weight:700;font-size:13px;text-decoration:none;transition:all .3s;font-family:'Montserrat',sans-serif;letter-spacing:.08em}
+#v10 .b1:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(196,154,42,.35)}
+#v10 .b2{padding:14px 44px;background:transparent;color:#c49a2a;border:1px solid rgba(196,154,42,.3);border-radius:2px;font-weight:500;font-size:13px;text-decoration:none;transition:all .3s;font-family:'Montserrat',sans-serif}
+#v10 .b2:hover{border-color:#c49a2a;background:rgba(196,154,42,.06)}
+#v10 .svc{padding:80px 0;background:#faf8f5;position:relative}
+#v10 .svc::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:48px;background:linear-gradient(to bottom,#c49a2a,transparent)}
+#v10 .shdr{text-align:center;margin-bottom:56px;padding-top:24px}
+#v10 .shdr .sl{font-size:10px;font-weight:500;letter-spacing:.4em;color:#c49a2a;margin-bottom:10px;font-family:'Montserrat',sans-serif}
+#v10 .shdr h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:#1a0a0c}
+#v10 .shdr .ln{width:80px;height:1px;background:linear-gradient(90deg,transparent,#c49a2a,transparent);margin:16px auto}
+#v10 .shdr p{color:#999;font-size:13px;line-height:1.9;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v10 .cd{background:#fff;border-radius:4px;padding:36px 28px;text-align:center;border:1px solid rgba(196,154,42,.08);transition:all .4s;position:relative}
+#v10 .cd::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50);width:0;height:2px;background:linear-gradient(90deg,#852228,#c49a2a);transition:width .4s}
+#v10 .cd:hover{transform:translateY(-8px);box-shadow:0 16px 40px rgba(0,0,0,.05)}
+#v10 .cd:hover::after{width:60%}
+#v10 .cd .ic{width:52px;height:52px;border-radius:50%;background:transparent;color:#c49a2a;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:28px;border:1px solid rgba(196,154,42,.2)}
+#v10 .cd .nm{font-size:9px;font-weight:500;color:#c49a2a;letter-spacing:.25em;margin-bottom:8px;display:block;font-family:'Montserrat',sans-serif}
+#v10 .cd h3{font-size:1.1rem;font-weight:700;margin-bottom:4px;color:#1a0a0c}
+#v10 .cd .sb{font-size:11px;color:#852228;margin-bottom:10px;font-family:'Noto Sans JP',sans-serif}
+#v10 .cd .tx{font-size:12.5px;color:#999;line-height:1.85;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v10 .sts{padding:72px 0;background:linear-gradient(135deg,#1a0a0c,#3a0f13,#852228);color:#fff;position:relative}
+#v10 .sts::before,#v10 .sts::after{content:'';position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#c49a2a,transparent)}
+#v10 .sts::before{top:0}
+#v10 .sts::after{bottom:0}
+#v10 .sn{font-family:'Playfair Display','Montserrat',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#c49a2a}
+#v10 .sl2{font-size:12px;color:rgba(255,255,255,.4);margin-top:6px;font-family:'Noto Sans JP',sans-serif}
+#v10 .cta{background:#faf8f5;text-align:center;padding:80px 24px;position:relative}
+#v10 .cta::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:48px;background:linear-gradient(to bottom,#c49a2a,transparent)}
+#v10 .cta h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:700;color:#1a0a0c;margin-bottom:14px;padding-top:24px}
+#v10 .cta p{color:#999;margin-bottom:28px;font-size:13px;max-width:480px;margin-left:auto;margin-right:auto;font-family:'Noto Sans JP',sans-serif;font-weight:300}
+#v10 .ft{background:#0d0608;color:rgba(255,255,255,.35);padding:40px 24px 20px;font-size:12px;font-family:'Noto Sans JP',sans-serif;border-top:1px solid rgba(196,154,42,.15)}
+#v10 .ft strong{color:#c49a2a;font-size:14px;display:block;margin-bottom:10px;font-family:'Playfair Display',serif}
+#v10 .ftc{text-align:center;margin-top:24px;padding-top:12px;border-top:1px solid rgba(255,255,255,.04);font-size:11px}
+</style>
+<section class="hero"><div class="ctn" style="position:relative;z-index:1"><p class="lbl">ENNO SHITA</p><h1>人・職場・組織を支え、<br>リーダーの<em>心技体</em>を育む</h1><p class="dsc">「人が育てば組織が変わる」——岡山を拠点に、100社以上の企業様の組織変革を支援してきました。</p><div class="btns"><a href="#" class="b1">無料相談はこちら →</a><a href="#" class="b2">サービスを見る</a></div></div></section>
+<section class="svc"><div class="ctn"><div class="shdr"><p class="sl">SERVICES</p><h2>3つの支援で組織の成長を実現</h2><span class="ln"></span></div><div class="sg3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px"><div class="cd"><span class="nm">SERVICE I</span><div class="ic">&#x1F4DA;</div><h3>組織の頭脳を育む</h3><p class="sb">人材育成サービス</p><p class="tx">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p></div><div class="cd"><span class="nm">SERVICE II</span><div class="ic">&#x1F3D7;</div><h3>組織の背骨を整える</h3><p class="sb">人事制度構築支援</p><p class="tx">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p></div><div class="cd"><span class="nm">SERVICE III</span><div class="ic">&#x1F465;</div><h3>組織の筋力を鍛える</h3><p class="sb">組織開発支援</p><p class="tx">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p></div></div></div></section>
+<section class="sts"><div class="ctn"><div class="st4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center"><div><div class="sn">10+</div><p class="sl2">年の支援実績</p></div><div><div class="sn">100+</div><p class="sl2">導入企業数</p></div><div><div class="sn">500+</div><p class="sl2">研修受講者</p></div><div><div class="sn">95%</div><p class="sl2">顧客満足度</p></div></div></div></section>
+<section class="cta"><h2>組織の課題、一緒に解決しませんか？</h2><p>初回のご相談は無料です。まずはお気軽にお問い合わせください。</p><a href="#" class="b1">無料相談はこちら →</a></section>
+<footer class="ft"><div class="ctn"><div class="fg3" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px"><div><strong>株式会社えんのした</strong><p>岡山を拠点とした人材育成・組織開発コンサルティング。</p></div><div><strong style="font-size:12px">サービス</strong><p>人材育成 / 人事制度 / 組織開発</p></div><div><strong style="font-size:12px">企業情報</strong><p>会社概要 / コラム / お問い合わせ</p></div></div><div class="ftc">© 2012-2026 株式会社えんのした</div></div></footer>
+</div>
+
+<script>
+function sw(n){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.sel button').forEach(b=>b.classList.remove('on'));
+  document.getElementById('v'+n).classList.add('on');
+  document.querySelectorAll('.sel button')[n-1].classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
