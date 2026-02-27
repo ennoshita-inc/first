@@ -28,11 +28,18 @@ get_header();
         <h1 class="hero__title">
           <?php
           $hero_title = get_theme_mod('ennoshita_hero_title', "人・職場・組織を支え、\nリーダーの心技体を育む");
-          echo nl2br(esc_html($hero_title));
+          $hero_html = nl2br(esc_html($hero_title));
+          // 「心技体」にゴールドグラデーションを適用
+          $hero_html = str_replace(
+            esc_html('心技体'),
+            '<em class="hero__title-accent">心技体</em>',
+            $hero_html
+          );
+          echo $hero_html;
           ?>
         </h1>
         <p class="hero__description">
-          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '株式会社えんのしたは、岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、組織の持続的な成長を支援するコンサルティング会社です。')); ?>
+          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。')); ?>
         </p>
         <div class="hero__buttons">
           <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">
@@ -44,20 +51,6 @@ get_header();
           </a>
         </div>
       </div>
-
-      <div class="hero__image">
-        <?php
-        $hero_image = get_theme_mod('ennoshita_hero_image');
-        if ($hero_image) : ?>
-          <img src="<?php echo esc_url($hero_image); ?>"
-               alt="チームで会議をしているビジネスパーソン"
-               width="480" height="360" fetchpriority="high">
-        <?php else : ?>
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/hero.jpg"
-               alt="チームで会議をしているビジネスパーソン"
-               width="480" height="360" fetchpriority="high">
-        <?php endif; ?>
-      </div>
     </div>
 
     <div class="hero__scroll" aria-hidden="true">
@@ -68,7 +61,7 @@ get_header();
 
 
   <!-- ===== 2. サービス紹介 ===== -->
-  <section class="section section--gray" id="services" aria-labelledby="services-title">
+  <section class="section" id="services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Services</p>

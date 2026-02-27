@@ -1,6 +1,6 @@
 <?php
 /**
- * 株式会社えんのした WordPress テーマ functions.php v3.0
+ * 株式会社えんのした WordPress テーマ functions.php v4.0
  *
  * 全16改善項目に対応:
  * #1  タイトルタグ最適化
@@ -71,7 +71,7 @@ function ennoshita_enqueue_assets() {
     // Google Fonts (font-display: swap)
     wp_enqueue_style(
         'ennoshita-fonts',
-        'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap',
         [],
         null
     );
