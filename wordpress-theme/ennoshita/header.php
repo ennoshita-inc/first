@@ -43,7 +43,7 @@
           <li><a href="<?php echo esc_url(home_url('/about/')); ?>" class="main-nav__link">会社概要</a></li>
           <li><a href="<?php echo esc_url(home_url('/#services')); ?>" class="main-nav__link">サービス</a></li>
           <li><a href="<?php echo esc_url(home_url('/blog/')); ?>" class="main-nav__link">コラム</a></li>
-          <li><a href="<?php echo esc_url(home_url('/flow/')); ?>" class="main-nav__link">導入の流れ</a></li>
+          <li><a href="<?php echo esc_url(home_url('/#process')); ?>" class="main-nav__link">導入の流れ</a></li>
           <li><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="main-nav__contact">お問い合わせ</a></li>
         </ul>
       <?php endif; ?>

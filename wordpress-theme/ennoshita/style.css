@@ -248,7 +248,9 @@ ul, ol { list-style: none; }
   height: var(--header-height);
 }
 
-.site-logo {
+a.site-logo,
+a.site-logo:link,
+a.site-logo:visited {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -259,7 +261,7 @@ ul, ol { list-style: none; }
   transition: opacity var(--transition-fast);
 }
 
-.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
+a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
 
 .site-logo__combined { height: 44px; width: auto; }
 .site-logo__symbol { height: 40px; width: auto; flex-shrink: 0; }
@@ -1055,7 +1057,9 @@ ul, ol { list-style: none; }
 
 .footer__brand { max-width: 300px; }
 
-.footer__logo {
+a.footer__logo,
+a.footer__logo:link,
+a.footer__logo:visited {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -1067,7 +1071,7 @@ ul, ol { list-style: none; }
   letter-spacing: 0.04em;
 }
 
-.footer__logo:hover { color: #fff; }
+a.footer__logo:hover { color: #fff; }
 .footer__logo img { height: 36px; width: auto; }
 
 .footer__description {
@@ -1367,9 +1371,12 @@ ul, ol { list-style: none; }
    ========================================================================== */
 .contact-info__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--space-xl);
   margin-bottom: var(--space-3xl);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-info__item {
@@ -1422,6 +1429,141 @@ ul, ol { list-style: none; }
 }
 
 .contact-form textarea { min-height: 160px; resize: vertical; }
+
+/* ==========================================================================
+   Service Detail Page
+   ========================================================================== */
+.service-detail {
+  padding: var(--space-4xl) 0;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.service-detail__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+.service-detail__header {
+  margin-bottom: var(--space-xl);
+}
+
+.service-detail__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-primary);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.service-detail__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.service-detail__subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+.service-detail__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.service-detail__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-xl) 0;
+}
+
+.service-detail__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.service-detail__feature:last-child {
+  border-bottom: none;
+}
+
+.service-detail__feature-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.service-detail__feature-text h4 {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.service-detail__feature-text p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.service-detail__programs {
+  background: var(--color-bg-section);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.service-detail__programs h3 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  color: var(--color-text);
+}
+
+.service-detail__program-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.service-detail__program-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) 0;
+}
+
+.service-detail__program-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.service-detail__cta {
+  margin-top: var(--space-xl);
+}
 
 /* ==========================================================================
    404 Page
@@ -1663,6 +1805,9 @@ ul, ol { list-style: none; }
 
   .post-nav { grid-template-columns: 1fr; }
   .post-nav__item--next { text-align: left; }
+
+  .service-detail__inner { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .service-detail__title { font-size: var(--font-size-2xl); }
 
   .footer__inner { grid-template-columns: 1fr; gap: var(--space-xl); }
   .footer__bottom { flex-direction: column; gap: var(--space-md); text-align: center; }

@@ -26,7 +26,7 @@
             <li><a href="<?php echo esc_url(home_url('/service/training/')); ?>">人材育成サービス</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>">人事制度構築支援</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
-            <li><a href="<?php echo esc_url(home_url('/flow/')); ?>">導入の流れ</a></li>
+            <li><a href="<?php echo esc_url(home_url('/#process')); ?>">導入の流れ</a></li>
           </ul>
         <?php endif; ?>
       </div>
@@ -54,7 +54,7 @@
         <h3 class="footer__heading">アクセス</h3>
         <dl class="footer__info">
           <dt>所在地</dt>
-          <dd><?php echo nl2br(esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市' . "\n" . '磨屋町ビル8階'))); ?></dd>
+          <dd><?php echo nl2br(esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階'))); ?></dd>
           <?php
           $phone = get_theme_mod('ennoshita_phone');
           if ($phone) : ?>

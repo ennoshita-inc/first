@@ -259,7 +259,9 @@ ul, ol { list-style: none; }
   height: var(--header-height);
 }
 
-.site-logo {
+a.site-logo,
+a.site-logo:link,
+a.site-logo:visited {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -270,7 +272,7 @@ ul, ol { list-style: none; }
   transition: opacity var(--transition-fast);
 }
 
-.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
+a.site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
 
 .site-logo__combined { height: 44px; width: auto; }
 .site-logo__symbol { height: 40px; width: auto; flex-shrink: 0; }
@@ -1066,7 +1068,9 @@ ul, ol { list-style: none; }
 
 .footer__brand { max-width: 300px; }
 
-.footer__logo {
+a.footer__logo,
+a.footer__logo:link,
+a.footer__logo:visited {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -1078,7 +1082,7 @@ ul, ol { list-style: none; }
   letter-spacing: 0.04em;
 }
 
-.footer__logo:hover { color: #fff; }
+a.footer__logo:hover { color: #fff; }
 .footer__logo img { height: 36px; width: auto; }
 
 .footer__description {
@@ -2104,7 +2108,7 @@ ul, ol { list-style: none; }
         <li><a href="/about/" class="main-nav__link">会社概要</a></li>
         <li><a href="/#services" class="main-nav__link">サービス</a></li>
         <li><a href="/blog/" class="main-nav__link">コラム</a></li>
-        <li><a href="/flow/" class="main-nav__link">導入の流れ</a></li>
+        <li><a href="/#process" class="main-nav__link">導入の流れ</a></li>
         <li><a href="/contact/" class="main-nav__contact">お問い合わせ</a></li>
       </ul>
     </nav>
@@ -2325,7 +2329,7 @@ ul, ol { list-style: none; }
 
 
   <!-- ===== 6. 導入の流れ ===== -->
-  <section class="section section--gray" aria-labelledby="process-title">
+  <section class="section section--gray" id="process" aria-labelledby="process-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Process</p>
@@ -2533,7 +2537,7 @@ ul, ol { list-style: none; }
           <li><a href="/service/training/">人材育成サービス</a></li>
           <li><a href="/service/hr-system/">人事制度構築支援</a></li>
           <li><a href="/service/organization/">組織開発支援</a></li>
-          <li><a href="/flow/">導入の流れ</a></li>
+          <li><a href="/#process">導入の流れ</a></li>
         </ul>
       </div>
 

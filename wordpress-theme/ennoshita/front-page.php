@@ -251,7 +251,7 @@ get_header();
 
 
   <!-- ===== 6. 導入の流れ ===== -->
-  <section class="section section--gray" aria-labelledby="process-title">
+  <section class="section section--gray" id="process" aria-labelledby="process-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Process</p>
