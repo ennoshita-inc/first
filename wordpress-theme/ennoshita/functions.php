@@ -449,20 +449,27 @@ function ennoshita_customize_register($wp_customize) {
     // ロゴ設定セクション
     $wp_customize->add_section('ennoshita_logo', [
         'title'       => 'ロゴ設定',
-        'description' => 'シンボルマークとテキストロゴ画像を設定します。',
+        'description' => '合体ロゴ、またはシンボルマーク＋テキストロゴを個別に設定できます。合体ロゴが設定されている場合はそちらが優先されます。',
         'priority'    => 20,
     ]);
 
+    $wp_customize->add_setting('ennoshita_logo_combined', ['default' => '']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_logo_combined', [
+        'label'       => '合体ロゴ画像（優先）',
+        'description' => 'シンボルマーク＋社名が一体になった画像（推奨: 高さ40〜50px、PNG/SVG透過）。設定すると下の個別ロゴより優先されます。',
+        'section'     => 'ennoshita_logo',
+    ]));
+
     $wp_customize->add_setting('ennoshita_logo_symbol', ['default' => '']);
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_logo_symbol', [
-        'label'       => 'シンボルマーク',
+        'label'       => 'シンボルマーク（個別）',
         'description' => '会社名の先頭に表示するアイコンロゴ（推奨: 正方形 80×80px、PNG/SVG透過）',
         'section'     => 'ennoshita_logo',
     ]));
 
     $wp_customize->add_setting('ennoshita_logo_text_image', ['default' => '']);
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_logo_text_image', [
-        'label'       => 'テキストロゴ画像',
+        'label'       => 'テキストロゴ画像（個別）',
         'description' => '「株式会社えんのした」の画像ロゴ（推奨: 高さ40px程度、PNG/SVG透過）',
         'section'     => 'ennoshita_logo',
     ]));
@@ -619,42 +626,47 @@ function ennoshita_reading_time($post_id = null) {
 }
 
 /**
- * ロゴを出力（シンボルマーク + テキストロゴ画像 / テキストフォールバック）
+ * ロゴを出力
  *
  * 優先順位:
- * 1. カスタマイザーの「シンボルマーク」+「テキストロゴ画像」があれば画像で表示
- * 2. WordPress標準の「カスタムロゴ」があればそれを表示
- * 3. どちらもなければテキストで表示
+ * 1. 合体ロゴ画像（シンボル＋社名が一体の画像）
+ * 2. シンボルマーク + テキストロゴ画像（個別設定）
+ * 3. WordPress標準カスタムロゴ
+ * 4. テキスト表示
  *
- * 画像ロゴが表示される場合でも、SEO/アクセシビリティ用に
- * テキストを screen-reader-text として保持します。
+ * 画像ロゴが表示される場合、テキストは screen-reader-text（SEO用に保持）。
  */
 function ennoshita_the_logo($class = 'site-logo') {
+    $combined_url   = get_theme_mod('ennoshita_logo_combined');
     $symbol_url     = get_theme_mod('ennoshita_logo_symbol');
     $text_image_url = get_theme_mod('ennoshita_logo_text_image');
     $custom_logo_id = get_theme_mod('custom_logo');
     $site_name      = get_bloginfo('name');
-    $has_image_logo = $symbol_url || $text_image_url || $custom_logo_id;
+    $has_image_logo = $combined_url || $symbol_url || $text_image_url || $custom_logo_id;
 
     echo '<a href="' . esc_url(home_url('/')) . '" class="' . esc_attr($class) . '" rel="home">';
 
-    // シンボルマーク（アイコンロゴ）
-    if ($symbol_url) {
-        echo '<img src="' . esc_url($symbol_url) . '" alt="" class="site-logo__symbol" width="40" height="40">';
+    if ($combined_url) {
+        // 合体ロゴ（最優先）
+        echo '<img src="' . esc_url($combined_url) . '" alt="' . esc_attr($site_name) . '" class="site-logo__combined">';
+    } else {
+        // シンボルマーク（個別）
+        if ($symbol_url) {
+            echo '<img src="' . esc_url($symbol_url) . '" alt="" class="site-logo__symbol" width="40" height="40">';
+        }
+
+        // テキストロゴ画像（個別）
+        if ($text_image_url) {
+            echo '<img src="' . esc_url($text_image_url) . '" alt="' . esc_attr($site_name) . '" class="site-logo__image">';
+        } elseif ($custom_logo_id) {
+            echo wp_get_attachment_image($custom_logo_id, 'full', false, [
+                'class' => 'site-logo__image custom-logo',
+                'alt'   => $site_name,
+            ]);
+        }
     }
 
-    // テキストロゴ画像（「株式会社えんのした」の画像）
-    if ($text_image_url) {
-        echo '<img src="' . esc_url($text_image_url) . '" alt="' . esc_attr($site_name) . '" class="site-logo__image">';
-    } elseif ($custom_logo_id) {
-        // フォールバック: WordPress標準カスタムロゴ
-        echo wp_get_attachment_image($custom_logo_id, 'full', false, [
-            'class' => 'site-logo__image custom-logo',
-            'alt'   => $site_name,
-        ]);
-    }
-
-    // テキスト部分: 画像ロゴがあればSR専用、なければ表示
+    // テキスト: 画像ロゴがあればSEO用に非表示、なければ表示
     $text_class = $has_image_logo ? 'site-logo__text screen-reader-text' : 'site-logo__text';
     echo '<span class="' . $text_class . '">';
     echo '<span class="site-logo__main">株式会社えんのした</span>';

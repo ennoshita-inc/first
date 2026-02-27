@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no">
-<title>株式会社えんのした | 岡山の人材育成・組織開発コンサルティング</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap" rel="stylesheet">
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>株式会社えんのした | 人・職場・組織を支えるコンサルティング</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
 /*
 Theme Name: 株式会社えんのした
 Theme URI: https://ennoshita.co.jp
@@ -272,6 +272,7 @@ ul, ol { list-style: none; }
 
 .site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
 
+.site-logo__combined { height: 44px; width: auto; }
 .site-logo__symbol { height: 40px; width: auto; flex-shrink: 0; }
 .site-logo__image  { height: 36px; width: auto; }
 .site-logo img, .site-logo .custom-logo { height: 40px; width: auto; }
@@ -2070,9 +2071,10 @@ ul, ol { list-style: none; }
   .message__image { max-width: 240px; margin: 0 auto; }
   .message__signature { flex-direction: column; gap: var(--space-xs); }
 }
-</style>
+
+  </style>
 </head>
-<body>
+<body class="home page-template-front-page">
 
 <div class="page-loading" aria-hidden="true">
   <div class="page-loading__spinner"></div>
@@ -2082,13 +2084,10 @@ ul, ol { list-style: none; }
 
 <header class="site-header" role="banner">
   <div class="container site-header__inner">
-    <a href="#" class="site-logo" rel="home">
-      <!-- ロゴ画像: WordPressではカスタマイザーから設定 -->
-      <!-- <img src="logo-symbol.png" alt="" class="site-logo__symbol" width="40" height="40"> -->
-      <!-- <img src="logo-text.png" alt="株式会社えんのした" class="site-logo__image"> -->
+    <a href="/" class="site-logo">
       <span class="site-logo__text">
-        <span class="site-logo__main">株式会社えんのした</span>
-        <span class="site-logo__sub">ENNOSHITA</span>
+        <span class="site-logo__main">えんのした</span>
+        <span class="site-logo__sub">Ennoshita Co., Ltd.</span>
       </span>
     </a>
 
@@ -2102,11 +2101,11 @@ ul, ol { list-style: none; }
 
     <nav class="main-nav" id="main-nav" role="navigation" aria-label="メインナビゲーション">
       <ul class="main-nav__list">
-        <li><a href="#"><span class="main-nav__link">会社概要</span></a></li>
-        <li><a href="#services"><span class="main-nav__link">サービス</span></a></li>
-        <li><a href="#"><span class="main-nav__link">コラム</span></a></li>
-        <li><a href="#"><span class="main-nav__link">導入の流れ</span></a></li>
-        <li><a href="#" class="main-nav__contact">お問い合わせ</a></li>
+        <li><a href="/about/" class="main-nav__link">会社概要</a></li>
+        <li><a href="/#services" class="main-nav__link">サービス</a></li>
+        <li><a href="/blog/" class="main-nav__link">コラム</a></li>
+        <li><a href="/flow/" class="main-nav__link">導入の流れ</a></li>
+        <li><a href="/contact/" class="main-nav__contact">お問い合わせ</a></li>
       </ul>
     </nav>
 
@@ -2116,81 +2115,112 @@ ul, ol { list-style: none; }
 
 <main id="main-content">
 
-  <!-- ===== 1. ヒーロー ===== -->
+  <!-- ===== 1. ヒーローセクション ===== -->
   <section class="hero">
     <div class="hero__decoration" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
+
     <div class="container hero__inner">
       <div class="hero__content">
         <p class="hero__label">Consulting for Growth</p>
         <h1 class="hero__title">
-          人・職場・組織を支え、<br>
-          リーダーの<em class="hero__title-accent">心技体</em>を育む
+          人・職場・組織を支え、<br>リーダーの<em class="hero__title-accent">心技体</em>を育む
         </h1>
         <p class="hero__description">
           「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。
         </p>
         <div class="hero__buttons">
-          <a href="#" class="btn btn--white btn--large">
+          <a href="/contact/" class="btn btn--white btn--large">
             無料相談はこちら
             <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a href="#services" class="btn btn--outline-white btn--large">サービスを見る</a>
+          <a href="#services" class="btn btn--outline-white btn--large">
+            サービスを見る
+          </a>
         </div>
       </div>
     </div>
+
     <div class="hero__scroll" aria-hidden="true">
       <span>SCROLL</span>
       <span class="hero__scroll-line"></span>
     </div>
   </section>
 
-  <!-- ===== 2. サービス ===== -->
+
+  <!-- ===== 2. サービス紹介 ===== -->
   <section class="section" id="services" aria-labelledby="services-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Services</p>
         <h2 class="section-header__title" id="services-title">3つの支援で組織の成長を実現</h2>
         <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。</p>
+        <p class="section-header__description">
+          「頭脳」「背骨」「筋力」の3つの観点から、組織の課題を多角的に解決します。
+        </p>
       </div>
+
       <div class="services__grid">
         <article class="service-card reveal reveal--delay-1">
           <span class="service-card__number">SERVICE 01</span>
           <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
           </div>
           <h3 class="service-card__title">組織の頭脳を育む</h3>
           <p class="service-card__subtitle">人材育成サービス</p>
           <p class="service-card__text">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p>
-          <a href="#" class="service-card__link">詳しく見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="/service/training/" class="service-card__link">
+            詳しく見る
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </article>
+
         <article class="service-card reveal reveal--delay-2">
           <span class="service-card__number">SERVICE 02</span>
           <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
           </div>
           <h3 class="service-card__title">組織の背骨を整える</h3>
           <p class="service-card__subtitle">人事制度構築支援</p>
           <p class="service-card__text">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p>
-          <a href="#" class="service-card__link">詳しく見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="/service/hr-system/" class="service-card__link">
+            詳しく見る
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </article>
+
         <article class="service-card reveal reveal--delay-3">
           <span class="service-card__number">SERVICE 03</span>
           <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
           </div>
           <h3 class="service-card__title">組織の筋力を鍛える</h3>
           <p class="service-card__subtitle">組織開発支援</p>
           <p class="service-card__text">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p>
-          <a href="#" class="service-card__link">詳しく見る <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+          <a href="/service/organization/" class="service-card__link">
+            詳しく見る
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== 3. 実績 ===== -->
+
+  <!-- ===== 3. 実績セクション ===== -->
   <section class="section section--dark" aria-labelledby="trust-title">
     <div class="container">
       <div class="section-header reveal">
@@ -2198,41 +2228,58 @@ ul, ol { list-style: none; }
         <h2 class="section-header__title" id="trust-title">えんのしたが選ばれる理由</h2>
         <span class="section-header__line" aria-hidden="true"></span>
       </div>
+
       <div class="trust__grid">
         <div class="trust__item reveal reveal--delay-1">
-          <p class="trust__number" data-count="10">0<small>年以上</small></p>
+          <p class="trust__number" data-count="10">
+            0<small>年以上</small>
+          </p>
           <p class="trust__label">コンサルティング実績</p>
         </div>
         <div class="trust__item reveal reveal--delay-2">
-          <p class="trust__number" data-count="100">0<small>社+</small></p>
+          <p class="trust__number" data-count="100">
+            0<small>社+</small>
+          </p>
           <p class="trust__label">支援企業数</p>
         </div>
         <div class="trust__item reveal reveal--delay-3">
-          <p class="trust__number" data-count="500">0<small>名+</small></p>
+          <p class="trust__number" data-count="500">
+            0<small>名+</small>
+          </p>
           <p class="trust__label">研修受講者数</p>
         </div>
         <div class="trust__item reveal reveal--delay-4">
-          <p class="trust__number" data-count="95">0<small>%</small></p>
+          <p class="trust__number" data-count="95">
+            0<small>%</small>
+          </p>
           <p class="trust__label">顧客満足度</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== 4. 理念 ===== -->
+
+  <!-- ===== 4. 理念セクション ===== -->
   <section class="section" aria-labelledby="philosophy-title">
     <div class="container">
       <div class="philosophy__inner">
         <div class="philosophy__image reveal reveal--left">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='540' height='405' viewBox='0 0 540 405'%3E%3Crect fill='%23e8d5d6' width='540' height='405'/%3E%3Ctext x='270' y='202' text-anchor='middle' dominant-baseline='middle' fill='%23852228' font-size='24' font-family='sans-serif'%3E写真%3C/text%3E%3C/svg%3E" alt="えんのしたのコンサルティング風景" width="540" height="405" loading="lazy">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='540' height='405' viewBox='0 0 540 405'%3E%3Crect fill='%23e8aab0' width='540' height='405'/%3E%3Ctext x='270' y='202' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-size='20' fill='%23852228'%3EConsulting Image%3C/text%3E%3C/svg%3E"
+               alt="えんのしたのコンサルティング風景"
+               width="540" height="405" loading="lazy">
         </div>
         <div class="philosophy__text reveal reveal--right">
           <p class="section-header__label">Philosophy</p>
           <h2 class="section-header__title" id="philosophy-title">人と組織の<br>可能性を信じて</h2>
           <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
-          <p>私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。</p>
-          <p>2012年の創業以来、岡山を拠点に多くの企業様の組織課題に向き合ってきました。一つひとつの企業に寄り添い、その組織にとって最適な解決策を一緒に考え、実行します。</p>
-          <a href="#" class="btn btn--outline">
+          <p>
+            私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。
+          </p>
+          <p>
+            2012年の創業以来、岡山を拠点に多くの企業様の組織課題に向き合ってきました。
+            一つひとつの企業に寄り添い、その組織にとって最適な解決策を一緒に考え、実行します。
+          </p>
+          <a href="/about/" class="btn btn--outline">
             会社概要を見る
             <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
@@ -2241,56 +2288,41 @@ ul, ol { list-style: none; }
     </div>
   </section>
 
+
   <!-- ===== 5. 代表メッセージ ===== -->
   <section class="section section--message" aria-labelledby="message-title">
     <div class="container">
       <div class="message__inner">
         <div class="message__image reveal reveal--left">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect fill='%23e8d5d6' width='400' height='500'/%3E%3Ctext x='200' y='250' text-anchor='middle' dominant-baseline='middle' fill='%23852228' font-size='20' font-family='sans-serif'%3E代表写真%3C/text%3E%3C/svg%3E" alt="代表取締役の写真" width="400" height="500" loading="lazy">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect fill='%23f5d5d8' width='400' height='500'/%3E%3Ctext x='200' y='250' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-size='18' fill='%23852228'%3ERepresentative Photo%3C/text%3E%3C/svg%3E"
+               alt="代表取締役の写真"
+               width="400" height="500" loading="lazy">
         </div>
         <div class="message__text reveal reveal--right">
           <p class="section-header__label">Message</p>
           <h2 class="section-header__title" id="message-title">代表メッセージ</h2>
           <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
           <p class="message__lead">
-            組織は、制度では変わりません。<br>
-            変わるのは、人です。
+            「縁の下の力持ち」として、<br>
+            人と組織の成長を支え続けます。
           </p>
           <p>
-            企業の成長を左右するのは外部環境だけではありません。多くの場合、課題は組織の内側にあります。
+            私が「えんのした」を立ち上げたのは、企業の成長の源泉は「人」にあるという確信からでした。
+            どんなに優れた戦略も、それを実行する人材と組織がなければ絵に描いた餅に終わります。
           </p>
           <p>
-            制度や理論は必要です。しかし、それを動かすのは人の意思と行動です。
-          </p>
-          <p>
-            これまで数多くの現場で、自ら課題を考え、行動を起こすリーダーの変化を見てきました。そして、その挑戦を受け止める経営者の変化も見てきました。
-          </p>
-          <p>
-            人の認識と覚悟が変わったとき、組織は静かに前へ進みます。
-          </p>
-          <p>
-            私たちは、仕組みだけを設計する会社ではありません。未来を言語化し、現状とのギャップを整理し、戦略・制度・育成・対話を一貫して組み立てます。
-          </p>
-          <p>
-            本質を押さえながら、具体策まで落とし込む。実行し、検証し、積み重ねる。
-          </p>
-          <p>
-            その過程を通じて、働く人が誇りを持ち、組織に活力が生まれる状態を支援します。
-          </p>
-          <p>
-            変革とは、特別な出来事ではなく、主体性が連鎖するプロセスです。
-          </p>
-          <p>
-            その歩みに責任を持って伴走いたします。
+            岡山という地域に根ざしながら、全国の企業様の組織課題に真摯に向き合い、
+            一社一社に最適な解決策をご提案し続けてまいります。
           </p>
           <p class="message__signature">
             <span class="message__position">代表取締役</span>
-            <span class="message__name-text">川路 隆志</span>
+            <span class="message__name-text">山田 太郎</span>
           </p>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- ===== 6. 導入の流れ ===== -->
   <section class="section section--gray" aria-labelledby="process-title">
@@ -2299,8 +2331,11 @@ ul, ol { list-style: none; }
         <p class="section-header__label">Process</p>
         <h2 class="section-header__title" id="process-title">サービス導入の流れ</h2>
         <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">お問い合わせから導入まで、4つのステップでサポートします。</p>
+        <p class="section-header__description">
+          お問い合わせから導入まで、4つのステップでサポートします。
+        </p>
       </div>
+
       <div class="process__steps">
         <div class="process__step reveal reveal--delay-1">
           <div class="process__step-number">1</div>
@@ -2326,6 +2361,7 @@ ul, ol { list-style: none; }
     </div>
   </section>
 
+
   <!-- ===== 7. お客様の声 ===== -->
   <section class="section" aria-labelledby="testimonials-title">
     <div class="container">
@@ -2333,8 +2369,11 @@ ul, ol { list-style: none; }
         <p class="section-header__label">Voice</p>
         <h2 class="section-header__title" id="testimonials-title">お客様の声</h2>
         <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">導入企業様の人事ご担当者様からいただいたお声をご紹介します。</p>
+        <p class="section-header__description">
+          導入企業様の人事ご担当者様からいただいたお声をご紹介します。
+        </p>
       </div>
+
       <div class="testimonials__grid">
         <article class="testimonial-card reveal reveal--delay-1">
           <div class="testimonial-card__quote">
@@ -2349,6 +2388,7 @@ ul, ol { list-style: none; }
             </div>
           </div>
         </article>
+
         <article class="testimonial-card reveal reveal--delay-2">
           <div class="testimonial-card__quote">
             <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
@@ -2362,6 +2402,7 @@ ul, ol { list-style: none; }
             </div>
           </div>
         </article>
+
         <article class="testimonial-card reveal reveal--delay-3">
           <div class="testimonial-card__quote">
             <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
@@ -2379,58 +2420,68 @@ ul, ol { list-style: none; }
     </div>
   </section>
 
-  <!-- ===== 8. ブログ ===== -->
+
+  <!-- ===== 8. ブログセクション ===== -->
   <section class="section section--gray" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Blog</p>
         <h2 class="section-header__title" id="blog-title">最新のコラム</h2>
         <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">人材育成・組織開発に関する知見をお届けします。</p>
+        <p class="section-header__description">
+          人材育成・組織開発に関する知見をお届けします。
+        </p>
       </div>
+
       <div class="blog__grid">
-        <article class="blog-card reveal reveal--delay-1">
-          <a href="#">
+        <article class="blog-card reveal">
+          <a href="/blog/leadership-training/">
             <div class="blog-card__image">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23e8d5d6' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='middle' fill='%23852228' font-size='16' font-family='sans-serif'%3Eコラム画像%3C/text%3E%3C/svg%3E" alt="" loading="lazy" width="400" height="225">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23f5d5d8' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-size='16' fill='%23852228'%3EBlog Image%3C/text%3E%3C/svg%3E"
+                   alt="リーダーシップ研修の効果を最大化する3つのポイント" width="400" height="225" loading="lazy">
             </div>
             <div class="blog-card__body">
               <span class="blog-card__category">人材育成</span>
-              <h3 class="blog-card__title">次世代リーダー育成のための5つのポイント</h3>
-              <p class="blog-card__excerpt">変化の激しい時代において求められるリーダー像とは…</p>
-              <time class="blog-card__date">2026.02.15</time>
+              <h3 class="blog-card__title">リーダーシップ研修の効果を最大化する3つのポイント</h3>
+              <p class="blog-card__excerpt">管理職向けリーダーシップ研修を実施する際に押さえておきたい重要なポイントを解説します...</p>
+              <time class="blog-card__date" datetime="2026-02-15">2026.02.15</time>
             </div>
           </a>
         </article>
-        <article class="blog-card reveal reveal--delay-2">
-          <a href="#">
+
+        <article class="blog-card reveal">
+          <a href="/blog/hr-system-design/">
             <div class="blog-card__image">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23e8d5d6' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='middle' fill='%23852228' font-size='16' font-family='sans-serif'%3Eコラム画像%3C/text%3E%3C/svg%3E" alt="" loading="lazy" width="400" height="225">
-            </div>
-            <div class="blog-card__body">
-              <span class="blog-card__category">組織開発</span>
-              <h3 class="blog-card__title">心理的安全性の高い組織をつくるには</h3>
-              <p class="blog-card__excerpt">チームのパフォーマンスを最大化する鍵は心理的安全性に…</p>
-              <time class="blog-card__date">2026.02.01</time>
-            </div>
-          </a>
-        </article>
-        <article class="blog-card reveal reveal--delay-3">
-          <a href="#">
-            <div class="blog-card__image">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23e8d5d6' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='middle' fill='%23852228' font-size='16' font-family='sans-serif'%3Eコラム画像%3C/text%3E%3C/svg%3E" alt="" loading="lazy" width="400" height="225">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23e8aab0' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-size='16' fill='%23852228'%3EBlog Image%3C/text%3E%3C/svg%3E"
+                   alt="中小企業のための人事評価制度設計ガイド" width="400" height="225" loading="lazy">
             </div>
             <div class="blog-card__body">
               <span class="blog-card__category">人事制度</span>
-              <h3 class="blog-card__title">納得感のある評価制度設計のコツ</h3>
-              <p class="blog-card__excerpt">社員が「公平だ」と感じる評価制度はどう設計すれば…</p>
-              <time class="blog-card__date">2026.01.20</time>
+              <h3 class="blog-card__title">中小企業のための人事評価制度設計ガイド</h3>
+              <p class="blog-card__excerpt">従業員100名以下の中小企業が人事評価制度を導入・改善する際のステップをご紹介します...</p>
+              <time class="blog-card__date" datetime="2026-01-28">2026.01.28</time>
+            </div>
+          </a>
+        </article>
+
+        <article class="blog-card reveal">
+          <a href="/blog/team-building/">
+            <div class="blog-card__image">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23fdf2f3' width='400' height='225'/%3E%3Ctext x='200' y='112' text-anchor='middle' dominant-baseline='central' font-family='sans-serif' font-size='16' fill='%23852228'%3EBlog Image%3C/text%3E%3C/svg%3E"
+                   alt="心理的安全性を高めるチームビルディングの実践法" width="400" height="225" loading="lazy">
+            </div>
+            <div class="blog-card__body">
+              <span class="blog-card__category">組織開発</span>
+              <h3 class="blog-card__title">心理的安全性を高めるチームビルディングの実践法</h3>
+              <p class="blog-card__excerpt">組織の生産性とイノベーションを生み出す「心理的安全性」の概念と具体的な実践方法を紹介...</p>
+              <time class="blog-card__date" datetime="2026-01-10">2026.01.10</time>
             </div>
           </a>
         </article>
       </div>
+
       <div class="blog-section__more reveal">
-        <a href="#" class="btn btn--outline">
+        <a href="/blog/" class="btn btn--outline">
           コラム一覧を見る
           <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -2438,76 +2489,93 @@ ul, ol { list-style: none; }
     </div>
   </section>
 
-  <!-- ===== 9. CTA ===== -->
+
+  <!-- ===== 9. CTA セクション ===== -->
   <section class="cta">
     <div class="container cta__inner reveal">
-      <h2 class="cta__title">組織の課題、一緒に解決しませんか？</h2>
-      <p class="cta__text">まずはお気軽にご相談ください。貴社の状況をお伺いし、最適なアプローチをご提案します。</p>
+      <h2 class="cta__title">
+        組織の課題、一緒に解決しませんか？
+      </h2>
+      <p class="cta__text">
+        まずはお気軽にご相談ください。貴社の状況をお伺いし、最適なアプローチをご提案します。
+      </p>
       <div class="cta__buttons">
-        <a href="#" class="btn btn--white btn--large">
+        <a href="/contact/" class="btn btn--white btn--large">
           無料相談のお申し込み
           <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="#" class="btn btn--outline-white btn--large">会社概要を見る</a>
+        <a href="/about/" class="btn btn--outline-white btn--large">
+          会社概要を見る
+        </a>
       </div>
     </div>
   </section>
 
-</main>
+</main><!-- /#main-content -->
 
 <footer class="site-footer" role="contentinfo">
   <div class="container">
     <div class="footer__inner">
+
       <div class="footer__brand">
-        <a href="#" class="footer__logo" rel="home">
-          <span class="site-logo__text">
-            <span class="site-logo__main">株式会社えんのした</span>
-            <span class="site-logo__sub">ENNOSHITA</span>
-          </span>
+        <a href="/" class="footer__logo">
+          <span>えんのした</span>
         </a>
-        <p class="footer__description">人・職場・組織を支えるコンサルティング会社。<br>多様な学びの場を提供し、リーダーの心技体を育みます。</p>
+        <p class="footer__description">
+          人・職場・組織を支えるコンサルティング会社。<br>
+          多様な学びの場を提供し、リーダーの心技体を育みます。
+        </p>
       </div>
+
       <div class="footer__column">
         <h3 class="footer__heading">サービス</h3>
         <ul class="footer__nav">
-          <li><a href="#">人材育成サービス</a></li>
-          <li><a href="#">人事制度構築支援</a></li>
-          <li><a href="#">組織開発支援</a></li>
-          <li><a href="#">導入の流れ</a></li>
+          <li><a href="/service/training/">人材育成サービス</a></li>
+          <li><a href="/service/hr-system/">人事制度構築支援</a></li>
+          <li><a href="/service/organization/">組織開発支援</a></li>
+          <li><a href="/flow/">導入の流れ</a></li>
         </ul>
       </div>
+
       <div class="footer__column">
         <h3 class="footer__heading">企業情報</h3>
         <ul class="footer__nav">
-          <li><a href="#">会社概要</a></li>
-          <li><a href="#">コラム</a></li>
-          <li><a href="#">お問い合わせ</a></li>
-          <li><a href="#">サイトマップ</a></li>
+          <li><a href="/about/">会社概要</a></li>
+          <li><a href="/blog/">コラム</a></li>
+          <li><a href="/contact/">お問い合わせ</a></li>
+          <li><a href="/sitemap/">サイトマップ</a></li>
         </ul>
       </div>
+
       <div class="footer__column">
         <h3 class="footer__heading">アクセス</h3>
         <dl class="footer__info">
           <dt>所在地</dt>
           <dd>岡山県岡山市<br>磨屋町ビル8階</dd>
           <dt>お問い合わせ</dt>
-          <dd><a href="#">お問い合わせフォーム</a></dd>
+          <dd><a href="/contact/">お問い合わせフォーム</a></dd>
         </dl>
       </div>
-    </div>
+
+    </div><!-- /.footer__inner -->
+
     <div class="footer__bottom">
       <p>&copy; 2026 株式会社えんのした. All rights reserved.</p>
       <nav class="footer__bottom-nav" aria-label="フッター補足ナビゲーション">
-        <a href="#">プライバシーポリシー</a>
-        <a href="#">サイトマップ</a>
+        <a href="/privacy/">プライバシーポリシー</a>
+        <a href="/sitemap/">サイトマップ</a>
       </nav>
     </div>
   </div>
 </footer>
 
+<!-- Cookie同意バナー -->
 <div class="cookie-consent" id="cookie-consent" role="dialog" aria-label="Cookie使用の同意">
   <div class="cookie-consent__inner">
-    <p class="cookie-consent__text">当サイトでは、サービス向上のためCookieを使用しています。詳しくは<a href="#">プライバシーポリシー</a>をご覧ください。</p>
+    <p class="cookie-consent__text">
+      当サイトでは、サービス向上のためCookieを使用しています。
+      詳しくは<a href="/privacy/">プライバシーポリシー</a>をご覧ください。
+    </p>
     <div class="cookie-consent__buttons">
       <button class="cookie-consent__accept" id="cookie-accept">同意する</button>
     </div>
@@ -2778,6 +2846,7 @@ ul, ol { list-style: none; }
   }
 
 })();
+
 </script>
 </body>
 </html>
