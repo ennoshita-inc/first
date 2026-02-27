@@ -380,7 +380,7 @@ get_header();
       </div>
 
       <div class="blog-section__more reveal">
-        <a href="<?php echo esc_url(get_post_type_archive_link('post') ?: home_url('/blog/')); ?>" class="btn btn--outline">
+        <a href="<?php echo esc_url(ennoshita_get_blog_url()); ?>" class="btn btn--outline">
           コラム一覧を見る
           <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>

@@ -629,6 +629,32 @@ add_filter('comments_array', 'ennoshita_hide_comments', 20, 1);
 // ==============================================
 
 /**
+ * コラム（ブログ）一覧ページの URL を取得
+ *
+ * 優先順位:
+ * 1. 投稿ページ（Settings > Reading で設定）の URL
+ * 2. フロントページと異なる投稿アーカイブ URL
+ * 3. /blog/ へのフォールバック
+ */
+function ennoshita_get_blog_url() {
+    // 投稿ページが設定されていればそのパーマリンクを返す
+    $posts_page_id = get_option('page_for_posts');
+    if ($posts_page_id) {
+        return get_permalink($posts_page_id);
+    }
+
+    // 投稿アーカイブリンクがフロントページと異なれば使用
+    $archive_link = get_post_type_archive_link('post');
+    $home = trailingslashit(home_url('/'));
+    if ($archive_link && trailingslashit($archive_link) !== $home) {
+        return $archive_link;
+    }
+
+    // フォールバック: /blog/
+    return home_url('/blog/');
+}
+
+/**
  * 投稿の推定読了時間を取得
  */
 function ennoshita_reading_time($post_id = null) {

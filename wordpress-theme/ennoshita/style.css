@@ -1377,6 +1377,75 @@ a.footer__logo:hover { color: #fff; }
 .archive-header__description { font-size: var(--font-size-base); color: var(--color-text-secondary); }
 .archive-content { padding: var(--space-3xl) 0 var(--space-5xl); }
 
+/* Blog category filter */
+.blog-filter {
+  padding: var(--space-lg) 0;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.blog-filter__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.blog-filter__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-section);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.blog-filter__item:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary-200);
+  background: var(--color-primary-50);
+}
+
+.blog-filter__item--active {
+  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.blog-filter__item--active:hover {
+  color: #fff;
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.blog-filter__count {
+  font-size: var(--font-size-xs);
+  opacity: 0.7;
+}
+
+/* Compact services grid for "other services" section */
+.services__grid--compact {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Narrow container for service detail content */
+.container--narrow {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ==========================================================================
    Page Template
    ========================================================================== */
@@ -1977,6 +2046,11 @@ a.footer__logo:hover { color: #fff; }
 
   .service-detail__inner { grid-template-columns: 1fr; gap: var(--space-xl); }
   .service-detail__title { font-size: var(--font-size-2xl); }
+
+  .services__grid--compact { grid-template-columns: 1fr; }
+
+  .blog-filter__list { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: var(--space-xs); -webkit-overflow-scrolling: touch; }
+  .blog-filter__item { white-space: nowrap; flex-shrink: 0; }
 
   .footer__inner { grid-template-columns: 1fr; gap: var(--space-xl); }
   .footer__bottom { flex-direction: column; gap: var(--space-md); text-align: center; }
