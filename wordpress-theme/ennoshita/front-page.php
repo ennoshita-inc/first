@@ -197,7 +197,11 @@ get_header();
     <div class="container">
       <div class="message__inner">
         <div class="message__image reveal reveal--left">
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/representative.jpg"
+          <?php
+          $rep_photo = get_theme_mod('ennoshita_representative_photo');
+          $rep_photo_url = $rep_photo ? $rep_photo : get_template_directory_uri() . '/assets/images/representative.jpg';
+          ?>
+          <img src="<?php echo esc_url($rep_photo_url); ?>"
                alt="代表取締役の写真"
                width="400" height="500" loading="lazy">
         </div>

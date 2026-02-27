@@ -271,6 +271,9 @@ ul, ol { list-style: none; }
 }
 
 .site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
+
+.site-logo__symbol { height: 40px; width: auto; flex-shrink: 0; }
+.site-logo__image  { height: 36px; width: auto; }
 .site-logo img, .site-logo .custom-logo { height: 40px; width: auto; }
 
 .site-logo__text { display: flex; flex-direction: column; line-height: 1.2; }
@@ -2080,6 +2083,9 @@ ul, ol { list-style: none; }
 <header class="site-header" role="banner">
   <div class="container site-header__inner">
     <a href="#" class="site-logo" rel="home">
+      <!-- ロゴ画像: WordPressではカスタマイザーから設定 -->
+      <!-- <img src="logo-symbol.png" alt="" class="site-logo__symbol" width="40" height="40"> -->
+      <!-- <img src="logo-text.png" alt="株式会社えんのした" class="site-logo__image"> -->
       <span class="site-logo__text">
         <span class="site-logo__main">株式会社えんのした</span>
         <span class="site-logo__sub">ENNOSHITA</span>

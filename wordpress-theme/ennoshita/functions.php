@@ -433,6 +433,40 @@ function ennoshita_customize_register($wp_customize) {
         'type'    => 'textarea',
     ]);
 
+    // 代表メッセージセクション
+    $wp_customize->add_section('ennoshita_message', [
+        'title'    => '代表メッセージ',
+        'priority' => 32,
+    ]);
+
+    $wp_customize->add_setting('ennoshita_representative_photo', ['default' => '']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_representative_photo', [
+        'label'       => '代表写真',
+        'description' => '推奨サイズ: 400×500px（縦長）',
+        'section'     => 'ennoshita_message',
+    ]));
+
+    // ロゴ設定セクション
+    $wp_customize->add_section('ennoshita_logo', [
+        'title'       => 'ロゴ設定',
+        'description' => 'シンボルマークとテキストロゴ画像を設定します。',
+        'priority'    => 20,
+    ]);
+
+    $wp_customize->add_setting('ennoshita_logo_symbol', ['default' => '']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_logo_symbol', [
+        'label'       => 'シンボルマーク',
+        'description' => '会社名の先頭に表示するアイコンロゴ（推奨: 正方形 80×80px、PNG/SVG透過）',
+        'section'     => 'ennoshita_logo',
+    ]));
+
+    $wp_customize->add_setting('ennoshita_logo_text_image', ['default' => '']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_logo_text_image', [
+        'label'       => 'テキストロゴ画像',
+        'description' => '「株式会社えんのした」の画像ロゴ（推奨: 高さ40px程度、PNG/SVG透過）',
+        'section'     => 'ennoshita_logo',
+    ]));
+
     // CTA セクション
     $wp_customize->add_section('ennoshita_cta', [
         'title'    => 'CTAセクション',
@@ -585,21 +619,44 @@ function ennoshita_reading_time($post_id = null) {
 }
 
 /**
- * カスタムロゴまたはテキストロゴを出力
+ * ロゴを出力（シンボルマーク + テキストロゴ画像 / テキストフォールバック）
+ *
+ * 優先順位:
+ * 1. カスタマイザーの「シンボルマーク」+「テキストロゴ画像」があれば画像で表示
+ * 2. WordPress標準の「カスタムロゴ」があればそれを表示
+ * 3. どちらもなければテキストで表示
+ *
+ * 画像ロゴが表示される場合でも、SEO/アクセシビリティ用に
+ * テキストを screen-reader-text として保持します。
  */
 function ennoshita_the_logo($class = 'site-logo') {
+    $symbol_url     = get_theme_mod('ennoshita_logo_symbol');
+    $text_image_url = get_theme_mod('ennoshita_logo_text_image');
     $custom_logo_id = get_theme_mod('custom_logo');
+    $site_name      = get_bloginfo('name');
+    $has_image_logo = $symbol_url || $text_image_url || $custom_logo_id;
 
     echo '<a href="' . esc_url(home_url('/')) . '" class="' . esc_attr($class) . '" rel="home">';
 
-    if ($custom_logo_id) {
+    // シンボルマーク（アイコンロゴ）
+    if ($symbol_url) {
+        echo '<img src="' . esc_url($symbol_url) . '" alt="" class="site-logo__symbol" width="40" height="40">';
+    }
+
+    // テキストロゴ画像（「株式会社えんのした」の画像）
+    if ($text_image_url) {
+        echo '<img src="' . esc_url($text_image_url) . '" alt="' . esc_attr($site_name) . '" class="site-logo__image">';
+    } elseif ($custom_logo_id) {
+        // フォールバック: WordPress標準カスタムロゴ
         echo wp_get_attachment_image($custom_logo_id, 'full', false, [
-            'class' => 'custom-logo',
-            'alt'   => get_bloginfo('name'),
+            'class' => 'site-logo__image custom-logo',
+            'alt'   => $site_name,
         ]);
     }
 
-    echo '<span class="site-logo__text">';
+    // テキスト部分: 画像ロゴがあればSR専用、なければ表示
+    $text_class = $has_image_logo ? 'site-logo__text screen-reader-text' : 'site-logo__text';
+    echo '<span class="' . $text_class . '">';
     echo '<span class="site-logo__main">株式会社えんのした</span>';
     echo '<span class="site-logo__sub">ENNOSHITA</span>';
     echo '</span>';

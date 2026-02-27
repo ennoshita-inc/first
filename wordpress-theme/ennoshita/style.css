@@ -260,6 +260,9 @@ ul, ol { list-style: none; }
 }
 
 .site-logo:hover { opacity: 0.8; color: var(--color-primary-dark); }
+
+.site-logo__symbol { height: 40px; width: auto; flex-shrink: 0; }
+.site-logo__image  { height: 36px; width: auto; }
 .site-logo img, .site-logo .custom-logo { height: 40px; width: auto; }
 
 .site-logo__text { display: flex; flex-direction: column; line-height: 1.2; }
