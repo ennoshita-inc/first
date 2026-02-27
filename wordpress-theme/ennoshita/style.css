@@ -1636,6 +1636,31 @@ a.footer__logo:hover { color: #fff; }
   margin-top: var(--space-xl);
 }
 
+/* Service detail entry-content icon colors — force えんじ色 */
+.service-detail .entry-content svg {
+  color: var(--color-primary);
+  stroke: var(--color-primary);
+}
+
+.service-detail .entry-content svg circle,
+.service-detail .entry-content svg path,
+.service-detail .entry-content svg line,
+.service-detail .entry-content svg rect,
+.service-detail .entry-content svg polyline,
+.service-detail .entry-content svg polygon {
+  stroke: var(--color-primary);
+}
+
+.service-detail .entry-content svg[fill]:not([fill="none"]) {
+  fill: var(--color-primary);
+}
+
+/* Ensure checkmark/feature icons in service detail use brand color */
+.service-detail .entry-content .wp-block-list li::marker,
+.service-detail .entry-content ul li::marker {
+  color: var(--color-primary);
+}
+
 /* ==========================================================================
    404 Page
    ========================================================================== */

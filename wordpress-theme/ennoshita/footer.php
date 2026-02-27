@@ -43,7 +43,7 @@
         <?php else : ?>
           <ul class="footer__nav">
             <li><a href="<?php echo esc_url(home_url('/about/')); ?>">会社概要</a></li>
-            <li><a href="<?php echo esc_url(home_url('/blog/')); ?>">コラム</a></li>
+            <li><a href="<?php echo esc_url(get_post_type_archive_link('post') ?: home_url('/blog/')); ?>">コラム</a></li>
             <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせ</a></li>
             <li><a href="<?php echo esc_url(home_url('/sitemap/')); ?>">サイトマップ</a></li>
           </ul>

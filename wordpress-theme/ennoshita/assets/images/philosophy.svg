@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="405" viewBox="0 0 540 405">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#852228;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#c49a2a;stop-opacity:0.08"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="540" height="405" rx="16"/>
+  <g transform="translate(270,170)" text-anchor="middle" font-family="sans-serif">
+    <circle cx="0" cy="-30" r="40" fill="none" stroke="#852228" stroke-width="1.5" opacity="0.3"/>
+    <path d="M-12,-42 L0,-54 L12,-42" fill="none" stroke="#852228" stroke-width="1.5" opacity="0.4"/>
+    <path d="M-8,-30 Q0,-20 8,-30" fill="none" stroke="#852228" stroke-width="1.5" opacity="0.3"/>
+    <text y="40" font-size="16" font-weight="500" fill="#852228" opacity="0.5">Philosophy</text>
+    <text y="62" font-size="11" fill="#718096" opacity="0.6">カスタマイザーから画像を設定してください</text>
+  </g>
+</svg>

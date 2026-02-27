@@ -167,7 +167,11 @@ get_header();
     <div class="container">
       <div class="philosophy__inner">
         <div class="philosophy__image reveal reveal--left">
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/hero.jpg"
+          <?php
+          $philosophy_img = get_theme_mod('ennoshita_philosophy_image');
+          $philosophy_img_url = $philosophy_img ? $philosophy_img : get_template_directory_uri() . '/assets/images/philosophy.svg';
+          ?>
+          <img src="<?php echo esc_url($philosophy_img_url); ?>"
                alt="えんのしたのコンサルティング風景"
                width="540" height="405" loading="lazy">
         </div>
@@ -343,7 +347,7 @@ get_header();
 
 
   <!-- ===== 8. ブログセクション ===== -->
-  <section class="section section--gray" aria-labelledby="blog-title">
+  <section class="section section--gray" id="blog" aria-labelledby="blog-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Blog</p>
@@ -372,7 +376,7 @@ get_header();
       </div>
 
       <div class="blog-section__more reveal">
-        <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts')) ?: home_url('/blog/')); ?>" class="btn btn--outline">
+        <a href="<?php echo esc_url(get_post_type_archive_link('post') ?: home_url('/blog/')); ?>" class="btn btn--outline">
           コラム一覧を見る
           <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>

@@ -474,6 +474,19 @@ function ennoshita_customize_register($wp_customize) {
         'section'     => 'ennoshita_logo',
     ]));
 
+    // 理念セクション画像
+    $wp_customize->add_section('ennoshita_philosophy', [
+        'title'    => '理念セクション',
+        'priority' => 31,
+    ]);
+
+    $wp_customize->add_setting('ennoshita_philosophy_image', ['default' => '']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_philosophy_image', [
+        'label'       => '理念セクション画像',
+        'description' => '推奨サイズ: 540×405px（横長4:3）。未設定の場合はデフォルト画像が表示されます。',
+        'section'     => 'ennoshita_philosophy',
+    ]));
+
     // CTA セクション
     $wp_customize->add_section('ennoshita_cta', [
         'title'    => 'CTAセクション',
