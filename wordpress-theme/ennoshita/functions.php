@@ -286,8 +286,9 @@ function ennoshita_output_jsonld() {
         );
     }
 
-    // サービスページのFAQスキーマ
-    if (is_page() && is_page_template('page-service.php')) {
+    // サービスページのFAQスキーマ（テンプレート選択 or サービス子ページ）
+    $is_service_tpl = is_page() && (is_page_template('page-service.php') || (is_page() && wp_get_post_parent_id(get_the_ID()) && get_post_field('post_name', wp_get_post_parent_id(get_the_ID())) === 'service'));
+    if ($is_service_tpl) {
         $faq_raw = get_post_meta(get_the_ID(), '_service_faq', true);
         if ($faq_raw) {
             $faq_items = [];
@@ -807,6 +808,15 @@ function ennoshita_disable_comments_defaults() {
 }
 add_action('after_switch_theme', 'ennoshita_disable_comments_defaults');
 
+// テーマ有効化時にリライトルールをフラッシュ（CPTの404対策）
+function ennoshita_flush_rewrite_rules() {
+    ennoshita_register_testimonial_cpt();
+    ennoshita_register_case_study_cpt();
+    ennoshita_register_team_member_cpt();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'ennoshita_flush_rewrite_rules');
+
 // 既存投稿のコメントもフロントでは無効化
 function ennoshita_close_comments($open) {
     return false;
@@ -819,6 +829,25 @@ function ennoshita_hide_comments($comments) {
     return [];
 }
 add_filter('comments_array', 'ennoshita_hide_comments', 20, 1);
+
+
+// サービス子ページに自動的に page-service.php テンプレートを適用
+function ennoshita_service_child_template($template) {
+    if (is_page()) {
+        $post = get_queried_object();
+        if ($post && $post->post_parent) {
+            $parent = get_post($post->post_parent);
+            if ($parent && $parent->post_name === 'service') {
+                $service_template = locate_template('page-service.php');
+                if ($service_template) {
+                    return $service_template;
+                }
+            }
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'ennoshita_service_child_template');
 
 
 // ==============================================
@@ -876,10 +905,24 @@ function ennoshita_service_meta_boxes() {
 add_action('add_meta_boxes', 'ennoshita_service_meta_boxes');
 
 function ennoshita_service_meta_box_html($post) {
-    // サービス詳細ページテンプレート使用時のみ表示
+    // サービス詳細ページテンプレートを使用しているか判定
     $template = get_page_template_slug($post->ID);
-    if ($template !== 'page-service.php' && basename(get_page_template()) !== 'page-service.php') {
-        echo '<p style="color:#666">このメタボックスは「サービス詳細ページ」テンプレートを選択している場合に使用します。</p>';
+    $is_service_page = ($template === 'page-service.php');
+
+    // テンプレート未選択でも、親ページのスラッグが 'service' ならサービス子ページ
+    if (!$is_service_page && $post->post_parent) {
+        $parent = get_post($post->post_parent);
+        if ($parent && $parent->post_name === 'service') {
+            $is_service_page = true;
+        }
+    }
+    // スラッグが 'service' のページ自体もOK
+    if (!$is_service_page && $post->post_name === 'service') {
+        $is_service_page = true;
+    }
+
+    if (!$is_service_page) {
+        echo '<p style="color:#666">このメタボックスは「サービス詳細ページ」テンプレートを選択しているページ、またはサービス（/service/）の子ページで使用します。<br>子ページの場合はページ属性の「親ページ」を「サービス一覧」に設定してください。</p>';
     }
 
     wp_nonce_field('ennoshita_service_nonce', '_service_nonce');
