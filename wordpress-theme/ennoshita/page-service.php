@@ -51,11 +51,12 @@ if (have_posts()) : the_post();
            'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'],
         ];
 
-        $current_url = trailingslashit(get_permalink());
+        $current_path = trailingslashit(wp_make_link_relative(get_permalink()));
         foreach ($services as $svc) :
           $svc_url = home_url($svc['slug']);
-          // 現在表示中のサービスはスキップ
-          if (trailingslashit($svc_url) === $current_url) continue;
+          $svc_path = trailingslashit(wp_make_link_relative($svc_url));
+          // 現在表示中のサービスはスキップ（パス部分で比較）
+          if ($svc_path === $current_path) continue;
         ?>
           <article class="service-card">
             <span class="service-card__number"><?php echo esc_html($svc['number']); ?></span>
@@ -118,6 +119,7 @@ if (have_posts()) : the_post();
         </a>
         <a href="<?php echo esc_url(home_url('/#services')); ?>" class="btn btn--outline-white btn--large">
           サービス一覧を見る
+          <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
     </div>

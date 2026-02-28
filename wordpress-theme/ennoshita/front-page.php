@@ -143,10 +143,10 @@ get_header();
       <div class="trust__grid">
         <?php
         $trust_items = [
-          ['number' => '10',  'suffix' => '年以上', 'label' => 'コンサルティング実績'],
-          ['number' => '100', 'suffix' => '社+',   'label' => '支援企業数'],
-          ['number' => '500', 'suffix' => '名+',   'label' => '研修受講者数'],
-          ['number' => '95',  'suffix' => '%',     'label' => '顧客満足度'],
+          ['number' => '15',   'suffix' => '年以上', 'label' => 'コンサルティング実績'],
+          ['number' => '100',  'suffix' => '社+',   'label' => '支援企業数'],
+          ['number' => '1000', 'suffix' => '名＋',  'label' => '研修受講者数'],
+          ['number' => '95',   'suffix' => '%',     'label' => '顧客満足度'],
         ];
         foreach ($trust_items as $i => $item) :
         ?>

@@ -244,7 +244,8 @@
       const easedProgress = easeOutExpo(progress);
       const current = Math.round(easedProgress * target);
 
-      el.innerHTML = current + (suffixText ? '<small>' + suffixText + '</small>' : '');
+      var display = current.toLocaleString();
+      el.innerHTML = display + (suffixText ? '<small>' + suffixText + '</small>' : '');
 
       if (progress < 1) {
         requestAnimationFrame(update);
