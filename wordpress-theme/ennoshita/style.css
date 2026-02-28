@@ -1154,6 +1154,30 @@ a.footer__logo:hover { color: #fff; }
 
 .footer__info dd { margin-bottom: var(--space-md); }
 
+/* Footer SNS links */
+.footer__sns {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.footer__sns-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.footer__sns-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
 .footer__bottom {
   display: flex;
   align-items: center;

@@ -300,47 +300,63 @@ get_header();
       </div>
 
       <div class="testimonials__grid">
-        <article class="testimonial-card reveal reveal--delay-1">
-          <div class="testimonial-card__quote">
-            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
-            <p>管理職研修を導入してから、部下との1on1の質が目に見えて変わりました。現場からも「相談しやすくなった」という声が上がっています。</p>
-          </div>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-hidden="true"></div>
-            <div class="testimonial-card__info">
-              <p class="testimonial-card__company">製造業 A社様（従業員300名）</p>
-              <p class="testimonial-card__role">人事部長</p>
-            </div>
-          </div>
-        </article>
+        <?php
+        // カスタム投稿タイプ「お客様の声」から取得
+        $testimonial_query = new WP_Query([
+            'post_type'      => 'testimonial',
+            'posts_per_page' => 3,
+            'post_status'    => 'publish',
+        ]);
 
-        <article class="testimonial-card reveal reveal--delay-2">
-          <div class="testimonial-card__quote">
-            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
-            <p>人事制度の再構築を依頼しましたが、現場の声を丁寧にヒアリングし、当社の文化に合った制度を設計してくれました。社員の納得感が段違いです。</p>
-          </div>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-hidden="true"></div>
-            <div class="testimonial-card__info">
-              <p class="testimonial-card__company">IT企業 B社様（従業員150名）</p>
-              <p class="testimonial-card__role">代表取締役</p>
+        if ($testimonial_query->have_posts()) :
+          $delay = 1;
+          while ($testimonial_query->have_posts()) : $testimonial_query->the_post();
+            $company = get_post_meta(get_the_ID(), '_testimonial_company', true);
+            $role    = get_post_meta(get_the_ID(), '_testimonial_role', true);
+        ?>
+          <article class="testimonial-card reveal reveal--delay-<?php echo $delay++; ?>">
+            <div class="testimonial-card__quote">
+              <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+              <?php the_content(); ?>
             </div>
-          </div>
-        </article>
-
-        <article class="testimonial-card reveal reveal--delay-3">
-          <div class="testimonial-card__quote">
-            <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
-            <p>組織開発のワークショップを通じて、部署間の壁が徐々になくなりました。「チーム全体で考える」文化が根付き始めています。</p>
-          </div>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar" aria-hidden="true"></div>
-            <div class="testimonial-card__info">
-              <p class="testimonial-card__company">サービス業 C社様（従業員500名）</p>
-              <p class="testimonial-card__role">経営企画室 室長</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true"></div>
+              <div class="testimonial-card__info">
+                <?php if ($company) : ?>
+                  <p class="testimonial-card__company"><?php echo esc_html($company); ?></p>
+                <?php endif; ?>
+                <?php if ($role) : ?>
+                  <p class="testimonial-card__role"><?php echo esc_html($role); ?></p>
+                <?php endif; ?>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        <?php
+          endwhile;
+          wp_reset_postdata();
+        else :
+          // カスタム投稿がまだない場合のデフォルト表示
+          $defaults = [
+            ['text' => '管理職研修を導入してから、部下との1on1の質が目に見えて変わりました。現場からも「相談しやすくなった」という声が上がっています。', 'company' => '製造業 A社様（従業員300名）', 'role' => '人事部長'],
+            ['text' => '人事制度の再構築を依頼しましたが、現場の声を丁寧にヒアリングし、当社の文化に合った制度を設計してくれました。社員の納得感が段違いです。', 'company' => 'IT企業 B社様（従業員150名）', 'role' => '代表取締役'],
+            ['text' => '組織開発のワークショップを通じて、部署間の壁が徐々になくなりました。「チーム全体で考える」文化が根付き始めています。', 'company' => 'サービス業 C社様（従業員500名）', 'role' => '経営企画室 室長'],
+          ];
+          foreach ($defaults as $i => $item) :
+        ?>
+          <article class="testimonial-card reveal reveal--delay-<?php echo $i + 1; ?>">
+            <div class="testimonial-card__quote">
+              <svg class="testimonial-card__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+              <p><?php echo esc_html($item['text']); ?></p>
+            </div>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar" aria-hidden="true"></div>
+              <div class="testimonial-card__info">
+                <p class="testimonial-card__company"><?php echo esc_html($item['company']); ?></p>
+                <p class="testimonial-card__role"><?php echo esc_html($item['role']); ?></p>
+              </div>
+            </div>
+          </article>
+        <?php endforeach; endif; ?>
       </div>
     </div>
   </section>

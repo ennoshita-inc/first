@@ -332,7 +332,89 @@ add_action('wp_head', 'ennoshita_output_canonical', 1);
 
 
 // ==============================================
-// 9. ウィジェット
+// 9. カスタム投稿タイプ: お客様の声
+// ==============================================
+function ennoshita_register_testimonial_cpt() {
+    register_post_type('testimonial', [
+        'labels' => [
+            'name'               => 'お客様の声',
+            'singular_name'      => 'お客様の声',
+            'add_new'            => '新規追加',
+            'add_new_item'       => 'お客様の声を追加',
+            'edit_item'          => 'お客様の声を編集',
+            'new_item'           => '新しいお客様の声',
+            'view_item'          => 'お客様の声を表示',
+            'search_items'       => 'お客様の声を検索',
+            'not_found'          => 'お客様の声が見つかりません',
+            'not_found_in_trash' => 'ゴミ箱にお客様の声はありません',
+            'menu_name'          => 'お客様の声',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-format-quote',
+        'menu_position' => 25,
+        'supports'     => ['title', 'editor', 'thumbnail'],
+        'has_archive'  => false,
+    ]);
+}
+add_action('init', 'ennoshita_register_testimonial_cpt');
+
+// お客様の声のカスタムフィールドを管理画面に追加
+function ennoshita_testimonial_meta_boxes() {
+    add_meta_box(
+        'testimonial_details',
+        'お客様情報',
+        'ennoshita_testimonial_meta_box_html',
+        'testimonial',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'ennoshita_testimonial_meta_boxes');
+
+function ennoshita_testimonial_meta_box_html($post) {
+    $company = get_post_meta($post->ID, '_testimonial_company', true);
+    $role    = get_post_meta($post->ID, '_testimonial_role', true);
+    wp_nonce_field('ennoshita_testimonial_nonce', '_testimonial_nonce');
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="testimonial_company">会社名・業種</label></th>
+            <td><input type="text" id="testimonial_company" name="testimonial_company"
+                       value="<?php echo esc_attr($company); ?>" class="regular-text"
+                       placeholder="例: 製造業 A社様（従業員300名）"></td>
+        </tr>
+        <tr>
+            <th><label for="testimonial_role">肩書き</label></th>
+            <td><input type="text" id="testimonial_role" name="testimonial_role"
+                       value="<?php echo esc_attr($role); ?>" class="regular-text"
+                       placeholder="例: 人事部長"></td>
+        </tr>
+    </table>
+    <p class="description">本文欄にお客様のコメントを入力してください。</p>
+    <?php
+}
+
+function ennoshita_save_testimonial_meta($post_id) {
+    if (!isset($_POST['_testimonial_nonce']) || !wp_verify_nonce($_POST['_testimonial_nonce'], 'ennoshita_testimonial_nonce')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['testimonial_company'])) {
+        update_post_meta($post_id, '_testimonial_company', sanitize_text_field($_POST['testimonial_company']));
+    }
+    if (isset($_POST['testimonial_role'])) {
+        update_post_meta($post_id, '_testimonial_role', sanitize_text_field($_POST['testimonial_role']));
+    }
+}
+add_action('save_post_testimonial', 'ennoshita_save_testimonial_meta');
+
+
+// ==============================================
+// 10. ウィジェット
 // ==============================================
 function ennoshita_widgets_init() {
     register_sidebar([
@@ -513,6 +595,53 @@ function ennoshita_customize_register($wp_customize) {
         'type'    => 'textarea',
     ]);
 
+    // SNSリンク
+    $wp_customize->add_section('ennoshita_sns', [
+        'title'    => 'SNSリンク',
+        'priority' => 38,
+    ]);
+
+    foreach (['x' => 'X (Twitter)', 'facebook' => 'Facebook', 'instagram' => 'Instagram', 'linkedin' => 'LinkedIn'] as $key => $label) {
+        $wp_customize->add_setting("ennoshita_sns_{$key}", [
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ]);
+        $wp_customize->add_control("ennoshita_sns_{$key}", [
+            'label'   => "{$label} URL",
+            'section' => 'ennoshita_sns',
+            'type'    => 'url',
+        ]);
+    }
+
+    // GA / GTM
+    $wp_customize->add_section('ennoshita_analytics', [
+        'title'       => 'アクセス解析',
+        'description' => 'Google Analytics や Google Tag Manager の計測ID を入力してください。',
+        'priority'    => 39,
+    ]);
+
+    $wp_customize->add_setting('ennoshita_ga4_id', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('ennoshita_ga4_id', [
+        'label'       => 'GA4 測定ID',
+        'description' => '例: G-XXXXXXXXXX',
+        'section'     => 'ennoshita_analytics',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('ennoshita_gtm_id', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('ennoshita_gtm_id', [
+        'label'       => 'GTM コンテナID',
+        'description' => '例: GTM-XXXXXXX（GA4 ID と同時に設定した場合は GTM が優先されます）',
+        'section'     => 'ennoshita_analytics',
+        'type'        => 'text',
+    ]);
+
     // 会社情報
     $wp_customize->add_section('ennoshita_company', [
         'title'    => '会社情報',
@@ -553,7 +682,43 @@ add_action('customize_register', 'ennoshita_customize_register');
 
 
 // ==============================================
-// 13. セキュリティ対策
+// 13. Google Analytics / Tag Manager
+// ==============================================
+
+// GA4 または GTM の <head> 内タグ出力
+function ennoshita_output_analytics_head() {
+    $gtm_id = get_theme_mod('ennoshita_gtm_id');
+    $ga4_id = get_theme_mod('ennoshita_ga4_id');
+
+    if ($gtm_id) {
+        printf(
+            "<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','%s');</script>\n<!-- End Google Tag Manager -->\n",
+            esc_js($gtm_id)
+        );
+    } elseif ($ga4_id) {
+        printf(
+            "<!-- Google Analytics (GA4) -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','%1\$s');</script>\n",
+            esc_attr($ga4_id)
+        );
+    }
+}
+add_action('wp_head', 'ennoshita_output_analytics_head', 0);
+
+// GTM の <body> 直後の noscript タグ
+function ennoshita_output_gtm_body() {
+    $gtm_id = get_theme_mod('ennoshita_gtm_id');
+    if ($gtm_id) {
+        printf(
+            '<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->' . "\n",
+            esc_attr($gtm_id)
+        );
+    }
+}
+add_action('wp_body_open', 'ennoshita_output_gtm_body', 0);
+
+
+// ==============================================
+// 14. セキュリティ対策
 // ==============================================
 
 // セキュリティヘッダー
