@@ -73,59 +73,24 @@ get_header();
       </div>
 
       <div class="services__grid">
-        <article class="service-card reveal reveal--delay-1">
-          <span class="service-card__number">SERVICE 01</span>
+        <?php
+        $services = ennoshita_get_services();
+        foreach ($services as $i => $svc) :
+        ?>
+        <article class="service-card reveal reveal--delay-<?php echo $i + 1; ?>">
+          <span class="service-card__number"><?php echo esc_html($svc['number']); ?></span>
           <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-            </svg>
+            <?php echo $svc['icon']; ?>
           </div>
-          <h3 class="service-card__title">組織の頭脳を育む</h3>
-          <p class="service-card__subtitle">人材育成サービス</p>
-          <p class="service-card__text">多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。</p>
-          <a href="<?php echo esc_url(home_url('/service/training/')); ?>" class="service-card__link">
+          <h3 class="service-card__title"><?php echo esc_html($svc['title']); ?></h3>
+          <p class="service-card__subtitle"><?php echo esc_html($svc['subtitle']); ?></p>
+          <p class="service-card__text"><?php echo esc_html($svc['text']); ?></p>
+          <a href="<?php echo esc_url(home_url($svc['slug'])); ?>" class="service-card__link">
             詳しく見る
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </article>
-
-        <article class="service-card reveal reveal--delay-2">
-          <span class="service-card__number">SERVICE 02</span>
-          <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-              <line x1="3" y1="9" x2="21" y2="9"/>
-              <line x1="9" y1="21" x2="9" y2="9"/>
-            </svg>
-          </div>
-          <h3 class="service-card__title">組織の背骨を整える</h3>
-          <p class="service-card__subtitle">人事制度構築支援</p>
-          <p class="service-card__text">評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。</p>
-          <a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>" class="service-card__link">
-            詳しく見る
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </article>
-
-        <article class="service-card reveal reveal--delay-3">
-          <span class="service-card__number">SERVICE 03</span>
-          <div class="service-card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <h3 class="service-card__title">組織の筋力を鍛える</h3>
-          <p class="service-card__subtitle">組織開発支援</p>
-          <p class="service-card__text">チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。</p>
-          <a href="<?php echo esc_url(home_url('/service/organization/')); ?>" class="service-card__link">
-            詳しく見る
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </article>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
@@ -255,36 +220,7 @@ get_header();
 
 
   <!-- ===== 6. 導入の流れ ===== -->
-  <section class="section section--gray" id="process" aria-labelledby="process-title">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-header__label">Process</p>
-        <h2 class="section-header__title" id="process-title">サービス導入の流れ</h2>
-        <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">
-          お問い合わせから導入まで、4つのステップでサポートします。
-        </p>
-      </div>
-
-      <div class="process__steps">
-        <?php
-        $steps = [
-          ['title' => 'お問い合わせ',     'text' => 'まずはお気軽にご連絡ください。ご相談は無料です。'],
-          ['title' => 'ヒアリング',       'text' => '組織の現状と課題を丁寧にお伺いします。'],
-          ['title' => 'ご提案・お見積り', 'text' => '最適なプランをご提案し、お見積りを提出します。'],
-          ['title' => 'サービス開始',     'text' => 'プログラムを実施し、組織の変革を支援します。'],
-        ];
-        foreach ($steps as $i => $step) :
-        ?>
-          <div class="process__step reveal reveal--delay-<?php echo $i + 1; ?>">
-            <div class="process__step-number"><?php echo $i + 1; ?></div>
-            <h3 class="process__step-title"><?php echo esc_html($step['title']); ?></h3>
-            <p class="process__step-text"><?php echo esc_html($step['text']); ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
+  <?php get_template_part('template-parts/section', 'process', ['id' => 'process-title']); ?>
 
 
   <!-- ===== 7. お客様の声 ===== -->
@@ -406,24 +342,6 @@ get_header();
 
 
   <!-- ===== 9. CTA セクション ===== -->
-  <section class="cta">
-    <div class="container cta__inner reveal">
-      <h2 class="cta__title">
-        <?php echo esc_html(get_theme_mod('ennoshita_cta_title', '組織の課題、一緒に解決しませんか？')); ?>
-      </h2>
-      <p class="cta__text">
-        <?php echo esc_html(get_theme_mod('ennoshita_cta_text', 'まずはお気軽にご相談ください。貴社の状況をお伺いし、最適なアプローチをご提案します。')); ?>
-      </p>
-      <div class="cta__buttons">
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">
-          無料相談のお申し込み
-          <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-        <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn btn--outline-white btn--large">
-          会社概要を見る
-        </a>
-      </div>
-    </div>
-  </section>
+  <?php get_template_part('template-parts/section', 'cta'); ?>
 
 <?php get_footer(); ?>

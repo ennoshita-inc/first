@@ -23,9 +23,12 @@
       <?php endif; ?>
       <h3 class="blog-card__title"><?php the_title(); ?></h3>
       <p class="blog-card__excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt(), 40, '…')); ?></p>
-      <time class="blog-card__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-        <?php echo esc_html(get_the_date('Y.m.d')); ?>
-      </time>
+      <div class="blog-card__meta">
+        <span class="blog-card__author"><?php the_author(); ?></span>
+        <time class="blog-card__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+          <?php echo esc_html(get_the_date('Y.m.d')); ?>
+        </time>
+      </div>
     </div>
   </a>
 </article>

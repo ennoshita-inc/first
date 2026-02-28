@@ -74,12 +74,19 @@ if (have_posts()) : the_post();
         </div>
       </div>
 
-      <!-- 会社紹介バナー（コラム経由ユーザー向け） -->
-      <aside class="author-box" aria-label="この記事を書いた会社">
+      <!-- 著者情報 -->
+      <aside class="author-box" aria-label="この記事を書いた人">
         <div class="author-box__inner">
+          <?php echo get_avatar(get_the_author_meta('ID'), 80, '', get_the_author(), ['class' => 'author-box__avatar']); ?>
           <div class="author-box__content">
-            <p class="author-box__name">株式会社えんのした</p>
-            <p class="author-box__desc">岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、企業の持続的な成長を支援するコンサルティング会社です。</p>
+            <p class="author-box__label">この記事を書いた人</p>
+            <p class="author-box__name"><?php the_author(); ?></p>
+            <?php $author_desc = get_the_author_meta('description');
+            if ($author_desc) : ?>
+              <p class="author-box__desc"><?php echo esc_html($author_desc); ?></p>
+            <?php else : ?>
+              <p class="author-box__desc">株式会社えんのした｜岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、企業の持続的な成長を支援しています。</p>
+            <?php endif; ?>
             <div class="author-box__links">
               <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn btn--small btn--outline">会社概要</a>
               <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--small btn--primary">お問い合わせ</a>

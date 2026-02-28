@@ -286,6 +286,38 @@ function ennoshita_output_jsonld() {
         );
     }
 
+    // サービスページのFAQスキーマ
+    if (is_page() && is_page_template('page-service.php')) {
+        $faq_raw = get_post_meta(get_the_ID(), '_service_faq', true);
+        if ($faq_raw) {
+            $faq_items = [];
+            foreach (explode("\n", trim($faq_raw)) as $line) {
+                $parts = explode('|', trim($line), 2);
+                if (count($parts) === 2 && trim($parts[0]) && trim($parts[1])) {
+                    $faq_items[] = [
+                        '@type'          => 'Question',
+                        'name'           => trim($parts[0]),
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text'  => trim($parts[1]),
+                        ],
+                    ];
+                }
+            }
+            if ($faq_items) {
+                $faq_data = [
+                    '@context'   => 'https://schema.org',
+                    '@type'      => 'FAQPage',
+                    'mainEntity' => $faq_items,
+                ];
+                printf(
+                    '<script type="application/ld+json">%s</script>' . "\n",
+                    wp_json_encode($faq_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+                );
+            }
+        }
+    }
+
     if (is_singular('post')) {
         $data = [
             '@context'      => 'https://schema.org',
@@ -790,7 +822,344 @@ add_filter('comments_array', 'ennoshita_hide_comments', 20, 1);
 
 
 // ==============================================
-// 14. ユーティリティ関数
+// 14. サービスデータ一元管理
+// ==============================================
+
+/**
+ * 3つのサービス情報を一元管理する関数
+ * front-page.php と page-service.php の重複を排除
+ */
+function ennoshita_get_services() {
+    return [
+        [
+            'slug'     => '/service/training/',
+            'number'   => 'SERVICE 01',
+            'title'    => '組織の頭脳を育む',
+            'subtitle' => '人材育成サービス',
+            'text'     => '多様な学びの場を提供し、次世代リーダーに必要な知識・スキル・マインドを体系的に育成します。',
+            'icon'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+        ],
+        [
+            'slug'     => '/service/hr-system/',
+            'number'   => 'SERVICE 02',
+            'title'    => '組織の背骨を整える',
+            'subtitle' => '人事制度構築支援',
+            'text'     => '評価制度・等級制度・報酬制度など、公正で納得感のある人事制度の構築・運用を支援します。',
+            'icon'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
+        ],
+        [
+            'slug'     => '/service/organization/',
+            'number'   => 'SERVICE 03',
+            'title'    => '組織の筋力を鍛える',
+            'subtitle' => '組織開発支援',
+            'text'     => 'チームの関係性を強化し、自律的に課題を解決できる強い組織づくりをサポートします。',
+            'icon'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+        ],
+    ];
+}
+
+
+// ==============================================
+// 15. サービスページ用カスタムフィールド
+// ==============================================
+
+function ennoshita_service_meta_boxes() {
+    add_meta_box(
+        'service_details',
+        'サービス詳細情報',
+        'ennoshita_service_meta_box_html',
+        'page',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'ennoshita_service_meta_boxes');
+
+function ennoshita_service_meta_box_html($post) {
+    // サービス詳細ページテンプレート使用時のみ表示
+    $template = get_page_template_slug($post->ID);
+    if ($template !== 'page-service.php' && basename(get_page_template()) !== 'page-service.php') {
+        echo '<p style="color:#666">このメタボックスは「サービス詳細ページ」テンプレートを選択している場合に使用します。</p>';
+    }
+
+    wp_nonce_field('ennoshita_service_nonce', '_service_nonce');
+
+    $fields = [
+        '_service_number'         => get_post_meta($post->ID, '_service_number', true),
+        '_service_overview'       => get_post_meta($post->ID, '_service_overview', true),
+        '_service_targets'        => get_post_meta($post->ID, '_service_targets', true),
+        '_service_programs'       => get_post_meta($post->ID, '_service_programs', true),
+        '_service_outcomes'       => get_post_meta($post->ID, '_service_outcomes', true),
+        '_service_timeline'       => get_post_meta($post->ID, '_service_timeline', true),
+        '_service_case_company'   => get_post_meta($post->ID, '_service_case_company', true),
+        '_service_case_challenge' => get_post_meta($post->ID, '_service_case_challenge', true),
+        '_service_case_solution'  => get_post_meta($post->ID, '_service_case_solution', true),
+        '_service_case_result'    => get_post_meta($post->ID, '_service_case_result', true),
+        '_service_case_quote'     => get_post_meta($post->ID, '_service_case_quote', true),
+        '_service_faq'            => get_post_meta($post->ID, '_service_faq', true),
+    ];
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="service_number">サービス番号</label></th>
+            <td><input type="text" id="service_number" name="service_number" value="<?php echo esc_attr($fields['_service_number']); ?>" class="regular-text" placeholder="例: SERVICE 01"></td>
+        </tr>
+        <tr>
+            <th><label for="service_overview">サービス概要</label></th>
+            <td><textarea id="service_overview" name="service_overview" rows="3" class="large-text" placeholder="このサービスの具体的な概要（2-3文）"><?php echo esc_textarea($fields['_service_overview']); ?></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="service_targets">こんな企業様におすすめ</label></th>
+            <td>
+                <textarea id="service_targets" name="service_targets" rows="5" class="large-text" placeholder="1行に1項目ずつ記入&#10;例:&#10;管理職のマネジメント力を強化したい&#10;新入社員の早期戦力化を図りたい"><?php echo esc_textarea($fields['_service_targets']); ?></textarea>
+                <p class="description">1行に1項目ずつ記入してください。</p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="service_programs">プログラム/メニュー一覧</label></th>
+            <td>
+                <textarea id="service_programs" name="service_programs" rows="8" class="large-text" placeholder="タイトル|説明|期間|対象 の形式で1行1プログラム&#10;例:&#10;管理職リーダーシップ研修|部下育成・チーム運営・目標管理を実践的に学ぶ|2日間（集合研修）|管理職・課長クラス&#10;新入社員ビジネス基礎研修|社会人としての基礎力を短期集中で養成|3日間|新入社員"><?php echo esc_textarea($fields['_service_programs']); ?></textarea>
+                <p class="description">「タイトル|説明|期間|対象」の形式で、1行に1プログラムずつ記入してください。</p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="service_outcomes">導入効果・期待される成果</label></th>
+            <td>
+                <textarea id="service_outcomes" name="service_outcomes" rows="5" class="large-text" placeholder="1行に1項目ずつ記入&#10;例:&#10;管理職の部下育成スキルが向上し、離職率が20%改善&#10;1on1ミーティングの質が向上"><?php echo esc_textarea($fields['_service_outcomes']); ?></textarea>
+                <p class="description">1行に1項目ずつ記入してください。</p>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="service_timeline">導入スケジュール</label></th>
+            <td>
+                <textarea id="service_timeline" name="service_timeline" rows="5" class="large-text" placeholder="フェーズ名|期間|内容 の形式で1行1フェーズ&#10;例:&#10;ヒアリング・課題分析|1-2週間|現状の課題と目標を整理&#10;プログラム設計|2-3週間|カリキュラムと教材をカスタマイズ"><?php echo esc_textarea($fields['_service_timeline']); ?></textarea>
+                <p class="description">「フェーズ名|期間|内容」の形式で記入してください。</p>
+            </td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">導入事例</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="service_case_company">企業名・業種</label></th>
+            <td><input type="text" id="service_case_company" name="service_case_company" value="<?php echo esc_attr($fields['_service_case_company']); ?>" class="regular-text" placeholder="例: 製造業 A社様（従業員300名）"></td>
+        </tr>
+        <tr>
+            <th><label for="service_case_challenge">課題</label></th>
+            <td><textarea id="service_case_challenge" name="service_case_challenge" rows="3" class="large-text" placeholder="導入前の課題"><?php echo esc_textarea($fields['_service_case_challenge']); ?></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="service_case_solution">実施内容</label></th>
+            <td><textarea id="service_case_solution" name="service_case_solution" rows="3" class="large-text" placeholder="提供したサービスの内容"><?php echo esc_textarea($fields['_service_case_solution']); ?></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="service_case_result">成果</label></th>
+            <td><textarea id="service_case_result" name="service_case_result" rows="3" class="large-text" placeholder="導入後の成果・変化"><?php echo esc_textarea($fields['_service_case_result']); ?></textarea></td>
+        </tr>
+        <tr>
+            <th><label for="service_case_quote">担当者の声</label></th>
+            <td><textarea id="service_case_quote" name="service_case_quote" rows="3" class="large-text" placeholder="ご担当者様からのコメント"><?php echo esc_textarea($fields['_service_case_quote']); ?></textarea></td>
+        </tr>
+    </table>
+
+    <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">よくあるご質問（FAQ）</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="service_faq">FAQ</label></th>
+            <td>
+                <textarea id="service_faq" name="service_faq" rows="10" class="large-text" placeholder="質問|回答 の形式で1行1問ずつ&#10;例:&#10;研修の最少催行人数は？|5名様からご対応可能です。少人数ならではの密度の濃い研修が実現できます。&#10;オンラインでも実施できますか？|はい。Zoom等を活用したオンライン研修にも対応しております。"><?php echo esc_textarea($fields['_service_faq']); ?></textarea>
+                <p class="description">「質問|回答」の形式で、1行に1問ずつ記入してください。</p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+function ennoshita_save_service_meta($post_id) {
+    if (!isset($_POST['_service_nonce']) || !wp_verify_nonce($_POST['_service_nonce'], 'ennoshita_service_nonce')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $text_fields = ['service_number', 'service_case_company'];
+    foreach ($text_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, "_{$field}", sanitize_text_field($_POST[$field]));
+        }
+    }
+
+    $textarea_fields = ['service_overview', 'service_targets', 'service_programs',
+        'service_outcomes', 'service_timeline', 'service_case_challenge',
+        'service_case_solution', 'service_case_result', 'service_case_quote', 'service_faq'];
+    foreach ($textarea_fields as $field) {
+        if (isset($_POST[$field])) {
+            update_post_meta($post_id, "_{$field}", sanitize_textarea_field($_POST[$field]));
+        }
+    }
+}
+add_action('save_post_page', 'ennoshita_save_service_meta');
+
+
+// ==============================================
+// 16. カスタム投稿タイプ: 実績事例
+// ==============================================
+function ennoshita_register_case_study_cpt() {
+    register_post_type('case_study', [
+        'labels' => [
+            'name'               => '実績事例',
+            'singular_name'      => '実績事例',
+            'add_new'            => '新規追加',
+            'add_new_item'       => '実績事例を追加',
+            'edit_item'          => '実績事例を編集',
+            'new_item'           => '新しい実績事例',
+            'view_item'          => '実績事例を表示',
+            'search_items'       => '実績事例を検索',
+            'not_found'          => '実績事例が見つかりません',
+            'menu_name'          => '実績事例',
+        ],
+        'public'       => true,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-awards',
+        'menu_position' => 26,
+        'supports'     => ['title', 'editor', 'thumbnail'],
+        'has_archive'  => true,
+        'rewrite'      => ['slug' => 'case-study'],
+    ]);
+}
+add_action('init', 'ennoshita_register_case_study_cpt');
+
+function ennoshita_case_study_meta_boxes() {
+    add_meta_box('case_study_details', '事例情報', 'ennoshita_case_study_meta_box_html', 'case_study', 'normal', 'high');
+}
+add_action('add_meta_boxes', 'ennoshita_case_study_meta_boxes');
+
+function ennoshita_case_study_meta_box_html($post) {
+    $fields = [
+        '_cs_company'   => get_post_meta($post->ID, '_cs_company', true),
+        '_cs_industry'  => get_post_meta($post->ID, '_cs_industry', true),
+        '_cs_employees' => get_post_meta($post->ID, '_cs_employees', true),
+        '_cs_service'   => get_post_meta($post->ID, '_cs_service', true),
+        '_cs_challenge' => get_post_meta($post->ID, '_cs_challenge', true),
+        '_cs_solution'  => get_post_meta($post->ID, '_cs_solution', true),
+        '_cs_result'    => get_post_meta($post->ID, '_cs_result', true),
+        '_cs_duration'  => get_post_meta($post->ID, '_cs_duration', true),
+        '_cs_quote'     => get_post_meta($post->ID, '_cs_quote', true),
+        '_cs_role'      => get_post_meta($post->ID, '_cs_role', true),
+    ];
+    wp_nonce_field('ennoshita_cs_nonce', '_cs_nonce');
+    ?>
+    <table class="form-table">
+        <tr><th><label for="cs_company">企業名</label></th>
+            <td><input type="text" id="cs_company" name="cs_company" value="<?php echo esc_attr($fields['_cs_company']); ?>" class="regular-text" placeholder="例: 株式会社A（匿名可）"></td></tr>
+        <tr><th><label for="cs_industry">業種</label></th>
+            <td><input type="text" id="cs_industry" name="cs_industry" value="<?php echo esc_attr($fields['_cs_industry']); ?>" class="regular-text" placeholder="例: 製造業"></td></tr>
+        <tr><th><label for="cs_employees">従業員数</label></th>
+            <td><input type="text" id="cs_employees" name="cs_employees" value="<?php echo esc_attr($fields['_cs_employees']); ?>" class="regular-text" placeholder="例: 300名"></td></tr>
+        <tr><th><label for="cs_service">サービス種別</label></th>
+            <td><select id="cs_service" name="cs_service">
+                <option value="">選択してください</option>
+                <option value="training" <?php selected($fields['_cs_service'], 'training'); ?>>人材育成サービス</option>
+                <option value="hr-system" <?php selected($fields['_cs_service'], 'hr-system'); ?>>人事制度構築支援</option>
+                <option value="organization" <?php selected($fields['_cs_service'], 'organization'); ?>>組織開発支援</option>
+            </select></td></tr>
+        <tr><th><label for="cs_duration">支援期間</label></th>
+            <td><input type="text" id="cs_duration" name="cs_duration" value="<?php echo esc_attr($fields['_cs_duration']); ?>" class="regular-text" placeholder="例: 6ヶ月"></td></tr>
+        <tr><th><label for="cs_challenge">課題</label></th>
+            <td><textarea id="cs_challenge" name="cs_challenge" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_challenge']); ?></textarea></td></tr>
+        <tr><th><label for="cs_solution">実施内容</label></th>
+            <td><textarea id="cs_solution" name="cs_solution" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_solution']); ?></textarea></td></tr>
+        <tr><th><label for="cs_result">成果</label></th>
+            <td><textarea id="cs_result" name="cs_result" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_result']); ?></textarea></td></tr>
+        <tr><th><label for="cs_quote">担当者の声</label></th>
+            <td><textarea id="cs_quote" name="cs_quote" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_quote']); ?></textarea></td></tr>
+        <tr><th><label for="cs_role">肩書き</label></th>
+            <td><input type="text" id="cs_role" name="cs_role" value="<?php echo esc_attr($fields['_cs_role']); ?>" class="regular-text" placeholder="例: 人事部長"></td></tr>
+    </table>
+    <?php
+}
+
+function ennoshita_save_case_study_meta($post_id) {
+    if (!isset($_POST['_cs_nonce']) || !wp_verify_nonce($_POST['_cs_nonce'], 'ennoshita_cs_nonce')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $text_fields = ['cs_company', 'cs_industry', 'cs_employees', 'cs_service', 'cs_duration', 'cs_role'];
+    foreach ($text_fields as $f) {
+        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_text_field($_POST[$f]));
+    }
+    $textarea_fields = ['cs_challenge', 'cs_solution', 'cs_result', 'cs_quote'];
+    foreach ($textarea_fields as $f) {
+        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_textarea_field($_POST[$f]));
+    }
+}
+add_action('save_post_case_study', 'ennoshita_save_case_study_meta');
+
+
+// ==============================================
+// 17. カスタム投稿タイプ: チームメンバー
+// ==============================================
+function ennoshita_register_team_cpt() {
+    register_post_type('team_member', [
+        'labels' => [
+            'name'          => 'チーム紹介',
+            'singular_name' => 'チームメンバー',
+            'add_new_item'  => 'メンバーを追加',
+            'edit_item'     => 'メンバーを編集',
+            'menu_name'     => 'チーム紹介',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-groups',
+        'menu_position' => 27,
+        'supports'     => ['title', 'editor', 'thumbnail'],
+        'has_archive'  => false,
+    ]);
+}
+add_action('init', 'ennoshita_register_team_cpt');
+
+function ennoshita_team_meta_boxes() {
+    add_meta_box('team_details', 'メンバー情報', 'ennoshita_team_meta_box_html', 'team_member', 'normal', 'high');
+}
+add_action('add_meta_boxes', 'ennoshita_team_meta_boxes');
+
+function ennoshita_team_meta_box_html($post) {
+    $position    = get_post_meta($post->ID, '_team_position', true);
+    $specialty   = get_post_meta($post->ID, '_team_specialty', true);
+    $credentials = get_post_meta($post->ID, '_team_credentials', true);
+    wp_nonce_field('ennoshita_team_nonce', '_team_nonce');
+    ?>
+    <table class="form-table">
+        <tr><th><label for="team_position">肩書き</label></th>
+            <td><input type="text" id="team_position" name="team_position" value="<?php echo esc_attr($position); ?>" class="regular-text" placeholder="例: 代表取締役 / シニアコンサルタント"></td></tr>
+        <tr><th><label for="team_specialty">専門分野</label></th>
+            <td><input type="text" id="team_specialty" name="team_specialty" value="<?php echo esc_attr($specialty); ?>" class="regular-text" placeholder="例: リーダーシップ開発、組織文化変革"></td></tr>
+        <tr><th><label for="team_credentials">保有資格</label></th>
+            <td><textarea id="team_credentials" name="team_credentials" rows="3" class="large-text" placeholder="1行に1資格ずつ記入"><?php echo esc_textarea($credentials); ?></textarea></td></tr>
+    </table>
+    <p class="description">本文欄にプロフィール・経歴を入力してください。</p>
+    <?php
+}
+
+function ennoshita_save_team_meta($post_id) {
+    if (!isset($_POST['_team_nonce']) || !wp_verify_nonce($_POST['_team_nonce'], 'ennoshita_team_nonce')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    foreach (['team_position', 'team_specialty'] as $f) {
+        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_text_field($_POST[$f]));
+    }
+    if (isset($_POST['team_credentials'])) {
+        update_post_meta($post_id, '_team_credentials', sanitize_textarea_field($_POST['team_credentials']));
+    }
+}
+add_action('save_post_team_member', 'ennoshita_save_team_meta');
+
+
+// ==============================================
+// 18. ユーティリティ関数
 // ==============================================
 
 /**
