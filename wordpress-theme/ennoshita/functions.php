@@ -928,15 +928,32 @@ function ennoshita_service_meta_box_html($post) {
     wp_nonce_field('ennoshita_service_nonce', '_service_nonce');
 
     $fields = [
-        '_service_number'         => get_post_meta($post->ID, '_service_number', true),
-        '_service_overview'       => get_post_meta($post->ID, '_service_overview', true),
-        '_service_targets'        => get_post_meta($post->ID, '_service_targets', true),
-        '_service_programs'       => get_post_meta($post->ID, '_service_programs', true),
-        '_service_outcomes'       => get_post_meta($post->ID, '_service_outcomes', true),
-        '_service_timeline'       => get_post_meta($post->ID, '_service_timeline', true),
-        '_service_faq'            => get_post_meta($post->ID, '_service_faq', true),
+        '_service_number'    => get_post_meta($post->ID, '_service_number', true),
+        '_service_overview'  => get_post_meta($post->ID, '_service_overview', true),
+        '_service_targets'   => get_post_meta($post->ID, '_service_targets', true),
+        '_service_programs'  => get_post_meta($post->ID, '_service_programs', true),
+        '_service_outcomes'  => get_post_meta($post->ID, '_service_outcomes', true),
+        '_service_faq'       => get_post_meta($post->ID, '_service_faq', true),
     ];
+
+    // サンプルデータで未入力フィールドを事前投入
+    $sample_loaded = false;
+    if (!$fields['_service_overview'] && function_exists('ennoshita_get_service_sample_data')) {
+        $sample = ennoshita_get_service_sample_data($post->post_name);
+        if ($sample) {
+            if (!$fields['_service_number'])   $fields['_service_number']   = $sample['number'];
+            if (!$fields['_service_overview']) $fields['_service_overview'] = $sample['overview'];
+            if (!$fields['_service_targets'])  $fields['_service_targets']  = $sample['targets'];
+            if (!$fields['_service_programs']) $fields['_service_programs'] = $sample['programs'];
+            if (!$fields['_service_outcomes']) $fields['_service_outcomes'] = $sample['outcomes'];
+            if (!$fields['_service_faq'])      $fields['_service_faq']      = $sample['faq'];
+            $sample_loaded = true;
+        }
+    }
     ?>
+    <?php if ($sample_loaded) : ?>
+        <div class="notice notice-info inline" style="margin:10px 0"><p>サンプルデータが表示されています。内容を編集して「更新」を押すと、カスタムデータとして保存されます。</p></div>
+    <?php endif; ?>
     <table class="form-table">
         <tr>
             <th><label for="service_number">サービス番号</label></th>
@@ -965,13 +982,6 @@ function ennoshita_service_meta_box_html($post) {
             <td>
                 <textarea id="service_outcomes" name="service_outcomes" rows="5" class="large-text" placeholder="1行に1項目ずつ記入&#10;例:&#10;管理職の部下育成スキルが向上し、離職率が20%改善&#10;1on1ミーティングの質が向上"><?php echo esc_textarea($fields['_service_outcomes']); ?></textarea>
                 <p class="description">1行に1項目ずつ記入してください。</p>
-            </td>
-        </tr>
-        <tr>
-            <th><label for="service_timeline">導入スケジュール</label></th>
-            <td>
-                <textarea id="service_timeline" name="service_timeline" rows="5" class="large-text" placeholder="フェーズ名|期間|内容 の形式で1行1フェーズ&#10;例:&#10;ヒアリング・課題分析|1-2週間|現状の課題と目標を整理&#10;プログラム設計|2-3週間|カリキュラムと教材をカスタマイズ"><?php echo esc_textarea($fields['_service_timeline']); ?></textarea>
-                <p class="description">「フェーズ名|期間|内容」の形式で記入してください。</p>
             </td>
         </tr>
     </table>
@@ -1008,7 +1018,7 @@ function ennoshita_save_service_meta($post_id) {
     }
 
     $textarea_fields = ['service_overview', 'service_targets', 'service_programs',
-        'service_outcomes', 'service_timeline', 'service_faq'];
+        'service_outcomes', 'service_faq'];
     foreach ($textarea_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, "_{$field}", sanitize_textarea_field($_POST[$field]));
@@ -1400,3 +1410,267 @@ function ennoshita_save_program_meta($post_id) {
     }
 }
 add_action('save_post_service_program', 'ennoshita_save_program_meta');
+
+
+// ==============================================
+// 22. コラム記事の関連サービス設定
+// ==============================================
+function ennoshita_post_service_meta_box() {
+    add_meta_box(
+        'post_related_service',
+        '関連サービス',
+        'ennoshita_post_service_meta_html',
+        'post',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'ennoshita_post_service_meta_box');
+
+function ennoshita_post_service_meta_html($post) {
+    $current = get_post_meta($post->ID, '_related_service', true);
+    wp_nonce_field('ennoshita_post_service_nonce', '_post_service_nonce');
+    $services = [
+        'training'     => '人材育成サービス',
+        'hr-system'    => '人事制度構築支援',
+        'organization' => '組織開発支援',
+    ];
+    ?>
+    <p class="description" style="margin-bottom:8px">このコラムを関連付けるサービスを選択してください。サービス詳細ページの「関連コラム」に表示されます。</p>
+    <select name="related_service" id="related_service" style="width:100%">
+        <option value="">指定なし</option>
+        <?php foreach ($services as $val => $label) : ?>
+            <option value="<?php echo esc_attr($val); ?>" <?php selected($current, $val); ?>><?php echo esc_html($label); ?></option>
+        <?php endforeach; ?>
+    </select>
+    <?php
+}
+
+function ennoshita_save_post_service_meta($post_id) {
+    if (!isset($_POST['_post_service_nonce']) || !wp_verify_nonce($_POST['_post_service_nonce'], 'ennoshita_post_service_nonce')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['related_service'])) {
+        $value = sanitize_text_field($_POST['related_service']);
+        if ($value) {
+            update_post_meta($post_id, '_related_service', $value);
+        } else {
+            delete_post_meta($post_id, '_related_service');
+        }
+    }
+}
+add_action('save_post', 'ennoshita_save_post_service_meta');
+
+
+// ==============================================
+// 23. ナノバナナプロ（Gemini API）画像自動生成
+// ==============================================
+
+/**
+ * コラム保存時にアイキャッチ画像がなければ Gemini API で自動生成
+ */
+function ennoshita_nanobananapro_generate_image($post_id) {
+    // 自動保存・リビジョンはスキップ
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_revision($post_id)) return;
+    if (get_post_type($post_id) !== 'post') return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    // 既にアイキャッチ画像があればスキップ
+    if (has_post_thumbnail($post_id)) return;
+
+    // APIキーの確認
+    $api_key = get_option('ennoshita_nanobananapro_api_key');
+    if (!$api_key) return;
+
+    $post  = get_post($post_id);
+    $title = $post->post_title;
+    if (!$title) return;
+
+    // 本文から抜粋を取得（プロンプトの参考に）
+    $excerpt = wp_trim_words(strip_tags($post->post_content), 50, '');
+
+    // 画像生成プロンプト
+    $prompt = sprintf(
+        'ビジネスブログ記事「%s」のアイキャッチ画像を生成してください。' .
+        '記事の内容: %s。' .
+        'スタイル: プロフェッショナルで洗練されたビジネスイラスト、' .
+        '暖かみのある緑系のカラーパレット（#1a5632を基調）、' .
+        '人材育成・組織開発のコンサルティング企業にふさわしいトーン。' .
+        'テキストや文字は一切入れないでください。' .
+        'アスペクト比は16:9（横長）で生成してください。',
+        $title,
+        $excerpt
+    );
+
+    // Gemini API（ナノバナナプロ）に画像生成をリクエスト
+    $model = get_option('ennoshita_nanobananapro_model', 'gemini-2.0-flash-exp');
+    $api_url = sprintf(
+        'https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s',
+        $model,
+        $api_key
+    );
+
+    $body = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt],
+                ],
+            ],
+        ],
+        'generationConfig' => [
+            'responseModalities' => ['TEXT', 'IMAGE'],
+        ],
+    ];
+
+    $response = wp_remote_post($api_url, [
+        'timeout' => 60,
+        'headers' => ['Content-Type' => 'application/json'],
+        'body'    => wp_json_encode($body),
+    ]);
+
+    if (is_wp_error($response)) {
+        error_log('ナノバナナプロ API エラー: ' . $response->get_error_message());
+        return;
+    }
+
+    $code = wp_remote_retrieve_response_code($response);
+    if ($code !== 200) {
+        error_log('ナノバナナプロ API HTTPエラー: ' . $code . ' ' . wp_remote_retrieve_body($response));
+        return;
+    }
+
+    $data = json_decode(wp_remote_retrieve_body($response), true);
+
+    // レスポンスから画像データを抽出
+    $image_data = null;
+    $mime_type  = 'image/png';
+    if (!empty($data['candidates'][0]['content']['parts'])) {
+        foreach ($data['candidates'][0]['content']['parts'] as $part) {
+            if (!empty($part['inlineData'])) {
+                $image_data = $part['inlineData']['data'];
+                $mime_type  = $part['inlineData']['mimeType'] ?? 'image/png';
+                break;
+            }
+        }
+    }
+
+    if (!$image_data) {
+        error_log('ナノバナナプロ: 画像データが見つかりません');
+        return;
+    }
+
+    // Base64デコード & 一時ファイルに保存
+    $decoded = base64_decode($image_data);
+    if (!$decoded) return;
+
+    $ext = ($mime_type === 'image/jpeg') ? '.jpg' : '.png';
+    $filename = 'nanobananapro-' . $post_id . '-' . time() . $ext;
+    $upload_dir = wp_upload_dir();
+    $filepath   = $upload_dir['path'] . '/' . $filename;
+
+    if (!file_put_contents($filepath, $decoded)) {
+        error_log('ナノバナナプロ: ファイル保存に失敗');
+        return;
+    }
+
+    // WordPressメディアライブラリに登録
+    $attachment = [
+        'post_mime_type' => $mime_type,
+        'post_title'     => sanitize_file_name($title) . ' - AI生成画像',
+        'post_content'   => '',
+        'post_status'    => 'inherit',
+    ];
+
+    $attach_id = wp_insert_attachment($attachment, $filepath, $post_id);
+    if (is_wp_error($attach_id)) {
+        error_log('ナノバナナプロ: アタッチメント登録に失敗');
+        return;
+    }
+
+    // メタデータ生成（サムネイルサイズ等）
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    $metadata = wp_generate_attachment_metadata($attach_id, $filepath);
+    wp_update_attachment_metadata($attach_id, $metadata);
+
+    // アイキャッチ画像として設定
+    set_post_thumbnail($post_id, $attach_id);
+}
+add_action('save_post', 'ennoshita_nanobananapro_generate_image', 20);
+
+/**
+ * 管理画面: ナノバナナプロAPIキー設定ページ
+ */
+function ennoshita_nanobananapro_settings_page() {
+    add_options_page(
+        'ナノバナナプロ設定',
+        'ナノバナナプロ',
+        'manage_options',
+        'ennoshita-nanobananapro',
+        'ennoshita_nanobananapro_settings_html'
+    );
+}
+add_action('admin_menu', 'ennoshita_nanobananapro_settings_page');
+
+function ennoshita_nanobananapro_settings_html() {
+    if (!current_user_can('manage_options')) return;
+
+    if (isset($_POST['_nanobananapro_nonce']) && wp_verify_nonce($_POST['_nanobananapro_nonce'], 'nanobananapro_settings')) {
+        update_option('ennoshita_nanobananapro_api_key', sanitize_text_field($_POST['api_key'] ?? ''));
+        update_option('ennoshita_nanobananapro_model', sanitize_text_field($_POST['model'] ?? 'gemini-2.0-flash-exp'));
+        echo '<div class="notice notice-success"><p>設定を保存しました。</p></div>';
+    }
+
+    $api_key = get_option('ennoshita_nanobananapro_api_key', '');
+    $model   = get_option('ennoshita_nanobananapro_model', 'gemini-2.0-flash-exp');
+    ?>
+    <div class="wrap">
+        <h1>ナノバナナプロ（Gemini API）設定</h1>
+        <p>コラム記事を保存する際、アイキャッチ画像が未設定の場合に Gemini API（ナノバナナプロ）で自動生成します。</p>
+        <form method="post">
+            <?php wp_nonce_field('nanobananapro_settings', '_nanobananapro_nonce'); ?>
+            <table class="form-table">
+                <tr>
+                    <th><label for="api_key">Gemini API キー</label></th>
+                    <td>
+                        <input type="password" id="api_key" name="api_key" value="<?php echo esc_attr($api_key); ?>" class="regular-text">
+                        <p class="description">Google AI Studio で取得した API キーを入力してください。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="model">モデル</label></th>
+                    <td>
+                        <select id="model" name="model">
+                            <option value="gemini-2.0-flash-exp" <?php selected($model, 'gemini-2.0-flash-exp'); ?>>Gemini 2.0 Flash (Nano Banana)</option>
+                            <option value="gemini-2.5-flash-preview-image" <?php selected($model, 'gemini-2.5-flash-preview-image'); ?>>Gemini 2.5 Flash (Nano Banana 2)</option>
+                            <option value="gemini-3-pro-image-preview" <?php selected($model, 'gemini-3-pro-image-preview'); ?>>Gemini 3 Pro Image (Nano Banana Pro)</option>
+                        </select>
+                        <p class="description">使用する画像生成モデルを選択してください。Nano Banana Pro が最高品質です。</p>
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('設定を保存'); ?>
+        </form>
+        <hr>
+        <h2>使い方</h2>
+        <ol>
+            <li>Google AI Studio（<code>https://aistudio.google.com/</code>）でAPIキーを取得</li>
+            <li>上のフォームにAPIキーを入力して保存</li>
+            <li>コラム記事を作成・保存すると、アイキャッチ画像が未設定の場合に自動で画像が生成されます</li>
+            <li>生成された画像はメディアライブラリに保存され、アイキャッチに設定されます</li>
+        </ol>
+        <p><strong>注意:</strong> 既にアイキャッチ画像が設定されている記事では画像は生成されません。再生成したい場合は、アイキャッチ画像を一度削除してから記事を更新してください。</p>
+    </div>
+    <?php
+}
+
+/**
+ * テーマ有効化時にリライトルール更新（提供プログラムCPT追加対応）
+ */
+function ennoshita_flush_rewrite_rules_v2() {
+    ennoshita_register_service_program_cpt();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'ennoshita_flush_rewrite_rules_v2');

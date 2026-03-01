@@ -347,6 +347,57 @@ a.main-nav__contact:visited {
   box-shadow: 0 4px 12px rgba(133,34,40,0.25);
 }
 
+/* サービスサブメニュー */
+.main-nav__list .has-submenu {
+  position: relative;
+}
+
+.main-nav__list .sub-menu,
+.main-nav__list .has-submenu > .sub-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.12);
+  padding: 8px 0;
+  z-index: 1000;
+  list-style: none;
+  margin: 0;
+}
+
+.main-nav__list .has-submenu:hover > .sub-menu,
+.main-nav__list .menu-item-has-children:hover > .sub-menu {
+  display: block;
+}
+
+.main-nav__list .sub-menu li {
+  margin: 0;
+}
+
+.main-nav__list .sub-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--color-text, #333);
+  font-size: .9rem;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+}
+
+.main-nav__list .sub-menu a:hover {
+  background: var(--color-bg-warm, #f8f6f3);
+  color: var(--color-primary, #1a5632);
+}
+
+/* WP menu の menu-item-has-children にも対応 */
+.main-nav__list .menu-item-has-children {
+  position: relative;
+}
+
 .hamburger {
   display: none;
   background: none;
@@ -2579,6 +2630,32 @@ a.blog-filter__item--active:hover {
 
   .main-nav__link::after { display: none; }
   .main-nav__contact { width: 100%; justify-content: center; margin-top: var(--space-lg); }
+
+  /* モバイルでの表示: サブメニューをインライン展開 */
+  .main-nav__list .sub-menu,
+  .main-nav__list .has-submenu > .sub-menu,
+  .main-nav__list .menu-item-has-children > .sub-menu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+    display: none;
+    padding: 0 0 0 1em;
+    min-width: auto;
+  }
+
+  .main-nav__list .has-submenu:hover > .sub-menu,
+  .main-nav__list .menu-item-has-children:hover > .sub-menu,
+  .main-nav.is-open .has-submenu > .sub-menu,
+  .main-nav.is-open .menu-item-has-children > .sub-menu {
+    display: block;
+  }
+
+  .main-nav__list .sub-menu a {
+    padding: 8px 16px;
+    font-size: .85rem;
+    color: var(--color-text-light, #666);
+  }
 
   .hero { min-height: auto; padding: calc(var(--header-height) + var(--space-2xl)) var(--container-padding) 120px; }
   .hero__inner { padding: var(--space-xl) 0; }

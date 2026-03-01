@@ -1,23 +1,37 @@
 <?php
 /**
  * Template Name: 会社概要ページ
+ *
+ * セクション構成:
+ * 1. ページヘッダー（ダークグラデーション）
+ * 2. パンくず
+ * 3. 理念セクション（Philosophy）
+ * 4. ミッション＆ビジョン（Mission）
+ * 5. 企業情報テーブル（Company）
+ * 6. 本文エリア（the_content — 補足用）
+ * 7. 代表メッセージ（Message）
+ * 8. チーム紹介（Team）
+ * 9. CTA
  */
 get_header();
 
 if (have_posts()) : the_post();
 ?>
 
+  <!-- 1. ページヘッダー -->
   <div class="page-header">
     <div class="container">
+      <p class="page-header__label">About Us</p>
       <h1 class="page-header__title">会社概要</h1>
-      <p class="page-header__subtitle">About Us</p>
+      <p class="page-header__subtitle">人・職場・組織を支え、リーダーの心技体を育む</p>
     </div>
   </div>
 
+  <!-- 2. パンくず -->
   <?php ennoshita_breadcrumb(); ?>
 
-  <!-- 理念セクション -->
-  <section class="section">
+  <!-- 3. 理念セクション -->
+  <section class="section" aria-labelledby="philosophy-title">
     <div class="container">
       <div class="philosophy__inner">
         <div class="philosophy__image reveal reveal--left">
@@ -30,7 +44,7 @@ if (have_posts()) : the_post();
         </div>
         <div class="philosophy__text reveal reveal--right">
           <p class="section-header__label">Philosophy</p>
-          <h2 class="philosophy__heading">
+          <h2 class="philosophy__heading" id="philosophy-title">
             人・職場・組織を支え、<br>リーダーの心技体を育む
           </h2>
           <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
@@ -41,12 +55,43 @@ if (have_posts()) : the_post();
     </div>
   </section>
 
-  <!-- 会社情報テーブル -->
-  <section class="section section--gray">
+  <!-- 4. ミッション＆ビジョン -->
+  <section class="section section--dark" aria-labelledby="mission-title">
+    <div class="container container--narrow">
+      <div class="section-header reveal">
+        <p class="section-header__label">Mission</p>
+        <h2 class="section-header__title" id="mission-title">私たちの使命</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+      </div>
+      <div class="v11-outcomes reveal">
+        <div class="v11-outcome">
+          <div class="v11-outcome-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <p class="v11-outcome-text">人が変われば組織が変わり、組織が変われば社会が変わる。一人ひとりの可能性を信じ、組織の成長に伴走します。</p>
+        </div>
+        <div class="v11-outcome">
+          <div class="v11-outcome-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p class="v11-outcome-text">多様な学びの場を提供し、次世代のリーダーに必要な「心」「技」「体」を育む。</p>
+        </div>
+        <div class="v11-outcome">
+          <div class="v11-outcome-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <p class="v11-outcome-text">制度だけでなく、人の意識と行動を変えることで、組織の本質的な変革を実現します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 企業情報テーブル -->
+  <section class="section section--gray" aria-labelledby="company-title">
     <div class="container container--narrow">
       <div class="section-header reveal">
         <p class="section-header__label">Company</p>
-        <h2 class="section-header__title">企業情報</h2>
+        <h2 class="section-header__title" id="company-title">企業情報</h2>
         <span class="section-header__line" aria-hidden="true"></span>
       </div>
 
@@ -61,19 +106,59 @@ if (have_posts()) : the_post();
           </tbody>
         </table>
       </div>
-
-      <!-- ページ本文 (追加コンテンツ用) -->
-      <?php
-      $content = get_the_content();
-      if ($content) : ?>
-        <div class="entry-content reveal entry-content--spaced">
-          <?php the_content(); ?>
-        </div>
-      <?php endif; ?>
     </div>
   </section>
 
-  <!-- チーム紹介 -->
+  <!-- 6. 本文エリア（追加コンテンツ用） -->
+  <?php
+  $content = get_the_content();
+  if ($content) : ?>
+  <section class="section" aria-labelledby="additional-content">
+    <div class="container container--narrow">
+      <div class="entry-content reveal entry-content--spaced">
+        <?php the_content(); ?>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <!-- 7. 代表メッセージ -->
+  <section class="section section--message" aria-labelledby="about-message-title">
+    <div class="container">
+      <div class="message__inner">
+        <div class="message__image reveal reveal--left">
+          <?php
+          $rep_photo = get_theme_mod('ennoshita_representative_photo');
+          $rep_photo_url = $rep_photo ? $rep_photo : get_template_directory_uri() . '/assets/images/representative.svg';
+          ?>
+          <img src="<?php echo esc_url($rep_photo_url); ?>"
+               alt="代表取締役の写真"
+               width="400" height="500" loading="lazy">
+        </div>
+        <div class="message__text reveal reveal--right">
+          <p class="section-header__label">Message</p>
+          <h2 class="section-header__title" id="about-message-title">代表メッセージ</h2>
+          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
+          <p class="message__lead">
+            組織は、制度では変わりません。<br>
+            変わるのは、人です。
+          </p>
+          <p>
+            企業の成長を左右するのは外部環境だけではありません。多くの場合、課題は組織の内側にあります。
+          </p>
+          <p>
+            私たちは、仕組みだけを設計する会社ではありません。未来を言語化し、現状とのギャップを整理し、戦略・制度・育成・対話を一貫して組み立てます。
+          </p>
+          <p class="message__signature">
+            <span class="message__position">代表取締役</span>
+            <span class="message__name-text">川路 隆志</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. チーム紹介 -->
   <?php
   $team_query = new WP_Query([
     'post_type'      => 'team_member',
@@ -85,7 +170,7 @@ if (have_posts()) : the_post();
 
   if ($team_query->have_posts()) :
   ?>
-  <section class="section" aria-labelledby="team-title">
+  <section class="section section--gray" aria-labelledby="team-title">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-header__label">Team</p>
@@ -124,7 +209,7 @@ if (have_posts()) : the_post();
   </section>
   <?php endif; ?>
 
-  <!-- CTA -->
+  <!-- 9. CTA -->
   <?php get_template_part('template-parts/section', 'cta'); ?>
 
 <?php

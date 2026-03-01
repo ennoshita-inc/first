@@ -11,13 +11,12 @@
  * 4. こんな企業様におすすめ（グラデーションアイコンカード）
  * 5. 提供プログラム（CPT or カスタムフィールド / アクセントバー付きカード）
  * 6. 導入効果・期待される成果（ダークセクション / 定性的+定量的表現）
- * 7. 導入スケジュール（アイコンタイムライン）
- * 8. 導入事例（case_study CPT カルーセル）
- * 9. よくあるご質問（FAQ）
- * 10. 関連コラム記事
- * 11. 本文エリア（the_content — 補足用）
- * 12. その他のサービス
- * 13. 導入の流れ
+ * 7. 導入事例（case_study CPT カルーセル）
+ * 8. よくあるご質問（FAQ）
+ * 9. 関連コラム記事（サービス別フィルタリング）
+ * 10. 本文エリア（the_content — 補足用）
+ * 11. その他のサービス
+ * 12. 導入の流れ
  * 14. CTA
  */
 get_header();
@@ -30,7 +29,6 @@ $overview         = get_post_meta(get_the_ID(), '_service_overview', true);
 $targets_raw      = get_post_meta(get_the_ID(), '_service_targets', true);
 $programs_raw     = get_post_meta(get_the_ID(), '_service_programs', true);
 $outcomes_raw     = get_post_meta(get_the_ID(), '_service_outcomes', true);
-$timeline_raw     = get_post_meta(get_the_ID(), '_service_timeline', true);
 $faq_raw          = get_post_meta(get_the_ID(), '_service_faq', true);
 
 // フォールバック: カスタムフィールドが未入力の場合、サンプルデータを使用
@@ -46,7 +44,6 @@ if (!$overview) {
         $targets_raw      = $sample_data['targets'];
         $programs_raw     = $sample_data['programs'];
         $outcomes_raw     = $sample_data['outcomes'];
-        $timeline_raw     = $sample_data['timeline'];
         $faq_raw          = $sample_data['faq'];
     }
 }
@@ -96,20 +93,6 @@ if (!$programs_from_cpt && $programs_raw) {
                 'desc'     => trim($parts[1]),
                 'duration' => isset($parts[2]) ? trim($parts[2]) : '',
                 'audience' => isset($parts[3]) ? trim($parts[3]) : '',
-            ];
-        }
-    }
-}
-
-$timeline = [];
-if ($timeline_raw) {
-    foreach (explode("\n", trim($timeline_raw)) as $line) {
-        $parts = explode('|', trim($line));
-        if (count($parts) >= 2) {
-            $timeline[] = [
-                'phase'    => trim($parts[0]),
-                'duration' => trim($parts[1]),
-                'content'  => isset($parts[2]) ? trim($parts[2]) : '',
             ];
         }
     }
@@ -197,15 +180,6 @@ if ($current_slug === 'training') {
 $overview_lines = $overview ? preg_split('/\n{2,}/', $overview, 2) : [];
 $overview_lead = !empty($overview_lines[0]) ? trim($overview_lines[0]) : '';
 $overview_body = !empty($overview_lines[1]) ? trim($overview_lines[1]) : '';
-
-// タイムラインアイコンSVG
-$timeline_icons = [
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
-];
 
 // 成果アイコンSVG
 $outcome_icons = [
@@ -354,37 +328,12 @@ $outcome_icons = [
               // 数値部分をハイライト表示: 数字+単位パターンを検出してspanで囲む
               $text = esc_html($outcome);
               $text = preg_replace(
-                  '/([\d,]+(?:\.\d+)?(?:\s*[%％ポイント倍件名社時間日ヶ月年万億]+)+)/',
+                  '/([\d,]+(?:\.\d+)?(?:\s*[%％ポイント倍件名社時間日ヶ月年万億]+)+)/u',
                   '<span class="v11-outcome-highlight">$1</span>',
                   $text
               );
               echo $text;
             ?></p>
-          </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- 7. 導入スケジュール（Gradient Flow: アイコンタイムライン） -->
-  <?php if ($timeline) : ?>
-  <section class="section" aria-labelledby="service-timeline-title">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-header__label">Timeline</p>
-        <h2 class="section-header__title" id="service-timeline-title">導入スケジュール</h2>
-        <span class="section-header__line" aria-hidden="true"></span>
-      </div>
-      <div class="v11-timeline reveal">
-        <?php foreach ($timeline as $i => $phase) : ?>
-          <div class="v11-tl">
-            <div class="v11-tl-icon" aria-hidden="true">
-              <?php echo isset($timeline_icons[$i]) ? $timeline_icons[$i] : $timeline_icons[0]; ?>
-            </div>
-            <div class="v11-tl-step">STEP <?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></div>
-            <h3 class="v11-tl-title"><?php echo esc_html($phase['phase']); ?></h3>
-            <span class="v11-tl-dur"><?php echo esc_html($phase['duration']); ?></span>
           </div>
         <?php endforeach; ?>
       </div>
@@ -509,12 +458,29 @@ $outcome_icons = [
 
   <!-- 10. 関連コラム記事 -->
   <?php
+  // まず関連サービスが設定された記事を優先表示
   $related_posts = new WP_Query([
       'posts_per_page' => 3,
       'post_status'    => 'publish',
       'orderby'        => 'date',
       'order'          => 'DESC',
+      'meta_query'     => [
+          [
+              'key'   => '_related_service',
+              'value' => $current_slug,
+          ],
+      ],
   ]);
+
+  // 関連記事がない場合は最新記事をフォールバック表示
+  if (!$related_posts->have_posts()) {
+      $related_posts = new WP_Query([
+          'posts_per_page' => 3,
+          'post_status'    => 'publish',
+          'orderby'        => 'date',
+          'order'          => 'DESC',
+      ]);
+  }
   if ($related_posts->have_posts()) :
   ?>
   <section class="section section--gray" aria-labelledby="service-related-title">
@@ -581,7 +547,6 @@ function ennoshita_get_service_sample_data($slug) {
             'targets'        => "管理職のマネジメント力・リーダーシップを強化したい\n新入社員・若手社員の早期戦力化を図りたい\n社内の1on1ミーティングの質を向上させたい\nMBTIなどを活用してチーム理解を深めたい\n研修を実施しても「やりっぱなし」で終わってしまう\n外部の専門家による客観的な視点を取り入れたい",
             'programs'       => "管理職リーダーシップ研修|部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践できる力を養います。|2日間（集合研修）|管理職・課長クラス\n新入社員ビジネス基礎研修|社会人としてのマインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。|3日間|新入社員\nMBTIチームビルディング研修|MBTI性格検査を活用し、自己理解と他者理解を深めます。チームの多様性を強みに変えるワークショップ。|1日間|全社員・チーム単位\n1on1ミーティング実践講座|効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。|半日（3時間）|管理職\n目標管理（MBO/OKR）導入研修|組織の目標を個人の行動に落とし込む目標管理の設計と運用を学びます。|1日間|管理職・人事担当者",
             'outcomes'       => "管理職が部下の成長を「自分ごと」として捉えるようになり、チーム全体の生産性が平均15%向上。「チームの雰囲気が明らかに変わった」という声が多数。\n「1on1が楽しみになった」という声が続出。実施率は90%以上に定着し、上司への信頼感が大幅に改善。形骸化しない対話の文化が根付きます。\n若手が「この会社で成長できる」と実感できる環境が生まれ、3年以内の離職率が業界平均の半分以下に。採用コストの削減にも直結します。\n研修後のアンケートで「仕事への意欲が高まった」と回答した社員が8割超。エンゲージメントスコアは20ポイント向上し、組織全体の活力が蘇ります。",
-            'timeline'       => "ヒアリング・課題分析|1〜2週間|現状の人材課題・組織目標をヒアリングし、研修ニーズを明確化\nプログラム設計|2〜3週間|貴社に最適なカリキュラム・教材をカスタマイズ設計\n研修実施|1日〜3日間|集合研修またはオンラインで実施。実践演習を多く取り入れます\nフォローアップ|1〜3ヶ月|研修後の行動計画進捗を確認。必要に応じて追加フォロー研修を実施",
             'case_studies'   => [
                 [
                     'company'   => '製造業 A社様',
@@ -625,7 +590,6 @@ function ennoshita_get_service_sample_data($slug) {
             'targets'        => "人事評価が属人的で、社員の不満が蓄積している\n等級制度が形骸化し、キャリアパスが見えない\n賃金テーブルが古く、採用競争力が低下している\n人事制度を刷新したいが、何から手をつければいいかわからない\n制度を作ったが現場で運用されていない\n中途採用者と既存社員の処遇バランスが取れていない",
             'programs'       => "人事制度グランドデザイン設計|経営理念・ビジョンから逆算し、等級・評価・報酬制度の全体像を設計します。|2〜3ヶ月|経営陣・人事部門\n評価制度構築|職種・等級に応じた評価基準を策定。目標管理制度（MBO）やコンピテンシー評価を組み合わせて設計。|2〜3ヶ月|人事部門・各部門長\n等級・キャリアパス設計|社員の成長段階を可視化する等級フレームワークと、明確なキャリアパスを構築します。|1〜2ヶ月|人事部門\n報酬制度（賃金テーブル）設計|市場水準・社内公平性を考慮した賃金テーブルを設計。シミュレーションで移行コストも算出。|1〜2ヶ月|経営陣・人事部門\n制度運用サポート|評価者研修・目標設定研修・制度説明会の実施。運用開始後のPDCA伴走支援。|3〜6ヶ月|全社",
             'outcomes'       => "社員の評価に対する「なぜこの評価なのか」が明確になり、納得度スコアが平均1.5ポイント向上。不満を起点とした離職が大幅に減少します。\n等級・キャリアパスが可視化されることで「次に何を目指せばいいか」が明確に。社員の目標意識と成長意欲が格段に高まります。\n市場水準を踏まえた賃金テーブルにより、採用オファーの承諾率が20%以上改善。「この会社で働きたい」と思える処遇が実現します。\n評価の属人性を排除し、「誰が評価しても同じ基準」で運用できる公平な仕組みに。評価者の負担も軽減されます。",
-            'timeline'       => "現状分析・課題整理|2〜3週間|既存制度の分析、社員アンケート・インタビューで課題を可視化\n制度設計（基本方針策定）|1〜2ヶ月|経営戦略と連動した人事制度の基本方針・フレームワークを設計\n詳細設計・シミュレーション|1〜2ヶ月|評価基準・等級定義・賃金テーブルの詳細設計。移行シミュレーション実施\n導入準備・研修|1ヶ月|評価者研修、社員説明会、運用マニュアル整備\n運用開始・伴走支援|3〜6ヶ月|制度運用のモニタリング、改善提案、定着フォローアップ",
             'case_studies'   => [
                 [
                     'company'   => 'IT企業 B社様',
@@ -669,7 +633,6 @@ function ennoshita_get_service_sample_data($slug) {
             'targets'        => "部署間のコミュニケーションが不足し、サイロ化が進んでいる\n会議で本音が出ず、表面的な議論や報告で終わってしまう\n経営理念やビジョンが現場に浸透していない\nチームの心理的安全性が低く、挑戦や提案が生まれにくい\n組織変革を進めたいが、現場の抵抗や温度差が大きい\n経営層と現場社員の間に認識のギャップがある\n合併・統合後の組織文化の融合に課題を感じている",
             'programs'       => "組織診断・課題可視化|組織サーベイ（エンゲージメント調査）と個別インタビューを通じて、組織の「見えない課題」を構造的に可視化。数値データと定性データの両面から現状を分析し、優先テーマを特定。|2〜3週間|経営陣・人事部門\nビジョン浸透ワークショップ|経営層と社員が対話を通じて企業理念・ビジョンを「自分ごと化」するワークショップ。一方的な伝達ではなく、社員自身が言葉にすることで腹落ちする設計。|1日間|全社員・部門単位\nチームコーチング|チームの関係性の質を高め、自律的な課題解決力を養うチーム単位のコーチングプログラム。実際の業務課題をテーマに扱うため、学びがそのまま成果につながります。|3〜6ヶ月（月1〜2回）|チーム・部門単位\n組織変革プロジェクト伴走|経営戦略の転換や組織再編など、大規模な変革プロジェクトのファシリテーション。キーパーソンの巻き込みから合意形成、実行フォローまで一貫して伴走。|6ヶ月〜1年|経営陣・プロジェクトチーム\n心理的安全性向上プログラム|Googleの「プロジェクト・アリストテレス」の研究知見をベースに、心理的安全性の高いチームづくりを支援。「建設的に衝突できる」チームを目指します。|3ヶ月|チーム・部門単位",
             'outcomes'       => "部署間の連携が強化され、部門横断プロジェクトの意思決定スピードが40%向上。「壁がなくなった」という声が各部門から上がるようになります。\n会議で建設的な議論ができるようになり、自発的な改善提案が前年比3倍に増加。「言いたいことが言える」から「建設的に議論できる」チームへ成長します。\n社員エンゲージメントスコアが導入前比で25ポイント以上向上。「この会社のビジョンを自分の言葉で説明できる」と答えた社員が32%→78%に改善。\n社内ファシリテーターが育成され、外部支援がなくても自走できる組織体制が構築。「依存」ではなく「自立」がゴールです。",
-            'timeline'       => "組織診断・現状把握|2〜3週間|組織サーベイ・インタビューを実施し、課題を構造化。優先テーマを特定\nプログラム設計|2〜3週間|診断結果に基づき、貴社の状況に最適なオーダーメイドの支援プログラムを設計\n介入フェーズ（実施）|3〜6ヶ月|ワークショップ・チームコーチング・ファシリテーションを計画的に実施\n定着・自走化支援|1〜3ヶ月|社内ファシリテーターの育成、振り返りの仕組みづくりで組織の自走力を確立",
             'case_studies'   => [
                 [
                     'company'   => 'サービス業 C社様',

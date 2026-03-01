@@ -36,12 +36,19 @@
           'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s<li><a href="' . esc_url(home_url('/contact/')) . '" class="main-nav__contact">お問い合わせ</a></li></ul>',
           'link_before'    => '<span class="main-nav__link">',
           'link_after'     => '</span>',
-          'depth'          => 1,
+          'depth'          => 2,
         ]); ?>
       <?php else : ?>
         <ul class="main-nav__list">
           <li><a href="<?php echo esc_url(home_url('/about/')); ?>" class="main-nav__link">会社概要</a></li>
-          <li><a href="<?php echo esc_url(home_url('/#services')); ?>" class="main-nav__link">サービス</a></li>
+          <li class="has-submenu">
+            <a href="<?php echo esc_url(home_url('/#services')); ?>" class="main-nav__link">サービス</a>
+            <ul class="sub-menu">
+              <li><a href="<?php echo esc_url(home_url('/service/training/')); ?>">人材育成サービス</a></li>
+              <li><a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>">人事制度構築支援</a></li>
+              <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
+            </ul>
+          </li>
           <li><a href="<?php echo esc_url(get_post_type_archive_link('case_study')); ?>" class="main-nav__link">実績事例</a></li>
           <li><a href="<?php echo esc_url(ennoshita_get_blog_url()); ?>" class="main-nav__link">コラム</a></li>
           <li><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="main-nav__contact">お問い合わせ</a></li>
