@@ -934,11 +934,6 @@ function ennoshita_service_meta_box_html($post) {
         '_service_programs'       => get_post_meta($post->ID, '_service_programs', true),
         '_service_outcomes'       => get_post_meta($post->ID, '_service_outcomes', true),
         '_service_timeline'       => get_post_meta($post->ID, '_service_timeline', true),
-        '_service_case_company'   => get_post_meta($post->ID, '_service_case_company', true),
-        '_service_case_challenge' => get_post_meta($post->ID, '_service_case_challenge', true),
-        '_service_case_solution'  => get_post_meta($post->ID, '_service_case_solution', true),
-        '_service_case_result'    => get_post_meta($post->ID, '_service_case_result', true),
-        '_service_case_quote'     => get_post_meta($post->ID, '_service_case_quote', true),
         '_service_faq'            => get_post_meta($post->ID, '_service_faq', true),
     ];
     ?>
@@ -982,28 +977,8 @@ function ennoshita_service_meta_box_html($post) {
     </table>
 
     <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">導入事例</h3>
-    <table class="form-table">
-        <tr>
-            <th><label for="service_case_company">企業名・業種</label></th>
-            <td><input type="text" id="service_case_company" name="service_case_company" value="<?php echo esc_attr($fields['_service_case_company']); ?>" class="regular-text" placeholder="例: 製造業 A社様（従業員300名）"></td>
-        </tr>
-        <tr>
-            <th><label for="service_case_challenge">課題</label></th>
-            <td><textarea id="service_case_challenge" name="service_case_challenge" rows="3" class="large-text" placeholder="導入前の課題"><?php echo esc_textarea($fields['_service_case_challenge']); ?></textarea></td>
-        </tr>
-        <tr>
-            <th><label for="service_case_solution">実施内容</label></th>
-            <td><textarea id="service_case_solution" name="service_case_solution" rows="3" class="large-text" placeholder="提供したサービスの内容"><?php echo esc_textarea($fields['_service_case_solution']); ?></textarea></td>
-        </tr>
-        <tr>
-            <th><label for="service_case_result">成果</label></th>
-            <td><textarea id="service_case_result" name="service_case_result" rows="3" class="large-text" placeholder="導入後の成果・変化"><?php echo esc_textarea($fields['_service_case_result']); ?></textarea></td>
-        </tr>
-        <tr>
-            <th><label for="service_case_quote">担当者の声</label></th>
-            <td><textarea id="service_case_quote" name="service_case_quote" rows="3" class="large-text" placeholder="ご担当者様からのコメント"><?php echo esc_textarea($fields['_service_case_quote']); ?></textarea></td>
-        </tr>
-    </table>
+    <p style="color:#666;padding:8px 0;">導入事例は「実績事例」メニューから管理できます。各事例の「サービス種別」を設定すると、対応するサービスページにカルーセル形式で自動表示されます。</p>
+    <p style="color:#666;padding:4px 0;">提供プログラムは「提供プログラム」メニューから管理できます。各プログラムの「対象サービス」を設定してください。</p>
 
     <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">よくあるご質問（FAQ）</h3>
     <table class="form-table">
@@ -1025,7 +1000,7 @@ function ennoshita_save_service_meta($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
 
-    $text_fields = ['service_number', 'service_case_company'];
+    $text_fields = ['service_number'];
     foreach ($text_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, "_{$field}", sanitize_text_field($_POST[$field]));
@@ -1033,8 +1008,7 @@ function ennoshita_save_service_meta($post_id) {
     }
 
     $textarea_fields = ['service_overview', 'service_targets', 'service_programs',
-        'service_outcomes', 'service_timeline', 'service_case_challenge',
-        'service_case_solution', 'service_case_result', 'service_case_quote', 'service_faq'];
+        'service_outcomes', 'service_timeline', 'service_faq'];
     foreach ($textarea_fields as $field) {
         if (isset($_POST[$field])) {
             update_post_meta($post_id, "_{$field}", sanitize_textarea_field($_POST[$field]));
@@ -1343,3 +1317,86 @@ function ennoshita_handle_contact_form() {
 }
 add_action('admin_post_nopriv_ennoshita_contact', 'ennoshita_handle_contact_form');
 add_action('admin_post_ennoshita_contact', 'ennoshita_handle_contact_form');
+
+
+// ==============================================
+// 21. カスタム投稿タイプ: 提供プログラム
+// ==============================================
+function ennoshita_register_service_program_cpt() {
+    register_post_type('service_program', [
+        'labels' => [
+            'name'               => '提供プログラム',
+            'singular_name'      => '提供プログラム',
+            'add_new'            => '新規追加',
+            'add_new_item'       => 'プログラムを追加',
+            'edit_item'          => 'プログラムを編集',
+            'new_item'           => '新しいプログラム',
+            'view_item'          => 'プログラムを表示',
+            'search_items'       => 'プログラムを検索',
+            'not_found'          => 'プログラムが見つかりません',
+            'menu_name'          => '提供プログラム',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-welcome-learn-more',
+        'menu_position' => 25,
+        'supports'     => ['title', 'editor'],
+        'has_archive'  => false,
+    ]);
+}
+add_action('init', 'ennoshita_register_service_program_cpt');
+
+function ennoshita_service_program_meta_boxes() {
+    add_meta_box('program_details', 'プログラム情報', 'ennoshita_program_meta_box_html', 'service_program', 'normal', 'high');
+}
+add_action('add_meta_boxes', 'ennoshita_service_program_meta_boxes');
+
+function ennoshita_program_meta_box_html($post) {
+    $service  = get_post_meta($post->ID, '_prog_service', true);
+    $duration = get_post_meta($post->ID, '_prog_duration', true);
+    $audience = get_post_meta($post->ID, '_prog_audience', true);
+    $order    = get_post_meta($post->ID, '_prog_order', true);
+    wp_nonce_field('ennoshita_prog_nonce', '_prog_nonce');
+    ?>
+    <table class="form-table">
+        <tr>
+            <th><label for="prog_service">対象サービス</label></th>
+            <td><select id="prog_service" name="prog_service">
+                <option value="">選択してください</option>
+                <option value="training" <?php selected($service, 'training'); ?>>人材育成サービス</option>
+                <option value="hr-system" <?php selected($service, 'hr-system'); ?>>人事制度構築支援</option>
+                <option value="organization" <?php selected($service, 'organization'); ?>>組織開発支援</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th><label for="prog_duration">期間</label></th>
+            <td><input type="text" id="prog_duration" name="prog_duration" value="<?php echo esc_attr($duration); ?>" class="regular-text" placeholder="例: 2日間（集合研修）"></td>
+        </tr>
+        <tr>
+            <th><label for="prog_audience">対象者</label></th>
+            <td><input type="text" id="prog_audience" name="prog_audience" value="<?php echo esc_attr($audience); ?>" class="regular-text" placeholder="例: 管理職・課長クラス"></td>
+        </tr>
+        <tr>
+            <th><label for="prog_order">表示順</label></th>
+            <td><input type="number" id="prog_order" name="prog_order" value="<?php echo esc_attr($order ?: '0'); ?>" class="small-text">
+            <p class="description">数字が小さいほど先に表示されます。</p></td>
+        </tr>
+    </table>
+    <p class="description">タイトル欄にプログラム名、本文欄にプログラムの説明を入力してください。</p>
+    <?php
+}
+
+function ennoshita_save_program_meta($post_id) {
+    if (!isset($_POST['_prog_nonce']) || !wp_verify_nonce($_POST['_prog_nonce'], 'ennoshita_prog_nonce')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    foreach (['prog_service', 'prog_duration', 'prog_audience'] as $f) {
+        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_text_field($_POST[$f]));
+    }
+    if (isset($_POST['prog_order'])) {
+        update_post_meta($post_id, '_prog_order', intval($_POST['prog_order']));
+    }
+}
+add_action('save_post_service_program', 'ennoshita_save_program_meta');

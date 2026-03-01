@@ -1,5 +1,5 @@
 /**
- * えんのした テーマ — main.js v4.0
+ * えんのした テーマ — main.js v5.0
  *
  * 機能:
  * 1. ページローディング演出
@@ -9,7 +9,8 @@
  * 5. Intersection Observer スクロールリビール
  * 6. トップへ戻るボタン
  * 7. Cookie同意バナー
- * 8. 数字カウントアップアニメーション
+ * 8. カルーセル (導入事例スライダー: タッチ対応・自動再生)
+ * 9. 数字カウントアップアニメーション
  */
 
 (function () {
@@ -226,6 +227,93 @@
       countObserver.observe(el);
     });
   }
+
+  // ===== 8. カルーセル（導入事例スライダー） =====
+  document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
+    var track = carousel.querySelector('.carousel-track');
+    var slides = carousel.querySelectorAll('.carousel-slide');
+    var dots = carousel.querySelectorAll('.carousel-dot');
+    var prevBtn = carousel.querySelector('.carousel-prev');
+    var nextBtn = carousel.querySelector('.carousel-next');
+    var currentIndex = 0;
+    var slideCount = slides.length;
+    var autoPlayTimer = null;
+    var touchStartX = 0;
+    var touchEndX = 0;
+
+    if (slideCount <= 1) return;
+
+    function goToSlide(index) {
+      if (index < 0) index = slideCount - 1;
+      if (index >= slideCount) index = 0;
+      currentIndex = index;
+      track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(function () {
+        goToSlide(currentIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        goToSlide(currentIndex - 1);
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        goToSlide(currentIndex + 1);
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        goToSlide(i);
+        startAutoPlay();
+      });
+    });
+
+    // Touch / swipe support
+    carousel.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          goToSlide(currentIndex + 1);
+        } else {
+          goToSlide(currentIndex - 1);
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    startAutoPlay();
+  });
+
 
   function animateCount(el) {
     const target = parseInt(el.getAttribute('data-count'), 10);
