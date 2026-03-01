@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サービス詳細ページ デザイン比較 v2 - 10パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #852228;
+  --primary-dark: #641a1f;
+  --primary-light: #a03038;
+  --primary-50: #fdf2f3;
+  --primary-100: #f5d5d8;
+  --primary-200: #e8aab0;
+  --primary-900: #3a0f13;
+  --accent: #c49a2a;
+  --accent-light: #d4af37;
+  --accent-50: #fdf8eb;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --border: #e2e8f0;
+  --border-light: #edf2f7;
+  --bg-white: #ffffff;
+  --bg-warm: #fafaf8;
+  --bg-section: #f7f8f6;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-heading: 'Noto Serif JP', serif;
+  --font-mono: 'Montserrat', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); color: var(--text-primary); background: #f0f0f0; font-weight: 400; line-height: 1.8; }
+
+/* Navigation */
+.nav-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(26,26,46,0.95); backdrop-filter: blur(12px);
+  padding: 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.nav-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 8px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.nav-bar h1 { color: #fff; font-size: 14px; font-weight: 600; white-space: nowrap; padding: 16px 16px 16px 0; border-right: 1px solid rgba(255,255,255,0.2); margin-right: 8px; font-family: var(--font-body); }
+.nav-btn {
+  padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer;
+  font-size: 13px; font-weight: 500; white-space: nowrap;
+  background: transparent; color: rgba(255,255,255,0.7);
+  transition: all 0.2s; font-family: var(--font-body);
+}
+.nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.nav-btn.active { background: var(--primary); color: #fff; }
+
+/* Pattern container */
+.pattern-wrapper { padding-top: 60px; }
+.pattern-section { display: none; min-height: 100vh; background: var(--bg-white); }
+.pattern-section.active { display: block; }
+
+/* Pattern title bar */
+.pattern-title-bar {
+  background: linear-gradient(135deg, var(--primary-900), var(--primary-dark));
+  color: #fff; padding: 40px 24px; text-align: center;
+}
+.pattern-title-bar h2 { font-family: var(--font-heading); font-size: 28px; margin-bottom: 8px; }
+.pattern-title-bar p { font-size: 15px; opacity: 0.8; max-width: 700px; margin: 0 auto; line-height: 1.8; }
+.pattern-badge { display: inline-block; background: var(--accent); color: #fff; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; letter-spacing: 0.1em; }
+
+/* Shared section styles */
+.demo-container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.demo-container--narrow { max-width: 780px; margin: 0 auto; padding: 0 24px; }
+.demo-section { padding: 80px 0; }
+.demo-section--gray { background: var(--bg-section); }
+.demo-section--dark { background: linear-gradient(135deg, var(--primary-900), var(--primary-dark)); color: #fff; }
+.demo-section--warm { background: var(--accent-50); }
+
+/* Section header */
+.sh { text-align: center; margin-bottom: 48px; }
+.sh__label { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+.sh__title { font-family: var(--font-heading); font-size: 28px; font-weight: 600; margin-bottom: 16px; }
+.sh__line { display: block; width: 40px; height: 2px; background: var(--primary); margin: 0 auto; }
+.sh__desc { color: var(--text-secondary); font-size: 15px; margin-top: 16px; }
+.demo-section--dark .sh__title { color: #fff; }
+.demo-section--dark .sh__label { color: var(--accent-light); }
+.demo-section--dark .sh__line { background: var(--accent); }
+
+/* ===== Carousel shared styles ===== */
+.carousel { position: relative; overflow: hidden; }
+.carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.carousel-slide { min-width: 100%; padding: 0 12px; box-sizing: border-box; }
+.carousel-nav { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 24px; }
+.carousel-dots { display: flex; gap: 8px; }
+.carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: all 0.3s; padding: 0; }
+.carousel-dot.active { background: var(--primary); transform: scale(1.2); }
+.carousel-arrow { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; flex-shrink: 0; }
+.carousel-arrow:hover { border-color: var(--primary); background: var(--primary-50); }
+.carousel-arrow svg { width: 18px; height: 18px; stroke: var(--text-secondary); }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .pattern-title-bar h2 { font-size: 22px; }
+  .demo-section { padding: 48px 0; }
+  .sh__title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<!-- Navigation -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <h1>Design v2</h1>
+    <button class="nav-btn active" onclick="showPattern(0)">11 Gradient</button>
+    <button class="nav-btn" onclick="showPattern(1)">12 Asymmetric</button>
+    <button class="nav-btn" onclick="showPattern(2)">13 Card</button>
+    <button class="nav-btn" onclick="showPattern(3)">14 Journey</button>
+    <button class="nav-btn" onclick="showPattern(4)">15 Data</button>
+    <button class="nav-btn" onclick="showPattern(5)">16 Warm</button>
+    <button class="nav-btn" onclick="showPattern(6)">17 Bold</button>
+    <button class="nav-btn" onclick="showPattern(7)">18 Split</button>
+    <button class="nav-btn" onclick="showPattern(8)">19 Accordion</button>
+    <button class="nav-btn" onclick="showPattern(9)">20 Magazine</button>
+  </div>
+</div>
+
+<div class="pattern-wrapper">
+
+<!-- ============================================ -->
+<!-- PATTERN 11: Gradient Flow -->
+<!-- ============================================ -->
+<div class="pattern-section active" id="pattern-0">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 11</span>
+    <h2>Gradient Flow — グラデーションフロー</h2>
+    <p>グラデーションを活かした流れるようなデザイン。セクション間の色の移り変わりで自然な視覚的リズムを生み出します。</p>
+  </div>
+  <style>
+    .v11-overview { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .v11-overview-lead { font-family: var(--font-heading); font-size: 22px; font-weight: 600; color: var(--primary); margin-bottom: 16px; line-height: 1.5; }
+    .v11-overview-text { font-size: 15px; line-height: 2; color: var(--text-secondary); }
+    .v11-overview-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .v11-overview-feat { background: #fff; padding: 20px; border-radius: 14px; text-align: center; border: 1px solid var(--border-light); box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .v11-overview-feat-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary-50), var(--primary-100)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+    .v11-overview-feat-icon svg { width: 22px; height: 22px; stroke: var(--primary); }
+    .v11-overview-feat-text { font-size: 13px; font-weight: 500; }
+
+    .v11-targets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
+    .v11-target { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light); font-size: 15px; transition: all 0.3s; }
+    .v11-target:hover { border-color: var(--primary-200); box-shadow: 0 4px 12px rgba(133,34,40,0.06); }
+    .v11-target-icon { flex-shrink: 0; width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .v11-target-icon svg { width: 16px; height: 16px; stroke: #fff; }
+
+    .v11-programs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v11-prog { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.05); transition: all 0.3s; }
+    .v11-prog:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(133,34,40,0.1); }
+    .v11-prog-accent { height: 4px; background: linear-gradient(to right, var(--primary), var(--accent)); }
+    .v11-prog-body { padding: 28px; }
+    .v11-prog-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .v11-prog-title { font-family: var(--font-heading); font-size: 17px; font-weight: 600; flex: 1; }
+    .v11-prog-num { font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--primary-100); line-height: 1; }
+    .v11-prog-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+    .v11-prog-footer { display: flex; gap: 12px; }
+    .v11-prog-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); background: var(--bg-section); padding: 5px 12px; border-radius: 8px; }
+    .v11-prog-tag svg { width: 12px; height: 12px; }
+
+    .v11-outcomes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+    .v11-outcome { padding: 32px; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+    .v11-outcome:hover { background: rgba(255,255,255,0.12); }
+    .v11-outcome-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .v11-outcome-icon svg { width: 24px; height: 24px; stroke: #fff; }
+    .v11-outcome-text { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+    .v11-outcome-highlight { color: var(--accent-light); font-weight: 700; font-family: var(--font-mono); }
+
+    .v11-timeline { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .v11-tl { text-align: center; }
+    .v11-tl-icon { width: 64px; height: 64px; background: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 2px solid var(--primary-100); }
+    .v11-tl-icon svg { width: 28px; height: 28px; stroke: var(--primary); }
+    .v11-tl-step { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 600; }
+    .v11-tl-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .v11-tl-dur { font-size: 13px; color: var(--primary); font-weight: 500; }
+
+    /* Case carousel for v11 */
+    .v11-case-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+    .v11-case-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .v11-case-company { font-family: var(--font-heading); font-size: 18px; }
+    .v11-case-tag { background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 11px; }
+    .v11-case-detail { padding: 24px 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; border-bottom: 1px solid var(--border-light); }
+    .v11-case-label { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+    .v11-case-label svg { width: 14px; height: 14px; }
+    .v11-case-block-text { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v11-case-quote { padding: 20px 28px; background: linear-gradient(135deg, var(--accent-50), #fff); display: flex; gap: 14px; align-items: flex-start; }
+    .v11-case-quote-icon { flex-shrink: 0; color: var(--accent); opacity: 0.4; }
+    .v11-case-quote blockquote { font-style: italic; font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+    .v11-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    .v11-faq { max-width: 780px; margin: 0 auto; }
+    .v11-faq-item { margin-bottom: 12px; background: #fff; border-radius: 14px; border: 1px solid var(--border-light); overflow: hidden; }
+    .v11-faq-item:hover { border-color: var(--primary-200); }
+    .v11-faq-q { padding: 18px 22px; display: flex; align-items: center; gap: 14px; font-weight: 500; font-size: 15px; cursor: pointer; }
+    .v11-faq-q-badge { flex-shrink: 0; width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+    .v11-faq-a { padding: 0 22px 18px 66px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v11-overview { grid-template-columns: 1fr; gap: 24px; }
+      .v11-targets { grid-template-columns: 1fr; }
+      .v11-programs { grid-template-columns: 1fr; }
+      .v11-outcomes { grid-template-columns: 1fr; }
+      .v11-timeline { grid-template-columns: repeat(2, 1fr); }
+      .v11-case-detail { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Overview -->
+  <section class="demo-section" style="background:linear-gradient(180deg,var(--bg-warm),#fff)"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v11-overview">
+      <div><div class="v11-overview-lead">「教える」から「変わる」へ。<br>行動変容に直結する研修を。</div><p class="v11-overview-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。座学だけでなく、実践演習・グループワーク・振り返りセッションを組み合わせた設計が特長です。</p></div>
+      <div class="v11-overview-features">
+        <div class="v11-overview-feat"><div class="v11-overview-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><span class="v11-overview-feat-text">カスタマイズ設計</span></div>
+        <div class="v11-overview-feat"><div class="v11-overview-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span class="v11-overview-feat-text">実践型プログラム</span></div>
+        <div class="v11-overview-feat"><div class="v11-overview-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span class="v11-overview-feat-text">効果測定</span></div>
+        <div class="v11-overview-feat"><div class="v11-overview-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span class="v11-overview-feat-text">フォローアップ</span></div>
+      </div>
+    </div></div></section>
+
+  <!-- Targets -->
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v11-targets">
+      <div class="v11-target"><div class="v11-target-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>管理職のマネジメント力を強化したい</div>
+      <div class="v11-target"><div class="v11-target-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>若手社員の早期戦力化を図りたい</div>
+      <div class="v11-target"><div class="v11-target-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>1on1ミーティングの質を向上させたい</div>
+      <div class="v11-target"><div class="v11-target-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <!-- Programs -->
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span><p class="sh__desc">貴社の課題に合わせて、最適なプログラムをご提案いたします。</p></div>
+    <div class="v11-programs">
+      <div class="v11-prog"><div class="v11-prog-accent"></div><div class="v11-prog-body"><div class="v11-prog-header"><h3 class="v11-prog-title">管理職リーダーシップ研修</h3><span class="v11-prog-num">01</span></div><p class="v11-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践できる力を養います。</p><div class="v11-prog-footer"><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2日間</span><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>管理職</span></div></div></div>
+      <div class="v11-prog"><div class="v11-prog-accent"></div><div class="v11-prog-body"><div class="v11-prog-header"><h3 class="v11-prog-title">新入社員ビジネス基礎研修</h3><span class="v11-prog-num">02</span></div><p class="v11-prog-desc">マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。</p><div class="v11-prog-footer"><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3日間</span><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>新入社員</span></div></div></div>
+      <div class="v11-prog"><div class="v11-prog-accent"></div><div class="v11-prog-body"><div class="v11-prog-header"><h3 class="v11-prog-title">MBTIチームビルディング研修</h3><span class="v11-prog-num">03</span></div><p class="v11-prog-desc">MBTI性格検査を活用し、自己理解と他者理解を深めます。チームの多様性を強みに変えるワークショップ。</p><div class="v11-prog-footer"><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1日間</span><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>全社員</span></div></div></div>
+      <div class="v11-prog"><div class="v11-prog-accent"></div><div class="v11-prog-body"><div class="v11-prog-header"><h3 class="v11-prog-title">1on1ミーティング実践講座</h3><span class="v11-prog-num">04</span></div><p class="v11-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。</p><div class="v11-prog-footer"><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>半日</span><span class="v11-prog-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>管理職</span></div></div></div>
+    </div></div></section>
+
+  <!-- Outcomes -->
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v11-outcomes">
+      <div class="v11-outcome"><div class="v11-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><p class="v11-outcome-text">管理職が部下の成長を「自分ごと」として捉えるようになり、チーム全体の生産性が<span class="v11-outcome-highlight">平均15%</span>向上。「チームの雰囲気が明らかに変わった」という声が多数。</p></div>
+      <div class="v11-outcome"><div class="v11-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><p class="v11-outcome-text">「1on1が楽しみになった」という声が続出。実施率は<span class="v11-outcome-highlight">90%以上</span>に定着し、上司への信頼感が大幅に改善。形骸化しない対話の文化が根付きます。</p></div>
+      <div class="v11-outcome"><div class="v11-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><p class="v11-outcome-text">若手が「この会社で成長できる」と実感できる環境が生まれ、3年以内の離職率が<span class="v11-outcome-highlight">業界平均の半分以下</span>に。採用コストの削減にも直結します。</p></div>
+      <div class="v11-outcome"><div class="v11-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><p class="v11-outcome-text">研修後のアンケートで「仕事への意欲が高まった」と回答した社員が8割超。エンゲージメントスコアは<span class="v11-outcome-highlight">20ポイント</span>向上し、組織全体の活力が蘇ります。</p></div>
+    </div></div></section>
+
+  <!-- Timeline -->
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v11-timeline">
+      <div class="v11-tl"><div class="v11-tl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><div class="v11-tl-step">STEP 01</div><h3 class="v11-tl-title">ヒアリング</h3><span class="v11-tl-dur">1〜2週間</span></div>
+      <div class="v11-tl"><div class="v11-tl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><div class="v11-tl-step">STEP 02</div><h3 class="v11-tl-title">プログラム設計</h3><span class="v11-tl-dur">2〜3週間</span></div>
+      <div class="v11-tl"><div class="v11-tl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="v11-tl-step">STEP 03</div><h3 class="v11-tl-title">研修実施</h3><span class="v11-tl-dur">1〜3日間</span></div>
+      <div class="v11-tl"><div class="v11-tl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="v11-tl-step">STEP 04</div><h3 class="v11-tl-title">フォローアップ</h3><span class="v11-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <!-- Case Study -->
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <div class="v11-case-card">
+            <div class="v11-case-header"><h3 class="v11-case-company">製造業 A社様（従業員350名）</h3><span class="v11-case-tag">管理職研修</span></div>
+            <div class="v11-case-detail">
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p class="v11-case-block-text">管理職が「プレイヤー意識」から脱却できず、部下育成が後回しに。若手社員の3年以内離職率が35%に達し、「上が何も教えてくれない」という不満が蔓延していた。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p class="v11-case-block-text">管理職15名を対象に6ヶ月間のリーダーシップ開発プログラムを実施。月1回の集合研修（計6回）に加え、月2回のオンラインフォローアップで学びの定着を促進。360度フィードバックも導入。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p class="v11-case-block-text">若手離職率が35%→15%に半減。管理職全員が1on1を月2回以上実施するようになり、部下からの信頼度スコアが3.2→4.2に改善。「上司に相談しやすくなった」が全社アンケートで最多回答に。</p></div>
+            </div>
+            <div class="v11-case-quote"><svg class="v11-case-quote-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg><blockquote><p>研修で学んだことをすぐ現場で試せる設計が良かったです。特に1on1の質が変わり、部下から「相談しやすくなった」と言われるようになりました。</p><cite>— 人事部長</cite></blockquote></div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="v11-case-card">
+            <div class="v11-case-header"><h3 class="v11-case-company">IT企業 B社様（従業員80名）</h3><span class="v11-case-tag">チームビルディング</span></div>
+            <div class="v11-case-detail">
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p class="v11-case-block-text">急成長に伴い中途入社の社員が急増。社内文化の共有が追いつかず、部署間の連携が希薄に。特にエンジニアとビジネス職の間で「壁」ができていた。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p class="v11-case-block-text">全社員80名を対象に、MBTIチームビルディング研修を実施。4チームに分かれてのワークショップ形式で、相互理解を深めるプログラムを2日間にわたり実施。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p class="v11-case-block-text">「他部署との連携がスムーズになった」と回答した社員が72%。部署横断プロジェクトが前年比3倍に増加。「職場の一体感」スコアが2.8→4.1に大幅改善。</p></div>
+            </div>
+            <div class="v11-case-quote"><svg class="v11-case-quote-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg><blockquote><p>エンジニアとビジネス側が「言語が違う」と感じていたのが、MBTIを通じて「考え方が違うだけ」と理解できました。今では気軽に相談し合える関係です。</p><cite>— 代表取締役</cite></blockquote></div>
+          </div>
+        </div>
+        <div class="carousel-slide">
+          <div class="v11-case-card">
+            <div class="v11-case-header"><h3 class="v11-case-company">サービス業 C社様（従業員1,200名）</h3><span class="v11-case-tag">新入社員研修</span></div>
+            <div class="v11-case-detail">
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p class="v11-case-block-text">新入社員の早期離職が深刻で、入社1年以内の離職率が28%に。OJTに依存した育成体制で、配属先により教育の質にばらつきがあった。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p class="v11-case-block-text">新入社員60名を対象に3日間のビジネス基礎研修を実施。さらに配属後3ヶ月間、月1回のフォローアップ研修とメンター制度を組み合わせた継続支援プログラムを展開。</p></div>
+              <div><div class="v11-case-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p class="v11-case-block-text">入社1年以内の離職率が28%→12%に激減。「自信を持って仕事に取り組める」という回答が34%→91%に上昇。上司からも「例年より即戦力になるのが早い」との評価。</p></div>
+            </div>
+            <div class="v11-case-quote"><svg class="v11-case-quote-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg><blockquote><p>今までは「見て覚えろ」文化でしたが、体系的な研修のおかげで新入社員が自信を持って仕事に臨めるようになりました。メンター制度との組み合わせも効果的でした。</p><cite>— 人材開発課長</cite></blockquote></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div>
+        <button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div></div></section>
+
+  <!-- FAQ -->
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v11-faq">
+      <div class="v11-faq-item"><div class="v11-faq-q"><span class="v11-faq-q-badge">Q</span>研修の最少催行人数は？</div><div class="v11-faq-a">5名様から対応可能です。少人数だからこそ一人ひとりに寄り添った密度の濃い研修が実現できます。</div></div>
+      <div class="v11-faq-item"><div class="v11-faq-q"><span class="v11-faq-q-badge">Q</span>オンラインでも実施できますか？</div><div class="v11-faq-a">はい。Zoom等を活用したオンライン研修に対応しています。ハイブリッド形式も可能です。</div></div>
+      <div class="v11-faq-item"><div class="v11-faq-q"><span class="v11-faq-q-badge">Q</span>カリキュラムのカスタマイズは可能ですか？</div><div class="v11-faq-a">すべての研修はヒアリング結果に基づき、貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 12: Asymmetric — 左右非対称レイアウト -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-1">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 12</span>
+    <h2>Asymmetric — 左右非対称レイアウト</h2>
+    <p>左右非対称のレイアウトで視覚的リズムを生み出し、飽きさせないスクロール体験を実現します。</p>
+  </div>
+  <style>
+    .v12-overview { max-width: 900px; margin: 0 auto; }
+    .v12-overview-lead { font-family: var(--font-heading); font-size: 24px; font-weight: 600; color: var(--primary); margin-bottom: 16px; text-align: center; }
+    .v12-overview-text { font-size: 15px; line-height: 2; color: var(--text-secondary); max-width: 700px; margin: 0 auto; text-align: center; }
+    .v12-overview-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 32px; }
+    .v12-overview-chip { background: #fff; padding: 16px; border-radius: 12px; text-align: center; border: 1px solid var(--border-light); font-size: 14px; font-weight: 500; }
+    .v12-overview-chip svg { display: block; margin: 0 auto 8px; width: 24px; height: 24px; stroke: var(--primary); }
+
+    .v12-targets { max-width: 900px; margin: 0 auto; }
+    .v12-target-row { display: grid; grid-template-columns: 60% 40%; gap: 0; margin-bottom: 12px; }
+    .v12-target-row:nth-child(even) { grid-template-columns: 40% 60%; }
+    .v12-target-item { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light); font-size: 15px; }
+    .v12-target-dot { flex-shrink: 0; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+
+    .v12-programs { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v12-programs > :nth-child(2) { margin-top: 40px; }
+    .v12-programs > :nth-child(3) { margin-top: -20px; }
+    .v12-prog { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); border-top: 3px solid var(--primary); }
+    .v12-prog-title { font-family: var(--font-heading); font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+    .v12-prog-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+    .v12-prog-meta { font-size: 12px; color: var(--text-muted); }
+
+    .v12-outcomes { max-width: 900px; margin: 0 auto; }
+    .v12-outcome { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; padding: 28px; margin-bottom: 20px; background: rgba(255,255,255,0.06); border-radius: 16px; border-left: 4px solid var(--accent); }
+    .v12-outcome-num { font-family: var(--font-mono); font-size: 36px; font-weight: 700; color: var(--accent-light); line-height: 1; min-width: 80px; text-align: center; }
+    .v12-outcome-text { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+
+    .v12-tl { max-width: 700px; margin: 0 auto; position: relative; padding-left: 40px; }
+    .v12-tl::before { content:''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--primary-200); }
+    .v12-tl-item { position: relative; margin-bottom: 36px; }
+    .v12-tl-dot { position: absolute; left: -33px; top: 4px; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; border: 3px solid var(--primary-50); }
+    .v12-tl-title { font-family: var(--font-heading); font-size: 17px; font-weight: 600; }
+    .v12-tl-dur { font-size: 13px; color: var(--primary); font-weight: 500; }
+    .v12-tl-desc { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+    .v12-case-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    .v12-case-header { background: var(--primary); color: #fff; padding: 20px 28px; }
+    .v12-case-company { font-family: var(--font-heading); font-size: 18px; }
+    .v12-case-body { padding: 24px 28px; }
+    .v12-case-section { margin-bottom: 16px; }
+    .v12-case-section-title { font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .v12-case-section-title svg { width: 14px; height: 14px; }
+    .v12-case-section p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v12-case-quote { background: var(--accent-50); padding: 16px 20px; border-radius: 10px; margin-top: 16px; font-style: italic; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v12-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .v12-faq { max-width: 780px; margin: 0 auto; }
+    .v12-faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .v12-faq-q { display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 15px; }
+    .v12-faq-q span { color: var(--primary); font-weight: 700; font-family: var(--font-mono); }
+    .v12-faq-a { margin-top: 8px; padding-left: 28px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v12-overview-grid { grid-template-columns: 1fr; }
+      .v12-target-row, .v12-target-row:nth-child(even) { grid-template-columns: 1fr; }
+      .v12-programs { grid-template-columns: 1fr; }
+      .v12-programs > :nth-child(2) { margin-top: 0; }
+      .v12-programs > :nth-child(3) { margin-top: 0; }
+      .v12-outcome { grid-template-columns: 1fr; }
+      .v12-outcome-num { text-align: left; }
+    }
+  </style>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v12-overview">
+      <div class="v12-overview-lead">「教える」から「変わる」へ。</div>
+      <p class="v12-overview-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。</p>
+      <div class="v12-overview-grid">
+        <div class="v12-overview-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>カスタマイズ設計</div>
+        <div class="v12-overview-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>実践型プログラム</div>
+        <div class="v12-overview-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>効果測定付き</div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v12-targets">
+      <div class="v12-target-row"><div class="v12-target-item"><span class="v12-target-dot"></span>管理職のマネジメント力を強化したい</div></div>
+      <div class="v12-target-row"><div></div><div class="v12-target-item"><span class="v12-target-dot"></span>若手社員の早期戦力化を図りたい</div></div>
+      <div class="v12-target-row"><div class="v12-target-item"><span class="v12-target-dot"></span>1on1ミーティングの質を向上させたい</div></div>
+      <div class="v12-target-row"><div></div><div class="v12-target-item"><span class="v12-target-dot"></span>研修が「やりっぱなし」で終わってしまう</div></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v12-programs">
+      <div class="v12-prog"><h3 class="v12-prog-title">管理職リーダーシップ研修</h3><p class="v12-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。</p><p class="v12-prog-meta">2日間 ・ 管理職対象</p></div>
+      <div class="v12-prog"><h3 class="v12-prog-title">新入社員ビジネス基礎研修</h3><p class="v12-prog-desc">マインドセット・ビジネスマナー・報連相を短期集中で習得。</p><p class="v12-prog-meta">3日間 ・ 新入社員対象</p></div>
+      <div class="v12-prog"><h3 class="v12-prog-title">MBTIチームビルディング研修</h3><p class="v12-prog-desc">MBTI性格検査を活用し、自己理解と他者理解を深めるワークショップ。</p><p class="v12-prog-meta">1日間 ・ 全社員対象</p></div>
+      <div class="v12-prog"><h3 class="v12-prog-title">1on1ミーティング実践講座</h3><p class="v12-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践。</p><p class="v12-prog-meta">半日 ・ 管理職対象</p></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v12-outcomes">
+      <div class="v12-outcome"><div class="v12-outcome-num">15%</div><p class="v12-outcome-text">管理職が「指示するだけ」から「共に考える」スタイルに変わり、チーム全体の生産性が平均15%向上。メンバーの自発的な提案も増加しています。</p></div>
+      <div class="v12-outcome"><div class="v12-outcome-num">90%+</div><p class="v12-outcome-text">形だけだった1on1が「本音で話せる場」に変化。実施率は90%以上に定着し、部下の悩みを早期に把握できるようになったとの声が多数。</p></div>
+      <div class="v12-outcome"><div class="v12-outcome-num">1/2</div><p class="v12-outcome-text">「ここで成長したい」と思える環境づくりが進み、若手の3年以内離職率が業界平均の半分以下に。人材の定着が経営の安定に直結しています。</p></div>
+      <div class="v12-outcome"><div class="v12-outcome-num">+20pt</div><p class="v12-outcome-text">「仕事にやりがいを感じる」と答える社員が急増。エンゲージメントスコアが20ポイント向上し、組織全体に前向きなムードが広がっています。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v12-tl">
+      <div class="v12-tl-item"><div class="v12-tl-dot"></div><h3 class="v12-tl-title">ヒアリング・課題分析</h3><span class="v12-tl-dur">1〜2週間</span><p class="v12-tl-desc">現状の人材課題・組織目標をヒアリングし、研修ニーズを明確化</p></div>
+      <div class="v12-tl-item"><div class="v12-tl-dot"></div><h3 class="v12-tl-title">プログラム設計</h3><span class="v12-tl-dur">2〜3週間</span><p class="v12-tl-desc">貴社に最適なカリキュラムをカスタマイズ設計</p></div>
+      <div class="v12-tl-item"><div class="v12-tl-dot"></div><h3 class="v12-tl-title">研修実施</h3><span class="v12-tl-dur">1〜3日間</span><p class="v12-tl-desc">集合研修またはオンラインで実施</p></div>
+      <div class="v12-tl-item"><div class="v12-tl-dot"></div><h3 class="v12-tl-title">フォローアップ</h3><span class="v12-tl-dur">1〜3ヶ月</span><p class="v12-tl-desc">行動計画の進捗確認と追加フォロー研修</p></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v12-case-card"><div class="v12-case-header"><h3 class="v12-case-company">製造業 A社様（従業員350名）</h3></div><div class="v12-case-body"><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p>管理職が「プレイヤー意識」から脱却できず、部下育成が後回しに。若手社員の3年以内離職率が35%に達し、「上が何も教えてくれない」という不満が蔓延していた。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p>管理職15名を対象に6ヶ月間のリーダーシップ開発プログラムを実施。月1回の集合研修（計6回）に加え、月2回のオンラインフォローアップ。360度フィードバックも導入。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p>若手離職率が35%→15%に半減。管理職全員が1on1を月2回以上実施。部下からの信頼度スコア3.2→4.2に改善。</p></div><div class="v12-case-quote">研修で学んだことをすぐ現場で試せる設計が良かったです。特に1on1の質が変わり、部下から「相談しやすくなった」と言われるようになりました。<cite>— 人事部長</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v12-case-card"><div class="v12-case-header"><h3 class="v12-case-company">IT企業 B社様（従業員80名）</h3></div><div class="v12-case-body"><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p>急成長に伴い中途入社の社員が急増。社内文化の共有が追いつかず、エンジニアとビジネス職の間で「壁」ができていた。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p>全社員80名を対象にMBTIチームビルディング研修を2日間実施。4チームに分かれたワークショップで相互理解を促進。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p>他部署との連携がスムーズになったと72%が回答。部署横断プロジェクト数が前年比3倍に。「職場の一体感」スコア2.8→4.1に改善。</p></div><div class="v12-case-quote">エンジニアとビジネス側が「考え方が違うだけ」と理解できました。今では気軽に相談し合える関係です。<cite>— 代表取締役</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v12-case-card"><div class="v12-case-header"><h3 class="v12-case-company">サービス業 C社様（従業員1,200名）</h3></div><div class="v12-case-body"><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>課題</div><p>新入社員の入社1年以内離職率が28%。OJTに依存し、配属先による教育の質のばらつきが問題に。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>実施内容</div><p>新入社員60名に3日間のビジネス基礎研修を実施。配属後3ヶ月間のフォローアップ研修とメンター制度を展開。</p></div><div class="v12-case-section"><div class="v12-case-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>成果</div><p>入社1年以内離職率が28%→12%に激減。「自信を持って仕事に取り組める」が34%→91%に上昇。</p></div><div class="v12-case-quote">体系的な研修のおかげで新入社員が自信を持って仕事に臨めるようになりました。メンター制度との組み合わせも効果的でした。<cite>— 人材開発課長</cite></div></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v12-faq">
+      <div class="v12-faq-item"><div class="v12-faq-q"><span>Q.</span>研修の最少催行人数は？</div><div class="v12-faq-a">5名様から対応可能です。少人数だからこそ密度の濃い研修が実現できます。</div></div>
+      <div class="v12-faq-item"><div class="v12-faq-q"><span>Q.</span>オンラインでも実施できますか？</div><div class="v12-faq-a">はい。Zoom等を活用したオンライン・ハイブリッド形式に対応しています。</div></div>
+      <div class="v12-faq-item"><div class="v12-faq-q"><span>Q.</span>カリキュラムのカスタマイズは可能ですか？</div><div class="v12-faq-a">すべての研修はヒアリングに基づき、貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 13: Card Masonry -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-2">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 13</span>
+    <h2>Card Masonry — カードメイソンリー</h2>
+    <p>カードベースのメイソンリーレイアウトで、情報を整理しながらもモダンな印象を与えます。</p>
+  </div>
+  <style>
+    .v13-overview { max-width: 800px; margin: 0 auto; text-align: center; }
+    .v13-overview-lead { font-family: var(--font-heading); font-size: 22px; color: var(--primary); margin-bottom: 20px; }
+    .v13-overview-text { font-size: 15px; line-height: 2; color: var(--text-secondary); }
+    .v13-features { display: flex; justify-content: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+    .v13-feat { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+    .v13-feat-dot { width: 32px; height: 32px; background: var(--primary-50); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .v13-feat-dot svg { width: 16px; height: 16px; stroke: var(--primary); }
+
+    .v13-targets { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 800px; margin: 0 auto; }
+    .v13-target { padding: 12px 24px; background: #fff; border-radius: 100px; border: 1px solid var(--border-light); font-size: 14px; transition: all 0.3s; }
+    .v13-target:hover { border-color: var(--primary); background: var(--primary-50); }
+
+    .v13-programs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v13-prog { background: #fff; border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid var(--border-light); transition: all 0.3s; position: relative; overflow: hidden; }
+    .v13-prog:hover { box-shadow: 0 8px 24px rgba(133,34,40,0.08); }
+    .v13-prog::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--primary), var(--accent)); }
+    .v13-prog-num { font-family: var(--font-mono); font-size: 48px; font-weight: 700; color: var(--primary-50); position: absolute; right: 16px; top: 8px; }
+    .v13-prog-title { font-family: var(--font-heading); font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+    .v13-prog-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+    .v13-prog-tags { display: flex; gap: 8px; }
+    .v13-prog-tag { font-size: 11px; padding: 4px 10px; background: var(--bg-section); border-radius: 6px; color: var(--text-muted); }
+
+    .v13-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+    .v13-outcome { padding: 28px; background: rgba(255,255,255,0.07); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+    .v13-outcome-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .v13-outcome-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .v13-outcome-icon svg { width: 20px; height: 20px; stroke: #fff; }
+    .v13-outcome-val { font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--accent-light); }
+    .v13-outcome-text { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.85); }
+
+    .v13-tl { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .v13-tl-item { background: #fff; border-radius: 14px; padding: 24px 16px; text-align: center; border: 1px solid var(--border-light); }
+    .v13-tl-num { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--primary-100); }
+    .v13-tl-title { font-family: var(--font-heading); font-size: 15px; font-weight: 600; margin: 8px 0 4px; }
+    .v13-tl-dur { font-size: 12px; color: var(--primary); font-weight: 500; }
+
+    .v13-case-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .v13-case-head { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: #fff; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .v13-case-company { font-family: var(--font-heading); font-size: 17px; }
+    .v13-case-badge { font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 12px; }
+    .v13-case-content { padding: 24px; }
+    .v13-case-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .v13-case-block h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 6px; }
+    .v13-case-block p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v13-case-voice { margin-top: 16px; padding: 16px; background: var(--accent-50); border-radius: 10px; font-size: 13px; font-style: italic; color: var(--text-secondary); line-height: 1.7; }
+    .v13-case-voice cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .v13-faq { max-width: 780px; margin: 0 auto; }
+    .v13-faq-item { margin-bottom: 10px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light); padding: 18px 22px; }
+    .v13-faq-q { font-weight: 500; font-size: 15px; color: var(--text-primary); }
+    .v13-faq-q::before { content: 'Q. '; color: var(--primary); font-weight: 700; }
+    .v13-faq-a { margin-top: 8px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; padding-left: 24px; }
+
+    @media (max-width: 768px) {
+      .v13-programs { grid-template-columns: 1fr; }
+      .v13-outcomes { grid-template-columns: 1fr; }
+      .v13-tl { grid-template-columns: repeat(2, 1fr); }
+      .v13-case-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <section class="demo-section" style="background:linear-gradient(180deg,#fff,var(--bg-warm))"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v13-overview">
+      <div class="v13-overview-lead">行動変容に直結する、実践型研修プログラム</div>
+      <p class="v13-overview-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。座学だけでなく、実践演習・グループワーク・振り返りセッションを組み合わせた設計が特長です。</p>
+      <div class="v13-features">
+        <div class="v13-feat"><div class="v13-feat-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>カスタマイズ設計</div>
+        <div class="v13-feat"><div class="v13-feat-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>実践型プログラム</div>
+        <div class="v13-feat"><div class="v13-feat-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>効果測定</div>
+        <div class="v13-feat"><div class="v13-feat-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>フォローアップ</div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v13-targets">
+      <div class="v13-target">管理職のマネジメント力を強化したい</div>
+      <div class="v13-target">若手社員の早期戦力化を図りたい</div>
+      <div class="v13-target">1on1ミーティングの質を向上させたい</div>
+      <div class="v13-target">研修が「やりっぱなし」で終わってしまう</div>
+      <div class="v13-target">MBTIでチーム理解を深めたい</div>
+      <div class="v13-target">外部の専門家の視点を取り入れたい</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v13-programs">
+      <div class="v13-prog"><span class="v13-prog-num">01</span><h3 class="v13-prog-title">管理職リーダーシップ研修</h3><p class="v13-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践。</p><div class="v13-prog-tags"><span class="v13-prog-tag">2日間</span><span class="v13-prog-tag">管理職</span></div></div>
+      <div class="v13-prog"><span class="v13-prog-num">02</span><h3 class="v13-prog-title">新入社員ビジネス基礎研修</h3><p class="v13-prog-desc">マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。</p><div class="v13-prog-tags"><span class="v13-prog-tag">3日間</span><span class="v13-prog-tag">新入社員</span></div></div>
+      <div class="v13-prog"><span class="v13-prog-num">03</span><h3 class="v13-prog-title">MBTIチームビルディング研修</h3><p class="v13-prog-desc">MBTI性格検査を活用し、自己理解と他者理解を深めるワークショップ。</p><div class="v13-prog-tags"><span class="v13-prog-tag">1日間</span><span class="v13-prog-tag">全社員</span></div></div>
+      <div class="v13-prog"><span class="v13-prog-num">04</span><h3 class="v13-prog-title">1on1ミーティング実践講座</h3><p class="v13-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。</p><div class="v13-prog-tags"><span class="v13-prog-tag">半日</span><span class="v13-prog-tag">管理職</span></div></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v13-outcomes">
+      <div class="v13-outcome"><div class="v13-outcome-head"><div class="v13-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><span class="v13-outcome-val">生産性+15%</span></div><p class="v13-outcome-text">管理職が「背中で見せる」から「対話で育てる」に変わり、メンバーの主体性が向上。チーム全体の生産性が平均15%アップしました。</p></div>
+      <div class="v13-outcome"><div class="v13-outcome-head"><div class="v13-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span class="v13-outcome-val">1on1定着率90%超</span></div><p class="v13-outcome-text">「1on1が楽しみ」という声が続出。義務感ではなく、信頼関係をベースとした対話の文化が組織に根付いています。</p></div>
+      <div class="v13-outcome"><div class="v13-outcome-head"><div class="v13-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><span class="v13-outcome-val">離職率1/2以下</span></div><p class="v13-outcome-text">「この会社で成長したい」という実感が若手に広がり、3年以内離職率が業界平均の半分以下に。採用コスト削減にも直結。</p></div>
+      <div class="v13-outcome"><div class="v13-outcome-head"><div class="v13-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div><span class="v13-outcome-val">ES+20pt</span></div><p class="v13-outcome-text">「仕事への意欲が高まった」と回答した社員が8割超。エンゲージメントスコアは20ポイント向上し、組織全体に活力が戻りました。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v13-tl">
+      <div class="v13-tl-item"><div class="v13-tl-num">01</div><h3 class="v13-tl-title">ヒアリング</h3><span class="v13-tl-dur">1〜2週間</span></div>
+      <div class="v13-tl-item"><div class="v13-tl-num">02</div><h3 class="v13-tl-title">設計</h3><span class="v13-tl-dur">2〜3週間</span></div>
+      <div class="v13-tl-item"><div class="v13-tl-num">03</div><h3 class="v13-tl-title">実施</h3><span class="v13-tl-dur">1〜3日間</span></div>
+      <div class="v13-tl-item"><div class="v13-tl-num">04</div><h3 class="v13-tl-title">フォロー</h3><span class="v13-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v13-case-card"><div class="v13-case-head"><h3 class="v13-case-company">製造業 A社様（従業員350名）</h3><span class="v13-case-badge">管理職研修</span></div><div class="v13-case-content"><div class="v13-case-grid"><div class="v13-case-block"><h4>課題</h4><p>管理職が「プレイヤー意識」から脱却できず、若手離職率が35%に。「上が何も教えてくれない」という不満が蔓延。</p></div><div class="v13-case-block"><h4>実施内容</h4><p>管理職15名に6ヶ月のリーダーシップ開発プログラム。月1回集合研修＋月2回オンラインフォロー。360度FB導入。</p></div><div class="v13-case-block"><h4>成果</h4><p>離職率35%→15%に半減。1on1月2回以上実施率100%。信頼度スコア3.2→4.2に改善。</p></div></div><div class="v13-case-voice">研修で学んだことをすぐ現場で試せる設計が良かったです。特に1on1の質が変わりました。<cite>— 人事部長</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v13-case-card"><div class="v13-case-head"><h3 class="v13-case-company">IT企業 B社様（従業員80名）</h3><span class="v13-case-badge">チームビルディング</span></div><div class="v13-case-content"><div class="v13-case-grid"><div class="v13-case-block"><h4>課題</h4><p>急成長で中途入社が急増。エンジニアとビジネス職の間で「壁」ができ、連携が希薄に。</p></div><div class="v13-case-block"><h4>実施内容</h4><p>全社員80名にMBTI研修を2日間実施。4チームのワークショップで相互理解を促進。</p></div><div class="v13-case-block"><h4>成果</h4><p>「連携がスムーズに」72%回答。部署横断PJ数が3倍に。一体感スコア2.8→4.1に改善。</p></div></div><div class="v13-case-voice">「考え方が違うだけ」と理解できたことで、気軽に相談し合える関係になりました。<cite>— 代表取締役</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v13-case-card"><div class="v13-case-head"><h3 class="v13-case-company">サービス業 C社様（従業員1,200名）</h3><span class="v13-case-badge">新入社員研修</span></div><div class="v13-case-content"><div class="v13-case-grid"><div class="v13-case-block"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で配属先による教育の質のばらつきが問題。</p></div><div class="v13-case-block"><h4>実施内容</h4><p>新入社員60名に3日間の基礎研修＋3ヶ月フォローアップ＋メンター制度を展開。</p></div><div class="v13-case-block"><h4>成果</h4><p>離職率28%→12%に激減。「自信を持てる」回答が34%→91%に上昇。</p></div></div><div class="v13-case-voice">体系的な研修で新入社員が自信を持って仕事に臨めるようになりました。<cite>— 人材開発課長</cite></div></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v13-faq">
+      <div class="v13-faq-item"><div class="v13-faq-q">研修の最少催行人数は？</div><div class="v13-faq-a">5名様から対応可能です。</div></div>
+      <div class="v13-faq-item"><div class="v13-faq-q">オンラインでも実施できますか？</div><div class="v13-faq-a">はい。オンライン・ハイブリッド形式に対応しています。</div></div>
+      <div class="v13-faq-item"><div class="v13-faq-q">カリキュラムのカスタマイズは可能ですか？</div><div class="v13-faq-a">すべて貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 14: Timeline Journey -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-3">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 14</span>
+    <h2>Timeline Journey — ストーリージャーニー</h2>
+    <p>タイムライン型のストーリーテリングで、サービス全体を一つの「旅」として読ませる構成。</p>
+  </div>
+  <style>
+    .v14-chapter { max-width: 800px; margin: 0 auto; position: relative; padding-left: 60px; }
+    .v14-chapter::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--accent)); }
+    .v14-chapter-marker { position: absolute; left: 8px; width: 36px; height: 36px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-mono); font-size: 13px; font-weight: 700; }
+    .v14-chapter-content { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.04); border: 1px solid var(--border-light); margin-bottom: 32px; }
+    .v14-chapter-label { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; font-weight: 600; margin-bottom: 4px; }
+    .v14-chapter-title { font-family: var(--font-heading); font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+
+    .v14-overview-text { font-size: 15px; line-height: 2; color: var(--text-secondary); }
+    .v14-overview-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+    .v14-overview-feat { text-align: center; padding: 14px; background: var(--bg-section); border-radius: 10px; font-size: 13px; font-weight: 500; }
+
+    .v14-target-list { list-style: none; }
+    .v14-target-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 15px; display: flex; align-items: center; gap: 10px; }
+    .v14-target-list li::before { content: ''; display: none; }
+    .v14-target-check { width: 20px; height: 20px; background: var(--primary-50); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .v14-target-check svg { width: 12px; height: 12px; stroke: var(--primary); }
+
+    .v14-prog-list { display: grid; gap: 16px; }
+    .v14-prog { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; padding: 20px; background: var(--bg-section); border-radius: 12px; }
+    .v14-prog-num { font-family: var(--font-mono); font-size: 32px; font-weight: 700; color: var(--primary-100); }
+    .v14-prog-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; }
+    .v14-prog-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-top: 4px; }
+    .v14-prog-meta { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .v14-outcomes { display: grid; gap: 16px; }
+    .v14-outcome { padding: 24px; background: rgba(255,255,255,0.06); border-radius: 12px; border-left: 4px solid var(--accent); }
+    .v14-outcome-text { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+    .v14-outcome-text strong { color: var(--accent-light); font-family: var(--font-mono); }
+
+    .v14-case-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .v14-case-head { background: var(--primary); color: #fff; padding: 18px 24px; font-family: var(--font-heading); font-size: 17px; }
+    .v14-case-body { padding: 24px; }
+    .v14-case-section { margin-bottom: 14px; }
+    .v14-case-section h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .v14-case-section p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v14-case-voice { padding: 14px; background: var(--accent-50); border-radius: 8px; font-style: italic; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v14-case-voice cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .v14-faq-item { margin-bottom: 14px; }
+    .v14-faq-q { font-weight: 600; font-size: 15px; color: var(--primary); margin-bottom: 4px; }
+    .v14-faq-a { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v14-chapter { padding-left: 40px; }
+      .v14-chapter::before { left: 14px; }
+      .v14-chapter-marker { left: 0; width: 30px; height: 30px; font-size: 11px; }
+      .v14-overview-features { grid-template-columns: repeat(2, 1fr); }
+      .v14-prog { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <section class="demo-section" style="background:linear-gradient(180deg,var(--bg-warm),#fff)"><div class="demo-container">
+    <div class="v14-chapter">
+      <div class="v14-chapter-marker">01</div>
+      <div class="v14-chapter-content">
+        <div class="v14-chapter-label">CHAPTER 01</div>
+        <h2 class="v14-chapter-title">サービス概要</h2>
+        <p class="v14-overview-text">「教える」から「変わる」へ。次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。</p>
+        <div class="v14-overview-features">
+          <div class="v14-overview-feat">カスタマイズ設計</div>
+          <div class="v14-overview-feat">実践型プログラム</div>
+          <div class="v14-overview-feat">効果測定</div>
+          <div class="v14-overview-feat">フォローアップ</div>
+        </div>
+      </div>
+
+      <div class="v14-chapter-marker">02</div>
+      <div class="v14-chapter-content">
+        <div class="v14-chapter-label">CHAPTER 02</div>
+        <h2 class="v14-chapter-title">こんな企業様におすすめ</h2>
+        <ul class="v14-target-list">
+          <li><span class="v14-target-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>管理職のマネジメント力を強化したい</li>
+          <li><span class="v14-target-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>若手社員の早期戦力化を図りたい</li>
+          <li><span class="v14-target-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>1on1ミーティングの質を向上させたい</li>
+          <li><span class="v14-target-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>研修が「やりっぱなし」で終わってしまう</li>
+        </ul>
+      </div>
+
+      <div class="v14-chapter-marker">03</div>
+      <div class="v14-chapter-content">
+        <div class="v14-chapter-label">CHAPTER 03</div>
+        <h2 class="v14-chapter-title">提供プログラム</h2>
+        <div class="v14-prog-list">
+          <div class="v14-prog"><div class="v14-prog-num">01</div><div><h3 class="v14-prog-title">管理職リーダーシップ研修</h3><p class="v14-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。</p><p class="v14-prog-meta">2日間 ・ 管理職対象</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">02</div><div><h3 class="v14-prog-title">新入社員ビジネス基礎研修</h3><p class="v14-prog-desc">マインドセット・ビジネスマナー・報連相を短期集中で習得。</p><p class="v14-prog-meta">3日間 ・ 新入社員対象</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">03</div><div><h3 class="v14-prog-title">MBTIチームビルディング研修</h3><p class="v14-prog-desc">自己理解と他者理解を深め、チームの多様性を強みに変えるワークショップ。</p><p class="v14-prog-meta">1日間 ・ 全社員対象</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">04</div><div><h3 class="v14-prog-title">1on1ミーティング実践講座</h3><p class="v14-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法。</p><p class="v14-prog-meta">半日 ・ 管理職対象</p></div></div>
+        </div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div style="max-width:800px;margin:0 auto">
+    <div class="v14-outcomes">
+      <div class="v14-outcome"><p class="v14-outcome-text">管理職のマインドが「自分でやった方が早い」から「部下に任せて育てる」に転換。その結果、チームの自走力が高まり、生産性が<strong>平均15%</strong>向上しました。</p></div>
+      <div class="v14-outcome"><p class="v14-outcome-text">以前は「やらされている」だけだった1on1が、互いの成長を確認し合う大切な時間に。実施率は<strong>90%以上</strong>に定着し、「上司との距離が縮まった」という声が急増。</p></div>
+      <div class="v14-outcome"><p class="v14-outcome-text">「辞めたい」ではなく「ここで頑張りたい」に変わる若手が増加。3年以内離職率は<strong>業界平均の半分以下</strong>に改善し、チームの知見が蓄積される好循環が生まれています。</p></div>
+      <div class="v14-outcome"><p class="v14-outcome-text">「月曜日が楽しみになった」というアンケート回答も。エンゲージメントスコアは<strong>20ポイント</strong>向上し、社員一人ひとりの仕事に対する姿勢が前向きに変化しています。</p></div>
+    </div></div></div></section>
+
+  <section class="demo-section"><div class="demo-container">
+    <div class="v14-chapter" style="padding-top: 0;">
+      <div class="v14-chapter-marker" style="background: var(--accent);">05</div>
+      <div class="v14-chapter-content">
+        <div class="v14-chapter-label">CHAPTER 05</div>
+        <h2 class="v14-chapter-title">導入スケジュール</h2>
+        <div class="v14-prog-list">
+          <div class="v14-prog"><div class="v14-prog-num">S1</div><div><h3 class="v14-prog-title">ヒアリング・課題分析</h3><p class="v14-prog-meta">1〜2週間 — 現状の人材課題・組織目標を明確化</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">S2</div><div><h3 class="v14-prog-title">プログラム設計</h3><p class="v14-prog-meta">2〜3週間 — カリキュラムをカスタマイズ設計</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">S3</div><div><h3 class="v14-prog-title">研修実施</h3><p class="v14-prog-meta">1〜3日間 — 集合/オンラインで実施</p></div></div>
+          <div class="v14-prog"><div class="v14-prog-num">S4</div><div><h3 class="v14-prog-title">フォローアップ</h3><p class="v14-prog-meta">1〜3ヶ月 — 進捗確認と追加支援</p></div></div>
+        </div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v14-case-card"><div class="v14-case-head">製造業 A社様（従業員350名）— 管理職研修</div><div class="v14-case-body"><div class="v14-case-section"><h4>課題</h4><p>管理職が「プレイヤー意識」から脱却できず、部下育成が後回しに。若手社員の3年以内離職率が35%に達し、「上が何も教えてくれない」という不満が蔓延。</p></div><div class="v14-case-section"><h4>実施内容</h4><p>管理職15名を対象に6ヶ月間のリーダーシップ開発プログラムを実施。月1回の集合研修（計6回）に加え、月2回のオンラインフォロー。360度FBも導入。</p></div><div class="v14-case-section"><h4>成果</h4><p>離職率35%→15%に半減。1on1月2回以上実施率100%。信頼度スコア3.2→4.2。</p></div><div class="v14-case-voice">研修で学んだことをすぐ現場で試せる設計が良かったです。<cite>— 人事部長</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v14-case-card"><div class="v14-case-head">IT企業 B社様（従業員80名）— チームビルディング</div><div class="v14-case-body"><div class="v14-case-section"><h4>課題</h4><p>急成長で中途入社が急増。エンジニアとビジネス職の間で「壁」ができ、連携が希薄に。</p></div><div class="v14-case-section"><h4>実施内容</h4><p>全社員80名にMBTIチームビルディング研修を2日間実施。4チーム編成のワークショップ形式。</p></div><div class="v14-case-section"><h4>成果</h4><p>「連携がスムーズに」72%回答。横断PJ数3倍。一体感スコア2.8→4.1に改善。</p></div><div class="v14-case-voice">「考え方が違うだけ」と理解でき、気軽に相談し合える関係に。<cite>— 代表取締役</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v14-case-card"><div class="v14-case-head">サービス業 C社様（従業員1,200名）— 新入社員研修</div><div class="v14-case-body"><div class="v14-case-section"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で配属先による教育の質にばらつき。</p></div><div class="v14-case-section"><h4>実施内容</h4><p>新入社員60名に3日間の基礎研修＋3ヶ月フォローアップ＋メンター制度を展開。</p></div><div class="v14-case-section"><h4>成果</h4><p>離職率28%→12%に激減。「自信が持てる」34%→91%に。「即戦力になるのが早い」と上司からも好評。</p></div><div class="v14-case-voice">体系的な研修で新入社員が自信を持って仕事に臨めるようになりました。<cite>— 人材開発課長</cite></div></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div style="max-width:700px;margin:0 auto">
+      <div class="v14-faq-item"><div class="v14-faq-q">Q. 研修の最少催行人数は？</div><div class="v14-faq-a">5名様から対応可能です。少人数だからこそ密度の濃い研修が実現できます。</div></div>
+      <div class="v14-faq-item"><div class="v14-faq-q">Q. オンラインでも実施できますか？</div><div class="v14-faq-a">はい。オンライン・ハイブリッド形式に対応しています。</div></div>
+      <div class="v14-faq-item"><div class="v14-faq-q">Q. カスタマイズは可能ですか？</div><div class="v14-faq-a">すべての研修は貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 15: Data Driven -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-4">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 15</span>
+    <h2>Data Driven — データドリブン</h2>
+    <p>データ・数値を前面に出しつつ、定性的な表現で温かみを補完するスタイル。</p>
+  </div>
+  <style>
+    .v15-hero { max-width: 900px; margin: 0 auto; text-align: center; }
+    .v15-hero-lead { font-family: var(--font-heading); font-size: 26px; font-weight: 600; color: var(--primary); margin-bottom: 20px; }
+    .v15-hero-text { font-size: 15px; color: var(--text-secondary); line-height: 2; }
+    .v15-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+    .v15-stat { background: #fff; padding: 20px; border-radius: 14px; border: 1px solid var(--border-light); text-align: center; }
+    .v15-stat-num { font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--primary); }
+    .v15-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .v15-targets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 800px; margin: 0 auto; }
+    .v15-target { padding: 16px 20px; background: #fff; border-radius: 10px; border: 1px solid var(--border-light); font-size: 14px; display: flex; align-items: center; gap: 10px; }
+    .v15-target-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; flex-shrink: 0; }
+
+    .v15-progs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v15-prog { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .v15-prog-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .v15-prog-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v15-prog-meta { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+
+    .v15-outcomes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v15-outcome { background: rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.08); }
+    .v15-outcome-bar { height: 4px; background: linear-gradient(to right, var(--accent), var(--accent-light)); border-radius: 2px; margin-bottom: 16px; }
+    .v15-outcome-metric { font-family: var(--font-mono); font-size: 20px; font-weight: 700; color: var(--accent-light); margin-bottom: 8px; }
+    .v15-outcome-text { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.85); }
+
+    .v15-tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 800px; margin: 0 auto; }
+    .v15-tl-item { text-align: center; background: #fff; border-radius: 12px; padding: 20px 14px; border: 1px solid var(--border-light); }
+    .v15-tl-step { font-family: var(--font-mono); font-size: 11px; color: var(--accent); font-weight: 600; }
+    .v15-tl-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; margin: 6px 0 4px; }
+    .v15-tl-dur { font-size: 12px; color: var(--primary); }
+
+    .v15-case { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .v15-case-head { background: var(--primary); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .v15-case-head h3 { font-family: var(--font-heading); font-size: 17px; }
+    .v15-case-head span { font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 10px; }
+    .v15-case-kpis { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--border-light); }
+    .v15-case-kpi { padding: 20px; text-align: center; border-right: 1px solid var(--border-light); }
+    .v15-case-kpi:last-child { border-right: none; }
+    .v15-case-kpi-label { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.05em; }
+    .v15-case-kpi-row { display: flex; align-items: baseline; justify-content: center; gap: 6px; margin-top: 6px; }
+    .v15-case-kpi-before { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
+    .v15-case-kpi-after { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: var(--primary); }
+    .v15-case-body { padding: 20px 24px; }
+    .v15-case-section { margin-bottom: 12px; }
+    .v15-case-section h4 { font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .v15-case-section p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v15-case-quote { padding: 16px 24px; background: var(--accent-50); font-style: italic; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v15-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .v15-faq { max-width: 780px; margin: 0 auto; }
+    .v15-faq-item { margin-bottom: 10px; background: #fff; border-radius: 12px; padding: 18px 22px; border: 1px solid var(--border-light); }
+    .v15-faq-q { font-weight: 500; font-size: 15px; }
+    .v15-faq-q::before { content: 'Q. '; color: var(--primary); font-weight: 700; }
+    .v15-faq-a { margin-top: 6px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v15-stats { grid-template-columns: repeat(2, 1fr); }
+      .v15-targets { grid-template-columns: 1fr; }
+      .v15-progs { grid-template-columns: 1fr; }
+      .v15-outcomes { grid-template-columns: 1fr; }
+      .v15-tl { grid-template-columns: repeat(2, 1fr); }
+      .v15-case-kpis { grid-template-columns: 1fr; }
+      .v15-case-kpi { border-right: none; border-bottom: 1px solid var(--border-light); }
+    }
+  </style>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v15-hero">
+      <div class="v15-hero-lead">データが証明する、研修の効果</div>
+      <p class="v15-hero-text">「教える」から「変わる」へ。行動変容に直結する研修プログラムを、データに基づいて設計・実施・検証します。</p>
+      <div class="v15-stats">
+        <div class="v15-stat"><div class="v15-stat-num">200+</div><div class="v15-stat-label">導入企業数</div></div>
+        <div class="v15-stat"><div class="v15-stat-num">95%</div><div class="v15-stat-label">満足度</div></div>
+        <div class="v15-stat"><div class="v15-stat-num">15%</div><div class="v15-stat-label">生産性向上</div></div>
+        <div class="v15-stat"><div class="v15-stat-num">1/2</div><div class="v15-stat-label">離職率削減</div></div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v15-targets">
+      <div class="v15-target"><span class="v15-target-dot"></span>管理職のマネジメント力を強化したい</div>
+      <div class="v15-target"><span class="v15-target-dot"></span>若手社員の早期戦力化を図りたい</div>
+      <div class="v15-target"><span class="v15-target-dot"></span>1on1ミーティングの質を向上させたい</div>
+      <div class="v15-target"><span class="v15-target-dot"></span>研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v15-progs">
+      <div class="v15-prog"><h3 class="v15-prog-title">管理職リーダーシップ研修</h3><p class="v15-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。</p><p class="v15-prog-meta">2日間 ・ 管理職</p></div>
+      <div class="v15-prog"><h3 class="v15-prog-title">新入社員ビジネス基礎研修</h3><p class="v15-prog-desc">マインドセット・ビジネスマナー・報連相を短期集中で習得。</p><p class="v15-prog-meta">3日間 ・ 新入社員</p></div>
+      <div class="v15-prog"><h3 class="v15-prog-title">MBTIチームビルディング研修</h3><p class="v15-prog-desc">MBTI性格検査を活用し、チームの多様性を強みに変えるワークショップ。</p><p class="v15-prog-meta">1日間 ・ 全社員</p></div>
+      <div class="v15-prog"><h3 class="v15-prog-title">1on1ミーティング実践講座</h3><p class="v15-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践。</p><p class="v15-prog-meta">半日 ・ 管理職</p></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v15-outcomes">
+      <div class="v15-outcome"><div class="v15-outcome-bar" style="width:75%"></div><div class="v15-outcome-metric">チーム生産性 +15%</div><p class="v15-outcome-text">管理職が部下の強みを見つけ活かせるようになり、一人ひとりのパフォーマンスが底上げ。結果としてチーム全体の生産性が平均15%向上しています。</p></div>
+      <div class="v15-outcome"><div class="v15-outcome-bar" style="width:90%"></div><div class="v15-outcome-metric">1on1実施率 90%以上</div><p class="v15-outcome-text">研修で学んだ傾聴・フィードバック技法が定着し、「1on1が楽しみ」という声が続出。実施率90%以上が当たり前の文化に。</p></div>
+      <div class="v15-outcome"><div class="v15-outcome-bar" style="width:50%"></div><div class="v15-outcome-metric">離職率 業界平均の1/2</div><p class="v15-outcome-text">「この会社で成長できる」という手応えが若手に広がり、3年以内の離職率が業界平均の半分以下に。採用・育成コストの大幅削減に。</p></div>
+      <div class="v15-outcome"><div class="v15-outcome-bar" style="width:80%"></div><div class="v15-outcome-metric">エンゲージメント +20pt</div><p class="v15-outcome-text">「仕事への意欲が高まった」と答えた社員が8割超。スコア20ポイント向上は、組織の空気が変わった何よりの証拠です。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v15-tl">
+      <div class="v15-tl-item"><div class="v15-tl-step">STEP 01</div><h3 class="v15-tl-title">ヒアリング</h3><span class="v15-tl-dur">1〜2週間</span></div>
+      <div class="v15-tl-item"><div class="v15-tl-step">STEP 02</div><h3 class="v15-tl-title">設計</h3><span class="v15-tl-dur">2〜3週間</span></div>
+      <div class="v15-tl-item"><div class="v15-tl-step">STEP 03</div><h3 class="v15-tl-title">実施</h3><span class="v15-tl-dur">1〜3日間</span></div>
+      <div class="v15-tl-item"><div class="v15-tl-step">STEP 04</div><h3 class="v15-tl-title">フォロー</h3><span class="v15-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v15-case"><div class="v15-case-head"><h3>製造業 A社様（従業員350名）</h3><span>管理職研修</span></div><div class="v15-case-kpis"><div class="v15-case-kpi"><div class="v15-case-kpi-label">若手離職率</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">35%</span><span>→</span><span class="v15-case-kpi-after">15%</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">1on1実施率</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">—</span><span>→</span><span class="v15-case-kpi-after">100%</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">信頼度スコア</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">3.2</span><span>→</span><span class="v15-case-kpi-after">4.2</span></div></div></div><div class="v15-case-body"><div class="v15-case-section"><h4>課題</h4><p>管理職のプレイヤー意識が強く、部下育成が後回しに。若手離職率35%、「上が教えてくれない」不満が蔓延。</p></div><div class="v15-case-section"><h4>実施内容</h4><p>管理職15名に6ヶ月のリーダーシップ開発。月1回集合研修＋月2回オンラインフォロー＋360度FB。</p></div></div><div class="v15-case-quote">研修で学んだことをすぐ現場で試せる設計が良かったです。<cite>— 人事部長</cite></div></div></div>
+        <div class="carousel-slide"><div class="v15-case"><div class="v15-case-head"><h3>IT企業 B社様（従業員80名）</h3><span>チームビルディング</span></div><div class="v15-case-kpis"><div class="v15-case-kpi"><div class="v15-case-kpi-label">連携改善</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-after">72%</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">横断PJ</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-after">3倍</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">一体感</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">2.8</span><span>→</span><span class="v15-case-kpi-after">4.1</span></div></div></div><div class="v15-case-body"><div class="v15-case-section"><h4>課題</h4><p>急成長で中途入社急増。エンジニアとビジネス職の間の「壁」が問題に。</p></div><div class="v15-case-section"><h4>実施内容</h4><p>全社員80名にMBTI研修を2日間。4チーム編成のワークショップで相互理解促進。</p></div></div><div class="v15-case-quote">「考え方が違うだけ」と理解でき、今では気軽に相談し合えます。<cite>— 代表取締役</cite></div></div></div>
+        <div class="carousel-slide"><div class="v15-case"><div class="v15-case-head"><h3>サービス業 C社様（従業員1,200名）</h3><span>新入社員研修</span></div><div class="v15-case-kpis"><div class="v15-case-kpi"><div class="v15-case-kpi-label">1年以内離職</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">28%</span><span>→</span><span class="v15-case-kpi-after">12%</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">自信度</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-before">34%</span><span>→</span><span class="v15-case-kpi-after">91%</span></div></div><div class="v15-case-kpi"><div class="v15-case-kpi-label">評価</div><div class="v15-case-kpi-row"><span class="v15-case-kpi-after">即戦力化</span></div></div></div><div class="v15-case-body"><div class="v15-case-section"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で教育の質にばらつき。</p></div><div class="v15-case-section"><h4>実施内容</h4><p>新入社員60名に3日間基礎研修＋3ヶ月フォロー＋メンター制度。</p></div></div><div class="v15-case-quote">体系的な研修で自信を持って仕事に臨めるようになりました。<cite>— 人材開発課長</cite></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v15-faq">
+      <div class="v15-faq-item"><div class="v15-faq-q">研修の最少催行人数は？</div><div class="v15-faq-a">5名様から対応可能です。</div></div>
+      <div class="v15-faq-item"><div class="v15-faq-q">オンラインでも実施できますか？</div><div class="v15-faq-a">はい。オンライン・ハイブリッド対応しています。</div></div>
+      <div class="v15-faq-item"><div class="v15-faq-q">カスタマイズは可能ですか？</div><div class="v15-faq-a">すべて貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 16: Warm Minimal -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-5">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 16</span>
+    <h2>Warm Minimal — ウォームミニマル</h2>
+    <p>温かみのあるミニマルデザイン。余白を大きく取り、穏やかで信頼感のある印象を演出。</p>
+  </div>
+  <style>
+    .v16-overview { max-width: 680px; margin: 0 auto; text-align: center; }
+    .v16-overview-lead { font-family: var(--font-heading); font-size: 24px; color: var(--primary); margin-bottom: 24px; line-height: 1.6; }
+    .v16-overview-text { font-size: 16px; color: var(--text-secondary); line-height: 2.2; }
+    .v16-divider { width: 60px; height: 1px; background: var(--primary-200); margin: 32px auto; }
+
+    .v16-targets { max-width: 600px; margin: 0 auto; }
+    .v16-target { padding: 14px 0; border-bottom: 1px solid var(--border-light); font-size: 15px; color: var(--text-secondary); padding-left: 20px; position: relative; }
+    .v16-target::before { content: '—'; position: absolute; left: 0; color: var(--primary); }
+
+    .v16-progs { max-width: 700px; margin: 0 auto; display: grid; gap: 24px; }
+    .v16-prog { padding: 28px; background: var(--bg-warm); border-radius: 12px; }
+    .v16-prog-title { font-family: var(--font-heading); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .v16-prog-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .v16-prog-meta { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+    .v16-outcomes { max-width: 680px; margin: 0 auto; }
+    .v16-outcome { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .v16-outcome:last-child { border-bottom: none; }
+    .v16-outcome-text { font-size: 16px; line-height: 2; color: rgba(255,255,255,0.9); }
+    .v16-outcome-text em { font-style: normal; color: var(--accent-light); font-weight: 600; }
+
+    .v16-tl { max-width: 600px; margin: 0 auto; }
+    .v16-tl-item { display: flex; gap: 20px; margin-bottom: 28px; align-items: baseline; }
+    .v16-tl-num { font-family: var(--font-mono); font-size: 14px; color: var(--primary); font-weight: 600; flex-shrink: 0; width: 24px; }
+    .v16-tl-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; }
+    .v16-tl-dur { font-size: 13px; color: var(--text-muted); margin-left: auto; flex-shrink: 0; }
+
+    .v16-case { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .v16-case h3 { font-family: var(--font-heading); font-size: 18px; margin-bottom: 20px; }
+    .v16-case-section { margin-bottom: 16px; }
+    .v16-case-section h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .v16-case-section p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .v16-case-quote { margin-top: 20px; padding: 16px; background: var(--bg-warm); border-radius: 8px; font-style: italic; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .v16-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .v16-faq { max-width: 600px; margin: 0 auto; }
+    .v16-faq-item { margin-bottom: 20px; }
+    .v16-faq-q { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .v16-faq-a { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+  </style>
+
+  <section class="demo-section" style="padding:100px 0"><div class="demo-container"><div class="v16-overview">
+    <div class="v16-overview-lead">「教える」から「変わる」へ。<br>行動変容に直結する研修を。</div>
+    <div class="v16-divider"></div>
+    <p class="v16-overview-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。</p>
+  </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v16-targets">
+      <div class="v16-target">管理職のマネジメント力を強化したい</div>
+      <div class="v16-target">若手社員の早期戦力化を図りたい</div>
+      <div class="v16-target">1on1ミーティングの質を向上させたい</div>
+      <div class="v16-target">研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v16-progs">
+      <div class="v16-prog"><h3 class="v16-prog-title">管理職リーダーシップ研修</h3><p class="v16-prog-desc">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践できる力を養います。</p><p class="v16-prog-meta">2日間 ・ 管理職対象</p></div>
+      <div class="v16-prog"><h3 class="v16-prog-title">新入社員ビジネス基礎研修</h3><p class="v16-prog-desc">マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。</p><p class="v16-prog-meta">3日間 ・ 新入社員対象</p></div>
+      <div class="v16-prog"><h3 class="v16-prog-title">MBTIチームビルディング研修</h3><p class="v16-prog-desc">MBTI性格検査を活用し、自己理解と他者理解を深めるワークショップ。</p><p class="v16-prog-meta">1日間 ・ 全社員対象</p></div>
+      <div class="v16-prog"><h3 class="v16-prog-title">1on1ミーティング実践講座</h3><p class="v16-prog-desc">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。</p><p class="v16-prog-meta">半日 ・ 管理職対象</p></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v16-outcomes">
+      <div class="v16-outcome"><p class="v16-outcome-text">管理職が部下の成長を「自分ごと」として捉えるようになり、チーム全体の生産性が<em>平均15%</em>向上。「チームの雰囲気が変わった」という声が自然と増えていきます。</p></div>
+      <div class="v16-outcome"><p class="v16-outcome-text">1on1が「やらなければならないもの」から「楽しみな時間」に変わります。実施率は<em>90%以上</em>に定着し、上司と部下の間に本物の信頼関係が育まれます。</p></div>
+      <div class="v16-outcome"><p class="v16-outcome-text">若手社員が「この会社にいてよかった」と心から思える環境が生まれ、3年以内の離職率が<em>業界平均の半分以下</em>に。人と組織が共に成長する好循環の始まりです。</p></div>
+      <div class="v16-outcome"><p class="v16-outcome-text">「仕事への意欲が高まった」と答える社員が8割を超え、エンゲージメントスコアは<em>20ポイント</em>向上。一人ひとりの「やりたい」が組織を動かす原動力に変わります。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v16-tl">
+      <div class="v16-tl-item"><span class="v16-tl-num">01</span><span class="v16-tl-title">ヒアリング・課題分析</span><span class="v16-tl-dur">1〜2週間</span></div>
+      <div class="v16-tl-item"><span class="v16-tl-num">02</span><span class="v16-tl-title">プログラム設計</span><span class="v16-tl-dur">2〜3週間</span></div>
+      <div class="v16-tl-item"><span class="v16-tl-num">03</span><span class="v16-tl-title">研修実施</span><span class="v16-tl-dur">1〜3日間</span></div>
+      <div class="v16-tl-item"><span class="v16-tl-num">04</span><span class="v16-tl-title">フォローアップ</span><span class="v16-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v16-case"><h3>製造業 A社様（従業員350名）</h3><div class="v16-case-section"><h4>課題</h4><p>管理職がプレイヤー意識から脱却できず、若手離職率が35%に。「上が何も教えてくれない」不満が蔓延。</p></div><div class="v16-case-section"><h4>実施内容</h4><p>管理職15名に6ヶ月間のリーダーシップ開発プログラム。月1回集合研修＋月2回オンラインフォロー＋360度FB。</p></div><div class="v16-case-section"><h4>成果</h4><p>離職率35%→15%に半減。1on1月2回以上実施率100%。信頼度スコア3.2→4.2に。</p></div><div class="v16-case-quote">研修で学んだことをすぐ現場で試せる設計が良かったです。特に1on1の質が変わりました。<cite>— 人事部長</cite></div></div></div>
+        <div class="carousel-slide"><div class="v16-case"><h3>IT企業 B社様（従業員80名）</h3><div class="v16-case-section"><h4>課題</h4><p>急成長で中途入社急増。エンジニアとビジネス職の「壁」が問題に。</p></div><div class="v16-case-section"><h4>実施内容</h4><p>全社員80名にMBTIチームビルディング研修を2日間実施。4チーム編成のワークショップ。</p></div><div class="v16-case-section"><h4>成果</h4><p>連携改善72%回答。横断PJ数3倍。一体感スコア2.8→4.1に改善。</p></div><div class="v16-case-quote">「考え方が違うだけ」と理解でき、今では気軽に相談し合える関係です。<cite>— 代表取締役</cite></div></div></div>
+        <div class="carousel-slide"><div class="v16-case"><h3>サービス業 C社様（従業員1,200名）</h3><div class="v16-case-section"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で教育の質にばらつき。</p></div><div class="v16-case-section"><h4>実施内容</h4><p>新入社員60名に3日間基礎研修＋3ヶ月フォローアップ＋メンター制度。</p></div><div class="v16-case-section"><h4>成果</h4><p>離職率28%→12%。「自信が持てる」34%→91%。上司からも好評。</p></div><div class="v16-case-quote">体系的な研修で新入社員が自信を持って仕事に臨めるようになりました。<cite>— 人材開発課長</cite></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v16-faq">
+      <div class="v16-faq-item"><div class="v16-faq-q">Q. 研修の最少催行人数は？</div><div class="v16-faq-a">5名様から対応可能です。</div></div>
+      <div class="v16-faq-item"><div class="v16-faq-q">Q. オンラインでも実施できますか？</div><div class="v16-faq-a">はい。オンライン・ハイブリッド対応しています。</div></div>
+      <div class="v16-faq-item"><div class="v16-faq-q">Q. カスタマイズは可能ですか？</div><div class="v16-faq-a">すべて貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 17: Bold Statement -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-6">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 17</span>
+    <h2>Bold Statement — ボールドステートメント</h2>
+    <p>大きな文字と余白で印象的に。メッセージをダイレクトに伝えるインパクト重視のデザイン。</p>
+  </div>
+  <style>
+    .v17-hero { max-width: 900px; margin: 0 auto; text-align: center; padding: 40px 0; }
+    .v17-hero-title { font-family: var(--font-heading); font-size: 36px; font-weight: 700; color: var(--primary); line-height: 1.4; margin-bottom: 24px; }
+    .v17-hero-text { font-size: 16px; color: var(--text-secondary); line-height: 2; max-width: 600px; margin: 0 auto; }
+
+    .v17-targets { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .v17-target { font-size: 16px; font-weight: 500; padding: 20px 24px; background: #fff; border-radius: 12px; border-left: 4px solid var(--primary); }
+
+    .v17-progs { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .v17-prog { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .v17-prog h3 { font-family: var(--font-heading); font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+    .v17-prog p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .v17-prog-meta { margin-top: 12px; font-size: 13px; color: var(--primary); font-weight: 500; }
+
+    .v17-outcomes { max-width: 900px; margin: 0 auto; display: grid; gap: 0; }
+    .v17-outcome { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 32px 0; border-bottom: 1px solid rgba(255,255,255,0.08); align-items: center; }
+    .v17-outcome:last-child { border-bottom: none; }
+    .v17-outcome-big { font-family: var(--font-mono); font-size: 48px; font-weight: 700; color: var(--accent-light); line-height: 1; text-align: right; }
+    .v17-outcome-text { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+
+    .v17-tl { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; }
+    .v17-tl-item { flex: 1; text-align: center; }
+    .v17-tl-num { font-family: var(--font-mono); font-size: 48px; font-weight: 700; color: var(--primary-100); }
+    .v17-tl-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .v17-tl-dur { font-size: 13px; color: var(--text-muted); }
+
+    .v17-case { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .v17-case-head { background: var(--primary); color: #fff; padding: 20px 28px; font-family: var(--font-heading); font-size: 18px; }
+    .v17-case-body { padding: 24px 28px; }
+    .v17-case-body h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 4px; margin-top: 14px; }
+    .v17-case-body h4:first-child { margin-top: 0; }
+    .v17-case-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v17-case-quote { padding: 16px 28px; background: var(--accent-50); font-style: italic; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v17-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .v17-faq { max-width: 700px; margin: 0 auto; }
+    .v17-faq-item { margin-bottom: 16px; }
+    .v17-faq-q { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .v17-faq-a { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v17-hero-title { font-size: 26px; }
+      .v17-targets { grid-template-columns: 1fr; }
+      .v17-progs { grid-template-columns: 1fr; }
+      .v17-outcome { grid-template-columns: 1fr; }
+      .v17-outcome-big { text-align: left; font-size: 36px; }
+      .v17-tl { flex-direction: column; }
+    }
+  </style>
+
+  <section class="demo-section" style="padding:100px 0"><div class="demo-container"><div class="v17-hero">
+    <h2 class="v17-hero-title">「教える」から「変わる」へ。<br>人が変わる研修を、ここから。</h2>
+    <p class="v17-hero-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。</p>
+  </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v17-targets">
+      <div class="v17-target">管理職のマネジメント力を強化したい</div>
+      <div class="v17-target">若手社員の早期戦力化を図りたい</div>
+      <div class="v17-target">1on1ミーティングの質を向上させたい</div>
+      <div class="v17-target">研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v17-progs">
+      <div class="v17-prog"><h3>管理職リーダーシップ研修</h3><p>部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践。</p><div class="v17-prog-meta">2日間 ・ 管理職対象</div></div>
+      <div class="v17-prog"><h3>新入社員ビジネス基礎研修</h3><p>マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。</p><div class="v17-prog-meta">3日間 ・ 新入社員対象</div></div>
+      <div class="v17-prog"><h3>MBTIチームビルディング研修</h3><p>MBTI性格検査を活用し、チームの多様性を強みに変えるワークショップ。</p><div class="v17-prog-meta">1日間 ・ 全社員対象</div></div>
+      <div class="v17-prog"><h3>1on1ミーティング実践講座</h3><p>効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。</p><div class="v17-prog-meta">半日 ・ 管理職対象</div></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果</h2><span class="sh__line"></span></div>
+    <div class="v17-outcomes">
+      <div class="v17-outcome"><div class="v17-outcome-big">+15%</div><p class="v17-outcome-text">管理職が「自分でやった方が早い」から「部下に任せて育てる」に転換。チームの自走力が高まり、生産性が平均15%向上しました。</p></div>
+      <div class="v17-outcome"><div class="v17-outcome-big">90%+</div><p class="v17-outcome-text">「1on1が楽しみになった」という声が続出。実施率は90%以上に定着し、形骸化しない対話の文化が根付いています。</p></div>
+      <div class="v17-outcome"><div class="v17-outcome-big">1/2</div><p class="v17-outcome-text">若手が「ここで成長したい」と実感できる環境が生まれ、3年以内離職率が業界平均の半分以下に。人材定着が経営を安定させます。</p></div>
+      <div class="v17-outcome"><div class="v17-outcome-big">+20pt</div><p class="v17-outcome-text">「仕事への意欲が高まった」と答えた社員が8割超。エンゲージメントスコア20ポイント向上は、組織の空気が変わった証拠です。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入の流れ</h2><span class="sh__line"></span></div>
+    <div class="v17-tl">
+      <div class="v17-tl-item"><div class="v17-tl-num">01</div><h3 class="v17-tl-title">ヒアリング</h3><span class="v17-tl-dur">1〜2週間</span></div>
+      <div class="v17-tl-item"><div class="v17-tl-num">02</div><h3 class="v17-tl-title">設計</h3><span class="v17-tl-dur">2〜3週間</span></div>
+      <div class="v17-tl-item"><div class="v17-tl-num">03</div><h3 class="v17-tl-title">実施</h3><span class="v17-tl-dur">1〜3日間</span></div>
+      <div class="v17-tl-item"><div class="v17-tl-num">04</div><h3 class="v17-tl-title">フォロー</h3><span class="v17-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v17-case"><div class="v17-case-head">製造業 A社様（従業員350名）— 管理職研修</div><div class="v17-case-body"><h4>課題</h4><p>管理職のプレイヤー意識が強く部下育成が後回し。若手離職率35%。「上が教えてくれない」不満蔓延。</p><h4>実施内容</h4><p>管理職15名に6ヶ月のリーダーシップ開発。月1回集合研修＋月2回オンラインフォロー＋360度FB。</p><h4>成果</h4><p>離職率35%→15%に半減。1on1実施率100%。信頼度スコア3.2→4.2に改善。</p></div><div class="v17-case-quote">研修で学んだことをすぐ現場で試せる設計が良かったです。<cite>— 人事部長</cite></div></div></div>
+        <div class="carousel-slide"><div class="v17-case"><div class="v17-case-head">IT企業 B社様（従業員80名）— チームビルディング</div><div class="v17-case-body"><h4>課題</h4><p>急成長で中途入社急増。エンジニアとビジネス職の間で壁ができていた。</p><h4>実施内容</h4><p>全社員80名にMBTI研修2日間。4チーム編成ワークショップで相互理解促進。</p><h4>成果</h4><p>連携改善72%。横断PJ数3倍。一体感スコア2.8→4.1。</p></div><div class="v17-case-quote">「考え方が違うだけ」と理解でき、気軽に相談し合える関係に。<cite>— 代表取締役</cite></div></div></div>
+        <div class="carousel-slide"><div class="v17-case"><div class="v17-case-head">サービス業 C社様（従業員1,200名）— 新入社員研修</div><div class="v17-case-body"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で教育品質にばらつき。</p><h4>実施内容</h4><p>新入社員60名に3日間基礎研修＋3ヶ月フォロー＋メンター制度。</p><h4>成果</h4><p>離職率28%→12%。自信度34%→91%。「即戦力化が早い」と上司から好評。</p></div><div class="v17-case-quote">体系的な研修で自信を持って仕事に臨めるようになりました。<cite>— 人材開発課長</cite></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v17-faq">
+      <div class="v17-faq-item"><div class="v17-faq-q">最少催行人数は？</div><div class="v17-faq-a">5名様から対応可能です。</div></div>
+      <div class="v17-faq-item"><div class="v17-faq-q">オンラインでも？</div><div class="v17-faq-a">はい。オンライン・ハイブリッド形式に対応しています。</div></div>
+      <div class="v17-faq-item"><div class="v17-faq-q">カスタマイズは？</div><div class="v17-faq-a">すべて貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 18: Split View -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-7">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 18</span>
+    <h2>Split View — スプリットビュー</h2>
+    <p>左右分割でビフォー・アフターや対比構造を見せる、コンサルティング感のあるレイアウト。</p>
+  </div>
+  <style>
+    .v18-split { display: grid; grid-template-columns: 1fr 1fr; max-width: 1000px; margin: 0 auto; }
+    .v18-split-left { padding: 40px; background: var(--primary-50); border-radius: 16px 0 0 16px; }
+    .v18-split-right { padding: 40px; background: #fff; border-radius: 0 16px 16px 0; box-shadow: 4px 0 16px rgba(0,0,0,0.03); }
+    .v18-split-title { font-family: var(--font-heading); font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--primary); }
+    .v18-split-text { font-size: 15px; color: var(--text-secondary); line-height: 2; }
+
+    .v18-targets { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .v18-target { padding: 16px 20px; background: #fff; border-radius: 10px; border: 1px solid var(--border-light); font-size: 14px; display: flex; align-items: center; gap: 10px; }
+    .v18-target svg { width: 16px; height: 16px; stroke: var(--primary); flex-shrink: 0; }
+
+    .v18-progs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .v18-prog { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border-left: 4px solid var(--primary); }
+    .v18-prog h3 { font-family: var(--font-heading); font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .v18-prog p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v18-prog-meta { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    .v18-outcomes { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .v18-outcome { padding: 28px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+    .v18-outcome-label { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.1em; font-weight: 600; margin-bottom: 8px; }
+    .v18-outcome-text { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+    .v18-outcome-text strong { color: var(--accent-light); }
+
+    .v18-tl { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .v18-tl-item { text-align: center; padding: 20px 12px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light); }
+    .v18-tl-step { font-family: var(--font-mono); font-size: 11px; color: var(--accent); font-weight: 600; }
+    .v18-tl-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; margin: 6px 0; }
+    .v18-tl-dur { font-size: 12px; color: var(--primary); }
+
+    .v18-case { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .v18-case-head { background: var(--primary); color: #fff; padding: 18px 24px; font-family: var(--font-heading); font-size: 17px; }
+    .v18-case-body { padding: 20px 24px; }
+    .v18-case-body h4 { font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 4px; margin-top: 12px; }
+    .v18-case-body h4:first-child { margin-top: 0; }
+    .v18-case-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v18-case-quote { padding: 14px 24px; background: var(--accent-50); font-style: italic; font-size: 13px; color: var(--text-secondary); }
+    .v18-case-quote cite { font-style: normal; font-size: 12px; color: var(--text-muted); }
+
+    .v18-faq { max-width: 700px; margin: 0 auto; }
+    .v18-faq-item { background: #fff; border-radius: 10px; padding: 18px 22px; margin-bottom: 10px; border: 1px solid var(--border-light); }
+    .v18-faq-q { font-weight: 500; font-size: 15px; }
+    .v18-faq-q::before { content: 'Q. '; color: var(--primary); font-weight: 700; }
+    .v18-faq-a { margin-top: 6px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v18-split { grid-template-columns: 1fr; }
+      .v18-split-left { border-radius: 16px 16px 0 0; }
+      .v18-split-right { border-radius: 0 0 16px 16px; }
+      .v18-targets { grid-template-columns: 1fr; }
+      .v18-progs { grid-template-columns: 1fr; }
+      .v18-outcomes { grid-template-columns: 1fr; }
+      .v18-tl { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v18-split">
+      <div class="v18-split-left"><div class="v18-split-title">よくある課題</div><p class="v18-split-text">「研修をやっても現場が変わらない」「管理職がプレイヤーのまま」「若手がすぐ辞める」…こうした課題は、研修の「設計」と「フォロー」で解決できます。</p></div>
+      <div class="v18-split-right"><div class="v18-split-title">私たちの解決策</div><p class="v18-split-text">行動変容に直結するカスタマイズ型研修プログラム。実践演習・グループワーク・振り返りを組み合わせ、「教える」から「変わる」へ導きます。</p></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v18-targets">
+      <div class="v18-target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>管理職のマネジメント力を強化したい</div>
+      <div class="v18-target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>若手社員の早期戦力化を図りたい</div>
+      <div class="v18-target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1on1ミーティングの質を向上させたい</div>
+      <div class="v18-target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span></div>
+    <div class="v18-progs">
+      <div class="v18-prog"><h3>管理職リーダーシップ研修</h3><p>部下育成・チーム運営・目標管理の実践スキルを体系的に習得。</p><div class="v18-prog-meta">2日間 ・ 管理職</div></div>
+      <div class="v18-prog"><h3>新入社員ビジネス基礎研修</h3><p>マインドセット・ビジネスマナー・報連相を短期集中で。</p><div class="v18-prog-meta">3日間 ・ 新入社員</div></div>
+      <div class="v18-prog"><h3>MBTIチームビルディング研修</h3><p>チームの多様性を強みに変えるワークショップ。</p><div class="v18-prog-meta">1日間 ・ 全社員</div></div>
+      <div class="v18-prog"><h3>1on1ミーティング実践講座</h3><p>傾聴スキル・フィードバック技法を実践的に。</p><div class="v18-prog-meta">半日 ・ 管理職</div></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v18-outcomes">
+      <div class="v18-outcome"><div class="v18-outcome-label">PRODUCTIVITY</div><p class="v18-outcome-text">管理職が「共に考える」スタイルに変わり、メンバーの主体性が覚醒。チーム全体の生産性が<strong>平均15%</strong>向上しています。</p></div>
+      <div class="v18-outcome"><div class="v18-outcome-label">1ON1 CULTURE</div><p class="v18-outcome-text">「1on1が楽しみ」という声が続出。実施率<strong>90%以上</strong>に定着し、本音で話せる信頼関係が組織の土台に。</p></div>
+      <div class="v18-outcome"><div class="v18-outcome-label">RETENTION</div><p class="v18-outcome-text">「ここで成長したい」と思える環境が若手に広がり、3年以内離職率が<strong>業界平均の半分以下</strong>に。人材の安定定着を実現。</p></div>
+      <div class="v18-outcome"><div class="v18-outcome-label">ENGAGEMENT</div><p class="v18-outcome-text">仕事への意欲が高まったと答えた社員が8割超。エンゲージメントスコア<strong>20ポイント向上</strong>。組織の空気が変わります。</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入の流れ</h2><span class="sh__line"></span></div>
+    <div class="v18-tl">
+      <div class="v18-tl-item"><div class="v18-tl-step">STEP 01</div><h3 class="v18-tl-title">ヒアリング</h3><span class="v18-tl-dur">1〜2週間</span></div>
+      <div class="v18-tl-item"><div class="v18-tl-step">STEP 02</div><h3 class="v18-tl-title">設計</h3><span class="v18-tl-dur">2〜3週間</span></div>
+      <div class="v18-tl-item"><div class="v18-tl-step">STEP 03</div><h3 class="v18-tl-title">実施</h3><span class="v18-tl-dur">1〜3日間</span></div>
+      <div class="v18-tl-item"><div class="v18-tl-step">STEP 04</div><h3 class="v18-tl-title">フォロー</h3><span class="v18-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v18-case"><div class="v18-case-head">製造業 A社様（従業員350名）</div><div class="v18-case-body"><h4>課題</h4><p>管理職のプレイヤー意識が強く、若手離職率35%。「上が教えてくれない」不満蔓延。</p><h4>実施内容</h4><p>管理職15名に6ヶ月のリーダーシップ開発。集合研修＋オンラインフォロー＋360度FB。</p><h4>成果</h4><p>離職率35%→15%に半減。1on1実施率100%。信頼度3.2→4.2。</p></div><div class="v18-case-quote">すぐ現場で試せる設計が良かったです。 <cite>— 人事部長</cite></div></div></div>
+        <div class="carousel-slide"><div class="v18-case"><div class="v18-case-head">IT企業 B社様（従業員80名）</div><div class="v18-case-body"><h4>課題</h4><p>急成長で中途入社急増。エンジニアとビジネス職の壁が問題に。</p><h4>実施内容</h4><p>全社員80名にMBTI研修2日間。4チームのワークショップで相互理解促進。</p><h4>成果</h4><p>連携改善72%。横断PJ数3倍。一体感2.8→4.1。</p></div><div class="v18-case-quote">「考え方が違うだけ」と理解でき、相談し合える関係に。 <cite>— 代表取締役</cite></div></div></div>
+        <div class="carousel-slide"><div class="v18-case"><div class="v18-case-head">サービス業 C社様（従業員1,200名）</div><div class="v18-case-body"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で教育品質にばらつき。</p><h4>実施内容</h4><p>新入社員60名に3日間基礎研修＋3ヶ月フォロー＋メンター制度。</p><h4>成果</h4><p>離職率28%→12%。自信度34%→91%。即戦力化が早いと好評。</p></div><div class="v18-case-quote">体系的な研修で自信を持てるようになりました。 <cite>— 人材開発課長</cite></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v18-faq">
+      <div class="v18-faq-item"><div class="v18-faq-q">研修の最少催行人数は？</div><div class="v18-faq-a">5名様から対応可能です。</div></div>
+      <div class="v18-faq-item"><div class="v18-faq-q">オンラインでも実施できますか？</div><div class="v18-faq-a">はい。オンライン・ハイブリッド対応しています。</div></div>
+      <div class="v18-faq-item"><div class="v18-faq-q">カスタマイズは可能ですか？</div><div class="v18-faq-a">すべて貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 19: Accordion Rich -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-8">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 19</span>
+    <h2>Accordion Rich — アコーディオンリッチ</h2>
+    <p>アコーディオンを多用し情報密度を高く保ちながら、必要な時に展開して読める構造。</p>
+  </div>
+  <style>
+    .v19-overview { max-width: 800px; margin: 0 auto; text-align: center; }
+    .v19-overview-lead { font-family: var(--font-heading); font-size: 24px; color: var(--primary); margin-bottom: 20px; }
+    .v19-overview-text { font-size: 15px; color: var(--text-secondary); line-height: 2; }
+
+    .v19-acc { max-width: 800px; margin: 0 auto; }
+    .v19-acc-item { margin-bottom: 8px; background: #fff; border-radius: 12px; border: 1px solid var(--border-light); overflow: hidden; }
+    .v19-acc-header { padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 500; font-size: 15px; }
+    .v19-acc-header:hover { background: var(--bg-section); }
+    .v19-acc-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+    .v19-acc-icon svg { width: 16px; height: 16px; stroke: var(--text-muted); }
+    .v19-acc-body { padding: 0 22px 18px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; display: none; }
+    .v19-acc-item.open .v19-acc-body { display: block; }
+    .v19-acc-item.open .v19-acc-icon { transform: rotate(180deg); }
+
+    .v19-targets { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .v19-target { padding: 16px 20px; background: #fff; border-radius: 10px; border: 1px solid var(--border-light); font-size: 14px; }
+    .v19-target::before { content: '✓ '; color: var(--primary); font-weight: 700; }
+
+    .v19-outcomes { max-width: 800px; margin: 0 auto; }
+    .v19-outcome-item { margin-bottom: 8px; background: rgba(255,255,255,0.06); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; }
+    .v19-outcome-header { padding: 18px 22px; display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .v19-outcome-header:hover { background: rgba(255,255,255,0.04); }
+    .v19-outcome-val { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--accent-light); min-width: 70px; }
+    .v19-outcome-summary { font-size: 15px; color: rgba(255,255,255,0.9); flex: 1; }
+    .v19-outcome-body { padding: 0 22px 18px 106px; font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.8; display: none; }
+    .v19-outcome-item.open .v19-outcome-body { display: block; }
+
+    .v19-tl { max-width: 700px; margin: 0 auto; }
+    .v19-tl-item { display: flex; gap: 16px; margin-bottom: 20px; align-items: baseline; }
+    .v19-tl-num { font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-weight: 700; }
+    .v19-tl-title { font-family: var(--font-heading); font-size: 16px; font-weight: 600; }
+    .v19-tl-dur { font-size: 13px; color: var(--text-muted); margin-left: auto; }
+
+    .v19-case { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+    .v19-case-head { background: var(--primary); color: #fff; padding: 18px 24px; font-family: var(--font-heading); font-size: 17px; }
+    .v19-case-body { padding: 20px 24px; }
+    .v19-case-body h4 { font-size: 12px; color: var(--primary); font-weight: 600; margin-bottom: 4px; margin-top: 12px; }
+    .v19-case-body h4:first-child { margin-top: 0; }
+    .v19-case-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v19-case-quote { padding: 14px 24px; background: var(--accent-50); font-style: italic; font-size: 13px; color: var(--text-secondary); }
+    .v19-case-quote cite { font-style: normal; font-size: 12px; color: var(--text-muted); }
+
+    .v19-faq { max-width: 780px; margin: 0 auto; }
+
+    @media (max-width: 768px) { .v19-targets { grid-template-columns: 1fr; } }
+  </style>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v19-overview">
+      <div class="v19-overview-lead">行動変容に直結する実践型研修</div>
+      <p class="v19-overview-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供します。</p>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v19-targets">
+      <div class="v19-target">管理職のマネジメント力を強化したい</div>
+      <div class="v19-target">若手社員の早期戦力化を図りたい</div>
+      <div class="v19-target">1on1ミーティングの質を向上させたい</div>
+      <div class="v19-target">研修が「やりっぱなし」で終わってしまう</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span><p class="sh__desc">各プログラムをタップして詳細をご覧ください。</p></div>
+    <div class="v19-acc">
+      <div class="v19-acc-item open"><div class="v19-acc-header">管理職リーダーシップ研修<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践できる力を養います。<br><strong>2日間 ・ 管理職対象</strong></div></div>
+      <div class="v19-acc-item"><div class="v19-acc-header">新入社員ビジネス基礎研修<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。<br><strong>3日間 ・ 新入社員対象</strong></div></div>
+      <div class="v19-acc-item"><div class="v19-acc-header">MBTIチームビルディング研修<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">MBTI性格検査を活用し、チームの多様性を強みに変えるワークショップ。<br><strong>1日間 ・ 全社員対象</strong></div></div>
+      <div class="v19-acc-item"><div class="v19-acc-header">1on1ミーティング実践講座<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践。<br><strong>半日 ・ 管理職対象</strong></div></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span><p class="sh__desc" style="color:rgba(255,255,255,0.6)">各項目をタップして詳細をご覧ください。</p></div>
+    <div class="v19-outcomes">
+      <div class="v19-outcome-item open"><div class="v19-outcome-header"><span class="v19-outcome-val">+15%</span><span class="v19-outcome-summary">チーム生産性の向上</span></div><div class="v19-outcome-body">管理職が部下の成長を「自分ごと」として捉えるようになり、チーム全体の生産性が平均15%向上。メンバーの自発的な提案も増加し、「チームの雰囲気が変わった」という声が自然と増えていきます。</div></div>
+      <div class="v19-outcome-item"><div class="v19-outcome-header"><span class="v19-outcome-val">90%+</span><span class="v19-outcome-summary">1on1文化の定着</span></div><div class="v19-outcome-body">「1on1が楽しみになった」という声が続出。実施率は90%以上に定着し、義務感ではなく信頼関係をベースとした対話の文化が組織に根付いています。</div></div>
+      <div class="v19-outcome-item"><div class="v19-outcome-header"><span class="v19-outcome-val">1/2以下</span><span class="v19-outcome-summary">若手離職率の改善</span></div><div class="v19-outcome-body">「この会社で成長できる」と実感できる環境が生まれ、3年以内の離職率が業界平均の半分以下に。採用コスト削減にも直結する成果です。</div></div>
+      <div class="v19-outcome-item"><div class="v19-outcome-header"><span class="v19-outcome-val">+20pt</span><span class="v19-outcome-summary">エンゲージメント向上</span></div><div class="v19-outcome-body">「仕事への意欲が高まった」と回答した社員が8割超。エンゲージメントスコアは20ポイント向上し、組織全体に前向きなムードが広がります。</div></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v19-tl">
+      <div class="v19-tl-item"><span class="v19-tl-num">01</span><span class="v19-tl-title">ヒアリング</span><span class="v19-tl-dur">1〜2週間</span></div>
+      <div class="v19-tl-item"><span class="v19-tl-num">02</span><span class="v19-tl-title">設計</span><span class="v19-tl-dur">2〜3週間</span></div>
+      <div class="v19-tl-item"><span class="v19-tl-num">03</span><span class="v19-tl-title">実施</span><span class="v19-tl-dur">1〜3日間</span></div>
+      <div class="v19-tl-item"><span class="v19-tl-num">04</span><span class="v19-tl-title">フォロー</span><span class="v19-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v19-case"><div class="v19-case-head">製造業 A社様（350名）— 管理職研修</div><div class="v19-case-body"><h4>課題</h4><p>管理職のプレイヤー意識、若手離職率35%。「上が教えてくれない」不満蔓延。</p><h4>実施</h4><p>管理職15名に6ヶ月のリーダーシップ開発。集合研修+オンラインフォロー+360度FB。</p><h4>成果</h4><p>離職率35%→15%。1on1実施率100%。信頼度3.2→4.2。</p></div><div class="v19-case-quote">すぐ現場で試せる設計が良かったです。 <cite>— 人事部長</cite></div></div></div>
+        <div class="carousel-slide"><div class="v19-case"><div class="v19-case-head">IT企業 B社様（80名）— チームビルディング</div><div class="v19-case-body"><h4>課題</h4><p>急成長で部署間の壁。エンジニアとビジネス職の連携不足。</p><h4>実施</h4><p>全社員80名にMBTI研修2日間。4チームのワークショップ。</p><h4>成果</h4><p>連携改善72%。横断PJ数3倍。一体感2.8→4.1。</p></div><div class="v19-case-quote">「考え方が違うだけ」と理解でき、相談し合える関係に。 <cite>— 代表取締役</cite></div></div></div>
+        <div class="carousel-slide"><div class="v19-case"><div class="v19-case-head">サービス業 C社様（1,200名）— 新入社員研修</div><div class="v19-case-body"><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で教育品質にばらつき。</p><h4>実施</h4><p>新入社員60名に3日間基礎研修+3ヶ月フォロー+メンター制度。</p><h4>成果</h4><p>離職率28%→12%。自信度34%→91%。即戦力化が早いと好評。</p></div><div class="v19-case-quote">体系的な研修で自信を持てるようになりました。 <cite>— 人材開発課長</cite></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v19-acc">
+      <div class="v19-acc-item"><div class="v19-acc-header">研修の最少催行人数は？<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">5名様から対応可能です。少人数だからこそ密度の濃い研修が実現できます。</div></div>
+      <div class="v19-acc-item"><div class="v19-acc-header">オンラインでも実施できますか？<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">はい。Zoom等を活用したオンライン研修・ハイブリッド形式に対応しています。</div></div>
+      <div class="v19-acc-item"><div class="v19-acc-header">カスタマイズは可能ですか？<span class="v19-acc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></div><div class="v19-acc-body">すべての研修はヒアリング結果に基づき、貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+<!-- ============================================ -->
+<!-- PATTERN 20: Magazine Premium -->
+<!-- ============================================ -->
+<div class="pattern-section" id="pattern-9">
+  <div class="pattern-title-bar">
+    <span class="pattern-badge">PATTERN 20</span>
+    <h2>Magazine Premium — マガジンプレミアム</h2>
+    <p>雑誌のような洗練されたレイアウト。写真やイラストが映えるビジュアルリッチなデザイン。</p>
+  </div>
+  <style>
+    .v20-hero { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .v20-hero-lead { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 16px; line-height: 1.4; }
+    .v20-hero-text { font-size: 16px; color: var(--text-secondary); line-height: 2; }
+    .v20-hero-visual { background: linear-gradient(135deg, var(--primary-50), var(--accent-50)); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .v20-hero-feat { text-align: center; padding: 16px; background: rgba(255,255,255,0.8); border-radius: 12px; }
+    .v20-hero-feat-icon { width: 36px; height: 36px; margin: 0 auto 8px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .v20-hero-feat-icon svg { width: 18px; height: 18px; stroke: var(--primary); }
+    .v20-hero-feat span { font-size: 12px; font-weight: 500; }
+
+    .v20-targets { max-width: 800px; margin: 0 auto; columns: 2; column-gap: 16px; }
+    .v20-target { break-inside: avoid; padding: 16px 20px; background: #fff; border-radius: 10px; border: 1px solid var(--border-light); font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .v20-target-dot { width: 8px; height: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; flex-shrink: 0; }
+
+    .v20-progs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+    .v20-prog { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .v20-prog-visual { height: 6px; background: linear-gradient(to right, var(--primary), var(--accent), var(--primary-light)); }
+    .v20-prog-body { padding: 28px; }
+    .v20-prog-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; font-weight: 600; margin-bottom: 6px; }
+    .v20-prog h3 { font-family: var(--font-heading); font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+    .v20-prog p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+    .v20-prog-meta { margin-top: 14px; display: flex; gap: 10px; }
+    .v20-prog-tag { font-size: 11px; padding: 4px 12px; background: var(--bg-section); border-radius: 6px; color: var(--text-muted); }
+
+    .v20-outcomes { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .v20-outcome { text-align: center; padding: 32px 16px; background: rgba(255,255,255,0.06); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+    .v20-outcome-icon { width: 48px; height: 48px; margin: 0 auto 16px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .v20-outcome-icon svg { width: 22px; height: 22px; stroke: #fff; }
+    .v20-outcome-text { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.85); }
+    .v20-outcome-text strong { color: var(--accent-light); font-family: var(--font-mono); }
+
+    .v20-tl { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .v20-tl::before { content: ''; position: absolute; top: 30px; left: 12.5%; right: 12.5%; height: 2px; background: linear-gradient(to right, var(--primary), var(--accent)); }
+    .v20-tl-item { text-align: center; position: relative; z-index: 1; }
+    .v20-tl-dot { width: 16px; height: 16px; background: var(--primary); border-radius: 50%; margin: 22px auto 16px; border: 3px solid #fff; box-shadow: 0 0 0 2px var(--primary); }
+    .v20-tl-title { font-family: var(--font-heading); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .v20-tl-dur { font-size: 13px; color: var(--text-muted); }
+
+    .v20-case { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+    .v20-case-head { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .v20-case-head h3 { font-family: var(--font-heading); font-size: 18px; }
+    .v20-case-head span { font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 10px; }
+    .v20-case-body { padding: 24px 28px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .v20-case-body h4 { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 6px; }
+    .v20-case-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .v20-case-quote { padding: 20px 28px; background: linear-gradient(135deg, var(--accent-50), #fff); font-style: italic; font-size: 14px; color: var(--text-secondary); line-height: 1.8; display: flex; gap: 14px; }
+    .v20-case-quote-mark { flex-shrink: 0; font-size: 36px; color: var(--accent); opacity: 0.3; font-family: serif; line-height: 1; }
+    .v20-case-quote cite { display: block; font-style: normal; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    .v20-faq { max-width: 780px; margin: 0 auto; }
+    .v20-faq-item { margin-bottom: 12px; background: #fff; border-radius: 14px; border: 1px solid var(--border-light); overflow: hidden; }
+    .v20-faq-q { padding: 18px 22px; display: flex; align-items: center; gap: 14px; font-weight: 500; font-size: 15px; }
+    .v20-faq-badge { flex-shrink: 0; width: 28px; height: 28px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .v20-faq-a { padding: 0 22px 18px 64px; font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+    @media (max-width: 768px) {
+      .v20-hero { grid-template-columns: 1fr; gap: 24px; }
+      .v20-targets { columns: 1; }
+      .v20-progs { grid-template-columns: 1fr; }
+      .v20-outcomes { grid-template-columns: repeat(2, 1fr); }
+      .v20-tl { grid-template-columns: repeat(2, 1fr); }
+      .v20-tl::before { display: none; }
+      .v20-case-body { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <section class="demo-section" style="background:linear-gradient(180deg,var(--bg-warm),#fff)"><div class="demo-container"><div class="sh"><p class="sh__label">Overview</p><h2 class="sh__title">サービス概要</h2><span class="sh__line"></span></div>
+    <div class="v20-hero">
+      <div><div class="v20-hero-lead">「教える」から「変わる」へ。</div><p class="v20-hero-text">次世代リーダーの育成から新入社員の基礎力強化まで、貴社の人材課題に合わせたカスタマイズ型の研修プログラムを提供。実践演習・グループワーク・振り返りを組み合わせた「行動変容」に直結する設計が特長です。</p></div>
+      <div class="v20-hero-visual">
+        <div class="v20-hero-feat"><div class="v20-hero-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><span>カスタマイズ</span></div>
+        <div class="v20-hero-feat"><div class="v20-hero-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><span>実践型</span></div>
+        <div class="v20-hero-feat"><div class="v20-hero-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span>効果測定</span></div>
+        <div class="v20-hero-feat"><div class="v20-hero-feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><span>フォローアップ</span></div>
+      </div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">For You</p><h2 class="sh__title">こんな企業様におすすめ</h2><span class="sh__line"></span></div>
+    <div class="v20-targets">
+      <div class="v20-target"><span class="v20-target-dot"></span>管理職のマネジメント力を強化したい</div>
+      <div class="v20-target"><span class="v20-target-dot"></span>若手社員の早期戦力化を図りたい</div>
+      <div class="v20-target"><span class="v20-target-dot"></span>1on1ミーティングの質を向上させたい</div>
+      <div class="v20-target"><span class="v20-target-dot"></span>研修が「やりっぱなし」で終わってしまう</div>
+      <div class="v20-target"><span class="v20-target-dot"></span>MBTIでチーム理解を深めたい</div>
+      <div class="v20-target"><span class="v20-target-dot"></span>外部の専門家の視点を取り入れたい</div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Programs</p><h2 class="sh__title">提供プログラム</h2><span class="sh__line"></span><p class="sh__desc">貴社の課題に合わせて最適なプログラムをご提案いたします。</p></div>
+    <div class="v20-progs">
+      <div class="v20-prog"><div class="v20-prog-visual"></div><div class="v20-prog-body"><div class="v20-prog-num">PROGRAM 01</div><h3>管理職リーダーシップ研修</h3><p>部下育成・チーム運営・目標管理の実践スキルを体系的に習得。ケーススタディとロールプレイで即実践。</p><div class="v20-prog-meta"><span class="v20-prog-tag">2日間</span><span class="v20-prog-tag">管理職</span></div></div></div>
+      <div class="v20-prog"><div class="v20-prog-visual"></div><div class="v20-prog-body"><div class="v20-prog-num">PROGRAM 02</div><h3>新入社員ビジネス基礎研修</h3><p>マインドセット・ビジネスマナー・報連相・タイムマネジメントを短期集中で習得。</p><div class="v20-prog-meta"><span class="v20-prog-tag">3日間</span><span class="v20-prog-tag">新入社員</span></div></div></div>
+      <div class="v20-prog"><div class="v20-prog-visual"></div><div class="v20-prog-body"><div class="v20-prog-num">PROGRAM 03</div><h3>MBTIチームビルディング研修</h3><p>MBTI性格検査を活用し、チームの多様性を強みに変えるワークショップ。</p><div class="v20-prog-meta"><span class="v20-prog-tag">1日間</span><span class="v20-prog-tag">全社員</span></div></div></div>
+      <div class="v20-prog"><div class="v20-prog-visual"></div><div class="v20-prog-body"><div class="v20-prog-num">PROGRAM 04</div><h3>1on1ミーティング実践講座</h3><p>効果的な1on1の進め方、傾聴スキル、フィードバック技法を実践的に学びます。</p><div class="v20-prog-meta"><span class="v20-prog-tag">半日</span><span class="v20-prog-tag">管理職</span></div></div></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--dark"><div class="demo-container"><div class="sh"><p class="sh__label">Outcomes</p><h2 class="sh__title">導入効果・期待される成果</h2><span class="sh__line"></span></div>
+    <div class="v20-outcomes">
+      <div class="v20-outcome"><div class="v20-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><p class="v20-outcome-text">部下の成長を「自分ごと」に。チーム生産性<strong>+15%</strong>向上</p></div>
+      <div class="v20-outcome"><div class="v20-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><p class="v20-outcome-text">「1on1が楽しみ」と続出。実施率<strong>90%以上</strong>に定着</p></div>
+      <div class="v20-outcome"><div class="v20-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><p class="v20-outcome-text">「成長できる」実感で離職率<strong>業界平均の半分以下</strong>に</p></div>
+      <div class="v20-outcome"><div class="v20-outcome-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div><p class="v20-outcome-text">意欲向上8割超。ES<strong>+20pt</strong>で組織の空気が一変</p></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container"><div class="sh"><p class="sh__label">Timeline</p><h2 class="sh__title">導入スケジュール</h2><span class="sh__line"></span></div>
+    <div class="v20-tl">
+      <div class="v20-tl-item"><div class="v20-tl-dot"></div><h3 class="v20-tl-title">ヒアリング</h3><span class="v20-tl-dur">1〜2週間</span></div>
+      <div class="v20-tl-item"><div class="v20-tl-dot"></div><h3 class="v20-tl-title">設計</h3><span class="v20-tl-dur">2〜3週間</span></div>
+      <div class="v20-tl-item"><div class="v20-tl-dot"></div><h3 class="v20-tl-title">実施</h3><span class="v20-tl-dur">1〜3日間</span></div>
+      <div class="v20-tl-item"><div class="v20-tl-dot"></div><h3 class="v20-tl-title">フォロー</h3><span class="v20-tl-dur">1〜3ヶ月</span></div>
+    </div></div></section>
+
+  <section class="demo-section demo-section--gray"><div class="demo-container"><div class="sh"><p class="sh__label">Case Study</p><h2 class="sh__title">導入事例</h2><span class="sh__line"></span></div>
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><div class="v20-case"><div class="v20-case-head"><h3>製造業 A社様（従業員350名）</h3><span>管理職研修</span></div><div class="v20-case-body"><div><h4>課題</h4><p>管理職のプレイヤー意識が強く部下育成が後回し。若手離職率35%。「上が教えてくれない」不満蔓延。</p></div><div><h4>実施内容</h4><p>管理職15名に6ヶ月のリーダーシップ開発。月1回集合研修＋月2回オンラインフォロー＋360度FB。</p></div><div><h4>成果</h4><p>離職率35%→15%。1on1実施率100%。信頼度3.2→4.2。全社アンケートで「相談しやすくなった」が最多回答に。</p></div></div><div class="v20-case-quote"><span class="v20-case-quote-mark">"</span><div>研修で学んだことをすぐ現場で試せる設計が良かったです。特に1on1の質が変わり、部下から「相談しやすくなった」と言われるようになりました。<cite>— 人事部長</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v20-case"><div class="v20-case-head"><h3>IT企業 B社様（従業員80名）</h3><span>チームビルディング</span></div><div class="v20-case-body"><div><h4>課題</h4><p>急成長で中途入社急増。エンジニアとビジネス職の間の壁。連携が希薄に。</p></div><div><h4>実施内容</h4><p>全社員80名にMBTIチームビルディング研修2日間。4チーム編成のワークショップで相互理解。</p></div><div><h4>成果</h4><p>「連携がスムーズに」72%回答。横断PJ数3倍。一体感スコア2.8→4.1に大幅改善。</p></div></div><div class="v20-case-quote"><span class="v20-case-quote-mark">"</span><div>エンジニアとビジネス側が「考え方が違うだけ」と理解できました。今では気軽に相談し合える関係です。<cite>— 代表取締役</cite></div></div></div></div>
+        <div class="carousel-slide"><div class="v20-case"><div class="v20-case-head"><h3>サービス業 C社様（従業員1,200名）</h3><span>新入社員研修</span></div><div class="v20-case-body"><div><h4>課題</h4><p>入社1年以内離職率28%。OJT依存で配属先による教育品質のばらつきが問題。</p></div><div><h4>実施内容</h4><p>新入社員60名に3日間の基礎研修。配属後3ヶ月のフォローアップ＋メンター制度を展開。</p></div><div><h4>成果</h4><p>離職率28%→12%に激減。「自信を持てる」34%→91%。上司から「即戦力化が早い」と好評。</p></div></div><div class="v20-case-quote"><span class="v20-case-quote-mark">"</span><div>体系的な研修のおかげで新入社員が自信を持って仕事に臨めるようになりました。メンター制度との組み合わせも効果的でした。<cite>— 人材開発課長</cite></div></div></div></div>
+      </div>
+      <div class="carousel-nav"><button class="carousel-arrow carousel-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button><div class="carousel-dots"><button class="carousel-dot active"></button><button class="carousel-dot"></button><button class="carousel-dot"></button></div><button class="carousel-arrow carousel-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+    </div></div></section>
+
+  <section class="demo-section"><div class="demo-container--narrow"><div class="sh"><p class="sh__label">FAQ</p><h2 class="sh__title">よくあるご質問</h2><span class="sh__line"></span></div>
+    <div class="v20-faq">
+      <div class="v20-faq-item"><div class="v20-faq-q"><span class="v20-faq-badge">Q</span>研修の最少催行人数は？</div><div class="v20-faq-a">5名様から対応可能です。少人数だからこそ密度の濃い研修が実現できます。</div></div>
+      <div class="v20-faq-item"><div class="v20-faq-q"><span class="v20-faq-badge">Q</span>オンラインでも実施できますか？</div><div class="v20-faq-a">はい。Zoom等を活用したオンライン・ハイブリッド形式に対応しています。</div></div>
+      <div class="v20-faq-item"><div class="v20-faq-q"><span class="v20-faq-badge">Q</span>カスタマイズは可能ですか？</div><div class="v20-faq-a">すべての研修はヒアリング結果に基づき、貴社の課題に合わせてカスタマイズします。</div></div>
+    </div></div></section>
+</div>
+
+</div><!-- /pattern-wrapper -->
+
+<script>
+// Pattern navigation
+function showPattern(index) {
+  document.querySelectorAll('.pattern-section').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+  window.scrollTo(0, 0);
+  // Re-init carousels for new pattern
+  setTimeout(initCarousels, 100);
+}
+
+// Carousel
+class CaseCarousel {
+  constructor(container) {
+    this.container = container;
+    this.track = container.querySelector('.carousel-track');
+    this.slides = [...container.querySelectorAll('.carousel-slide')];
+    this.dots = [...container.querySelectorAll('.carousel-dot')];
+    this.prevBtn = container.querySelector('.carousel-prev');
+    this.nextBtn = container.querySelector('.carousel-next');
+    this.current = 0;
+    this.autoplayTimer = null;
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.init();
+  }
+  init() {
+    if (!this.track || this.slides.length === 0) return;
+    this.prevBtn?.addEventListener('click', () => this.prev());
+    this.nextBtn?.addEventListener('click', () => this.next());
+    this.dots.forEach((dot, i) => dot.addEventListener('click', () => this.goTo(i)));
+    // Touch
+    this.track.addEventListener('touchstart', e => { this.touchStartX = e.changedTouches[0].screenX; this.stopAutoplay(); }, {passive: true});
+    this.track.addEventListener('touchend', e => { this.touchEndX = e.changedTouches[0].screenX; this.handleSwipe(); this.startAutoplay(); }, {passive: true});
+    // Hover pause
+    this.container.addEventListener('mouseenter', () => this.stopAutoplay());
+    this.container.addEventListener('mouseleave', () => this.startAutoplay());
+    this.goTo(0);
+    this.startAutoplay();
+  }
+  goTo(index) {
+    this.current = ((index % this.slides.length) + this.slides.length) % this.slides.length;
+    this.track.style.transform = `translateX(-${this.current * 100}%)`;
+    this.dots.forEach((dot, i) => dot.classList.toggle('active', i === this.current));
+  }
+  next() { this.goTo(this.current + 1); }
+  prev() { this.goTo(this.current - 1); }
+  handleSwipe() {
+    const diff = this.touchStartX - this.touchEndX;
+    if (Math.abs(diff) > 50) { diff > 0 ? this.next() : this.prev(); }
+  }
+  startAutoplay() { this.stopAutoplay(); this.autoplayTimer = setInterval(() => this.next(), 5000); }
+  stopAutoplay() { if (this.autoplayTimer) { clearInterval(this.autoplayTimer); this.autoplayTimer = null; } }
+}
+
+function initCarousels() {
+  document.querySelectorAll('.pattern-section.active .carousel[data-carousel]').forEach(el => {
+    if (!el._carousel) { el._carousel = new CaseCarousel(el); }
+  });
+}
+
+// Accordion toggle
+document.addEventListener('click', e => {
+  const header = e.target.closest('.v19-acc-header, .v19-outcome-header');
+  if (header) {
+    const item = header.parentElement;
+    item.classList.toggle('open');
+  }
+});
+
+// Init on load
+document.addEventListener('DOMContentLoaded', initCarousels);
+</script>
+</body>
+</html>
