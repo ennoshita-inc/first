@@ -11,13 +11,12 @@
  * 4. こんな企業様におすすめ（グラデーションアイコンカード）
  * 5. 提供プログラム（CPT or カスタムフィールド / アクセントバー付きカード）
  * 6. 導入効果・期待される成果（ダークセクション / 定性的+定量的表現）
- * 7. 導入事例（case_study CPT カルーセル）
- * 8. よくあるご質問（FAQ）
- * 9. 関連コラム記事（サービス別フィルタリング）
- * 10. 本文エリア（the_content — 補足用）
- * 11. その他のサービス
- * 12. 導入の流れ
- * 14. CTA
+ * 7. よくあるご質問（FAQ）
+ * 8. 関連コラム記事（サービス別フィルタリング）
+ * 9. 本文エリア（the_content — 補足用）
+ * 10. その他のサービス
+ * 11. 導入の流れ
+ * 12. CTA
  */
 get_header();
 
@@ -108,48 +107,6 @@ if ($faq_raw) {
     }
 }
 
-// 導入事例: case_study CPTからクエリ
-$case_studies = [];
-$cs_query = new WP_Query([
-    'post_type'      => 'case_study',
-    'posts_per_page' => 10,
-    'meta_query'     => [
-        [
-            'key'   => '_cs_service',
-            'value' => $current_slug,
-        ],
-    ],
-    'orderby' => 'date',
-    'order'   => 'DESC',
-]);
-if ($cs_query->have_posts()) {
-    while ($cs_query->have_posts()) {
-        $cs_query->the_post();
-        $cs_id = get_the_ID();
-        $case_studies[] = [
-            'company'   => get_post_meta($cs_id, '_cs_company', true),
-            'industry'  => get_post_meta($cs_id, '_cs_industry', true),
-            'employees' => get_post_meta($cs_id, '_cs_employees', true),
-            'duration'  => get_post_meta($cs_id, '_cs_duration', true),
-            'challenge' => get_post_meta($cs_id, '_cs_challenge', true),
-            'solution'  => get_post_meta($cs_id, '_cs_solution', true),
-            'result'    => get_post_meta($cs_id, '_cs_result', true),
-            'quote'     => get_post_meta($cs_id, '_cs_quote', true),
-            'role'      => get_post_meta($cs_id, '_cs_role', true),
-        ];
-    }
-    wp_reset_postdata();
-    rewind_posts();
-    the_post();
-}
-
-// CPTに事例がない場合、サンプルデータの事例を使用
-if (empty($case_studies) && $using_sample_data) {
-    $sample = ennoshita_get_service_sample_data($current_slug);
-    if ($sample && !empty($sample['case_studies'])) {
-        $case_studies = $sample['case_studies'];
-    }
-}
 
 // 概要テキストの特長キーワード抽出（overview-features用）
 $overview_features = [];
@@ -341,95 +298,7 @@ $outcome_icons = [
   </section>
   <?php endif; ?>
 
-  <!-- 8. 導入事例（case_study CPT カルーセル） -->
-  <?php if ($case_studies) : ?>
-  <section class="section section--gray" aria-labelledby="service-case-title">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-header__label">Case Study</p>
-        <h2 class="section-header__title" id="service-case-title">導入事例</h2>
-        <span class="section-header__line" aria-hidden="true"></span>
-      </div>
-      <div class="carousel reveal" data-carousel>
-        <div class="carousel-track">
-          <?php foreach ($case_studies as $cs) : ?>
-            <div class="carousel-slide">
-              <div class="v11-case-card">
-                <div class="v11-case-header">
-                  <h3 class="v11-case-company"><?php echo esc_html($cs['company']); ?>
-                    <?php if (!empty($cs['employees'])) : ?>
-                      （従業員<?php echo esc_html($cs['employees']); ?>）
-                    <?php endif; ?>
-                  </h3>
-                  <?php if (!empty($cs['industry'])) : ?>
-                    <span class="v11-case-tag"><?php echo esc_html($cs['industry']); ?></span>
-                  <?php endif; ?>
-                </div>
-                <div class="v11-case-detail">
-                  <?php if (!empty($cs['challenge'])) : ?>
-                    <div>
-                      <div class="v11-case-label">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                        課題
-                      </div>
-                      <p class="v11-case-block-text"><?php echo nl2br(esc_html($cs['challenge'])); ?></p>
-                    </div>
-                  <?php endif; ?>
-                  <?php if (!empty($cs['solution'])) : ?>
-                    <div>
-                      <div class="v11-case-label">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        実施内容
-                      </div>
-                      <p class="v11-case-block-text"><?php echo nl2br(esc_html($cs['solution'])); ?></p>
-                    </div>
-                  <?php endif; ?>
-                  <?php if (!empty($cs['result'])) : ?>
-                    <div>
-                      <div class="v11-case-label">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        成果
-                      </div>
-                      <p class="v11-case-block-text"><?php echo nl2br(esc_html($cs['result'])); ?></p>
-                    </div>
-                  <?php endif; ?>
-                </div>
-                <?php if (!empty($cs['quote'])) : ?>
-                  <div class="v11-case-quote">
-                    <svg class="v11-case-quote-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
-                    <blockquote>
-                      <p><?php echo esc_html($cs['quote']); ?></p>
-                      <?php if (!empty($cs['role'])) : ?>
-                        <cite>— <?php echo esc_html($cs['role']); ?></cite>
-                      <?php endif; ?>
-                    </blockquote>
-                  </div>
-                <?php endif; ?>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-        <?php if (count($case_studies) > 1) : ?>
-          <div class="carousel-nav">
-            <button class="carousel-arrow carousel-prev" aria-label="前の事例">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <div class="carousel-dots">
-              <?php for ($i = 0; $i < count($case_studies); $i++) : ?>
-                <button class="carousel-dot<?php echo $i === 0 ? ' active' : ''; ?>" aria-label="事例 <?php echo $i + 1; ?>"></button>
-              <?php endfor; ?>
-            </div>
-            <button class="carousel-arrow carousel-next" aria-label="次の事例">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- 9. よくあるご質問 -->
+  <!-- 8. よくあるご質問 -->
   <?php if ($faqs) : ?>
   <section class="section" aria-labelledby="service-faq-title">
     <div class="container container--narrow">

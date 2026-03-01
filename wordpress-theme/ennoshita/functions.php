@@ -811,7 +811,7 @@ add_action('after_switch_theme', 'ennoshita_disable_comments_defaults');
 // テーマ有効化時にリライトルールをフラッシュ（CPTの404対策）
 function ennoshita_flush_rewrite_rules() {
     ennoshita_register_testimonial_cpt();
-    ennoshita_register_case_study_cpt();
+
     ennoshita_register_team_member_cpt();
     flush_rewrite_rules();
 }
@@ -986,10 +986,6 @@ function ennoshita_service_meta_box_html($post) {
         </tr>
     </table>
 
-    <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">導入事例</h3>
-    <p style="color:#666;padding:8px 0;">導入事例は「実績事例」メニューから管理できます。各事例の「サービス種別」を設定すると、対応するサービスページにカルーセル形式で自動表示されます。</p>
-    <p style="color:#666;padding:4px 0;">提供プログラムは「提供プログラム」メニューから管理できます。各プログラムの「対象サービス」を設定してください。</p>
-
     <h3 style="margin-top:2em;padding-top:1em;border-top:1px solid #ddd;">よくあるご質問（FAQ）</h3>
     <table class="form-table">
         <tr>
@@ -1028,100 +1024,6 @@ function ennoshita_save_service_meta($post_id) {
 add_action('save_post_page', 'ennoshita_save_service_meta');
 
 
-// ==============================================
-// 16. カスタム投稿タイプ: 実績事例
-// ==============================================
-function ennoshita_register_case_study_cpt() {
-    register_post_type('case_study', [
-        'labels' => [
-            'name'               => '実績事例',
-            'singular_name'      => '実績事例',
-            'add_new'            => '新規追加',
-            'add_new_item'       => '実績事例を追加',
-            'edit_item'          => '実績事例を編集',
-            'new_item'           => '新しい実績事例',
-            'view_item'          => '実績事例を表示',
-            'search_items'       => '実績事例を検索',
-            'not_found'          => '実績事例が見つかりません',
-            'menu_name'          => '実績事例',
-        ],
-        'public'       => true,
-        'show_ui'      => true,
-        'show_in_menu' => true,
-        'menu_icon'    => 'dashicons-awards',
-        'menu_position' => 26,
-        'supports'     => ['title', 'editor', 'thumbnail'],
-        'has_archive'  => true,
-        'rewrite'      => ['slug' => 'case-study'],
-    ]);
-}
-add_action('init', 'ennoshita_register_case_study_cpt');
-
-function ennoshita_case_study_meta_boxes() {
-    add_meta_box('case_study_details', '事例情報', 'ennoshita_case_study_meta_box_html', 'case_study', 'normal', 'high');
-}
-add_action('add_meta_boxes', 'ennoshita_case_study_meta_boxes');
-
-function ennoshita_case_study_meta_box_html($post) {
-    $fields = [
-        '_cs_company'   => get_post_meta($post->ID, '_cs_company', true),
-        '_cs_industry'  => get_post_meta($post->ID, '_cs_industry', true),
-        '_cs_employees' => get_post_meta($post->ID, '_cs_employees', true),
-        '_cs_service'   => get_post_meta($post->ID, '_cs_service', true),
-        '_cs_challenge' => get_post_meta($post->ID, '_cs_challenge', true),
-        '_cs_solution'  => get_post_meta($post->ID, '_cs_solution', true),
-        '_cs_result'    => get_post_meta($post->ID, '_cs_result', true),
-        '_cs_duration'  => get_post_meta($post->ID, '_cs_duration', true),
-        '_cs_quote'     => get_post_meta($post->ID, '_cs_quote', true),
-        '_cs_role'      => get_post_meta($post->ID, '_cs_role', true),
-    ];
-    wp_nonce_field('ennoshita_cs_nonce', '_cs_nonce');
-    ?>
-    <table class="form-table">
-        <tr><th><label for="cs_company">企業名</label></th>
-            <td><input type="text" id="cs_company" name="cs_company" value="<?php echo esc_attr($fields['_cs_company']); ?>" class="regular-text" placeholder="例: 株式会社A（匿名可）"></td></tr>
-        <tr><th><label for="cs_industry">業種</label></th>
-            <td><input type="text" id="cs_industry" name="cs_industry" value="<?php echo esc_attr($fields['_cs_industry']); ?>" class="regular-text" placeholder="例: 製造業"></td></tr>
-        <tr><th><label for="cs_employees">従業員数</label></th>
-            <td><input type="text" id="cs_employees" name="cs_employees" value="<?php echo esc_attr($fields['_cs_employees']); ?>" class="regular-text" placeholder="例: 300名"></td></tr>
-        <tr><th><label for="cs_service">サービス種別</label></th>
-            <td><select id="cs_service" name="cs_service">
-                <option value="">選択してください</option>
-                <option value="training" <?php selected($fields['_cs_service'], 'training'); ?>>人材育成サービス</option>
-                <option value="hr-system" <?php selected($fields['_cs_service'], 'hr-system'); ?>>人事制度構築支援</option>
-                <option value="organization" <?php selected($fields['_cs_service'], 'organization'); ?>>組織開発支援</option>
-            </select></td></tr>
-        <tr><th><label for="cs_duration">支援期間</label></th>
-            <td><input type="text" id="cs_duration" name="cs_duration" value="<?php echo esc_attr($fields['_cs_duration']); ?>" class="regular-text" placeholder="例: 6ヶ月"></td></tr>
-        <tr><th><label for="cs_challenge">課題</label></th>
-            <td><textarea id="cs_challenge" name="cs_challenge" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_challenge']); ?></textarea></td></tr>
-        <tr><th><label for="cs_solution">実施内容</label></th>
-            <td><textarea id="cs_solution" name="cs_solution" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_solution']); ?></textarea></td></tr>
-        <tr><th><label for="cs_result">成果</label></th>
-            <td><textarea id="cs_result" name="cs_result" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_result']); ?></textarea></td></tr>
-        <tr><th><label for="cs_quote">担当者の声</label></th>
-            <td><textarea id="cs_quote" name="cs_quote" rows="3" class="large-text"><?php echo esc_textarea($fields['_cs_quote']); ?></textarea></td></tr>
-        <tr><th><label for="cs_role">肩書き</label></th>
-            <td><input type="text" id="cs_role" name="cs_role" value="<?php echo esc_attr($fields['_cs_role']); ?>" class="regular-text" placeholder="例: 人事部長"></td></tr>
-    </table>
-    <?php
-}
-
-function ennoshita_save_case_study_meta($post_id) {
-    if (!isset($_POST['_cs_nonce']) || !wp_verify_nonce($_POST['_cs_nonce'], 'ennoshita_cs_nonce')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (!current_user_can('edit_post', $post_id)) return;
-
-    $text_fields = ['cs_company', 'cs_industry', 'cs_employees', 'cs_service', 'cs_duration', 'cs_role'];
-    foreach ($text_fields as $f) {
-        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_text_field($_POST[$f]));
-    }
-    $textarea_fields = ['cs_challenge', 'cs_solution', 'cs_result', 'cs_quote'];
-    foreach ($textarea_fields as $f) {
-        if (isset($_POST[$f])) update_post_meta($post_id, "_{$f}", sanitize_textarea_field($_POST[$f]));
-    }
-}
-add_action('save_post_case_study', 'ennoshita_save_case_study_meta');
 
 
 // ==============================================
