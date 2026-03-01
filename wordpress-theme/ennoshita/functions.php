@@ -1449,6 +1449,7 @@ function ennoshita_post_service_meta_html($post) {
 function ennoshita_save_post_service_meta($post_id) {
     if (!isset($_POST['_post_service_nonce']) || !wp_verify_nonce($_POST['_post_service_nonce'], 'ennoshita_post_service_nonce')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (get_post_status($post_id) === 'auto-draft') return;
     if (!current_user_can('edit_post', $post_id)) return;
 
     if (isset($_POST['related_service'])) {
@@ -1460,7 +1461,18 @@ function ennoshita_save_post_service_meta($post_id) {
         }
     }
 }
-add_action('save_post', 'ennoshita_save_post_service_meta');
+add_action('save_post_post', 'ennoshita_save_post_service_meta');
+
+// Gutenberg REST API 対応: _related_service メタをREST APIに登録
+function ennoshita_register_post_meta() {
+    register_post_meta('post', '_related_service', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'auth_callback' => function() { return current_user_can('edit_posts'); },
+    ]);
+}
+add_action('init', 'ennoshita_register_post_meta');
 
 
 // ==============================================
@@ -1471,10 +1483,11 @@ add_action('save_post', 'ennoshita_save_post_service_meta');
  * コラム保存時にアイキャッチ画像がなければ Gemini API で自動生成
  */
 function ennoshita_nanobananapro_generate_image($post_id) {
-    // 自動保存・リビジョンはスキップ
+    // 自動保存・リビジョン・auto-draftはスキップ
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (wp_is_post_revision($post_id)) return;
-    if (get_post_type($post_id) !== 'post') return;
+    if (get_post_status($post_id) === 'auto-draft') return;
+    if (defined('REST_REQUEST') && REST_REQUEST) return; // Gutenberg REST保存時はスキップ
     if (!current_user_can('edit_post', $post_id)) return;
 
     // 既にアイキャッチ画像があればスキップ
@@ -1486,7 +1499,8 @@ function ennoshita_nanobananapro_generate_image($post_id) {
 
     $post  = get_post($post_id);
     $title = $post->post_title;
-    if (!$title) return;
+    // 空タイトルや自動下書きタイトルはスキップ
+    if (!$title || $title === __('Auto Draft')) return;
 
     // 本文から抜粋を取得（プロンプトの参考に）
     $excerpt = wp_trim_words(strip_tags($post->post_content), 50, '');
@@ -1598,7 +1612,7 @@ function ennoshita_nanobananapro_generate_image($post_id) {
     // アイキャッチ画像として設定
     set_post_thumbnail($post_id, $attach_id);
 }
-add_action('save_post', 'ennoshita_nanobananapro_generate_image', 20);
+add_action('save_post_post', 'ennoshita_nanobananapro_generate_image', 20);
 
 /**
  * 管理画面: ナノバナナプロAPIキー設定ページ
