@@ -458,7 +458,7 @@ $outcome_icons = [
 
   <!-- 10. 関連コラム記事 -->
   <?php
-  // まず関連サービスが設定された記事を優先表示
+  // 関連サービスが設定された記事のみ表示（未設定の記事は表示しない）
   $related_posts = new WP_Query([
       'posts_per_page' => 3,
       'post_status'    => 'publish',
@@ -471,16 +471,6 @@ $outcome_icons = [
           ],
       ],
   ]);
-
-  // 関連記事がない場合は最新記事をフォールバック表示
-  if (!$related_posts->have_posts()) {
-      $related_posts = new WP_Query([
-          'posts_per_page' => 3,
-          'post_status'    => 'publish',
-          'orderby'        => 'date',
-          'order'          => 'DESC',
-      ]);
-  }
   if ($related_posts->have_posts()) :
   ?>
   <section class="section section--gray" aria-labelledby="service-related-title">

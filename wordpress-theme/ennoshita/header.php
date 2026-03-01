@@ -49,7 +49,6 @@
               <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
             </ul>
           </li>
-          <li><a href="<?php echo esc_url(get_post_type_archive_link('case_study')); ?>" class="main-nav__link">実績事例</a></li>
           <li><a href="<?php echo esc_url(ennoshita_get_blog_url()); ?>" class="main-nav__link">コラム</a></li>
           <li><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="main-nav__contact">お問い合わせ</a></li>
         </ul>
