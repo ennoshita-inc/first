@@ -21,6 +21,15 @@
   <div class="container site-header__inner">
     <?php ennoshita_the_logo(); ?>
 
+    <?php
+    $header_phone = get_theme_mod('ennoshita_phone');
+    if ($header_phone) : ?>
+      <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $header_phone)); ?>" class="site-header__phone" aria-label="電話でのお問い合わせ">
+        <svg class="site-header__phone-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="site-header__phone-number"><?php echo esc_html($header_phone); ?></span>
+      </a>
+    <?php endif; ?>
+
     <button class="hamburger" aria-expanded="false" aria-controls="main-nav" aria-label="メニューを開く">
       <span class="hamburger__lines">
         <span class="hamburger__line"></span>

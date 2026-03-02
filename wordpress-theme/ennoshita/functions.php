@@ -71,7 +71,7 @@ function ennoshita_enqueue_assets() {
     // Google Fonts (font-display: swap)
     wp_enqueue_style(
         'ennoshita-fonts',
-        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@700;900&display=swap',
         [],
         null
     );
@@ -261,6 +261,10 @@ add_action('wp_head', 'ennoshita_output_ogp', 1);
 // 7. SEO — 構造化データ JSON-LD (#4)
 // ==============================================
 function ennoshita_output_jsonld() {
+    $phone = get_theme_mod('ennoshita_phone', '');
+    $logo_id = get_theme_mod('custom_logo');
+    $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
+
     if (is_front_page()) {
         $data = [
             '@context'    => 'https://schema.org',
@@ -268,22 +272,73 @@ function ennoshita_output_jsonld() {
             'name'        => '株式会社えんのした',
             'description' => '人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発を支援します。',
             'url'         => home_url('/'),
-            'telephone'   => '',
             'address'     => [
                 '@type'           => 'PostalAddress',
                 'streetAddress'   => '磨屋町ビル8階',
                 'addressLocality' => '岡山市',
                 'addressRegion'   => '岡山県',
+                'postalCode'      => '700-0826',
                 'addressCountry'  => 'JP',
             ],
             'foundingDate' => '2012-05-01',
-            'sameAs'       => [],
         ];
+
+        if ($phone) {
+            $data['telephone'] = $phone;
+        }
+        if ($logo_url) {
+            $data['logo'] = $logo_url;
+        }
+
+        // SNSリンクを動的に取得
+        $same_as = [];
+        foreach (['x', 'facebook', 'instagram', 'linkedin'] as $sns) {
+            $sns_url = get_theme_mod("ennoshita_sns_{$sns}");
+            if ($sns_url) {
+                $same_as[] = $sns_url;
+            }
+        }
+        if ($same_as) {
+            $data['sameAs'] = $same_as;
+        }
 
         printf(
             '<script type="application/ld+json">%s</script>' . "\n",
             wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         );
+    }
+
+    // BreadcrumbList JSON-LD（トップページ以外）
+    if (!is_front_page()) {
+        $breadcrumb_items = [
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'ホーム', 'item' => home_url('/')],
+        ];
+        $pos = 2;
+
+        if (is_singular('post')) {
+            $breadcrumb_items[] = ['@type' => 'ListItem', 'position' => $pos++, 'name' => 'コラム', 'item' => ennoshita_get_blog_url()];
+            $breadcrumb_items[] = ['@type' => 'ListItem', 'position' => $pos, 'name' => get_the_title()];
+        } elseif (is_page()) {
+            $ancestors = array_reverse(get_post_ancestors(get_the_ID()));
+            foreach ($ancestors as $ancestor_id) {
+                $breadcrumb_items[] = ['@type' => 'ListItem', 'position' => $pos++, 'name' => get_the_title($ancestor_id), 'item' => get_permalink($ancestor_id)];
+            }
+            $breadcrumb_items[] = ['@type' => 'ListItem', 'position' => $pos, 'name' => get_the_title()];
+        } elseif (is_archive()) {
+            $breadcrumb_items[] = ['@type' => 'ListItem', 'position' => $pos, 'name' => 'コラム'];
+        }
+
+        if (count($breadcrumb_items) > 1) {
+            $bc_data = [
+                '@context'        => 'https://schema.org',
+                '@type'           => 'BreadcrumbList',
+                'itemListElement' => $breadcrumb_items,
+            ];
+            printf(
+                '<script type="application/ld+json">%s</script>' . "\n",
+                wp_json_encode($bc_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+            );
+        }
     }
 
     // サービスページのFAQスキーマ（テンプレート選択 or サービス子ページ）
@@ -320,6 +375,18 @@ function ennoshita_output_jsonld() {
     }
 
     if (is_singular('post')) {
+        $publisher = [
+            '@type' => 'Organization',
+            'name'  => '株式会社えんのした',
+            'url'   => home_url('/'),
+        ];
+        if ($logo_url) {
+            $publisher['logo'] = [
+                '@type' => 'ImageObject',
+                'url'   => $logo_url,
+            ];
+        }
+
         $data = [
             '@context'      => 'https://schema.org',
             '@type'         => 'Article',
@@ -330,11 +397,7 @@ function ennoshita_output_jsonld() {
                 '@type' => 'Organization',
                 'name'  => '株式会社えんのした',
             ],
-            'publisher' => [
-                '@type' => 'Organization',
-                'name'  => '株式会社えんのした',
-                'url'   => home_url('/'),
-            ],
+            'publisher'        => $publisher,
             'mainEntityOfPage' => get_permalink(),
         ];
 

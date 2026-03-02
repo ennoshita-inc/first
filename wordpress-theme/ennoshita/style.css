@@ -398,6 +398,27 @@ a.main-nav__contact:visited {
   position: relative;
 }
 
+/* ヘッダー電話番号 */
+.site-header__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-left: auto;
+  margin-right: var(--space-lg);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.site-header__phone:hover { color: var(--color-primary-dark); }
+
+.site-header__phone-icon {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
 .hamburger {
   display: none;
   background: none;
@@ -1110,6 +1131,7 @@ a.service-card__link:hover { color: var(--color-primary-dark); }
 }
 
 .blog-card {
+  position: relative;
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1118,8 +1140,15 @@ a.service-card__link:hover { color: var(--color-primary-dark); }
 }
 
 .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
-.blog-card a { display: block; color: inherit; }
-.blog-card a:hover { color: inherit; }
+
+.blog-card__link { color: inherit; }
+.blog-card__link:hover { color: inherit; }
+.blog-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
 
 .blog-card__image {
   position: relative;
@@ -1415,11 +1444,11 @@ a.footer__logo:hover { color: #fff; }
   justify-content: space-between;
   padding: var(--space-lg) 0;
   font-size: var(--font-size-xs);
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.65);
 }
 
 .footer__bottom-nav { display: flex; gap: var(--space-lg); }
-.footer__bottom-nav a { font-size: var(--font-size-xs); color: rgba(255,255,255,0.4); }
+.footer__bottom-nav a { font-size: var(--font-size-xs); color: rgba(255,255,255,0.65); }
 .footer__bottom-nav a:hover { color: rgba(255,255,255,0.8); }
 
 /* ==========================================================================
@@ -2776,6 +2805,9 @@ a.blog-filter__item--active:hover {
 
   .hamburger { display: block; }
 
+  .site-header__phone { margin-right: var(--space-sm); }
+  .site-header__phone-number { display: none; }
+
   .main-nav {
     position: fixed;
     top: 0; right: -100%;
@@ -3184,20 +3216,20 @@ a.blog-filter__item--active:hover {
   margin-bottom: var(--space-md);
 }
 
-.message__lead {
+.message__text .message__lead {
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-xl) !important;
-  font-weight: 700 !important;
-  color: var(--color-text) !important;
-  line-height: 1.8 !important;
-  margin-bottom: var(--space-lg) !important;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.8;
+  margin-bottom: var(--space-lg);
 }
 
-.message__signature {
+.message__text .message__signature {
   display: flex;
   align-items: baseline;
   gap: var(--space-md);
-  margin-top: var(--space-xl) !important;
+  margin-top: var(--space-xl);
   padding-top: var(--space-lg);
   border-top: 1px solid var(--color-border-light);
 }
