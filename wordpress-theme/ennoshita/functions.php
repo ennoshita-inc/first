@@ -602,6 +602,63 @@ function ennoshita_customize_register($wp_customize) {
         'section'     => 'ennoshita_philosophy',
     ]));
 
+    // 実績セクション（トップページの数字カウントアップ）
+    $wp_customize->add_section('ennoshita_trust', [
+        'title'       => '実績セクション',
+        'description' => 'トップページに表示される実績数字（4項目）。事実に基づいた数字を入力してください。',
+        'priority'    => 33,
+    ]);
+
+    $trust_defaults = [
+        1 => ['number' => '13',  'unit' => '年',    'label' => '支援実績'],
+        2 => ['number' => '9',   'unit' => '社',    'label' => '導入事例'],
+        3 => ['number' => '15',  'unit' => '種類+', 'label' => '提供プログラム'],
+        4 => ['number' => '3',   'unit' => '分野',  'label' => '支援領域'],
+    ];
+
+    foreach ($trust_defaults as $i => $def) {
+        $wp_customize->add_setting("ennoshita_trust_{$i}_number", [
+            'default'           => $def['number'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+        $wp_customize->add_control("ennoshita_trust_{$i}_number", [
+            'label'   => "実績{$i}: 数字",
+            'section' => 'ennoshita_trust',
+            'type'    => 'text',
+        ]);
+
+        $wp_customize->add_setting("ennoshita_trust_{$i}_unit", [
+            'default'           => $def['unit'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+        $wp_customize->add_control("ennoshita_trust_{$i}_unit", [
+            'label'   => "実績{$i}: 単位（年/社/種類 等）",
+            'section' => 'ennoshita_trust',
+            'type'    => 'text',
+        ]);
+
+        $wp_customize->add_setting("ennoshita_trust_{$i}_label", [
+            'default'           => $def['label'],
+            'sanitize_callback' => 'sanitize_text_field',
+        ]);
+        $wp_customize->add_control("ennoshita_trust_{$i}_label", [
+            'label'   => "実績{$i}: ラベル",
+            'section' => 'ennoshita_trust',
+            'type'    => 'text',
+        ]);
+
+        $wp_customize->add_setting("ennoshita_trust_{$i}_link", [
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        ]);
+        $wp_customize->add_control("ennoshita_trust_{$i}_link", [
+            'label'       => "実績{$i}: リンク先URL（任意）",
+            'description' => 'サービスページの導入事例等にリンクする場合に設定',
+            'section'     => 'ennoshita_trust',
+            'type'        => 'url',
+        ]);
+    }
+
     // CTA セクション
     $wp_customize->add_section('ennoshita_cta', [
         'title'    => 'CTAセクション',

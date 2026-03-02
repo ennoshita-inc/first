@@ -97,6 +97,36 @@ get_header();
 
 
 
+  <!-- ===== 3. 実績・数字 ===== -->
+  <section class="section section--dark" aria-labelledby="trust-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__label">Results</p>
+        <h2 class="section-header__title" id="trust-title">えんのしたの実績</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+      </div>
+      <div class="trust__grid reveal">
+        <?php
+        for ($i = 1; $i <= 4; $i++) :
+          $number = get_theme_mod("ennoshita_trust_{$i}_number", '');
+          $unit   = get_theme_mod("ennoshita_trust_{$i}_unit", '');
+          $label  = get_theme_mod("ennoshita_trust_{$i}_label", '');
+          $link   = get_theme_mod("ennoshita_trust_{$i}_link", '');
+          if (!$number) continue;
+        ?>
+          <div class="trust__item">
+            <?php if ($link) : ?><a href="<?php echo esc_url($link); ?>" class="trust__link"><?php endif; ?>
+              <p class="trust__number" data-count="<?php echo esc_attr($number); ?>">0<small><?php echo esc_html($unit); ?></small></p>
+              <p class="trust__label"><?php echo esc_html($label); ?></p>
+            <?php if ($link) : ?></a><?php endif; ?>
+          </div>
+        <?php endfor; ?>
+      </div>
+      <p class="trust__note">※ 各数字は実際の導入事例・提供実績に基づいています。<a href="<?php echo esc_url(home_url('/service/training/')); ?>">詳しくはサービス詳細をご覧ください</a></p>
+    </div>
+  </section>
+
+
   <!-- ===== 4. 理念セクション ===== -->
   <section class="section" aria-labelledby="philosophy-title">
     <div class="container">

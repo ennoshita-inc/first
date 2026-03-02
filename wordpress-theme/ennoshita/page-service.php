@@ -34,6 +34,8 @@ $faq_raw          = get_post_meta(get_the_ID(), '_service_faq', true);
 $current_slug = basename(untrailingslashit(get_permalink()));
 $using_sample_data = false;
 
+$case_studies = [];
+
 if (!$overview) {
     $sample_data = ennoshita_get_service_sample_data($current_slug);
     if ($sample_data) {
@@ -44,6 +46,9 @@ if (!$overview) {
         $programs_raw     = $sample_data['programs'];
         $outcomes_raw     = $sample_data['outcomes'];
         $faq_raw          = $sample_data['faq'];
+        if (!empty($sample_data['case_studies'])) {
+            $case_studies = $sample_data['case_studies'];
+        }
     }
 }
 
@@ -319,6 +324,79 @@ $outcome_icons = [
               <p><?php echo nl2br(esc_html($faq['a'])); ?></p>
             </div>
           </details>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <!-- 9. 導入事例 -->
+  <?php if ($case_studies) : ?>
+  <section class="section section--gray" aria-labelledby="service-cases-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__label">Case Studies</p>
+        <h2 class="section-header__title" id="service-cases-title">導入事例</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+        <p class="section-header__description">実際にサービスを導入いただいた企業様の事例をご紹介します。</p>
+      </div>
+
+      <div class="case-studies">
+        <?php foreach ($case_studies as $i => $case) : ?>
+        <article class="case-study reveal reveal--delay-<?php echo min($i + 1, 3); ?>">
+          <div class="case-study__header">
+            <div class="case-study__company-info">
+              <h3 class="case-study__company"><?php echo esc_html($case['company']); ?></h3>
+              <div class="case-study__tags">
+                <?php if (!empty($case['industry'])) : ?>
+                  <span class="case-study__tag"><?php echo esc_html($case['industry']); ?></span>
+                <?php endif; ?>
+                <?php if (!empty($case['employees'])) : ?>
+                  <span class="case-study__tag">従業員 <?php echo esc_html($case['employees']); ?></span>
+                <?php endif; ?>
+                <?php if (!empty($case['duration'])) : ?>
+                  <span class="case-study__tag">期間: <?php echo esc_html($case['duration']); ?></span>
+                <?php endif; ?>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study__body">
+            <div class="case-study__section">
+              <h4 class="case-study__label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                課題
+              </h4>
+              <p><?php echo esc_html($case['challenge']); ?></p>
+            </div>
+
+            <div class="case-study__section">
+              <h4 class="case-study__label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                実施内容
+              </h4>
+              <p><?php echo esc_html($case['solution']); ?></p>
+            </div>
+
+            <div class="case-study__section case-study__section--result">
+              <h4 class="case-study__label">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                成果
+              </h4>
+              <p><?php echo esc_html($case['result']); ?></p>
+            </div>
+          </div>
+
+          <?php if (!empty($case['quote'])) : ?>
+          <blockquote class="case-study__quote">
+            <svg class="case-study__quote-icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11h4v10H0z"/></svg>
+            <p><?php echo esc_html($case['quote']); ?></p>
+            <?php if (!empty($case['role'])) : ?>
+              <cite class="case-study__cite"><?php echo esc_html($case['company']); ?> <?php echo esc_html($case['role']); ?></cite>
+            <?php endif; ?>
+          </blockquote>
+          <?php endif; ?>
+        </article>
         <?php endforeach; ?>
       </div>
     </div>

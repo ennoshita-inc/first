@@ -882,6 +882,149 @@ a.service-card__link:hover { color: var(--color-primary-dark); }
   letter-spacing: var(--letter-spacing-wider);
 }
 
+.trust__link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  transition: opacity 0.3s;
+}
+
+.trust__link:hover {
+  opacity: 0.8;
+}
+
+.trust__note {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: rgba(255,255,255,0.5);
+  margin-top: var(--space-xl);
+}
+
+.trust__note a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: underline;
+}
+
+.trust__note a:hover {
+  color: #fff;
+}
+
+/* ==========================================================================
+   Case Studies Section（導入事例）
+   ========================================================================== */
+.case-studies {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+.case-study {
+  background: #fff;
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.case-study__header {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #6b1a20));
+  padding: var(--space-lg) var(--space-xl);
+  color: #fff;
+}
+
+.case-study__company {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.case-study__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.case-study__tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border-radius: 100px;
+  padding: 0.15em 0.75em;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.case-study__body {
+  padding: var(--space-xl);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.case-study__section h4 {
+  margin: 0;
+}
+
+.case-study__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.case-study__label svg {
+  flex-shrink: 0;
+}
+
+.case-study__section p {
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.case-study__section--result {
+  background: var(--color-bg-warm, #faf7f5);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-lg);
+}
+
+.case-study__section--result .case-study__label {
+  color: var(--color-accent, #c49a2a);
+}
+
+.case-study__quote {
+  border-top: 1px solid var(--color-border, #eee);
+  padding: var(--space-lg) var(--space-xl);
+  margin: 0;
+  position: relative;
+}
+
+.case-study__quote-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  opacity: 0.2;
+  margin-bottom: var(--space-sm);
+}
+
+.case-study__quote p {
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  color: var(--color-text-light, #666);
+  font-style: italic;
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.case-study__cite {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light, #666);
+  font-style: normal;
+  text-align: right;
+}
+
 /* ==========================================================================
    Philosophy / About Section
    ========================================================================== */
@@ -2676,6 +2819,10 @@ a.blog-filter__item--active:hover {
 
   .service-detail__inner { grid-template-columns: 1fr; gap: var(--space-xl); }
   .service-detail__title { font-size: var(--font-size-2xl); }
+
+  .case-study__header { padding: var(--space-md) var(--space-lg); }
+  .case-study__body { padding: var(--space-lg); }
+  .case-study__quote { padding: var(--space-lg); }
 
   .services__grid--compact { grid-template-columns: 1fr; }
 
