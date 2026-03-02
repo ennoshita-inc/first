@@ -95,6 +95,19 @@ if (have_posts()) : the_post();
                 <textarea id="contact-message" name="message" rows="6" required></textarea>
               </div>
 
+              <!-- honeypot: スパムボット対策（非表示フィールド） -->
+              <div class="form-group" style="position:absolute;left:-9999px" aria-hidden="true">
+                <label for="contact-website">ウェブサイト</label>
+                <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="form-group form-group--consent">
+                <label class="form-consent">
+                  <input type="checkbox" name="privacy_consent" value="1" required>
+                  <span><a href="<?php echo esc_url(home_url('/privacy/')); ?>" target="_blank" rel="noopener">プライバシーポリシー</a>に同意の上、送信してください。<span class="form-required">*</span></span>
+                </label>
+              </div>
+
               <div class="form-group form-group--center">
                 <button type="submit" class="btn btn--primary btn--large">
                   送信する

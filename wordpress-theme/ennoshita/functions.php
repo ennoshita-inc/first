@@ -685,6 +685,54 @@ function ennoshita_customize_register($wp_customize) {
         'type'    => 'textarea',
     ]);
 
+    // 資料ダウンロード（リードマグネット）
+    $wp_customize->add_section('ennoshita_lead_magnet', [
+        'title'       => '資料ダウンロード',
+        'description' => 'サービスページやブログに表示する無料資料ダウンロードCTA。URLを設定すると表示されます。',
+        'priority'    => 36,
+    ]);
+
+    $wp_customize->add_setting('ennoshita_lead_magnet_title', [
+        'default'           => '無料ダウンロード資料',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('ennoshita_lead_magnet_title', [
+        'label'   => 'タイトル',
+        'section' => 'ennoshita_lead_magnet',
+        'type'    => 'text',
+    ]);
+
+    $wp_customize->add_setting('ennoshita_lead_magnet_description', [
+        'default'           => '「組織診断チェックリスト」を無料でお届けします。自社の組織課題を可視化する第一歩にご活用ください。',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('ennoshita_lead_magnet_description', [
+        'label'   => '説明文',
+        'section' => 'ennoshita_lead_magnet',
+        'type'    => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('ennoshita_lead_magnet_url', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('ennoshita_lead_magnet_url', [
+        'label'       => 'ダウンロードページURL（または外部フォームURL）',
+        'description' => '設定するとサービスページ・ブログ記事にCTAが表示されます',
+        'section'     => 'ennoshita_lead_magnet',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('ennoshita_lead_magnet_button_text', [
+        'default'           => '無料でダウンロード',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('ennoshita_lead_magnet_button_text', [
+        'label'   => 'ボタンテキスト',
+        'section' => 'ennoshita_lead_magnet',
+        'type'    => 'text',
+    ]);
+
     // SNSリンク
     $wp_customize->add_section('ennoshita_sns', [
         'title'    => 'SNSリンク',
@@ -775,26 +823,25 @@ add_action('customize_register', 'ennoshita_customize_register');
 // 13. Google Analytics / Tag Manager
 // ==============================================
 
-// GA4 または GTM の <head> 内タグ出力
+// GA4 / GTM: Cookie同意後にのみ読み込む（改正電気通信事業法対応）
+// analytics IDをdata属性として出力し、JSで同意後に読み込む
 function ennoshita_output_analytics_head() {
     $gtm_id = get_theme_mod('ennoshita_gtm_id');
     $ga4_id = get_theme_mod('ennoshita_ga4_id');
 
-    if ($gtm_id) {
+    if ($gtm_id || $ga4_id) {
         printf(
-            "<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','%s');</script>\n<!-- End Google Tag Manager -->\n",
-            esc_js($gtm_id)
-        );
-    } elseif ($ga4_id) {
-        printf(
-            "<!-- Google Analytics (GA4) -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','%1\$s');</script>\n",
-            esc_attr($ga4_id)
+            '<script id="ennoshita-analytics-config" type="application/json">%s</script>' . "\n",
+            wp_json_encode([
+                'gtm' => $gtm_id ? esc_attr($gtm_id) : '',
+                'ga4' => $ga4_id ? esc_attr($ga4_id) : '',
+            ])
         );
     }
 }
 add_action('wp_head', 'ennoshita_output_analytics_head', 0);
 
-// GTM の <body> 直後の noscript タグ
+// GTM の <body> 直後の noscript タグ（同意済みの場合のみ表示）
 function ennoshita_output_gtm_body() {
     $gtm_id = get_theme_mod('ennoshita_gtm_id');
     if ($gtm_id) {
@@ -865,11 +912,11 @@ function ennoshita_disable_comments_defaults() {
 }
 add_action('after_switch_theme', 'ennoshita_disable_comments_defaults');
 
-// テーマ有効化時にリライトルールをフラッシュ（CPTの404対策）
+// テーマ有効化時にリライトルールをフラッシュ（全CPT対応）
 function ennoshita_flush_rewrite_rules() {
     ennoshita_register_testimonial_cpt();
-
-    ennoshita_register_team_member_cpt();
+    ennoshita_register_team_cpt();
+    ennoshita_register_service_program_cpt();
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'ennoshita_flush_rewrite_rules');
@@ -1243,6 +1290,13 @@ function ennoshita_handle_contact_form() {
         wp_die('不正なリクエストです。');
     }
 
+    // honeypotチェック（スパムボットが自動入力する非表示フィールド）
+    if (!empty($_POST['website'])) {
+        // スパムと判定してもsuccessを返す（ボットに検知を悟らせない）
+        wp_safe_redirect(add_query_arg('contact', 'success', wp_get_referer()));
+        exit;
+    }
+
     $company = sanitize_text_field($_POST['company'] ?? '');
     $name    = sanitize_text_field($_POST['name'] ?? '');
     $email   = sanitize_email($_POST['email'] ?? '');
@@ -1258,6 +1312,7 @@ function ennoshita_handle_contact_form() {
     $admin_email = get_option('admin_email');
     $site_name   = get_bloginfo('name');
 
+    // 管理者への通知メール
     $mail_subject = "【{$site_name}】お問い合わせ: {$subject}";
     $mail_body    = "以下のお問い合わせがありました。\n\n"
                   . "━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -1276,6 +1331,33 @@ function ennoshita_handle_contact_form() {
     ];
 
     $sent = wp_mail($admin_email, $mail_subject, $mail_body, $headers);
+
+    // 送信者への自動返信メール
+    if ($sent && is_email($email)) {
+        $reply_subject = "【{$site_name}】お問い合わせを受け付けました";
+        $reply_body = "{$name} 様\n\n"
+                    . "この度はお問い合わせいただき、誠にありがとうございます。\n"
+                    . "以下の内容で承りました。\n\n"
+                    . "━━━━━━━━━━━━━━━━━━━━━━\n"
+                    . "ご相談内容: {$subject}\n\n"
+                    . "メッセージ:\n{$message}\n"
+                    . "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                    . "内容を確認の上、担当者より2営業日以内にご連絡いたします。\n"
+                    . "今しばらくお待ちくださいませ。\n\n"
+                    . "──────────────────\n"
+                    . "{$site_name}\n"
+                    . get_theme_mod('ennoshita_address', '') . "\n"
+                    . home_url('/') . "\n"
+                    . "──────────────────\n\n"
+                    . "※このメールは自動送信です。心当たりのない場合はお手数ですが削除してください。\n";
+
+        $reply_headers = [
+            "From: {$site_name} <{$admin_email}>",
+            "Content-Type: text/plain; charset=UTF-8",
+        ];
+
+        wp_mail($email, $reply_subject, $reply_body, $reply_headers);
+    }
 
     if ($sent) {
         wp_safe_redirect(add_query_arg('contact', 'success', wp_get_referer()));
@@ -1639,11 +1721,4 @@ function ennoshita_nanobananapro_settings_html() {
     <?php
 }
 
-/**
- * テーマ有効化時にリライトルール更新（提供プログラムCPT追加対応）
- */
-function ennoshita_flush_rewrite_rules_v2() {
-    ennoshita_register_service_program_cpt();
-    flush_rewrite_rules();
-}
-add_action('after_switch_theme', 'ennoshita_flush_rewrite_rules_v2');
+// flush_rewrite_rules は ennoshita_flush_rewrite_rules() に統合済み

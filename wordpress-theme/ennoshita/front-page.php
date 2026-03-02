@@ -17,7 +17,8 @@ get_header();
 ?>
 
   <!-- ===== 1. ヒーローセクション ===== -->
-  <section class="hero">
+  <?php $hero_image = get_theme_mod('ennoshita_hero_image'); ?>
+  <section class="hero"<?php if ($hero_image) : ?> style="background-image:linear-gradient(rgba(133,34,40,0.75),rgba(133,34,40,0.85)),url('<?php echo esc_url($hero_image); ?>');background-size:cover;background-position:center"<?php endif; ?>>
     <div class="hero__decoration" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>

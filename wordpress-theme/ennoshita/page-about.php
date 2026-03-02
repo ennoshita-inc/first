@@ -69,17 +69,7 @@ if (have_posts()) : the_post();
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta">
-    <div class="container cta__inner">
-      <h2 class="cta__title">組織の課題、一緒に解決しませんか？</h2>
-      <p class="cta__text">まずはお気軽にご相談ください。</p>
-      <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">
-        お問い合わせはこちら
-        <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-    </div>
-  </section>
+  <?php get_template_part('template-parts/section', 'cta'); ?>
 
 <?php
 endif;

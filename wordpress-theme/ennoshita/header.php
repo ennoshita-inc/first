@@ -9,9 +9,11 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if (is_front_page()) : ?>
 <div class="page-loading" aria-hidden="true">
   <div class="page-loading__spinner"></div>
 </div>
+<?php endif; ?>
 
 <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
 

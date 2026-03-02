@@ -189,22 +189,58 @@
   }
 
 
-  // ===== 6. Cookie同意バナー =====
+  // ===== 6. Cookie同意バナー + GA4/GTM遅延読み込み =====
   var cookieConsent = document.getElementById('cookie-consent');
   var cookieAccept = document.getElementById('cookie-accept');
+  var cookieReject = document.getElementById('cookie-reject');
+
+  // GA4/GTMを読み込む関数（同意後にのみ実行）
+  function loadAnalytics() {
+    var configEl = document.getElementById('ennoshita-analytics-config');
+    if (!configEl) return;
+    try {
+      var config = JSON.parse(configEl.textContent);
+      if (config.gtm) {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',config.gtm);
+      } else if (config.ga4) {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + config.ga4;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', config.ga4);
+      }
+    } catch (e) { /* ignore */ }
+  }
 
   if (cookieConsent && cookieAccept) {
-    // 同意済みでなければ表示
-    if (!localStorage.getItem('cookie_consent')) {
+    var consentState = localStorage.getItem('cookie_consent');
+
+    if (consentState === 'accepted') {
+      // 既に同意済み → GA4/GTMを読み込む
+      loadAnalytics();
+    } else if (!consentState) {
+      // 未回答 → バナー表示
       setTimeout(function () {
         cookieConsent.classList.add('is-visible');
       }, 1500);
     }
+    // 'rejected' の場合はGA4/GTMを読み込まない
 
     cookieAccept.addEventListener('click', function () {
-      localStorage.setItem('cookie_consent', '1');
+      localStorage.setItem('cookie_consent', 'accepted');
       cookieConsent.classList.remove('is-visible');
+      loadAnalytics();
     });
+
+    if (cookieReject) {
+      cookieReject.addEventListener('click', function () {
+        localStorage.setItem('cookie_consent', 'rejected');
+        cookieConsent.classList.remove('is-visible');
+      });
+    }
   }
 
 

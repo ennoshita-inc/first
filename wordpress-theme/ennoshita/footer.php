@@ -101,14 +101,16 @@
   </div>
 </footer>
 
-<!-- Cookie同意バナー -->
+<!-- Cookie同意バナー（改正電気通信事業法対応） -->
 <div class="cookie-consent" id="cookie-consent" role="dialog" aria-label="Cookie使用の同意">
   <div class="cookie-consent__inner">
     <p class="cookie-consent__text">
-      当サイトでは、サービス向上のためCookieを使用しています。
+      当サイトでは、サービス向上・アクセス解析のためCookieを使用しています。
+      「同意する」をクリックすると、Cookieの使用に同意したことになります。
       詳しくは<a href="<?php echo esc_url(home_url('/privacy/')); ?>">プライバシーポリシー</a>をご覧ください。
     </p>
     <div class="cookie-consent__buttons">
+      <button class="cookie-consent__reject" id="cookie-reject">拒否する</button>
       <button class="cookie-consent__accept" id="cookie-accept">同意する</button>
     </div>
   </div>
