@@ -172,7 +172,7 @@ get_header();
           ?>
           <img src="<?php echo esc_url($rep_photo_url); ?>"
                alt="代表取締役の写真"
-               width="400" height="500" loading="lazy">
+               width="260" height="325" loading="lazy">
         </div>
         <div class="message__text reveal reveal--right">
           <p class="section-header__label">Message</p>
