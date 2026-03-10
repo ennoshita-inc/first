@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>次世代リーダー研修 ご案内 - 株式会社大晃産業 御中</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 20mm 18mm 20mm 18mm;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "MS P明朝", serif;
+    font-size: 10.5pt;
+    line-height: 1.85;
+    color: #222;
+    background: #fff;
+  }
+
+  /* ── 表紙 ── */
+  .cover {
+    width: 210mm;
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    page-break-after: always;
+    position: relative;
+    margin: 0 auto;
+    padding: 30mm 20mm;
+  }
+
+  .cover-border {
+    position: absolute;
+    top: 12mm;
+    left: 12mm;
+    right: 12mm;
+    bottom: 12mm;
+    border: 2px solid #1F4E79;
+  }
+
+  .cover-border-inner {
+    position: absolute;
+    top: 2mm;
+    left: 2mm;
+    right: 2mm;
+    bottom: 2mm;
+    border: 0.5px solid #1F4E79;
+  }
+
+  .cover-top-accent {
+    position: absolute;
+    top: 18mm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60mm;
+    height: 1.5px;
+    background: #C0392B;
+  }
+
+  .cover-bottom-accent {
+    position: absolute;
+    bottom: 18mm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60mm;
+    height: 1.5px;
+    background: #C0392B;
+  }
+
+  .cover-label {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-size: 10pt;
+    letter-spacing: 0.6em;
+    color: #1F4E79;
+    margin-bottom: 12mm;
+    font-weight: 500;
+  }
+
+  .cover-title {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-size: 26pt;
+    font-weight: 700;
+    color: #1F4E79;
+    letter-spacing: 0.15em;
+    margin-bottom: 6mm;
+  }
+
+  .cover-subtitle {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-size: 15pt;
+    font-weight: 500;
+    color: #1F4E79;
+    letter-spacing: 0.2em;
+    margin-bottom: 20mm;
+  }
+
+  .cover-divider {
+    width: 40mm;
+    height: 1px;
+    background: #C0392B;
+    margin: 0 auto 18mm;
+  }
+
+  .cover-client {
+    font-size: 14pt;
+    letter-spacing: 0.2em;
+    color: #333;
+    margin-bottom: 4mm;
+  }
+
+  .cover-honorific {
+    font-size: 10pt;
+    letter-spacing: 0.3em;
+    color: #666;
+    margin-bottom: 20mm;
+  }
+
+  .cover-provider {
+    font-size: 11pt;
+    letter-spacing: 0.15em;
+    color: #555;
+  }
+
+  /* ── 本文共通 ── */
+  .page {
+    width: 210mm;
+    margin: 0 auto;
+    padding: 14mm 18mm;
+    page-break-after: always;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  h2 {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-size: 15pt;
+    font-weight: 700;
+    color: #1F4E79;
+    margin-bottom: 6mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 2.5px solid #1F4E79;
+    letter-spacing: 0.08em;
+    position: relative;
+  }
+
+  h2::after {
+    content: "";
+    position: absolute;
+    bottom: -2.5px;
+    left: 0;
+    width: 30mm;
+    height: 2.5px;
+    background: #C0392B;
+  }
+
+  h3 {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    font-size: 11.5pt;
+    font-weight: 600;
+    color: #1F4E79;
+    margin-top: 7mm;
+    margin-bottom: 3mm;
+    padding-left: 4mm;
+    border-left: 3px solid #C0392B;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    margin-bottom: 3mm;
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+
+  ul {
+    margin: 2mm 0 4mm 6mm;
+    list-style: none;
+  }
+
+  ul li {
+    position: relative;
+    padding-left: 5mm;
+    margin-bottom: 1.8mm;
+    text-align: justify;
+  }
+
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 5px;
+    height: 5px;
+    background: #C0392B;
+    border-radius: 50%;
+  }
+
+  .section {
+    margin-bottom: 10mm;
+  }
+
+  /* ── 概要テーブル ── */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0 6mm;
+    font-size: 10pt;
+  }
+
+  .info-table th {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+    background: #1F4E79;
+    color: #fff;
+    font-weight: 500;
+    text-align: left;
+    padding: 2.5mm 4mm;
+    width: 28%;
+    vertical-align: top;
+    border: 0.5px solid #1F4E79;
+    letter-spacing: 0.05em;
+  }
+
+  .info-table td {
+    padding: 2.5mm 4mm;
+    border: 0.5px solid #aaa;
+    vertical-align: top;
+    background: #fdfdfd;
+  }
+
+  /* ── お願い番号付きリスト ── */
+  ol.request-list {
+    margin: 3mm 0 5mm 1mm;
+    padding-left: 7mm;
+    list-style: none;
+    counter-reset: req;
+  }
+
+  ol.request-list li {
+    position: relative;
+    padding-left: 7mm;
+    margin-bottom: 2.5mm;
+    text-align: justify;
+    counter-increment: req;
+  }
+
+  ol.request-list li::before {
+    content: counter(req);
+    position: absolute;
+    left: -1mm;
+    top: 0.15em;
+    width: 5.5mm;
+    height: 5.5mm;
+    background: #1F4E79;
+    color: #fff;
+    font-family: "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 8pt;
+    font-weight: 700;
+    text-align: center;
+    line-height: 5.5mm;
+    border-radius: 50%;
+  }
+
+  /* ── 最後に ── */
+  .closing-box {
+    background: #f4f6f9;
+    border: 1px solid #1F4E79;
+    border-radius: 3px;
+    padding: 6mm 7mm;
+    margin-top: 6mm;
+  }
+
+  .closing-box p {
+    margin-bottom: 2mm;
+  }
+
+  .closing-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .signature {
+    text-align: right;
+    margin-top: 8mm;
+    font-size: 10pt;
+    color: #555;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── 強調テキスト ── */
+  .emphasis {
+    color: #C0392B;
+    font-weight: 600;
+  }
+
+  .quote-highlight {
+    font-size: 11pt;
+    color: #1F4E79;
+    font-weight: 600;
+    text-align: center;
+    margin: 5mm 10mm;
+    padding: 4mm 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── 印刷設定 ── */
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cover {
+      min-height: auto;
+      height: 100vh;
+      padding: 0 20mm;
+    }
+
+    .page {
+      padding: 10mm 15mm;
+    }
+
+    .no-print {
+      display: none;
+    }
+  }
+
+  /* ── 画面表示用の調整 ── */
+  @media screen {
+    body {
+      background: #e8e8e8;
+      padding: 10mm 0;
+    }
+
+    .cover, .page {
+      background: #fff;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.15);
+      margin-bottom: 8mm;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 表紙 ========== -->
+<div class="cover">
+  <div class="cover-border">
+    <div class="cover-border-inner"></div>
+  </div>
+  <div class="cover-top-accent"></div>
+
+  <div class="cover-label">TRAINING PROGRAM</div>
+  <div class="cover-title">次世代リーダー研修</div>
+  <div class="cover-subtitle">ご案内</div>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-client">株式会社大晃産業</div>
+  <div class="cover-honorific">御中</div>
+
+  <div class="cover-provider">株式会社えんのした</div>
+
+  <div class="cover-bottom-accent"></div>
+</div>
+
+<!-- ========== ご挨拶・研修の目的 ========== -->
+<div class="page">
+
+  <div class="section">
+    <h2>ご挨拶・研修の目的</h2>
+
+    <p>
+      この度、株式会社大晃産業の次世代リーダー研修にご参加いただくことになりました皆さまに、心より御礼申し上げます。
+      本研修は、大晃産業の更なる発展を支える次世代リーダーの育成を目的として企画されたプログラムです。
+    </p>
+
+    <h3>なぜこの研修を実施するのか</h3>
+    <ul>
+      <li>企業が持続的に成長していくためには、次世代を担うリーダーの育成が不可欠です。</li>
+      <li>経営環境の変化が激しい時代において、単なる管理者ではなく、<strong>自ら考え、行動し、周囲を巻き込んで成果を出せるリーダー</strong>が求められています。</li>
+      <li>大晃産業の更なる発展を見据え、次世代の経営を担う人材を計画的に育成します。</li>
+    </ul>
+
+    <h3>この研修で目指すこと</h3>
+    <ul>
+      <li>リーダーとしての<strong>自覚と覚悟</strong>を醸成する</li>
+      <li>経営的な視点で物事を捉え、判断できる力を養う</li>
+      <li>チームをマネジメントし、成果を出す<strong>実践力</strong>を身につける</li>
+      <li>同期の仲間とともに切磋琢磨し、社内の横断的なネットワークを構築する</li>
+    </ul>
+  </div>
+
+  <!-- ========== なぜあなたが選ばれたのか ========== -->
+  <div class="section">
+    <h2>なぜあなたが選ばれたのか</h2>
+
+    <p>
+      あなたは、会社の将来を担う人材として<span class="emphasis">選抜</span>されました。
+    </p>
+    <p>
+      これまでの実績と、今後の成長への期待が認められた結果です。
+      この研修は、あなたへの<strong>「投資」</strong>であり、会社からの<strong>「期待」</strong>の表れです。
+    </p>
+
+    <div class="quote-highlight">
+      選ばれた仲間とともに、1年間の学びを通じて、<br>
+      リーダーとしての新たなステージへ踏み出してください。
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== 研修の概要 ========== -->
+<div class="page">
+
+  <div class="section">
+    <h2>研修の概要</h2>
+
+    <table class="info-table">
+      <tr>
+        <th>研修期間</th>
+        <td>2026年6月 〜 2027年5月（全12回）</td>
+      </tr>
+      <tr>
+        <th>開催頻度</th>
+        <td>月1回（各月中旬）</td>
+      </tr>
+      <tr>
+        <th>研修時間</th>
+        <td>9:00 〜 17:00</td>
+      </tr>
+      <tr>
+        <th>合宿（第11回）</th>
+        <td>
+          1泊2日<br>
+          1日目：9:00 〜 17:00<br>
+          2日目：8:30 〜 15:00
+        </td>
+      </tr>
+      <tr>
+        <th>参加人数</th>
+        <td>塾生 最大12名（4チーム編成）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ========== 研修の進め方 ========== -->
+  <div class="section">
+    <h2>研修の進め方</h2>
+
+    <p>本研修では、「学ぶ → 実践する → 振り返る」のサイクルを繰り返し、着実な成長を目指します。</p>
+
+    <ul>
+      <li>各回の研修後に<strong>「振り返りシート」</strong>を記入します。</li>
+      <li>シートに学び・気づき・活用計画を記録し、上司（コーディネーター）に確認してもらいます。</li>
+      <li>次回研修までに実践し、その結果を振り返ります。</li>
+      <li>課題図書あり（別途ご案内いたします）。</li>
+      <li>チームでの討議・発表を多く取り入れ、多角的な視点を養います。</li>
+    </ul>
+  </div>
+
+  <!-- ========== 参加にあたってのお願い ========== -->
+  <div class="section">
+    <h2>参加にあたってのお願い</h2>
+
+    <p>研修の効果を最大限に高めるため、以下の事項についてご協力をお願いいたします。</p>
+
+    <ol class="request-list">
+      <li><strong>全12回の出席を基本</strong>とする（業務都合による欠席は事前にご連絡ください）</li>
+      <li>積極的に発言し、議論に参加する</li>
+      <li>研修で学んだことを<strong>日常の業務で実践する</strong></li>
+      <li>振り返りシートを毎回必ず提出する</li>
+      <li>課題図書を期日までに読了する</li>
+      <li><strong>守秘義務を遵守する</strong>（研修内での発言内容は外部に漏らさない）</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ========== 最後に ========== -->
+<div class="page">
+
+  <div class="section">
+    <h2>最後に</h2>
+
+    <div class="closing-box">
+      <p>
+        この1年間は、皆さんにとって<strong>大きな成長の機会</strong>です。
+      </p>
+      <p>
+        研修を「やらされるもの」ではなく、<span class="emphasis">「自ら成長するための場」</span>として活用してください。
+      </p>
+      <p>
+        共に学び、共に成長し、大晃産業の未来を創っていきましょう。
+      </p>
+    </div>
+
+    <div class="signature">
+      株式会社えんのした
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
