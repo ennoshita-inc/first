@@ -473,4 +473,3 @@ $outcome_icons = [
 <?php
 endif;
 get_footer();
-// サンプルデータ関数は inc/service-data.php に移動済み
