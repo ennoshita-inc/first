@@ -69,6 +69,9 @@ if (have_posts()) : the_post();
     </div>
   </section>
 
+  <!-- コンサルタント紹介 -->
+  <?php get_template_part('template-parts/section', 'consultants'); ?>
+
   <?php get_template_part('template-parts/section', 'cta'); ?>
 
 <?php

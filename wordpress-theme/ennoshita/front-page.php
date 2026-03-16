@@ -303,6 +303,10 @@ get_header();
   </section>
 
 
+  <!-- ===== パートナー・メディア掲載 ===== -->
+  <?php get_template_part('template-parts/section', 'partners'); ?>
+
+
   <!-- ===== 8. ブログセクション ===== -->
   <section class="section section--gray" id="blog" aria-labelledby="blog-title">
     <div class="container">
