@@ -328,3 +328,4 @@ require_once $theme_inc . 'analytics.php';
 require_once $theme_inc . 'contact.php';
 require_once $theme_inc . 'nanobananapro.php';
 require_once $theme_inc . 'service-data.php';
+require_once $theme_inc . 'ai-discovery.php';

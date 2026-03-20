@@ -33,10 +33,11 @@ function ennoshita_get_meta_description() {
     if (is_singular()) {
         $post = get_post();
         if ($post && $post->post_excerpt) {
-            return wp_trim_words($post->post_excerpt, 60, '…');
+            return mb_substr(wp_strip_all_tags($post->post_excerpt), 0, 140) . '…';
         }
         if ($post) {
-            return wp_trim_words(strip_shortcodes($post->post_content), 60, '…');
+            $content = wp_strip_all_tags(strip_shortcodes($post->post_content));
+            return mb_substr($content, 0, 140) . '…';
         }
     }
     if (is_category() || is_tag()) {
@@ -110,10 +111,25 @@ add_action('wp_head', 'ennoshita_output_ogp', 1);
 // canonical URL
 // ==============================================
 function ennoshita_output_canonical() {
+    $canonical = '';
+
     if (is_front_page()) {
-        printf('<link rel="canonical" href="%s">' . "\n", esc_url(home_url('/')));
+        $canonical = home_url('/');
     } elseif (is_singular()) {
-        printf('<link rel="canonical" href="%s">' . "\n", esc_url(get_permalink()));
+        $canonical = get_permalink();
+    } elseif (is_category() || is_tag() || is_tax()) {
+        $canonical = get_term_link(get_queried_object());
+        if (is_wp_error($canonical)) {
+            $canonical = '';
+        }
+    } elseif (is_post_type_archive()) {
+        $canonical = get_post_type_archive_link(get_query_var('post_type'));
+    } elseif (is_author()) {
+        $canonical = get_author_posts_url(get_queried_object_id());
+    }
+
+    if ($canonical) {
+        printf('<link rel="canonical" href="%s">' . "\n", esc_url($canonical));
     }
 }
 add_action('wp_head', 'ennoshita_output_canonical', 1);
