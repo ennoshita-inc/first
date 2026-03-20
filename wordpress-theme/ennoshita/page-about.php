@@ -143,6 +143,12 @@ if (have_posts()) : the_post();
           <div class="about-access__info">
             <h3 class="about-access__company">株式会社えんのした</h3>
             <dl class="about-access__details">
+              <dt>所在地</dt>
+              <dd>〒700-0826<br>岡山県岡山市北区磨屋町10-20 磨屋町ビル8階</dd>
+              <dt>TEL</dt>
+              <dd><a href="tel:086-237-4455">086-237-4455</a></dd>
+              <dt>FAX</dt>
+              <dd>086-899-6469</dd>
               <dt>交通アクセス</dt>
               <dd>JR岡山駅 東口より徒歩約10分<br>岡電「郵便局前」電停より徒歩約1分</dd>
               <dt>駐車場</dt>

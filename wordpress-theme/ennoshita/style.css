@@ -4052,6 +4052,15 @@ a.blog-filter__item--active:hover {
   margin-bottom: 0;
 }
 
+.about-access__details dd a[href^="tel:"] {
+  color: inherit;
+  text-decoration: none;
+}
+
+.about-access__details dd a[href^="tel:"]:hover {
+  color: var(--color-primary-dark);
+}
+
 /* ==========================================================================
    About Page — Consultant Card Enhanced
    ========================================================================== */
