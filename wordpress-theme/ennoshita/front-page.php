@@ -6,12 +6,13 @@
  * 1. ヒーロー
  * 2. サービス紹介
  * 3. 実績・数字
- * 4. 理念 / 私たちについて
+ * 4. 理念（テンプレートパート）
  * 5. 代表メッセージ
- * 6. 導入の流れ
+ * 6. 導入の流れ（テンプレートパート）
  * 7. お客様の声
- * 8. ブログ
- * 9. CTA
+ * 8. パートナー・メディア掲載（テンプレートパート）
+ * 9. ブログ
+ * 10. CTA（テンプレートパート）
  */
 get_header();
 ?>
@@ -138,37 +139,7 @@ get_header();
 
 
   <!-- ===== 4. 理念セクション ===== -->
-  <section class="section" aria-labelledby="philosophy-title">
-    <div class="container">
-      <div class="philosophy__inner">
-        <div class="philosophy__image reveal reveal--left">
-          <?php
-          $philosophy_img = get_theme_mod('ennoshita_philosophy_image');
-          $philosophy_img_url = $philosophy_img ? $philosophy_img : get_template_directory_uri() . '/assets/images/philosophy.svg';
-          ?>
-          <img src="<?php echo esc_url($philosophy_img_url); ?>"
-               alt="えんのしたのコンサルティング風景"
-               width="540" height="405" loading="lazy">
-        </div>
-        <div class="philosophy__text reveal reveal--right">
-          <p class="section-header__label">Philosophy</p>
-          <h2 class="section-header__title" id="philosophy-title">人と組織の<br>可能性を信じて</h2>
-          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
-          <p>
-            私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。
-          </p>
-          <p>
-            2012年の創業以来、岡山を拠点に多くの企業様の組織課題に向き合ってきました。
-            一つひとつの企業に寄り添い、その組織にとって最適な解決策を一緒に考え、実行します。
-          </p>
-          <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn btn--outline">
-            会社概要を見る
-            <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php get_template_part('template-parts/section', 'philosophy', ['context' => 'front']); ?>
 
 
   <!-- ===== 5. 代表メッセージ ===== -->

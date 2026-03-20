@@ -17,29 +17,7 @@ if (have_posts()) : the_post();
   <?php ennoshita_breadcrumb(); ?>
 
   <!-- 理念セクション -->
-  <section class="section" aria-labelledby="philosophy-about-title">
-    <div class="container">
-      <div class="philosophy__inner">
-        <div class="philosophy__image reveal reveal--left">
-          <?php
-          $philosophy_img = get_theme_mod('ennoshita_philosophy_image');
-          $philosophy_img_url = $philosophy_img ? $philosophy_img : get_template_directory_uri() . '/assets/images/hero.jpg';
-          ?>
-          <img src="<?php echo esc_url($philosophy_img_url); ?>"
-               alt="えんのしたの理念" width="540" height="405" loading="lazy">
-        </div>
-        <div class="philosophy__text reveal reveal--right">
-          <p class="section-header__label">Philosophy</p>
-          <h2 class="philosophy__heading" id="philosophy-about-title">
-            人・職場・組織を支え、<br>リーダーの心技体を育む
-          </h2>
-          <span class="section-header__line section-header__line--left" aria-hidden="true"></span>
-          <p>私たちは「人が変われば組織が変わり、組織が変われば社会が変わる」と信じています。</p>
-          <p>多様な学びの場を提供し、次世代のリーダーに必要な「心」「技」「体」を育む。それが、えんのしたの使命です。</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php get_template_part('template-parts/section', 'philosophy', ['context' => 'about']); ?>
 
   <!-- 会社情報テーブル -->
   <section class="section section--gray" aria-labelledby="company-info-title">
