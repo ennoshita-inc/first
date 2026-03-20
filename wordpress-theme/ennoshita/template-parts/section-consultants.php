@@ -14,7 +14,7 @@ $consultant_query = new WP_Query([
 if (!$consultant_query->have_posts()) return;
 ?>
 
-<section class="section section--gray" aria-labelledby="consultants-title">
+<section class="section" aria-labelledby="consultants-title">
   <div class="container">
     <div class="section-header reveal">
       <p class="section-header__label">Consultants</p>

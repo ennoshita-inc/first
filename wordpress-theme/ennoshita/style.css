@@ -3727,3 +3727,343 @@ a.blog-filter__item--active:hover {
 @media (max-width: 480px) {
   .cs-summary { grid-template-columns: 1fr; }
 }
+
+
+/* ==========================================================================
+   About Page — Company Info Table
+   ========================================================================== */
+.about-info {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.about-info__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.about-info__table tr {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.about-info__table tr:last-child {
+  border-bottom: none;
+}
+
+.about-info__table th,
+.about-info__table td {
+  padding: var(--space-lg) var(--space-xl);
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  text-align: left;
+  vertical-align: top;
+}
+
+.about-info__table th {
+  width: 180px;
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-primary-dark);
+  background: var(--color-primary-50);
+  white-space: nowrap;
+}
+
+.about-info__table td {
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.about-info__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-info__list li {
+  position: relative;
+  padding-left: 1.2em;
+  margin-bottom: var(--space-xs);
+  line-height: 1.8;
+}
+
+.about-info__list li:last-child {
+  margin-bottom: 0;
+}
+
+.about-info__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ==========================================================================
+   About Page — Clients Section
+   ========================================================================== */
+.about-clients {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.about-clients__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.about-clients__category {
+  background: var(--color-bg);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-light);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.about-clients__category:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.about-clients__category-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-primary-100);
+}
+
+.about-clients__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-clients__list li {
+  position: relative;
+  padding: var(--space-sm) 0;
+  padding-left: 1.4em;
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.about-clients__list li:last-child {
+  border-bottom: none;
+}
+
+.about-clients__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(var(--space-sm) + 0.55em);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.about-clients__note {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-xl);
+}
+
+/* ==========================================================================
+   About Page — History Timeline
+   ========================================================================== */
+.about-history {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-history__timeline {
+  position: relative;
+  padding-left: var(--space-3xl);
+}
+
+.about-history__timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--color-primary-dark), var(--color-primary-light), var(--color-accent));
+  border-radius: 2px;
+}
+
+.about-history__item {
+  position: relative;
+  display: flex;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.about-history__item:last-child {
+  padding-bottom: 0;
+}
+
+.about-history__item::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-3xl) - 1px);
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 3px solid var(--color-primary);
+  z-index: 1;
+}
+
+.about-history__item:first-child::before {
+  background: var(--color-primary);
+}
+
+.about-history__year {
+  flex-shrink: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  letter-spacing: 0.04em;
+  min-width: 60px;
+}
+
+.about-history__content p {
+  font-size: var(--font-size-base);
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ==========================================================================
+   About Page — Access Section
+   ========================================================================== */
+.about-access__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.about-access__map {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  min-height: 340px;
+}
+
+.about-access__map iframe {
+  display: block;
+}
+
+.about-access__info {
+  padding: var(--space-lg) 0;
+}
+
+.about-access__company {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xl);
+  letter-spacing: 0.04em;
+}
+
+.about-access__details {
+  margin-bottom: var(--space-xl);
+}
+
+.about-access__details dt {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  letter-spacing: var(--letter-spacing-wide);
+  margin-bottom: var(--space-xs);
+}
+
+.about-access__details dd {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-left: 0;
+  margin-bottom: var(--space-lg);
+}
+
+.about-access__details dd:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   About Page — Consultant Card Enhanced
+   ========================================================================== */
+.consultant-card__info {
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* ==========================================================================
+   About Page — Responsive
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .about-clients__grid { grid-template-columns: repeat(2, 1fr); }
+  .about-access__inner { grid-template-columns: 1fr; }
+  .about-access__map { min-height: 280px; }
+}
+
+@media (max-width: 768px) {
+  .about-info__table th,
+  .about-info__table td {
+    display: block;
+    width: 100%;
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  .about-info__table th {
+    padding-bottom: var(--space-xs);
+    border-bottom: none;
+  }
+
+  .about-info__table td {
+    padding-top: 0;
+  }
+
+  .about-info__table tr {
+    padding: var(--space-sm) 0;
+  }
+
+  .about-clients__grid { grid-template-columns: 1fr; }
+
+  .about-history__timeline {
+    padding-left: var(--space-2xl);
+  }
+
+  .about-history__item {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .about-history__item::before {
+    left: calc(-1 * var(--space-2xl) - 1px);
+    width: 12px;
+    height: 12px;
+  }
+
+  .about-access__map { min-height: 240px; }
+}
