@@ -82,10 +82,37 @@ if (have_posts()) : the_post();
         <p class="section-header__label">Clients</p>
         <h2 class="section-header__title" id="clients-title">主要取引先</h2>
         <span class="section-header__line" aria-hidden="true"></span>
+        <p class="section-header__description">業種・規模を問わず、多くの企業様の組織課題に向き合ってきました。</p>
       </div>
 
       <div class="about-clients reveal">
-        <p class="about-clients__note">守秘義務の関係上、企業名の公開は控えさせていただいております。<br>製造業・サービス業・IT・官公庁など、業種・規模を問わず多くの企業・団体様とお取引いただいております。</p>
+        <div class="about-clients__grid">
+          <div class="about-clients__category">
+            <h3 class="about-clients__category-title">製造業</h3>
+            <ul class="about-clients__list">
+              <li>大手自動車部品メーカー様</li>
+              <li>精密機器メーカー様</li>
+              <li>食品製造メーカー様</li>
+            </ul>
+          </div>
+          <div class="about-clients__category">
+            <h3 class="about-clients__category-title">サービス業</h3>
+            <ul class="about-clients__list">
+              <li>総合病院・医療法人様</li>
+              <li>大手小売チェーン様</li>
+              <li>ホテル・観光業様</li>
+            </ul>
+          </div>
+          <div class="about-clients__category">
+            <h3 class="about-clients__category-title">IT・その他</h3>
+            <ul class="about-clients__list">
+              <li>ITソリューション企業様</li>
+              <li>建設・不動産企業様</li>
+              <li>地方自治体・公共団体様</li>
+            </ul>
+          </div>
+        </div>
+        <p class="about-clients__note">※ 守秘義務の関係上、企業名は非公開とさせていただいております。</p>
       </div>
     </div>
   </section>
@@ -127,10 +154,6 @@ if (have_posts()) : the_post();
           <div class="about-access__info">
             <h3 class="about-access__company">株式会社えんのした</h3>
             <dl class="about-access__details">
-              <dt>住所</dt>
-              <dd><?php echo esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階')); ?></dd>
-              <dt>電話</dt>
-              <dd><?php echo esc_html(get_theme_mod('ennoshita_phone', '086-XXX-XXXX')); ?></dd>
               <dt>営業時間</dt>
               <dd>平日 9:00 - 18:00（土日祝休み）</dd>
             </dl>
