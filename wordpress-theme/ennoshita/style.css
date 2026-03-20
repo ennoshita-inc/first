@@ -3909,7 +3909,7 @@ a.blog-filter__item--active:hover {
   content: '';
   position: absolute;
   left: 0;
-  top: calc(var(--space-sm) + 0.55em);
+  top: calc(var(--space-md) + 0.55em);
   width: 6px;
   height: 6px;
   border-radius: 50%;

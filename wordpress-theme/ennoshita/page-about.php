@@ -135,7 +135,7 @@ if (have_posts()) : the_post();
         <div class="about-access__inner">
           <div class="about-access__map">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.5!2d133.93!3d34.66!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5bKh5bGx5biC!5e0!3m2!1sja!2sjp!4v1"
+              src="https://maps.google.com/maps?q=岡山県岡山市北区磨屋町10-20+磨屋町ビル&z=16&output=embed"
               width="100%" height="100%" style="border:0; min-height: 300px;" allowfullscreen="" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               title="株式会社えんのした所在地"></iframe>
@@ -143,8 +143,10 @@ if (have_posts()) : the_post();
           <div class="about-access__info">
             <h3 class="about-access__company">株式会社えんのした</h3>
             <dl class="about-access__details">
-              <dt>営業時間</dt>
-              <dd>平日 9:00 - 18:00（土日祝休み）</dd>
+              <dt>交通アクセス</dt>
+              <dd>JR岡山駅 東口より徒歩約10分<br>岡電「郵便局前」電停より徒歩約1分</dd>
+              <dt>駐車場</dt>
+              <dd>専用駐車場はございません。<br>お近くのコインパーキングをご利用ください。</dd>
             </dl>
             <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--outline">
               お問い合わせはこちら
