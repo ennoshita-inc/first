@@ -33,13 +33,18 @@ get_header();
         <h1 class="hero__title">
           <?php
           $hero_title = get_theme_mod('ennoshita_hero_title', "人・職場・組織を支え、\nリーダーの心技体を育む");
-          $hero_html = nl2br(esc_html($hero_title));
-          // 「心技体」にゴールドグラデーションを適用
-          $hero_html = str_replace(
-            esc_html('心技体'),
-            '<em class="hero__title-accent">心技体</em>',
-            $hero_html
-          );
+          $lines = explode("\n", $hero_title);
+          $hero_html = '';
+          foreach ($lines as $line) {
+            $line_html = esc_html(trim($line));
+            // 「心技体」にゴールドグラデーションを適用
+            $line_html = str_replace(
+              esc_html('心技体'),
+              '<em class="hero__title-accent">心技体</em>',
+              $line_html
+            );
+            $hero_html .= '<span class="hero__title-line">' . $line_html . '</span>';
+          }
           echo $hero_html;
           ?>
         </h1>
