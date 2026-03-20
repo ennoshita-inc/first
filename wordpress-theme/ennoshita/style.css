@@ -3898,6 +3898,7 @@ a.blog-filter__item--active:hover {
   line-height: 1.8;
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-border-light);
+  white-space: nowrap;
 }
 
 .about-clients__list li:last-child {

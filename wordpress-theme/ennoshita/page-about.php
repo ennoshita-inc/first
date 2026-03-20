@@ -55,15 +55,17 @@ if (have_posts()) : the_post();
               <th>所在地</th>
               <td><?php echo esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階')); ?></td>
             </tr>
+            <?php $phone = get_theme_mod('ennoshita_phone'); if ($phone) : ?>
             <tr>
               <th>電話番号</th>
-              <td><?php echo esc_html(get_theme_mod('ennoshita_phone', '086-XXX-XXXX')); ?></td>
+              <td><?php echo esc_html($phone); ?></td>
             </tr>
+            <?php endif; ?>
             <tr>
               <th>事業内容</th>
               <td>
                 <ul class="about-info__list">
-                  <li>人材育成コンサルティング</li>
+                  <li>人材育成サービス</li>
                   <li>人事制度構築支援</li>
                   <li>組織開発支援</li>
                 </ul>
@@ -116,19 +118,6 @@ if (have_posts()) : the_post();
       </div>
     </div>
   </section>
-
-  <!-- ページ本文 (WordPress追加コンテンツ用) -->
-  <?php
-  $content = get_the_content();
-  if ($content) : ?>
-  <section class="section">
-    <div class="container">
-      <div class="entry-content reveal">
-        <?php the_content(); ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
 
   <!-- コンサルタント紹介 -->
   <?php get_template_part('template-parts/section', 'consultants'); ?>
