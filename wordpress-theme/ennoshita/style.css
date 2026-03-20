@@ -3878,9 +3878,10 @@ a.blog-filter__item--active:hover {
 
 .about-clients__note {
   text-align: center;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  margin-top: var(--space-xl);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 2;
+  margin: 0;
 }
 
 /* ==========================================================================

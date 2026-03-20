@@ -104,83 +104,10 @@ if (have_posts()) : the_post();
         <p class="section-header__label">Clients</p>
         <h2 class="section-header__title" id="clients-title">主要取引先</h2>
         <span class="section-header__line" aria-hidden="true"></span>
-        <p class="section-header__description">業種・規模を問わず、多くの企業様の組織課題に向き合ってきました。</p>
       </div>
 
       <div class="about-clients reveal">
-        <div class="about-clients__grid">
-          <div class="about-clients__category">
-            <h3 class="about-clients__category-title">製造業</h3>
-            <ul class="about-clients__list">
-              <li>大手自動車部品メーカー様</li>
-              <li>精密機器メーカー様</li>
-              <li>食品製造メーカー様</li>
-            </ul>
-          </div>
-          <div class="about-clients__category">
-            <h3 class="about-clients__category-title">サービス業</h3>
-            <ul class="about-clients__list">
-              <li>総合病院・医療法人様</li>
-              <li>大手小売チェーン様</li>
-              <li>ホテル・観光業様</li>
-            </ul>
-          </div>
-          <div class="about-clients__category">
-            <h3 class="about-clients__category-title">IT・その他</h3>
-            <ul class="about-clients__list">
-              <li>ITソリューション企業様</li>
-              <li>建設・不動産企業様</li>
-              <li>地方自治体・公共団体様</li>
-            </ul>
-          </div>
-        </div>
-        <p class="about-clients__note">※ 守秘義務の関係上、企業名は非公開とさせていただいております。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 沿革 -->
-  <section class="section section--gray" aria-labelledby="history-title">
-    <div class="container">
-      <div class="section-header reveal">
-        <p class="section-header__label">History</p>
-        <h2 class="section-header__title" id="history-title">沿革</h2>
-        <span class="section-header__line" aria-hidden="true"></span>
-      </div>
-
-      <div class="about-history reveal">
-        <div class="about-history__timeline">
-          <div class="about-history__item">
-            <div class="about-history__year">2012</div>
-            <div class="about-history__content">
-              <p>岡山市にて株式会社えんのしたを設立。人材育成コンサルティング事業を開始。</p>
-            </div>
-          </div>
-          <div class="about-history__item">
-            <div class="about-history__year">2015</div>
-            <div class="about-history__content">
-              <p>人事制度構築支援サービスを開始。取引先企業数が50社を突破。</p>
-            </div>
-          </div>
-          <div class="about-history__item">
-            <div class="about-history__year">2018</div>
-            <div class="about-history__content">
-              <p>組織開発支援サービスを開始。3つの柱による総合コンサルティング体制を確立。</p>
-            </div>
-          </div>
-          <div class="about-history__item">
-            <div class="about-history__year">2020</div>
-            <div class="about-history__content">
-              <p>オンライン研修プログラムを導入。全国の企業様への支援を拡大。</p>
-            </div>
-          </div>
-          <div class="about-history__item">
-            <div class="about-history__year">2024</div>
-            <div class="about-history__content">
-              <p>累計支援企業数100社を達成。岡山県磨屋町ビルに本社移転。</p>
-            </div>
-          </div>
-        </div>
+        <p class="about-clients__note">守秘義務の関係上、企業名の公開は控えさせていただいております。<br>製造業・サービス業・IT・官公庁など、業種・規模を問わず多くの企業・団体様とお取引いただいております。</p>
       </div>
     </div>
   </section>
