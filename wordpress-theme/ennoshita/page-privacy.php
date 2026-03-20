@@ -69,7 +69,7 @@ if (have_posts()) : the_post();
           お問い合わせフォーム: <a href="<?php echo esc_url(home_url('/contact/')); ?>">こちら</a>
         </p>
 
-        <p class="privacy-date">制定日: 2024年4月1日<br>最終改定日: <?php echo date('Y年n月j日'); ?></p>
+        <p class="privacy-date">制定日: 2024年4月1日<br>最終改定日: <?php echo wp_date('Y年n月j日'); ?></p>
         <?php endif; ?>
       </div>
     </div>
