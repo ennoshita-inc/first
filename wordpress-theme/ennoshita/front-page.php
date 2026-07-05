@@ -138,6 +138,47 @@ get_header();
   </section>
 
 
+  <!-- ===== 3.5. 組織活力調査 endock 誘導セクション ===== -->
+  <section class="section section--gray" aria-labelledby="endock-promo-title">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-header__label">Survey</p>
+        <h2 class="section-header__title" id="endock-promo-title">組織の現状を、データで可視化する</h2>
+        <span class="section-header__line" aria-hidden="true"></span>
+        <p class="section-header__description">
+          研修・制度設計・組織開発の効果は、測らなければ次の一手が打てません。<br>
+          えんのしたの組織健診サービス <strong>En-Dock（エンドック）</strong> で、組織の活力を立体的に診る。
+        </p>
+      </div>
+
+      <div class="reveal" style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(24px,5vw,56px);max-width:920px;margin:0 auto 48px;padding:32px 24px;background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(133,34,40,0.06);">
+        <div style="text-align:center;min-width:96px;">
+          <div style="font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--color-primary);line-height:1;letter-spacing:-0.02em;">60</div>
+          <div style="font-size:11px;color:var(--color-text-muted);letter-spacing:0.16em;margin-top:8px;text-transform:uppercase;">標準設問数</div>
+        </div>
+        <div style="text-align:center;min-width:96px;">
+          <div style="font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--color-primary);line-height:1;letter-spacing:-0.02em;">8</div>
+          <div style="font-size:11px;color:var(--color-text-muted);letter-spacing:0.16em;margin-top:8px;text-transform:uppercase;">診断カテゴリ</div>
+        </div>
+        <div style="text-align:center;min-width:96px;">
+          <div style="font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--color-primary);line-height:1;letter-spacing:-0.02em;">4</div>
+          <div style="font-size:11px;color:var(--color-text-muted);letter-spacing:0.16em;margin-top:8px;text-transform:uppercase;">集計軸</div>
+        </div>
+        <div style="text-align:center;min-width:96px;">
+          <div style="font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:clamp(36px,5vw,52px);font-weight:700;color:var(--color-primary);line-height:1;letter-spacing:-0.02em;">7</div>
+          <div style="font-size:11px;color:var(--color-text-muted);letter-spacing:0.16em;margin-top:8px;text-transform:uppercase;">ダッシュボードタブ</div>
+        </div>
+      </div>
+
+      <div class="reveal" style="text-align:center;">
+        <a href="<?php echo esc_url(home_url('/endock/')); ?>" class="btn btn--primary btn--large">
+          組織活力調査 En-Dock を詳しく見る <span class="btn__icon">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
   <!-- ===== 4. 理念セクション ===== -->
   <?php get_template_part('template-parts/section', 'philosophy', ['context' => 'front']); ?>
 

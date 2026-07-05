@@ -1,0 +1,1171 @@
+/* ============================================================
+   endock LP — 追加スタイル（既存 style.css に依存）
+   --------------------------------------------------------------
+   既存 style.css の :root 変数を使用。スコープ分離は不要。
+   .endock- プレフィックスで既存クラスと衝突を防止。
+   ============================================================ */
+
+/* ============================================================
+   1. .page-header 内の endock ブランド表示
+   ============================================================ */
+.page-header__title .endock-brand {
+  display: inline-block;
+  font-family: 'Noto Serif JP', serif;
+  color: var(--color-accent-light);
+  font-style: normal;
+  letter-spacing: 0.04em;
+  position: relative;
+  padding: 0 0.1em;
+}
+.page-header__title .endock-brand::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   2. 4軸 × 8カテゴリ 同心円図
+   ============================================================ */
+.endock-orbit {
+  display: grid;
+  grid-template-columns: minmax(360px, 1.1fr) 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .endock-orbit { grid-template-columns: 1fr; }
+}
+
+.endock-orbit__svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 8px 24px rgba(133, 34, 40, 0.08));
+}
+
+.endock-orbit__legend {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.endock-orbit__legend li {
+  display: grid;
+  grid-template-columns: 36px auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--color-bg-warm);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.endock-orbit__legend li:hover {
+  transform: translateX(2px);
+  box-shadow: var(--shadow-card);
+}
+.endock-orbit__key {
+  grid-row: 1 / 3;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.endock-orbit__legend b {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+.endock-orbit__legend i {
+  font-style: normal;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  background: var(--color-accent-50);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  margin-left: 8px;
+}
+.endock-orbit__legend em {
+  grid-column: 2 / 4;
+  font-style: normal;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   3. ダッシュボード実物プレビュー（iframe フレーム）
+   ============================================================ */
+.endock-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.endock-dashboard::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, transparent 50%, var(--color-accent-light) 100%);
+  border-radius: 15px;
+  z-index: -1;
+  opacity: 0.35;
+  filter: blur(20px);
+  pointer-events: none;
+}
+.endock-dashboard__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 12px;
+}
+.endock-dashboard__dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+.endock-dashboard__url {
+  margin-left: 16px;
+  flex: 1;
+  font-family: 'Inter', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.endock-dashboard__iframe {
+  width: 100%;
+  height: 720px;
+  border: 0;
+  display: block;
+  background: #fff;
+  border-radius: var(--radius-md);
+}
+@media (max-width: 720px) {
+  .endock-dashboard__iframe { height: 540px; }
+}
+.endock-dashboard__note {
+  margin: 20px auto 0;
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+  line-height: 1.85;
+}
+.endock-dashboard__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: var(--radius-full);
+  color: var(--color-accent-light) !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-base);
+}
+.endock-dashboard__open:hover {
+  background: var(--color-accent);
+  color: #1a1a2e !important;
+  border-color: var(--color-accent);
+}
+
+/* ============================================================
+   4. SVG orbit のホバー効果（軸円・カテゴリピル）
+   ============================================================ */
+.endock-orbit__svg .endock-orbit__axis circle,
+.endock-orbit__svg .endock-orbit__pill rect {
+  transition: fill var(--transition-base), stroke var(--transition-base);
+}
+.endock-orbit__svg .endock-orbit__axis:hover circle {
+  fill: var(--color-primary);
+}
+.endock-orbit__svg .endock-orbit__axis:hover text {
+  fill: #fff !important;
+}
+.endock-orbit__svg .endock-orbit__pill:hover rect {
+  fill: var(--color-primary-50);
+  stroke: var(--color-primary);
+}
+
+/* ============================================================
+   5. 7タブカードのミニチャート（v11-prog 内部に表示）
+   ============================================================ */
+.endock-tab .v11-prog-body { padding-top: 0; }
+.endock-tab__chart {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-md);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-light);
+  transition: background var(--transition-base);
+}
+.endock-tab:hover .endock-tab__chart {
+  background: linear-gradient(135deg, var(--color-bg-warm) 0%, var(--color-primary-50) 100%);
+}
+.endock-tab__chart svg {
+  width: 100%;
+  height: 100%;
+  max-height: 60px;
+}
+
+/* ============================================================
+   6. ダッシュボード周辺の注目誘導バッジ
+   ============================================================ */
+.endock-dashboard-stage { position: relative; }
+.endock-dashboard__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-accent);
+  color: #1a1a2e;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 auto 24px;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(196, 154, 42, 0.4);
+  width: fit-content;
+  display: flex;
+  animation: endock-badge-bob 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.endock-dashboard__badge::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid var(--color-accent);
+}
+@keyframes endock-badge-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .endock-dashboard__badge { animation: none; }
+}
+
+/* ============================================================
+   7. 締めの哲学引用セクション
+   ============================================================ */
+.endock-philosophy {
+  background:
+    radial-gradient(800px 400px at 50% 0%, rgba(196, 154, 42, 0.06) 0%, transparent 70%),
+    var(--color-bg-warm);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.endock-philosophy__inner {
+  position: relative;
+  z-index: 2;
+}
+.endock-philosophy__mark {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(100px, 16vw, 180px);
+  color: var(--color-accent);
+  line-height: 0.5;
+  margin-bottom: 32px;
+  opacity: 0.45;
+  letter-spacing: -0.05em;
+}
+.endock-philosophy__quote {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(22px, 3.4vw, 36px);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  margin: 0 auto 40px;
+  max-width: 640px;
+}
+.endock-philosophy__author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.endock-philosophy__author-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+/* ============================================================
+   ヒーロー直下：3つの価値キーワードストリップ
+   ============================================================ */
+.endock-keystrip {
+  background:
+    radial-gradient(800px 200px at 50% 0%, var(--color-primary-50) 0%, transparent 70%),
+    var(--color-bg);
+  padding: clamp(48px, 7vw, 72px) 0 clamp(40px, 5vw, 56px);
+  position: relative;
+}
+.endock-keystrip::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--color-accent);
+  border-radius: 0 0 4px 4px;
+}
+
+.endock-keystrip__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 40px;
+  max-width: 920px;
+}
+@media (max-width: 720px) {
+  .endock-keystrip__list { grid-template-columns: 1fr; }
+}
+
+.endock-keystrip__item {
+  text-align: center;
+  padding: 16px clamp(16px, 2.5vw, 28px);
+  position: relative;
+}
+.endock-keystrip__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0; top: 18%; bottom: 18%;
+  width: 1px;
+  background: var(--color-border);
+}
+@media (max-width: 720px) {
+  .endock-keystrip__item:not(:last-child)::after {
+    left: 20%; right: 20%; top: auto; bottom: 0;
+    width: auto; height: 1px;
+  }
+}
+
+.endock-keystrip__num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.endock-keystrip__word {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(24px, 3.4vw, 32px);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.endock-keystrip__sub {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.endock-keystrip__desc {
+  display: block;
+  font-family: var(--font-family);
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+}
+
+.endock-keystrip__cta {
+  text-align: center;
+}
+.endock-keystrip__scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  background: #fff;
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+  text-decoration: none;
+}
+.endock-keystrip__scroll svg { transition: transform var(--transition-base); }
+.endock-keystrip__scroll:hover {
+  background: var(--color-primary);
+  color: #fff !important;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.endock-keystrip__scroll:hover svg { transform: translateY(2px); }
+
+/* ============================================================
+   統計バー直下：規模感ノート（ダーク背景）
+   ============================================================ */
+.endock-scale-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 40px auto 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: center;
+  flex-wrap: wrap;
+}
+.endock-scale-note svg {
+  color: var(--color-accent-light);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   8. レスポンシブ調整
+   ============================================================ */
+@media (max-width: 540px) {
+  .endock-dashboard { padding: 10px; border-radius: 10px; }
+  .endock-dashboard__url { font-size: 10px; padding: 4px 10px; }
+  .endock-dashboard__badge { font-size: 11px; padding: 8px 18px; gap: 8px; }
+}
+
+/* ============================================================
+   なぜ「組織活力」の可視化が必要か — エンゲージメント数字カード
+   ============================================================ */
+.endock-engage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 56px;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 720px) {
+  .endock-engage { grid-template-columns: 1fr; gap: 16px; }
+}
+.endock-engage__item {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 36px 24px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--color-primary);
+  position: relative;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.endock-engage__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover, var(--shadow-lg));
+}
+.endock-engage__num {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(48px, 7vw, 72px);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 16px;
+}
+.endock-engage__num span {
+  font-size: 0.5em;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.endock-engage__label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.endock-engage__label strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+.endock-engage__source {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* ============================================================
+   ハーズバーグ二要因理論
+   ============================================================ */
+.endock-herzberg {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: clamp(32px, 5vw, 56px);
+  box-shadow: var(--shadow-md);
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.endock-herzberg__head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.endock-herzberg__chip {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--color-accent);
+  background: var(--color-accent-50);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.endock-herzberg__head h3 {
+  font-family: var(--font-family-heading);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+.endock-herzberg__head p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.95;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.endock-herzberg__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 720px) {
+  .endock-herzberg__cols { grid-template-columns: 1fr; }
+}
+.endock-herzberg__col {
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.endock-herzberg__col--hygiene { border-top: 4px solid #2c6a8a; }
+.endock-herzberg__col--motivator { border-top: 4px solid var(--color-primary); }
+.endock-herzberg__col-head {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--color-border);
+}
+.endock-herzberg__col-en {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.endock-herzberg__col-head h4 {
+  font-family: var(--font-family-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.endock-herzberg__col--hygiene .endock-herzberg__col-head h4 { color: #2c6a8a; }
+.endock-herzberg__col--motivator .endock-herzberg__col-head h4 { color: var(--color-primary); }
+.endock-herzberg__col-head p {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.85;
+  margin: 0;
+}
+.endock-herzberg__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  flex: 1;
+}
+.endock-herzberg__col li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+.endock-herzberg__col li:last-child { border-bottom: 0; }
+.endock-herzberg__col li b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.endock-herzberg__col--hygiene li b { background: #2c6a8a; }
+.endock-herzberg__col--motivator li b { background: var(--color-primary); }
+.endock-herzberg__arrow {
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding: 14px 18px;
+  background: #fff;
+  border-radius: var(--radius-md);
+  margin-top: auto;
+}
+.endock-herzberg__arrow strong {
+  display: block;
+  font-family: var(--font-family-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.endock-herzberg__col--hygiene .endock-herzberg__arrow strong { color: #2c6a8a; }
+.endock-herzberg__col--motivator .endock-herzberg__arrow strong { color: var(--color-primary); }
+
+/* ============================================================
+   このような組織課題はありませんか — 6カード
+   ============================================================ */
+.endock-issues {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px;
+}
+@media (max-width: 900px) { .endock-issues { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .endock-issues { grid-template-columns: 1fr; } }
+.endock-issue {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  border-left: 4px solid var(--color-primary);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.endock-issue:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.endock-issue h4 {
+  font-family: var(--font-family-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.endock-issue p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.85;
+  margin: 0;
+}
+.endock-issues-bridge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 24px;
+  background: linear-gradient(135deg, var(--color-primary-50), var(--color-bg-warm));
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+.endock-issues-bridge svg {
+  color: var(--color-primary);
+}
+.endock-issues-bridge p {
+  font-family: var(--font-family-heading);
+  font-size: clamp(16px, 1.8vw, 19px);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.endock-issues-bridge p strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ============================================================
+   En-dock 5つの特徴
+   ============================================================ */
+.endock-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.endock-feature {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-card);
+  align-items: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.endock-feature:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+@media (max-width: 540px) {
+  .endock-feature { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+}
+.endock-feature__num {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(133, 34, 40, 0.25);
+}
+.endock-feature__body h3 {
+  font-family: var(--font-family-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.endock-feature__body p {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.95;
+  margin: 0;
+}
+.endock-feature__body strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ============================================================
+   設問サンプル
+   ============================================================ */
+.endock-sample {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 32px);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 56px;
+  overflow-x: auto;
+}
+.endock-sample__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+.endock-sample__table thead th {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 14px 16px;
+  font-family: var(--font-family-heading);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0.04em;
+}
+.endock-sample__table thead th.endock-sample__cat { width: 110px; }
+.endock-sample__table thead th.endock-sample__scale { text-align: center; }
+.endock-sample__scale-head th {
+  background: var(--color-primary-dark) !important;
+  font-size: 12px !important;
+  text-align: center !important;
+  padding: 8px 6px !important;
+}
+.endock-sample__scale-head th:nth-child(n+3) { width: 44px; }
+.endock-sample__table tbody td {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border-light);
+  font-family: var(--font-family);
+  font-size: 13.5px;
+  color: var(--color-text);
+  line-height: 1.7;
+}
+.endock-sample__table tbody tr:last-child td { border-bottom: 0; }
+.endock-sample__table tbody tr:nth-child(even) td { background: var(--color-bg-warm); }
+.endock-sample__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.endock-sample__radios {
+  display: flex;
+  justify-content: space-around;
+  gap: 4px;
+  padding: 4px 0;
+}
+.endock-sample__radios span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary-200);
+  background: #fff;
+}
+.endock-sample__foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--color-border);
+  font-family: var(--font-family);
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+.endock-sample__foot b {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+/* ============================================================
+   アンケート設計（3部構成）
+   ============================================================ */
+.endock-design {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: var(--shadow-card);
+}
+.endock-design__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+.endock-design__sub {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.endock-design__sub strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.endock-design__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+@media (max-width: 720px) { .endock-design__cols { grid-template-columns: 1fr; } }
+.endock-design__col {
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-md);
+  padding: 24px 22px;
+  text-align: center;
+  border-top: 3px solid var(--color-primary-200);
+}
+.endock-design__col--accent { border-top-color: var(--color-primary); }
+.endock-design__num {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.endock-design__col h4 {
+  font-family: var(--font-family-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.endock-design__count {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.endock-design__note {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.endock-design__option {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  background: var(--color-accent-50);
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin: 0;
+  border-left: 3px solid var(--color-accent);
+}
+.endock-design__option-tag {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #fff;
+  background: var(--color-accent);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  margin-right: 8px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   アンケート機能 6項目
+   ============================================================ */
+.endock-system {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 900px) { .endock-system { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .endock-system { grid-template-columns: 1fr; } }
+.endock-system__item {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.endock-system__item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.endock-system__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+.endock-system__icon svg { width: 24px; height: 24px; }
+.endock-system__item h4 {
+  font-family: var(--font-family-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.endock-system__item p {
+  font-family: var(--font-family);
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* ============================================================
+   納品物（プロセス末尾）
+   ============================================================ */
+.endock-deliverables {
+  margin-top: 40px;
+  padding: 24px clamp(20px, 3vw, 32px);
+  background: var(--color-primary-50);
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 720px) {
+  .endock-deliverables { grid-template-columns: 1fr; gap: 12px; }
+}
+.endock-deliverables__label {
+  font-family: var(--font-family-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.endock-deliverables ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.endock-deliverables li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family);
+  font-size: 13.5px;
+  color: var(--color-text);
+}
+.endock-deliverables li b {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.endock-deliverables li span {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--color-accent);
+  background: var(--color-accent-50);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   施策一覧の補足ノート
+   ============================================================ */
+.endock-services__note {
+  margin-top: 32px;
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   9. アクセシビリティ
+   ============================================================ */
+.endock-orbit__axis,
+.endock-orbit__pill { cursor: default; }
+@media (prefers-reduced-motion: reduce) {
+  .endock-orbit__svg .endock-orbit__axis circle,
+  .endock-orbit__svg .endock-orbit__pill rect,
+  .endock-tab__chart {
+    transition: none !important;
+  }
+}

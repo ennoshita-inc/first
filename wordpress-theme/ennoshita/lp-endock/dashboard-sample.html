@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>組織活力診断 En-Dock ─ サンプルダッシュボード</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Helvetica Neue','Hiragino Sans','Hiragino Kaku Gothic ProN',Meiryo,sans-serif;background:#F5F0EB;color:#2D2D2D}
+.header{background:linear-gradient(135deg,#6B1D24,#8B2029);color:#fff;padding:28px 32px 16px}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.header h1{font-size:24px;font-weight:800;letter-spacing:.5px}
+.header p{font-size:13px;color:#F2C8CC;margin-top:6px}
+.header-right{font-size:11px;color:#F2C8CC;text-align:right}
+.sample-badge{display:inline-block;background:#C4960C;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px}
+.tabs-wrapper{max-width:1400px;margin:0 auto;padding:0 32px;margin-top:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs{display:flex;gap:4px}
+.tab{padding:8px 18px;border-radius:8px 8px 0 0;border:none;cursor:pointer;font-size:13px;font-weight:600;background:rgba(255,255,255,.1);color:#F2C8CC;transition:all .2s;white-space:nowrap}
+.tab.active{background:#FAF6F0;color:#6B1D24}
+.content{max-width:1400px;margin:0 auto;padding:24px 32px 40px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-6{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid #E8DDD5}
+.kpi{min-width:140px;padding:18px 20px}
+.kpi-label{font-size:12px;color:#6B7280;font-weight:500;margin-bottom:4px}
+.kpi-value{font-size:28px;font-weight:700;line-height:1.2}
+.kpi-unit{font-size:14px;color:#9CA3AF;margin-left:2px}
+.kpi-change{font-size:12px;margin-top:4px;font-weight:600}
+.kpi-change.up{color:#059669}.kpi-change.down{color:#DC2626}.kpi-change.flat{color:#6B7280}
+h2{font-size:18px;font-weight:700;margin-bottom:4px}
+.subtitle{font-size:13px;color:#6B7280;margin-bottom:16px}
+.chart-container{position:relative;height:320px;width:100%}
+.chart-container-lg{position:relative;height:400px;width:100%}
+.chart-container-sm{position:relative;height:200px;width:100%}
+table{width:100%;border-collapse:separate;border-spacing:3px;font-size:13px}
+th{padding:8px 10px;color:#374151;font-weight:700}
+th:first-child{text-align:left;color:#6B7280;font-weight:600}
+td{padding:8px 10px;text-align:center;border-radius:6px;font-weight:700}
+td:first-child{text-align:left}
+.hm-green{background:#DCFCE7;color:#166534}.hm-yellow{background:#FEF9C3;color:#854D0E}
+.hm-orange{background:#FED7AA;color:#9A3412}.hm-red{background:#FEE2E2;color:#991B1B}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#C4960C,#8B2029);border-radius:2px}
+.timeline-item{position:relative;margin-bottom:16px;padding-left:16px}
+.timeline-dot{position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid #fff}
+.timeline-year{font-size:13px;font-weight:700}.timeline-text{font-size:13px;color:#4B5563;margin-top:2px;line-height:1.6}
+.info-box{background:#FEF9EF;border-radius:12px;padding:16px;border:1px solid #E8C87A;margin-top:20px}
+.info-box h3{font-size:13px;font-weight:700;color:#7A5200;margin-bottom:6px}
+.info-box p{font-size:12px;color:#78716C;line-height:1.8}
+.findings{background:#FFF5F5;border-radius:12px;padding:20px;border:1px solid #F5C6C8;margin-top:20px}
+.findings h3{font-size:15px;font-weight:700;color:#8B2029;margin-bottom:12px}
+.finding-card{background:#fff;border-radius:8px;padding:14px}
+.finding-card h4{font-size:13px;font-weight:700;color:#8B2029;margin-bottom:4px}
+.finding-card p{font-size:13px;color:#374151;line-height:1.6}
+.year-btn{padding:6px 16px;border-radius:20px;border:2px solid;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;margin-right:6px;margin-bottom:6px}
+.year-btn.selected{color:#fff}
+.bar-label{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px}
+.bar-track{height:8px;background:#F3F4F6;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.footer{text-align:center;padding:24px 0 0;font-size:11px;color:#9CA3AF}
+.cat-card-value{font-size:28px;font-weight:800}
+.cat-badge{font-size:11px;color:#9CA3AF;background:#F9FAFB;padding:2px 8px;border-radius:10px}
+.sparkbar{display:flex;align-items:flex-end;gap:3px;margin-top:10px;height:32px}
+.sparkbar-col{flex:1;display:flex;flex-direction:column;align-items:center}
+.sparkbar-bar{width:100%;max-width:40px;border-radius:3px}
+.sparkbar-label{font-size:9px;color:#9CA3AF;margin-top:2px}
+.dept-card{background:#fff;border-radius:8px;padding:16px;border-left:4px solid;border-top:1px solid #E8DDD5;border-right:1px solid #E8DDD5;border-bottom:1px solid #E8DDD5}
+.dept-card.high{border-left-color:#059669}
+.dept-card.low{border-left-color:#DC2626}
+.dept-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.dept-score{font-size:22px;font-weight:700;color:#059669;margin:4px 0}
+.dept-detail{font-size:12px;color:#6B7280;margin-bottom:8px}
+.score-badge{display:inline-block;padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-right:6px;margin-bottom:4px}
+.score-badge.excellent{background:#D1FAE5;color:#065F46}
+.score-badge.good{background:#DBEAFE;color:#1E40AF}
+.score-badge.fair{background:#FEFCD5;color:#78350F}
+.score-badge.poor{background:#FEE2E2;color:#7F1D1D}
+.theme-cloud{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:16px 0}
+.theme-box{background:linear-gradient(135deg,#F2E0E2,#FEF9EF);border-radius:12px;padding:16px;text-align:center;border:1px solid #E8C8CA;cursor:pointer;transition:all .2s}
+.theme-box:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.theme-count{font-size:28px;font-weight:800;color:#8B2029;line-height:1}
+.theme-name{font-size:13px;font-weight:600;color:#4B5563;margin-top:8px;line-height:1.3}
+.voice-card{background:#FAF6F0;border-radius:8px;padding:14px;border-left:3px solid #C4960C;margin-bottom:10px}
+.voice-quote{font-size:13px;color:#374151;font-style:italic;line-height:1.6;margin:0}
+.hypo-card{border-radius:12px;padding:24px;border-left:6px solid;margin-bottom:20px}
+.hypo-card.strong{background:#ECFDF5;border-left-color:#059669}
+.hypo-card.partial{background:#FEF3C7;border-left-color:#F59E0B}
+.hypo-card.weak{background:#FEE2E2;border-left-color:#DC2626}
+.hypo-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:12px}
+.hypo-status.strong{background:#D1FAE5;color:#065F46}
+.hypo-status.partial{background:#FEF08A;color:#78350F}
+.hypo-status.weak{background:#FECACA;color:#7F1D1D}
+.hypo-title{font-size:16px;font-weight:700;color:#1F2937;margin-bottom:14px}
+.hypo-section{margin-bottom:16px}
+.hypo-section-title{font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;margin-bottom:8px}
+.hypo-evidence{font-size:13px;color:#374151;line-height:1.6;margin-bottom:8px;padding-left:12px;border-left:2px solid rgba(0,0,0,.1)}
+.hypo-conclusion{background:#fff;border-radius:8px;padding:12px;margin-top:12px;font-size:13px;color:#374151;line-height:1.6;border:1px solid rgba(0,0,0,.1)}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.header-inner{flex-direction:column}.tabs{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="header-inner">
+  <div>
+    <h1>組織活力診断 En-Dock ダッシュボード</h1>
+    <p>組織活力の状態 ─ 従業員から見た会社・人・仕事への信頼・愛着・誇り（※サンプルデータ）</p>
+  </div>
+  <div class="header-right">
+    <div class="sample-badge">SAMPLE DATA</div>
+    <div>組織活力調査 En-Dock</div>
+    <div>ネガ・ポジ差分平均スコア表示</div>
+  </div>
+</div>
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('overview')">概要</button>
+    <button class="tab" onclick="showTab('radar')">組織活力レーダー</button>
+    <button class="tab" onclick="showTab('trends')">トレンド分析</button>
+    <button class="tab" onclick="showTab('detail')">カテゴリ詳細</button>
+    <button class="tab" onclick="showTab('department')">部門別分析</button>
+    <button class="tab" onclick="showTab('freetext')">自由記述分析</button>
+    <button class="tab" onclick="showTab('hypothesis')">仮説検証</button>
+    <button class="tab" onclick="showTab('measures')">改善施策（案）</button>
+  </div>
+</div>
+</div>
+
+<div class="content">
+
+<!-- ===== OVERVIEW ===== -->
+<div id="tab-overview" class="tab-panel active">
+  <div class="grid grid-6" style="margin-bottom:24px" id="kpi-row"></div>
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card"><h2>最新年 組織活力レーダー</h2><p class="subtitle">最新調査年のレーダーチャート</p><div class="chart-container"><canvas id="radarOverview"></canvas></div></div>
+    <div class="card"><h2>6年間の推移</h2><p class="subtitle">カテゴリ別トレンド</p><div class="chart-container"><canvas id="trendOverview"></canvas></div></div>
+  </div>
+  <div class="grid" style="grid-template-columns:1.2fr .8fr;margin-bottom:20px">
+    <div class="card"><h2>スコア一覧（ヒートマップ）</h2><p class="subtitle">色の濃さがスコアの高さを示す</p><div id="heatmap-table"></div></div>
+    <div class="card"><h2>年次コメント</h2><div id="timeline-overview"></div></div>
+  </div>
+</div>
+
+<!-- ===== RADAR ===== -->
+<div id="tab-radar" class="tab-panel">
+  <div class="card" style="margin-bottom:20px">
+    <h2>組織活力の状態（レーダーチャート）</h2><p class="subtitle">年度を選択して比較できます</p>
+    <div id="radar-buttons" style="margin-bottom:16px"></div>
+    <div class="chart-container-lg"><canvas id="radarMulti"></canvas></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>年度別レーダーチャート</h2><p class="subtitle">各年のレーダーチャートを個別に表示</p>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="chart-container-sm"><canvas id="radar2021"></canvas></div>
+      <div class="chart-container-sm"><canvas id="radar2022"></canvas></div>
+      <div class="chart-container-sm"><canvas id="radar2023"></canvas></div>
+      <div class="chart-container-sm"><canvas id="radar2024"></canvas></div>
+      <div class="chart-container-sm"><canvas id="radar2025"></canvas></div>
+      <div class="chart-container-sm"><canvas id="radar2026"></canvas></div>
+    </div>
+  </div>
+  <div class="info-box">
+    <h3>カテゴリ集約方法</h3>
+    <p><strong style="color:#C4960C">会社</strong>：A 経営（トップマネジメント）<br>
+    <strong style="color:#2563EB">上司</strong>：D リーダーシップ ＋ E 対人<br>
+    <strong style="color:#8B2029">同僚</strong>：F 志向 ＋ G 連帯感<br>
+    <strong style="color:#059669">仕事</strong>：H 特性<br>
+    <em>※ B 人事制度・C 労働環境は制度・プログラムに関するもののため、組織活力の集計からは除外</em></p>
+  </div>
+</div>
+
+<!-- ===== TRENDS ===== -->
+<div id="tab-trends" class="tab-panel">
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card"><h2>カテゴリ別トレンド</h2><p class="subtitle">6年間の推移（折れ線グラフ）</p><div class="chart-container"><canvas id="trendLine"></canvas></div></div>
+    <div class="card"><h2>前年比変化量</h2><p class="subtitle">各期間における変化幅（棒グラフ）</p><div class="chart-container"><canvas id="yoyBar"></canvas></div></div>
+  </div>
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card"><h2>6年間の成長貢献分析</h2><p class="subtitle">総成長に対する各カテゴリの貢献度</p><div id="growth-analysis"></div></div>
+    <div class="card"><h2>スコア一覧</h2><div id="heatmap-table2"></div></div>
+  </div>
+  <div class="findings">
+    <h3>主要な分析所見</h3>
+    <div class="grid grid-2">
+      <div class="finding-card"><h4>最大成長カテゴリ</h4><p>「会社」が+35.5ptと6年間で最大の伸びを記録。経営層への信頼が着実に改善されています。</p></div>
+      <div class="finding-card"><h4>最新年の注目点</h4><p>「上司」が前年比-5.7ptと低下。一方「会社」+7.9pt・「仕事」+4.8ptと組織・仕事への信頼が回復基調に。</p></div>
+      <div class="finding-card"><h4>構造変化の兆し ─ 組織成熟のシグナル</h4><p>「上司」が低下に転じた一方、「会社」「仕事」が向上。組織活力の重心が「人への依存」から「組織の仕組みと仕事の意味」へシフトしつつある成熟のプロセスと捉えられます。</p></div>
+      <div class="finding-card"><h4>成長の転換点</h4><p>初年度から翌年にかけての伸びが最大。管理職向け研修の導入が組織活力全体の底上げに大きく貢献しました。</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DETAIL ===== -->
+<div id="tab-detail" class="tab-panel">
+  <div class="grid grid-2" style="margin-bottom:20px" id="cat-detail-cards"></div>
+  <div class="card" style="margin-bottom:20px"><h2>カテゴリ別推移比較</h2><div class="chart-container"><canvas id="trendDetail"></canvas></div></div>
+  <div class="card"><h2>年次コメントと施策効果</h2><div id="timeline-detail"></div></div>
+</div>
+
+<!-- ===== DEPARTMENT ANALYSIS ===== -->
+<div id="tab-department" class="tab-panel">
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card"><h2>部門別スコア比較</h2><p class="subtitle">4つの組織活力カテゴリ別の部門スコア</p><div class="chart-container"><canvas id="deptBarChart"></canvas></div></div>
+    <div class="card"><h2>部門別レーダーチャート</h2><p class="subtitle">各部門の特性を可視化</p><div class="chart-container"><canvas id="deptRadarChart"></canvas></div></div>
+  </div>
+  <div class="card" style="margin-bottom:20px"><h2>部門別スコアヒートマップ</h2><p class="subtitle">色の濃さで相対的な強み・弱みを表示</p><div id="dept-heatmap"></div></div>
+  <div class="grid grid-4" style="margin-bottom:20px" id="dept-highlight-cards"></div>
+  <div class="card"><h2>職位別スコア比較</h2><p class="subtitle">管理職 vs 一般職</p><div class="chart-container"><canvas id="jobLevelChart"></canvas></div></div>
+
+  <div class="findings">
+    <h3>注視すべきスコア項目</h3>
+    <div class="grid grid-2">
+      <div class="finding-card"><h4>P-1 評価制度の理解</h4><p>全体50pt。部門別に最大38ptの差（技術開発部22 vs カスタマー部60）。特に技術開発部の理解度が低い状態です。</p></div>
+      <div class="finding-card"><h4>Q-3 会社に必要とされている【重要シグナル】</h4><p>全体45pt。第一営業部22pt・管理部22pt vs カスタマー部68pt。46pt以上の格差。「関係性の欲求」と「有能感」の充足度を反映した重要指標です。</p></div>
+      <div class="finding-card"><h4>R-6 部門間連携</h4><p>全体28pt。全部門が35以下に留まる。第一営業部32・カスタマー部25・管理部22・技術開発部27。全社的な構造課題です。</p></div>
+      <div class="finding-card"><h4>P-5 賃金・労働条件満足</h4><p>全体5pt。第一営業部がマイナス45pt。管理部58pt。処遇の「実感」と「事実」のギャップを埋めるアプローチが必要です。</p></div>
+    </div>
+
+    <div class="findings" style="background:#FFF7ED;border-color:#FDBA74;margin-top:20px">
+      <h3 style="color:#9A3412">Q-3「この会社に必要とされている」部門別仮説</h3>
+      <div class="grid grid-2">
+        <div class="finding-card" style="border-left:4px solid #F59E0B">
+          <h4 style="color:#92400E">仮説A：第一営業部 ─「放任」と「自律の支援」の混同</h4>
+          <p>裁量付与スコアは高いのに、必要とされている実感が低い。「自由にさせてくれる」文化がある一方、貢献の認知が不足している可能性があります。</p>
+          <p style="margin-top:8px;color:#1E40AF;font-weight:600">→ 対策案：上司からの「あなたの仕事がこういう成果につながった」という具体的フィードバックの強化。目標面談に貢献の言語化プロセスを組み込む。</p>
+        </div>
+        <div class="finding-card" style="border-left:4px solid #3B82F6">
+          <h4 style="color:#1E40AF">仮説B：管理部 ─ 有能感の欠如</h4>
+          <p>会社への信頼は高いのに、Q-3が低い。「実務の経験が活かせていない」「もう少し任せてほしい」という声と符合する有能感の充足不足が示唆されます。</p>
+          <p style="margin-top:8px;color:#1E40AF;font-weight:600">→ 対策案：経営判断に管理部の分析・提言を活用する機会を意図的に設計する。専門性が経営に貢献できる場を作る。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="findings" style="background:#FEF2F2;border-color:#FECACA;margin-top:20px">
+      <h3 style="color:#991B1B">報酬を「実感」に変える ─ ハーズバーグの二要因理論からの視点</h3>
+      <p style="font-size:13px;color:#374151;line-height:1.6;margin-bottom:16px">報酬制度の改定により多くの従業員の給与が上がっているケースでも、P-5が低い部門が生じることがあります。報酬は「衛生要因」であり、上げることで不満は一時的に解消されますが、それ自体が動機づけの源泉にはなりません。</p>
+      <div class="grid grid-3">
+        <div class="finding-card">
+          <h4 style="color:#DC2626">① 報酬の全体像の可視化</h4>
+          <p>給与・賞与・社会保険・研修費・福利厚生を一覧にした「あなたの報酬の全体像」シートを年1回個人宛に配付。見えていないトータルリワードを可視化する。</p>
+        </div>
+        <div class="finding-card">
+          <h4 style="color:#DC2626">② 報酬改定ストーリーの再共有</h4>
+          <p>トップ自身の言葉で「なぜ制度を変えたのか」「何がどう変わったのか」「結果として処遇がどう改善されたか」を具体的な数字とともに語る場を作る。</p>
+        </div>
+        <div class="finding-card">
+          <h4 style="color:#DC2626">③ 承認の仕組み化</h4>
+          <p>面談で「あなたの○○がこう評価された」と貢献を言語化。アサイン時に「なぜあなたを選んだか」を一言添える。承認・成長実感・達成感が動機づけの核（ハーズバーグ）。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FREE TEXT ANALYSIS ===== -->
+<div id="tab-freetext" class="tab-panel">
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card"><h2>自由記述回答数</h2><p class="subtitle">合計86件の質的フィードバック</p><div style="font-size:48px;font-weight:800;color:#8B2029;margin:20px 0">86</div><p style="font-size:13px;color:#6B7280">複数の質問カテゴリから集計した回答件数。定性的な深掘りが可能です。</p></div>
+    <div class="card"><h2>テーマ別言及数</h2><p class="subtitle">回答内で触れられたテーマの言及頻度</p><div id="theme-stats"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <h2>主要テーマクラウド</h2>
+    <p class="subtitle">言及数の多いテーマを視覚的に表示</p>
+    <div id="theme-cloud"></div>
+  </div>
+  <div class="grid grid-2" style="margin-bottom:20px">
+    <div class="card">
+      <h2>第一営業部の声</h2>
+      <p class="subtitle">代表的なコメント</p>
+      <div id="voice-eigyo"></div>
+    </div>
+    <div class="card">
+      <h2>カスタマー部の声</h2>
+      <p class="subtitle">代表的なコメント</p>
+      <div id="voice-service"></div>
+    </div>
+    <div class="card">
+      <h2>管理部の声</h2>
+      <p class="subtitle">代表的なコメント</p>
+      <div id="voice-keiri"></div>
+    </div>
+    <div class="card">
+      <h2>技術開発部の声</h2>
+      <p class="subtitle">代表的なコメント</p>
+      <div id="voice-gyomu"></div>
+    </div>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>センチメント分析</h2>
+      <p class="subtitle">ポジティブ vs ネガティブ比率（部門別）</p>
+      <div class="chart-container"><canvas id="sentimentChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>主要テーマ別言及数</h2>
+      <p class="subtitle">定性分析から抽出したテーマ</p>
+      <div id="theme-detail-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HYPOTHESIS VERIFICATION ===== -->
+<div id="tab-hypothesis" class="tab-panel">
+  <div style="margin-bottom:24px">
+    <div id="hypo-cards"></div>
+  </div>
+</div>
+
+<!-- ===== MEASURES ===== -->
+<div id="tab-measures" class="tab-panel">
+  <div style="margin-bottom:24px">
+    <h2>改善施策（案）─ コンサルティング重点テーマ</h2>
+    <p class="subtitle">組織活力調査結果を踏まえた施策の方向性（サンプル表示）</p>
+  </div>
+
+  <div class="grid" style="gap:16px;margin-bottom:24px">
+
+    <div class="card" style="border-left:6px solid #8B2029;padding:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="background:#8B2029;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">1</div>
+        <h3 style="font-size:16px;font-weight:700;margin:0">目標管理制度の全社展開と貢献の言語化プロセスの組み込み</h3>
+      </div>
+      <p style="font-size:13px;color:#374151;line-height:1.8">制度導入部門での効果をデータで確認した上で、未展開部門への横展開を推進。その際、目標設定だけでなく「あなたの仕事の意味と貢献」を対話するプロセスをセットで設計することが重要です。「必要とされている実感」の欠如（Q-3低スコア）が効果を相殺しないよう、貢献の言語化を面談プロセスに組み込むことが横展開の鍵となります。</p>
+      <div style="margin-top:12px"><span class="score-badge excellent">根拠：仮説①</span><span class="score-badge good">関連：Q-3, E-3指標</span></div>
+    </div>
+
+    <div class="card" style="border-left:6px solid #059669;padding:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="background:#059669;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">2</div>
+        <h3 style="font-size:16px;font-weight:700;margin:0">組織横断コミュニケーション施策の推進</h3>
+      </div>
+      <p style="font-size:13px;color:#374151;line-height:1.8">R-6（部門間連携：28pt）のデータを起点に、部門間の情報共有と協力体制の構築に着手します。チーム内の連帯感は非常に強い一方、部門を跨いだ途端に急落する「島宇宙」構造の解消が課題です。特に営業→カスタマー部門間の情報伝達に認識ギャップが存在し、構造的な改善が必要です。</p>
+      <div style="margin-top:12px"><span class="score-badge excellent">根拠：仮説②</span><span class="score-badge poor">R-6: 28pt（全社的課題）</span></div>
+    </div>
+
+    <div class="card" style="border-left:6px solid #2563EB;padding:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="background:#2563EB;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">3</div>
+        <h3 style="font-size:16px;font-weight:700;margin:0">評価制度フォローと理解促進研修の実施</h3>
+      </div>
+      <p style="font-size:13px;color:#374151;line-height:1.8">スコアが低い部門を優先に、評価結果フィードバックの透明化と制度理解研修を実施します。P-1（評価制度の理解）の部門間格差（最大38pt）を解消するには、「評価結果のフィードバック透明性の向上」が最も効果的なレバーです。結果を伝えることで、制度への信頼と理解が同時に改善します。</p>
+      <div style="margin-top:12px"><span class="score-badge excellent">根拠：仮説③</span><span class="score-badge fair">P-1: 部門間格差38pt</span></div>
+    </div>
+
+    <div class="card" style="border-left:6px solid #C4960C;padding:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="background:#C4960C;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">4</div>
+        <h3 style="font-size:16px;font-weight:700;margin:0">報酬の「実感」づくり</h3>
+      </div>
+      <p style="font-size:13px;color:#374151;line-height:1.8">トータルリワードの可視化、報酬改定ストーリーの再共有（トップ自身の言葉で）、承認の仕組み化の3つの施策で「上げた報酬」を「実感」に変えます。ハーズバーグの二要因理論に基づき、衛生要因（報酬）ではなく動機づけ要因（承認・成長・達成感）にアプローチすることが本質的な解決策です。</p>
+      <div style="margin-top:12px"><span class="score-badge poor">P-5: 第一営業部-45pt</span><span class="score-badge fair">Q-3: 営業部22pt</span></div>
+    </div>
+
+    <div class="card" style="border-left:6px solid #7C3AED;padding:24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="background:#7C3AED;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px">5</div>
+        <h3 style="font-size:16px;font-weight:700;margin:0">リーダーシップ強化支援（部門別個別対応）</h3>
+      </div>
+      <p style="font-size:13px;color:#374151;line-height:1.8">上司スコアが特定部門で低い場合、管理者への個別支援（コーチング・1on1の質の向上）が必要です。会社への信頼は高いのに直属上司との関係に課題がある部門では、早期介入が組織活力の底上げに直結します。人間関係の難しさを訴える自由記述があれば、それは重要な早期警戒シグナルです。</p>
+      <div style="margin-top:12px"><span class="score-badge poor">上司スコア低位部門への早期介入</span></div>
+    </div>
+
+  </div>
+
+  <div class="info-box">
+    <h3>施策の位置づけ</h3>
+    <p>上記5施策は、ES調査データに基づく仮説ベースの提案例です。組織活力の重心が「人への依存」から「組織の仕組みと仕事の意味」にシフトしつつあるという変化を、組織成熟のポジティブなプロセスとして捉え、施策に反映していくことが基本方針です。実際の支援では、データと対話を組み合わせて優先順位を確定します。</p>
+  </div>
+</div>
+
+<div class="footer">組織活力調査 En-Dock ─ サンプルダッシュボード（すべてのデータはサンプルです） ─ © 2026 株式会社えんのした</div>
+</div>
+
+<script>
+// ===== CORE DATA (サンプルデータ) =====
+const YEARS=[2021,2022,2023,2024,2025,2026];
+const COLORS={2021:"#6B7280",2022:"#3B82F6",2023:"#10B981",2024:"#F59E0B",2025:"#EF4444",2026:"#8B2029"};
+const CAT_COLORS={上司:"#2563EB",同僚:"#8B2029",仕事:"#059669",会社:"#C4960C"};
+const D={
+  2021:{上司:42.3,同僚:51.8,仕事:35.2,会社:28.6},
+  2022:{上司:58.4,同僚:57.3,仕事:47.1,会社:44.2},
+  2023:{上司:65.7,同僚:62.4,仕事:55.8,会社:51.3},
+  2024:{上司:71.2,同僚:67.8,仕事:60.4,会社:58.7},
+  2025:{上司:74.6,同僚:69.1,仕事:58.9,会社:56.2},
+  2026:{上司:68.9,同僚:66.4,仕事:63.7,会社:64.1}
+};
+const INSIGHTS={
+  2021:"組織活力の向上に向けて、経営・管理者層への信頼醸成と仕事への誇りを高めることが課題として浮かび上がった。",
+  2022:"管理職向けリーダーシップ研修の実施後、全カテゴリのスコアが向上。特に経営・管理者層への信頼と仕事への誇りが顕著に改善した。",
+  2023:"人事制度の見直しを実施。組織への信頼・上司・同僚・仕事に関する全スコアが前年比で向上した。",
+  2024:"チームビルディング施策と制度運用改善の効果により、すべての数値が向上。特に仕事への誇りが大きく伸長した。",
+  2025:"組織活性化プロジェクトの実施後、上司への信頼が向上。他の項目は高止まり傾向が見られた。",
+  2026:"上司への信頼は前年比で低下（-5.7pt）したが、会社への信頼が大幅に向上（+7.9pt）。仕事への誇りも回復基調（+4.8pt）。組織活力の重心が「人」から「組織・仕事」へシフトしつつある。"
+};
+const CATS=["上司","同僚","仕事","会社"];
+const CAT_MAP={会社:"A 経営",上司:"D+E リーダーシップ・対人",同僚:"F+G 志向・連帯感",仕事:"H 特性"};
+
+// ===== DEPARTMENT DATA =====
+const DEPT_DATA={
+  "第一営業部":{会社:54.3,上司:72.1,同僚:63.5,仕事:51.8,avg:60.4},
+  "カスタマー部":{会社:67.8,上司:77.4,同僚:68.2,仕事:72.3,avg:71.4},
+  "管理部":{会社:72.4,上司:41.3,同僚:52.7,仕事:55.6,avg:55.5},
+  "技術開発部":{会社:48.2,上司:64.8,同僚:79.3,仕事:46.7,avg:59.8}
+};
+const JOB_LEVEL_DATA={
+  "管理職":{会社:78.3,上司:65.4,同僚:77.8,仕事:68.2,avg:72.4},
+  "一般職":{会社:57.6,上司:71.2,同僚:61.8,仕事:59.4,avg:62.5}
+};
+
+// ===== FREE TEXT DATA =====
+const FREE_TEXT_THEMES=[
+  {name:"業務効率・業務量",count:17,color:"#8B2029"},
+  {name:"職場環境・設備",count:12,color:"#C4960C"},
+  {name:"評価制度・処遇",count:11,color:"#6B7280"},
+  {name:"キャリア・成長",count:9,color:"#059669"},
+  {name:"部門間連携・情報共有",count:8,color:"#2563EB"},
+  {name:"コミュニケーション",count:6,color:"#7C3AED"},
+  {name:"ワークライフバランス",count:5,color:"#EC4899"}
+];
+const VOICE_EIGYO=[
+  "やりがいを感じながら仕事ができているが、業務量が多く余裕がない",
+  "評価基準が明確でないため、何を頑張れば評価されるのかわかりにくい",
+  "目標設定の面談を通じて上司と方向性を合わせることができ、働きやすくなった",
+  "部門間の情報共有が不十分で、連携がうまくいかないことがある",
+  "自分がなぜそのプロジェクトに選ばれたのか、背景を説明してほしいと感じる"
+];
+const VOICE_SERVICE=[
+  "仕事とプライベートのバランスが取れており、充実した日々を送れている",
+  "繁忙期は残業が多く、自分の時間が確保しにくい状況が続いている",
+  "人員不足が続いており、一人当たりの業務負担が増加している",
+  "社内の仕組みや制度が整備されてきており、働きやすさが向上している",
+  "上司が相談しやすく、新しい提案にも柔軟に対応してもらえている"
+];
+const VOICE_KEIRI=[
+  "経営方針と現場の業務の結びつきをもう少し明確にしてほしい",
+  "人事評価の結果についてのフィードバックが不十分だと感じる",
+  "職場の人間関係に難しさを感じることがある",
+  "これまでの経験やスキルをもっと活かせる機会があれば嬉しい"
+];
+const VOICE_GYOMU=[
+  "自分らしく仕事ができる環境が整っている",
+  "他部門の状況を知る機会が少なく、全体像が把握しにくい"
+];
+
+// ===== HYPOTHESIS DATA =====
+const HYPOTHESES=[
+  {
+    num:1,
+    title:"目標管理制度の導入部門はスコアが相対的に高いのではないか",
+    status:"partial",
+    statusText:"△ 部分的に支持",
+    forEvidence:[
+      "Q-2 目標設定の納得: 第一営業部78 > 技術開発部32・管理部25",
+      "E-3 評価面談の話しやすさ: 第一営業部95（最高スコア）",
+      '"目標設定の面談を通じて上司と方向性を合わせることができた"'
+    ],
+    againstEvidence:[
+      "総合平均: 第一営業部60.4（カスタマー部71.4より低い）",
+      "Q-3 必要とされている実感: 第一営業部22（低位）",
+      "P-5 賃金満足: 第一営業部-45（唯一のマイナス）"
+    ],
+    conclusion:"目標管理制度は目標設定・面談領域で明確な効果を確認。ただし「必要とされている実感」の欠如が効果を相殺している。横展開の価値はあるが、目標設定だけでなく「貢献の言語化」「仕事の意味づけ」をセットで設計する必要がある。"
+  },
+  {
+    num:2,
+    title:"部門間連携に関する項目は全社的な課題が見えるのではないか",
+    status:"strong",
+    statusText:"◎ 強く支持",
+    forEvidence:[
+      "R-6 部門間連携: 全部門が35以下（全体28） → 全社的な構造課題",
+      "C-1 情報伝達: 第一営業部22 vs カスタマー部55 → 33ptの認識ギャップ",
+      '"必要な情報が必要な人に伝達されず、トラブルになることがある"',
+      "チーム内連帯感は強い一方、部門間は弱いという「島宇宙」構造が明確"
+    ],
+    againstEvidence:[],
+    conclusion:"組織横断コミュニケーション施策の必要性を明確に裏付ける。特に営業→カスタマー間の情報伝達に構造的問題あり。チーム内の強い連帯感を部門間にも展開する仕組みが必要。"
+  },
+  {
+    num:3,
+    title:"評価制度の理解度に部門間で大きな差があるのではないか",
+    status:"strong",
+    statusText:"◎ 強く支持",
+    forEvidence:[
+      "P-1 理解度: 技術開発部22・第一営業部38・管理部58・カスタマー部60 → 38ptの差",
+      "職位差: 管理職 vs 一般職で理解度に大きな差",
+      '"評価基準が明確でないため、何を頑張れば評価されるかわからない"',
+      '"評価の最終結果は本人には知らされないのでしょうか？"'
+    ],
+    againstEvidence:[],
+    conclusion:"評価制度フォローの優先度は技術開発部→第一営業部の順で高い。評価結果フィードバックの透明性向上が最大の改善ポイント。結果を丁寧に伝えることで、制度への信頼と理解が同時に改善する。"
+  }
+];
+
+// ===== UTILITIES =====
+function avg(obj){const v=Object.values(obj).filter(x=>typeof x==='number'&&x!==undefined);return +(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)}
+function hmClass(v){return v>=70?'hm-green':v>=55?'hm-yellow':v>=40?'hm-orange':'hm-red'}
+
+// ===== TAB SWITCH =====
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ===== KPI ROW =====
+function renderKPIs(){
+  const la=avg(D[2026]),pa=avg(D[2025]),fa=avg(D[2021]);
+  const items=[
+    {label:"最新年 総合平均",value:la,change:+(la-pa).toFixed(1),color:"#6B1D24"},
+    {label:"上司（信頼）",value:D[2026].上司,change:+(D[2026].上司-D[2025].上司).toFixed(1),color:CAT_COLORS.上司},
+    {label:"同僚（愛着）",value:D[2026].同僚,change:+(D[2026].同僚-D[2025].同僚).toFixed(1),color:CAT_COLORS.同僚},
+    {label:"仕事（誇り）",value:D[2026].仕事,change:+(D[2026].仕事-D[2025].仕事).toFixed(1),color:CAT_COLORS.仕事},
+    {label:"会社（信頼）",value:D[2026].会社,change:+(D[2026].会社-D[2025].会社).toFixed(1),color:CAT_COLORS.会社},
+    {label:"6年間成長",value:"+"+(la-fa).toFixed(1),change:null,color:"#059669"}
+  ];
+  document.getElementById('kpi-row').innerHTML=items.map(i=>{
+    const cls=i.change>0?'up':i.change<0?'down':'flat';
+    const arrow=i.change>0?'▲':i.change<0?'▼':'→';
+    return `<div class="card kpi"><div class="kpi-label">${i.label}</div><div class="kpi-value" style="color:${i.color}">${i.value}<span class="kpi-unit">pt</span></div>${i.change!==null?`<div class="kpi-change ${cls}">${arrow} ${Math.abs(i.change)} pt（前年比）</div>`:''}</div>`;
+  }).join('');
+}
+
+// ===== HEATMAP TABLE =====
+function renderHeatmap(containerId){
+  let html='<table><thead><tr><th>カテゴリ</th>';
+  YEARS.forEach(y=>html+=`<th>${y}</th>`);
+  html+='<th>6年変化</th></tr></thead><tbody>';
+  CATS.forEach(cat=>{
+    const delta=+(D[2026][cat]-D[2021][cat]).toFixed(1);
+    html+=`<tr><td style="color:${CAT_COLORS[cat]}">${cat}</td>`;
+    YEARS.forEach(y=>html+=`<td class="${hmClass(D[y][cat])}">${D[y][cat]}</td>`);
+    html+=`<td style="color:${delta>0?'#059669':'#DC2626'}">${delta>0?'+':''}${delta}</td></tr>`;
+  });
+  const a2026=avg(D[2026]),a2021=avg(D[2021]),delta=+(a2026-a2021).toFixed(1);
+  html+=`<tr style="border-top:2px solid #E8DDD5"><td style="color:#C4960C">平均</td>`;
+  YEARS.forEach(y=>{const a=avg(D[y]);html+=`<td class="${hmClass(a)}">${a}</td>`});
+  html+=`<td style="color:#059669">+${delta}</td></tr></tbody></table>`;
+  document.getElementById(containerId).innerHTML=html;
+}
+
+// ===== TIMELINE =====
+function renderTimeline(containerId){
+  let html='<div class="timeline">';
+  YEARS.forEach(y=>{
+    html+=`<div class="timeline-item"><div class="timeline-dot" style="background:${COLORS[y]};box-shadow:0 0 0 2px ${COLORS[y]}"></div><div class="timeline-year" style="color:${COLORS[y]}">${y}年（平均: ${avg(D[y])} pt）</div><div class="timeline-text">${INSIGHTS[y]}</div></div>`;
+  });
+  html+='</div>';
+  document.getElementById(containerId).innerHTML=html;
+}
+
+// ===== GROWTH ANALYSIS =====
+function renderGrowth(){
+  const total=CATS.reduce((s,c)=>s+(D[2026][c]-D[2021][c]),0);
+  let html=`<div style="font-size:13px;color:#6B7280;margin-bottom:12px">6年間の総成長 <strong style="color:#2D2D2D;font-size:16px">${total.toFixed(1)} pt</strong> の内訳</div>`;
+  CATS.forEach(cat=>{
+    const g=+(D[2026][cat]-D[2021][cat]).toFixed(1);
+    const pct=+((g/total)*100).toFixed(1);
+    html+=`<div style="margin-bottom:10px"><div class="bar-label"><span style="font-weight:600;color:${CAT_COLORS[cat]}">${cat}</span><span style="color:#374151;font-weight:600">+${g} pt（${pct}%）</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${CAT_COLORS[cat]}"></div></div></div>`;
+  });
+  document.getElementById('growth-analysis').innerHTML=html;
+}
+
+// ===== CATEGORY DETAIL CARDS =====
+function renderCatDetails(){
+  let html='';
+  CATS.forEach(cat=>{
+    const vals=YEARS.map(y=>D[y][cat]);
+    const latest=vals[vals.length-1],prev=vals[vals.length-2];
+    const change=+(latest-prev).toFixed(1);
+    const totalC=+(latest-vals[0]).toFixed(1);
+    const maxV=Math.max(...vals),maxY=YEARS[vals.indexOf(maxV)];
+    const chCls=change>=0?'up':'down';
+    let spark='';
+    vals.forEach((v,i)=>{
+      const h=(v/80)*32;
+      const bg=i===vals.length-1?CAT_COLORS[cat]:CAT_COLORS[cat]+'40';
+      spark+=`<div class="sparkbar-col"><div class="sparkbar-bar" style="height:${h}px;background:${bg}"></div><div class="sparkbar-label">${String(YEARS[i]).slice(2)}</div></div>`;
+    });
+    html+=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:15px;font-weight:700;color:${CAT_COLORS[cat]}">${cat}</div><div class="cat-badge">${CAT_MAP[cat]}</div></div><div class="cat-card-value">${latest}</div><div style="display:flex;gap:12px;font-size:12px;margin-top:4px;flex-wrap:wrap"><span class="kpi-change ${chCls}">前年比 ${change>=0?'+':''}${change}</span><span style="color:#6B7280">6年変化 ${totalC>=0?'+':''}${totalC}</span><span style="color:#6B7280">最高値 ${maxV}（${maxY}）</span></div><div class="sparkbar">${spark}</div></div>`;
+  });
+  document.getElementById('cat-detail-cards').innerHTML=html;
+}
+
+// ===== DEPARTMENT FUNCTIONS =====
+function renderDeptHighlights(){
+  let html='';
+  const depts=Object.keys(DEPT_DATA);
+  CATS.forEach(cat=>{
+    let max=Math.max(...depts.map(d=>DEPT_DATA[d][cat]));
+    let maxDept=depts.find(d=>DEPT_DATA[d][cat]===max);
+    html+=`<div class="dept-card high"><div class="dept-name">最高 ${cat}</div><div class="dept-score">${max}</div><div class="dept-detail">${maxDept}</div></div>`;
+  });
+  CATS.forEach(cat=>{
+    let min=Math.min(...depts.map(d=>DEPT_DATA[d][cat]));
+    let minDept=depts.find(d=>DEPT_DATA[d][cat]===min);
+    html+=`<div class="dept-card low"><div class="dept-name" style="color:#DC2626">最低 ${cat}</div><div class="dept-score" style="color:#DC2626">${min}</div><div class="dept-detail">${minDept}</div></div>`;
+  });
+  document.getElementById('dept-highlight-cards').innerHTML=html;
+}
+
+function renderDeptHeatmap(){
+  const depts=Object.keys(DEPT_DATA);
+  let html='<table><thead><tr><th>部門</th>';
+  CATS.forEach(cat=>html+=`<th>${cat}</th>`);
+  html+='<th>平均</th></tr></thead><tbody>';
+  depts.forEach(dept=>{
+    html+=`<tr><td style="font-weight:600">${dept}</td>`;
+    CATS.forEach(cat=>html+=`<td class="${hmClass(DEPT_DATA[dept][cat])}">${DEPT_DATA[dept][cat]}</td>`);
+    html+=`<td class="${hmClass(DEPT_DATA[dept].avg)}" style="font-weight:600">${DEPT_DATA[dept].avg}</td></tr>`;
+  });
+  html+='</tbody></table>';
+  document.getElementById('dept-heatmap').innerHTML=html;
+}
+
+// ===== FREE TEXT FUNCTIONS =====
+function renderThemeCloud(){
+  let html='<div class="theme-cloud">';
+  FREE_TEXT_THEMES.forEach(t=>{
+    html+=`<div class="theme-box" style="background:linear-gradient(135deg,${t.color}22,${t.color}11);border-color:${t.color}44"><div class="theme-count" style="color:${t.color}">${t.count}</div><div class="theme-name">${t.name}</div></div>`;
+  });
+  html+='</div>';
+  document.getElementById('theme-cloud').innerHTML=html;
+}
+
+function renderThemeStats(){
+  const total=86;
+  let html='<div style="font-size:13px;color:#6B7280;margin-bottom:12px">抽出されたテーマと言及数</div>';
+  FREE_TEXT_THEMES.forEach(t=>{
+    const pct=+((t.count/total)*100).toFixed(1);
+    html+=`<div style="margin-bottom:10px"><div class="bar-label"><span style="font-weight:600;color:${t.color}">${t.name}</span><span style="color:#374151;font-weight:600">${t.count}件（${pct}%）</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${t.color}"></div></div></div>`;
+  });
+  document.getElementById('theme-stats').innerHTML=html;
+}
+
+function renderVoiceCards(){
+  const renderVoice=(containerId,quotes)=>{
+    let html=quotes.map(q=>`<div class="voice-card"><p class="voice-quote">"${q}"</p></div>`).join('');
+    document.getElementById(containerId).innerHTML=html;
+  };
+  renderVoice('voice-eigyo',VOICE_EIGYO);
+  renderVoice('voice-service',VOICE_SERVICE);
+  renderVoice('voice-keiri',VOICE_KEIRI);
+  renderVoice('voice-gyomu',VOICE_GYOMU);
+}
+
+function renderThemeDetailList(){
+  let html='<div style="font-size:12px">';
+  FREE_TEXT_THEMES.forEach(t=>{
+    html+=`<div style="display:flex;align-items:center;margin-bottom:8px"><span style="display:inline-block;width:24px;height:24px;background:${t.color};border-radius:50%;text-align:center;line-height:24px;color:#fff;font-size:12px;margin-right:8px">${t.count}</span><span style="color:#374151">${t.name}</span></div>`;
+  });
+  html+='</div>';
+  document.getElementById('theme-detail-list').innerHTML=html;
+}
+
+// ===== HYPOTHESIS FUNCTIONS =====
+function renderHypotheses(){
+  let html='';
+  HYPOTHESES.forEach(h=>{
+    html+=`<div class="hypo-card ${h.status}">
+      <div><span class="hypo-status ${h.status}">${h.statusText}</span></div>
+      <div class="hypo-title">仮説${h.num}: ${h.title}</div>
+      <div class="hypo-section">
+        <div class="hypo-section-title">根拠（支持）</div>
+        ${h.forEvidence.map(e=>`<div class="hypo-evidence">• ${e}</div>`).join('')}
+      </div>
+      ${h.againstEvidence.length>0?`<div class="hypo-section">
+        <div class="hypo-section-title">根拠（反証）</div>
+        ${h.againstEvidence.map(e=>`<div class="hypo-evidence">• ${e}</div>`).join('')}
+      </div>`:''}
+      <div class="hypo-conclusion"><strong>結論：</strong> ${h.conclusion}</div>
+    </div>`;
+  });
+  document.getElementById('hypo-cards').innerHTML=html;
+}
+
+// ===== CHARTS =====
+const chartInstances={};
+function makeRadar(canvasId,datasets,title){
+  const ctx=document.getElementById(canvasId).getContext('2d');
+  if(chartInstances[canvasId])chartInstances[canvasId].destroy();
+  chartInstances[canvasId]=new Chart(ctx,{
+    type:'radar',
+    data:{labels:CATS,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{title:{display:!!title,text:title,font:{size:14,weight:'bold'}},legend:{display:datasets.length>1,labels:{font:{size:12}}}},
+      scales:{r:{min:0,max:80,ticks:{stepSize:20,font:{size:10}},pointLabels:{font:{size:13,weight:'bold'}}}}
+    }
+  });
+}
+function makeLine(canvasId){
+  const ctx=document.getElementById(canvasId).getContext('2d');
+  if(chartInstances[canvasId])chartInstances[canvasId].destroy();
+  const datasets=CATS.map(cat=>({
+    label:cat,data:YEARS.map(y=>D[y][cat]),borderColor:CAT_COLORS[cat],backgroundColor:CAT_COLORS[cat]+'20',borderWidth:2.5,pointRadius:5,tension:.3
+  }));
+  datasets.push({label:'平均',data:YEARS.map(y=>avg(D[y])),borderColor:'#C4960C',borderWidth:2,borderDash:[6,3],pointRadius:4,tension:.3});
+  chartInstances[canvasId]=new Chart(ctx,{
+    type:'line',data:{labels:YEARS.map(String),datasets},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:12}}}},scales:{y:{min:0,max:80,ticks:{font:{size:12}}},x:{ticks:{font:{size:13,weight:'bold'}}}}}
+  });
+}
+function makeYoYBar(canvasId){
+  const ctx=document.getElementById(canvasId).getContext('2d');
+  if(chartInstances[canvasId])chartInstances[canvasId].destroy();
+  const periods=[];for(let i=1;i<YEARS.length;i++)periods.push(`${YEARS[i-1]}-${YEARS[i]}`);
+  const pColors=["#F2C8CC","#E8A0A6","#C4707A","#A84048","#8B2029","#6B1D24"];
+  const datasets=periods.map((p,pi)=>({
+    label:p,data:CATS.map(cat=>+(D[YEARS[pi+1]][cat]-D[YEARS[pi]][cat]).toFixed(1)),
+    backgroundColor:pColors[pi],borderRadius:3
+  }));
+  chartInstances[canvasId]=new Chart(ctx,{
+    type:'bar',data:{labels:CATS,datasets},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:11}}},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y>0?'+':''}${ctx.parsed.y} pt`}}},scales:{y:{ticks:{font:{size:12}}},x:{ticks:{font:{size:13,weight:'bold'}}}}}
+  });
+}
+
+// ===== DEPARTMENT CHARTS =====
+function makeDeptBarChart(){
+  const ctx=document.getElementById('deptBarChart').getContext('2d');
+  if(chartInstances['deptBarChart'])chartInstances['deptBarChart'].destroy();
+  const depts=Object.keys(DEPT_DATA);
+  const datasets=CATS.map(cat=>({label:cat,data:depts.map(d=>DEPT_DATA[d][cat]),backgroundColor:CAT_COLORS[cat],borderRadius:4}));
+  chartInstances['deptBarChart']=new Chart(ctx,{type:'bar',data:{labels:depts,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:12}}}},scales:{y:{min:0,max:85,ticks:{font:{size:12}}},x:{ticks:{font:{size:12,weight:'600'}}}}}});
+}
+
+function makeDeptRadarChart(){
+  const ctx=document.getElementById('deptRadarChart').getContext('2d');
+  if(chartInstances['deptRadarChart'])chartInstances['deptRadarChart'].destroy();
+  const depts=Object.keys(DEPT_DATA);
+  const deptColors={"第一営業部":"#C4960C","カスタマー部":"#10B981","管理部":"#3B82F6","技術開発部":"#8B2029"};
+  const datasets=depts.map(d=>({label:d,data:CATS.map(c=>DEPT_DATA[d][c]),borderColor:deptColors[d],backgroundColor:deptColors[d]+'15',borderWidth:2.5,pointRadius:4}));
+  chartInstances['deptRadarChart']=new Chart(ctx,{type:'radar',data:{labels:CATS,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:11}}}},scales:{r:{min:0,max:85,ticks:{stepSize:20,font:{size:10}},pointLabels:{font:{size:12,weight:'600'}}}}}});
+}
+
+function makeJobLevelChart(){
+  const ctx=document.getElementById('jobLevelChart').getContext('2d');
+  if(chartInstances['jobLevelChart'])chartInstances['jobLevelChart'].destroy();
+  const jobLevels=Object.keys(JOB_LEVEL_DATA);
+  const datasets=CATS.map(cat=>({label:cat,data:jobLevels.map(j=>JOB_LEVEL_DATA[j][cat]),backgroundColor:CAT_COLORS[cat],borderRadius:4}));
+  chartInstances['jobLevelChart']=new Chart(ctx,{type:'bar',data:{labels:jobLevels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:12}}}},scales:{y:{min:0,max:85,ticks:{font:{size:12}}},x:{ticks:{font:{size:12,weight:'600'}}}}}});
+}
+
+function makeSentimentChart(){
+  const ctx=document.getElementById('sentimentChart').getContext('2d');
+  if(chartInstances['sentimentChart'])chartInstances['sentimentChart'].destroy();
+  const depts=["第一営業部","カスタマー部","管理部","技術開発部"];
+  const sentiments={"第一営業部":{pos:42,neg:58},"カスタマー部":{pos:72,neg:28},"管理部":{pos:38,neg:62},"技術開発部":{pos:52,neg:48}};
+  chartInstances['sentimentChart']=new Chart(ctx,{type:'bar',data:{labels:depts,datasets:[
+    {label:'ポジティブ',data:depts.map(d=>sentiments[d].pos),backgroundColor:'#059669',borderRadius:4},
+    {label:'ネガティブ',data:depts.map(d=>sentiments[d].neg),backgroundColor:'#8B2029',borderRadius:4}
+  ]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:11}}}},scales:{x:{stacked:true,max:100,ticks:{font:{size:12}}},y:{stacked:true,ticks:{font:{size:12,weight:'600'}}}}}});
+}
+
+// ===== RADAR YEAR SELECTOR =====
+let selectedYears=[2021,2024,2026];
+function renderRadarButtons(){
+  let html='';
+  YEARS.forEach(y=>{
+    const sel=selectedYears.includes(y);
+    html+=`<button class="year-btn ${sel?'selected':''}" style="border-color:${COLORS[y]};${sel?'background:'+COLORS[y]+';color:#fff':'background:#fff;color:'+COLORS[y]}" onclick="toggleYear(${y})">${y}年</button>`;
+  });
+  document.getElementById('radar-buttons').innerHTML=html;
+  updateMultiRadar();
+}
+function toggleYear(y){
+  const i=selectedYears.indexOf(y);
+  if(i>=0)selectedYears.splice(i,1);else selectedYears.push(y);
+  selectedYears.sort();
+  renderRadarButtons();
+}
+function updateMultiRadar(){
+  const ds=selectedYears.map(y=>({label:y+'年',data:CATS.map(c=>D[y][c]),borderColor:COLORS[y],backgroundColor:COLORS[y]+'15',borderWidth:2.5,pointRadius:4,pointBackgroundColor:COLORS[y]}));
+  makeRadar('radarMulti',ds);
+}
+
+// ===== INIT =====
+function init(){
+  renderKPIs();
+  renderHeatmap('heatmap-table');
+  renderHeatmap('heatmap-table2');
+  renderTimeline('timeline-overview');
+  renderTimeline('timeline-detail');
+  renderGrowth();
+  renderCatDetails();
+  makeRadar('radarOverview',[{label:'最新年',data:CATS.map(c=>D[2026][c]),borderColor:'#8B2029',backgroundColor:'#8B202920',borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#8B2029'}]);
+  makeLine('trendOverview');
+  renderRadarButtons();
+  YEARS.forEach(y=>{
+    makeRadar('radar'+y,[{label:y+'年',data:CATS.map(c=>D[y][c]),borderColor:COLORS[y],backgroundColor:COLORS[y]+'25',borderWidth:2,pointRadius:4,pointBackgroundColor:COLORS[y]}],y+'年（平均: '+avg(D[y])+' pt）');
+  });
+  makeLine('trendLine');
+  makeYoYBar('yoyBar');
+  makeLine('trendDetail');
+  makeDeptBarChart();
+  makeDeptRadarChart();
+  renderDeptHighlights();
+  renderDeptHeatmap();
+  makeJobLevelChart();
+  renderThemeCloud();
+  renderThemeStats();
+  renderVoiceCards();
+  renderThemeDetailList();
+  makeSentimentChart();
+  renderHypotheses();
+}
+window.onload=init;
+</script>
+</body>
+</html>
