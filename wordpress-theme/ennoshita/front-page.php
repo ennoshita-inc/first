@@ -33,24 +33,26 @@ get_header();
         <p class="hero__label">Consulting for Growth</p>
         <h1 class="hero__title">
           <?php
-          $hero_title = get_theme_mod('ennoshita_hero_title', "人・職場・組織を支え、\nリーダーの心技体を育む");
+          $hero_title = get_theme_mod('ennoshita_hero_title', "研修を、やりっぱなしにしない。\n組織の変化を、データで見届ける。");
           $lines = explode("\n", $hero_title);
           $hero_html = '';
           foreach ($lines as $line) {
             $line_html = esc_html(trim($line));
             // 「心技体」にゴールドグラデーションを適用
-            $line_html = str_replace(
-              esc_html('心技体'),
-              '<em class="hero__title-accent">心技体</em>',
-              $line_html
-            );
+            foreach (['心技体', 'データ'] as $accent_word) {
+              $line_html = str_replace(
+                esc_html($accent_word),
+                '<em class="hero__title-accent">' . esc_html($accent_word) . '</em>',
+                $line_html
+              );
+            }
             $hero_html .= '<span class="hero__title-line">' . $line_html . '</span>';
           }
           echo $hero_html;
           ?>
         </h1>
         <p class="hero__description">
-          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。')); ?>
+          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱でリーダーの心技体を育む。組織活力調査「En-Dock」で研修の成果を見える化し、行動が変わるまで伴走します。')); ?>
         </p>
         <div class="hero__buttons">
           <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">

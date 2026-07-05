@@ -88,7 +88,7 @@ if (have_posts()) : the_post();
               <p class="author-box__desc">株式会社えんのした｜岡山を拠点に人材育成・人事制度構築・組織開発の3つの柱で、企業の持続的な成長を支援しています。</p>
             <?php endif; ?>
             <div class="author-box__links">
-              <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn btn--small btn--outline">会社概要</a>
+              <a href="<?php echo esc_url(home_url('/ceo/')); ?>" class="btn btn--small btn--outline">代表プロフィールを見る</a>
               <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--small btn--primary">お問い合わせ</a>
             </div>
           </div>

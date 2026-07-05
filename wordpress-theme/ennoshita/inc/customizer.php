@@ -297,7 +297,7 @@ function ennoshita_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_setting('ennoshita_address', [
-        'default'           => '岡山県岡山市 磨屋町ビル8階',
+        'default'           => '〒700-0826 岡山県岡山市北区磨屋町10-20 磨屋町ビル8階',
         'sanitize_callback' => 'sanitize_textarea_field',
     ]);
     $wp_customize->add_control('ennoshita_address', [

@@ -62,7 +62,7 @@ if (have_posts()) : the_post();
         <h2>9. お問い合わせ先</h2>
         <p>
           株式会社えんのした<br>
-          所在地: <?php echo esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階')); ?><br>
+          所在地: <?php echo esc_html(get_theme_mod('ennoshita_address', '〒700-0826 岡山県岡山市北区磨屋町10-20 磨屋町ビル8階')); ?><br>
           <?php $phone = get_theme_mod('ennoshita_phone'); if ($phone) : ?>
             電話: <?php echo esc_html($phone); ?><br>
           <?php endif; ?>

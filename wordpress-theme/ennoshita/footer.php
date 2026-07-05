@@ -49,7 +49,9 @@
             <li><a href="<?php echo esc_url(home_url('/service/training/')); ?>">人材育成サービス</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>">人事制度構築支援</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
-            <li><a href="<?php echo esc_url(home_url('/#process')); ?>">導入の流れ</a></li>
+            <li><a href="<?php echo esc_url(home_url('/endock-2/')); ?>">組織活力調査 En-Dock</a></li>
+            <li><a href="<?php echo esc_url(home_url('/service-flow/')); ?>">サービス導入の流れ</a></li>
+            <li><a href="<?php echo esc_url(home_url('/case-study/')); ?>">導入事例</a></li>
           </ul>
         <?php endif; ?>
       </div>
@@ -66,6 +68,7 @@
         <?php else : ?>
           <ul class="footer__nav">
             <li><a href="<?php echo esc_url(home_url('/about/')); ?>">会社概要</a></li>
+            <li><a href="<?php echo esc_url(home_url('/ceo/')); ?>">代表者紹介</a></li>
             <li><a href="<?php echo esc_url(ennoshita_get_blog_url()); ?>">コラム</a></li>
             <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせ</a></li>
             <li><a href="<?php echo esc_url(home_url('/sitemap/')); ?>">サイトマップ</a></li>
@@ -77,7 +80,7 @@
         <h3 class="footer__heading">アクセス</h3>
         <dl class="footer__info">
           <dt>所在地</dt>
-          <dd><?php echo nl2br(esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階'))); ?></dd>
+          <dd><?php echo nl2br(esc_html(get_theme_mod('ennoshita_address', '〒700-0826 岡山県岡山市北区磨屋町10-20 磨屋町ビル8階'))); ?></dd>
           <?php
           $phone = get_theme_mod('ennoshita_phone');
           if ($phone) : ?>

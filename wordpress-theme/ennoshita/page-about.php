@@ -41,7 +41,7 @@ if (have_posts()) : the_post();
             </tr>
             <tr>
               <th>設立</th>
-              <td>2012年5月1日</td>
+              <td>2012年5月1日（創業<?php echo (int) floor((time() - strtotime('2012-05-01')) / 31557600); ?>年）</td>
             </tr>
             <tr>
               <th>資本金</th>
@@ -49,11 +49,11 @@ if (have_posts()) : the_post();
             </tr>
             <tr>
               <th>代表者</th>
-              <td>代表取締役　川路 隆志</td>
+              <td>代表取締役　川路 隆志　<a href="<?php echo esc_url(home_url('/ceo/')); ?>">プロフィールを見る →</a></td>
             </tr>
             <tr>
               <th>所在地</th>
-              <td><?php echo esc_html(get_theme_mod('ennoshita_address', '岡山県岡山市 磨屋町ビル8階')); ?></td>
+              <td><?php echo esc_html(get_theme_mod('ennoshita_address', '〒700-0826 岡山県岡山市北区磨屋町10-20 磨屋町ビル8階')); ?></td>
             </tr>
             <?php $phone = get_theme_mod('ennoshita_phone'); if ($phone) : ?>
             <tr>

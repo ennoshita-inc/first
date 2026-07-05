@@ -51,16 +51,19 @@
         ]); ?>
       <?php else : ?>
         <ul class="main-nav__list">
-          <li><a href="<?php echo esc_url(home_url('/about/')); ?>" class="main-nav__link">会社概要</a></li>
           <li class="has-submenu">
             <a href="<?php echo esc_url(home_url('/#services')); ?>" class="main-nav__link">サービス</a>
             <ul class="sub-menu">
               <li><a href="<?php echo esc_url(home_url('/service/training/')); ?>">人材育成サービス</a></li>
               <li><a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>">人事制度構築支援</a></li>
               <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
-              <li><a href="<?php echo esc_url(home_url('/endock/')); ?>">組織活力調査 En-Dock<sup style="color:#c49a2a;font-size:9px;font-weight:700;letter-spacing:0.12em;margin-left:6px;vertical-align:super;">NEW</sup></a></li>
+              <li><a href="<?php echo esc_url(home_url('/endock-2/')); ?>">組織活力調査 En-Dock<sup style="color:#c49a2a;font-size:9px;font-weight:700;letter-spacing:0.12em;margin-left:6px;vertical-align:super;">NEW</sup></a></li>
+              <li><a href="<?php echo esc_url(home_url('/service-flow/')); ?>">サービス導入の流れ</a></li>
             </ul>
           </li>
+          <li><a href="<?php echo esc_url(home_url('/case-study/')); ?>" class="main-nav__link">導入事例</a></li>
+          <li><a href="<?php echo esc_url(home_url('/ceo/')); ?>" class="main-nav__link">代表紹介</a></li>
+          <li><a href="<?php echo esc_url(home_url('/about/')); ?>" class="main-nav__link">会社概要</a></li>
           <li><a href="<?php echo esc_url(ennoshita_get_blog_url()); ?>" class="main-nav__link">コラム</a></li>
           <li><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="main-nav__contact">お問い合わせ</a></li>
         </ul>

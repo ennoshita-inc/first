@@ -12,7 +12,7 @@ $process_id = isset($args['id']) ? $args['id'] : 'process-title';
       <h2 class="section-header__title" id="<?php echo esc_attr($process_id); ?>">サービス導入の流れ</h2>
       <span class="section-header__line" aria-hidden="true"></span>
       <p class="section-header__description">
-        お問い合わせから導入まで、4つのステップでサポートします。
+        お問い合わせから効果測定まで、5つのステップでサポートします。
       </p>
     </div>
 
@@ -23,10 +23,11 @@ $process_id = isset($args['id']) ? $args['id'] : 'process-title';
         ['title' => 'ヒアリング',       'text' => '組織の現状と課題を丁寧にお伺いします。'],
         ['title' => 'ご提案・お見積り', 'text' => '最適なプランをご提案し、お見積りを提出します。'],
         ['title' => 'サービス開始',     'text' => 'プログラムを実施し、組織の変革を支援します。'],
+        ['title' => '効果測定・定着支援', 'text' => '実施後の変化を確認し、定着まで伴走します。「やりっぱなし」にはしません。'],
       ];
       foreach ($steps as $i => $step) :
       ?>
-        <div class="process__step reveal reveal--delay-<?php echo $i + 1; ?>">
+        <div class="process__step reveal reveal--delay-<?php echo min($i + 1, 4); ?>">
           <div class="process__step-number"><?php echo $i + 1; ?></div>
           <h3 class="process__step-title"><?php echo esc_html($step['title']); ?></h3>
           <p class="process__step-text"><?php echo esc_html($step['text']); ?></p>
