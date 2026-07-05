@@ -51,8 +51,9 @@ function ennoshita_generate_llms_txt($full = false) {
     $output .= "> 「人が育てば組織が変わる」を理念に、100社以上の企業の組織変革を支援してきました。\n\n";
 
     $output .= "## 会社情報\n\n";
-    $output .= "- 会社名: 株式会社えんのした（Ennoshita Inc.）\n";
-    $output .= "- 所在地: 岡山県岡山市 磨屋町ビル8階\n";
+    $output .= "- 会社名: 株式会社えんのした（読み: エンノシタ、英文: Ennoshita Inc.）\n";
+    $output .= "- 法人番号: 5260001024843\n";
+    $output .= "- 所在地: 〒700-0826 岡山県岡山市北区磨屋町10-20 磨屋町ビル8階\n";
     $output .= "- 設立: 2012年5月\n";
     $output .= "- 代表取締役: 川路 隆志\n";
     if ($phone) {
@@ -70,7 +71,7 @@ function ennoshita_generate_llms_txt($full = false) {
     $output .= "- [会社概要]({$site_url}about/)\n";
     $output .= "- [お問い合わせ]({$site_url}contact/)\n";
     $output .= "- [コラム（ブログ）](" . esc_url(ennoshita_get_blog_url()) . ")\n";
-    $output .= "- [プライバシーポリシー]({$site_url}privacy/)\n";
+    $output .= "- [プライバシーポリシー]({$site_url}privacy-policy/)\n";
 
     if ($full) {
         $output .= "\n## 詳細情報\n\n";
@@ -186,24 +187,33 @@ function ennoshita_output_ai_jsonld() {
             wp_json_encode($website, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
         );
 
-        // Organization スキーマ（LocalBusiness を補完）
+        // Organization スキーマ（LocalBusiness と統合した単一のエンティティ定義）
+        // ProfessionalService は LocalBusiness / Organization のサブタイプなので両者の性質を1ブロックで表せる
         $org = [
             '@context'    => 'https://schema.org',
-            '@type'       => 'Organization',
+            '@type'       => 'ProfessionalService',
+            '@id'         => home_url('/#organization'),
             'name'        => '株式会社えんのした',
-            'alternateName' => 'Ennoshita Inc.',
+            'alternateName' => ['Ennoshita Inc.', 'エンノシタ'],
             'url'         => home_url('/'),
             'description' => '人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発を支援します。',
             'foundingDate' => '2012-05-01',
+            // 法人番号 — 同名他社との混同を防ぐエンティティ識別子
+            'identifier'  => [
+                '@type'      => 'PropertyValue',
+                'propertyID' => '法人番号',
+                'value'      => '5260001024843',
+            ],
             'founder'     => [
                 '@type' => 'Person',
                 'name'  => '川路 隆志',
                 'jobTitle' => '代表取締役',
+                'url'   => home_url('/ceo/'),
             ],
             'address'     => [
                 '@type'           => 'PostalAddress',
-                'streetAddress'   => '磨屋町ビル8階',
-                'addressLocality' => '岡山市',
+                'streetAddress'   => '磨屋町10-20 磨屋町ビル8階',
+                'addressLocality' => '岡山市北区',
                 'addressRegion'   => '岡山県',
                 'postalCode'      => '700-0826',
                 'addressCountry'  => 'JP',
@@ -233,17 +243,20 @@ function ennoshita_output_ai_jsonld() {
             $org['image'] = $logo_url;
         }
 
-        // SNSリンク
-        $same_as = [];
+        // sameAs — 公的データベース・外部プロフィール（エンティティ名寄せの決定打）
+        $same_as = [
+            'https://info.gbiz.go.jp/hojin/ichiran?hojinBango=5260001024843',
+            'https://www.houjin-bangou.nta.go.jp/henkorireki-johoto.html?selHouzinNo=5260001024843',
+            'https://www.nikkei.com/compass/company/ucHVDKx36PbUxSsDWURPgk',
+            'https://www.okyeg.org/member-list/?sk=210',
+        ];
         foreach (['x', 'facebook', 'instagram', 'linkedin'] as $sns) {
             $sns_url = get_theme_mod("ennoshita_sns_{$sns}");
             if ($sns_url) {
                 $same_as[] = $sns_url;
             }
         }
-        if ($same_as) {
-            $org['sameAs'] = $same_as;
-        }
+        $org['sameAs'] = $same_as;
 
         printf(
             '<script type="application/ld+json">%s</script>' . "\n",
@@ -338,3 +351,13 @@ function ennoshita_ai_on_switch_theme() {
     delete_option('ennoshita_ai_rewrite_flushed');
 }
 add_action('after_switch_theme', 'ennoshita_ai_on_switch_theme');
+
+
+// ==============================================
+// 6. スキーマの二重出力防止
+// ==============================================
+// All in One SEO も Organization / WebSite / WebPage 等のスキーマを出力するため、
+// テーマ側の定義（本ファイル＋inc/seo.php）と二重になり矛盾の原因になる。
+// スキーマはテーマを正本とし、AIOSEO側の出力を停止する（公式フィルタ）。
+// AIOSEO のタイトル・meta description・サイトマップ機能はこの影響を受けない。
+add_filter('aioseo_schema_disable', '__return_true');

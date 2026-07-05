@@ -143,48 +143,8 @@ function ennoshita_output_jsonld() {
     $logo_id = get_theme_mod('custom_logo');
     $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
 
-    if (is_front_page()) {
-        $data = [
-            '@context'    => 'https://schema.org',
-            '@type'       => 'LocalBusiness',
-            'name'        => '株式会社えんのした',
-            'description' => '人・職場・組織を支えるコンサルティング会社。人材育成、人事制度構築、組織開発を支援します。',
-            'url'         => home_url('/'),
-            'address'     => [
-                '@type'           => 'PostalAddress',
-                'streetAddress'   => '磨屋町ビル8階',
-                'addressLocality' => '岡山市',
-                'addressRegion'   => '岡山県',
-                'postalCode'      => '700-0826',
-                'addressCountry'  => 'JP',
-            ],
-            'foundingDate' => '2012-05-01',
-        ];
-
-        if ($phone) {
-            $data['telephone'] = $phone;
-        }
-        if ($logo_url) {
-            $data['logo'] = $logo_url;
-        }
-
-        // SNSリンクを動的に取得
-        $same_as = [];
-        foreach (['x', 'facebook', 'instagram', 'linkedin'] as $sns) {
-            $sns_url = get_theme_mod("ennoshita_sns_{$sns}");
-            if ($sns_url) {
-                $same_as[] = $sns_url;
-            }
-        }
-        if ($same_as) {
-            $data['sameAs'] = $same_as;
-        }
-
-        printf(
-            '<script type="application/ld+json">%s</script>' . "\n",
-            wp_json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
-        );
-    }
+    // トップページの LocalBusiness スキーマは inc/ai-discovery.php の
+    // ProfessionalService（Organization/LocalBusiness統合）に一本化した。
 
     // BreadcrumbList JSON-LD（トップページ以外）
     if (!is_front_page()) {
@@ -277,8 +237,15 @@ function ennoshita_output_jsonld() {
             'datePublished' => get_the_date('c'),
             'dateModified'  => get_the_modified_date('c'),
             'author'        => [
-                '@type' => 'Organization',
-                'name'  => '株式会社えんのした',
+                '@type'    => 'Person',
+                'name'     => '川路 隆志',
+                'jobTitle' => '代表取締役',
+                'url'      => home_url('/ceo/'),
+                'worksFor' => [
+                    '@type' => 'Organization',
+                    'name'  => '株式会社えんのした',
+                    'url'   => home_url('/'),
+                ],
             ],
             'publisher'        => $publisher,
             'mainEntityOfPage' => get_permalink(),
