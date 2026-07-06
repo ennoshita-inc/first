@@ -49,7 +49,7 @@
             <li><a href="<?php echo esc_url(home_url('/service/training/')); ?>">人材育成サービス</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/hr-system/')); ?>">人事制度構築支援</a></li>
             <li><a href="<?php echo esc_url(home_url('/service/organization/')); ?>">組織開発支援</a></li>
-            <li><a href="<?php echo esc_url(home_url('/endock-2/')); ?>">組織活力調査 En-Dock</a></li>
+            <li><a href="<?php echo esc_url(home_url('/endock/')); ?>">組織活力調査 En-Dock</a></li>
             <li><a href="<?php echo esc_url(home_url('/service-flow/')); ?>">サービス導入の流れ</a></li>
             <li><a href="<?php echo esc_url(home_url('/case-study/')); ?>">導入事例</a></li>
           </ul>
