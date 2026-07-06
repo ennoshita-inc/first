@@ -12,7 +12,7 @@
         'alt'     => get_the_title(),
       ]); ?>
     <?php else : ?>
-      <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/no-image.jpg"
+      <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/images/column-default.svg"
            alt="" width="400" height="225" loading="lazy">
     <?php endif; ?>
   </div>
