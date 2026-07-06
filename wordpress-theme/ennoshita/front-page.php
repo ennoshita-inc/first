@@ -120,11 +120,19 @@ get_header();
       </div>
       <div class="trust__grid reveal">
         <?php
+        // カスタマイザー未設定時は実データに基づくデフォルト値を表示
+        $trust_defaults = [
+          1 => ['number' => (string) max(1, (int) floor((time() - strtotime('2012-05-01')) / 31557600)), 'unit' => '年', 'label' => '創業からの歩み', 'link' => home_url('/about/')],
+          2 => ['number' => '100', 'unit' => '社以上', 'label' => '支援してきた企業', 'link' => home_url('/case-study/')],
+          3 => ['number' => (string) wp_count_posts('post')->publish, 'unit' => '本', 'label' => '公開コラム（毎週更新）', 'link' => ennoshita_get_blog_url()],
+          4 => ['number' => '11', 'unit' => '種', 'label' => '代表の保有資格', 'link' => home_url('/ceo/')],
+        ];
         for ($i = 1; $i <= 4; $i++) :
-          $number = get_theme_mod("ennoshita_trust_{$i}_number", '');
-          $unit   = get_theme_mod("ennoshita_trust_{$i}_unit", '');
-          $label  = get_theme_mod("ennoshita_trust_{$i}_label", '');
-          $link   = get_theme_mod("ennoshita_trust_{$i}_link", '');
+          $d = $trust_defaults[$i];
+          $number = get_theme_mod("ennoshita_trust_{$i}_number", $d['number']);
+          $unit   = get_theme_mod("ennoshita_trust_{$i}_unit", $d['unit']);
+          $label  = get_theme_mod("ennoshita_trust_{$i}_label", $d['label']);
+          $link   = get_theme_mod("ennoshita_trust_{$i}_link", $d['link']);
           if (!$number) continue;
         ?>
           <div class="trust__item">

@@ -1169,3 +1169,17 @@
     transition: none !important;
   }
 }
+
+
+/* ===== モバイル調整（2026-07-06 目視レビュー対応） ===== */
+.endock-sample__scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.endock-dashboard__preview-link { display: none; }
+.endock-dashboard__preview { width: 100%; height: auto; border-radius: 0 0 8px 8px; }
+@media (max-width: 640px) {
+  .endock-sample__table { min-width: 560px; }
+}
+@media (max-width: 768px) {
+  /* スマホでは重いiframeの代わりに静止プレビュー画像（タップで全画面） */
+  .endock-dashboard__iframe { display: none; }
+  .endock-dashboard__preview-link { display: block; }
+}

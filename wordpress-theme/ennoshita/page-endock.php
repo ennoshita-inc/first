@@ -421,6 +421,7 @@ get_header();
     </div>
 
     <div class="endock-sample reveal">
+      <div class="endock-sample__scroll">
       <table class="endock-sample__table">
         <thead>
           <tr>
@@ -481,6 +482,7 @@ get_header();
           </tr>
         </tbody>
       </table>
+      </div>
       <div class="endock-sample__foot">
         <span><b>回答形式</b> 5 段階リッカートスケール</span>
         <span><b>回答時間の目安</b> 15〜20 分（60 問版）／ 約 12 分（簡易 40 問版）</span>
@@ -544,6 +546,7 @@ get_header();
           <span class="endock-dashboard__url">en-dock-dashboard / sample-company / 2026年度</span>
         </div>
         <iframe class="endock-dashboard__iframe" src="<?php echo $dashboard_url; ?>" title="En-Dock サンプルダッシュボード" loading="lazy"></iframe>
+        <a href="<?php echo $dashboard_url; ?>" target="_blank" rel="noopener" class="endock-dashboard__preview-link"><img class="endock-dashboard__preview" src="<?php echo esc_url($theme_uri . '/lp-endock/dashboard-preview.jpg'); ?>" alt="En-Dock ダッシュボード画面（サンプル）。タップで全画面表示" loading="lazy" width="1200" height="900"></a>
       </div>
       <p class="endock-dashboard__note">
         ※ 上記は架空企業のサンプルデータです。実装ではお客様のデータでこの通りのダッシュボードが納品されます。
