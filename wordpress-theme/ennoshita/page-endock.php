@@ -72,8 +72,8 @@ get_header();
         <p class="trust__label">集計軸</p>
       </div>
       <div class="trust__item">
-        <p class="trust__number" data-count="15">0<small>万円〜</small></p>
-        <p class="trust__label">導入価格</p>
+        <p class="trust__number" data-count="7">0<small>タブ</small></p>
+        <p class="trust__label">分析ダッシュボード</p>
       </div>
     </div>
     <p class="endock-scale-note">
