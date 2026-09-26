@@ -100,7 +100,12 @@ def set_featured(post_id, media_id):
 
 import datetime
 print(f"===== {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} 実行 =====", flush=True)
-posts = api(f'{SITE}/wp-json/wp/v2/posts?per_page=100&_fields=id,title,featured_media&cb=' + str(int(time.time())))
+# 公開済みだけでなく「予約（future）」も対象にする：公開前にアイキャッチを付けておけば、
+# ジョブが動く時刻とPCの起動状態が公開時刻と無関係になる（2026-09-06）
+posts = []
+for st in ('publish', 'future'):
+    posts += api(f'{SITE}/wp-json/wp/v2/posts?status={st}&per_page=100&_fields=id,title,featured_media,status&cb=' + str(int(time.time())),
+                 headers={'Authorization': f'Basic {WP_AUTH}'})
 targets = [p for p in posts if not p['featured_media']]
 print(f'対象: {len(targets)}記事', flush=True)
 ok, ng = 0, []
@@ -110,7 +115,7 @@ for p in targets:
     title = title.replace('&#8221;', '"').replace('&#8220;', '"').replace('&amp;', '&').replace('&#038;', '&')
     png = f'{OUT}/eyecatch_{pid}.png'
     jpg = f'{OUT}/eyecatch_{pid}.jpg'
-    print(f'[{pid}] {title[:45]}', flush=True)
+    print(f'[{pid}] ({p.get("status","")}) {title[:45]}', flush=True)
     try:
         if pid == 1052 and os.path.exists(f'{OUT}/sample_1052.png'):
             png = f'{OUT}/sample_1052.png'  # 承認済みサンプルを再利用
