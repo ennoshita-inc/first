@@ -52,6 +52,18 @@
   const hamburger = document.querySelector('.hamburger');
   const mainNav = document.querySelector('.main-nav');
   const navOverlay = document.querySelector('.nav-overlay');
+  const mobileNavMedia = window.matchMedia('(max-width: 768px)');
+
+  function syncMobileNavAccessibility() {
+    const isClosedMobile = mobileNavMedia.matches && !mainNav.classList.contains('is-open');
+    if (isClosedMobile) {
+      mainNav.setAttribute('aria-hidden', 'true');
+      mainNav.setAttribute('inert', '');
+    } else {
+      mainNav.removeAttribute('aria-hidden');
+      mainNav.removeAttribute('inert');
+    }
+  }
 
   function openMenu() {
     hamburger.setAttribute('aria-expanded', 'true');
@@ -59,6 +71,7 @@
     mainNav.classList.add('is-open');
     navOverlay.classList.add('is-active');
     document.body.style.overflow = 'hidden';
+    syncMobileNavAccessibility();
 
     // Focus first link
     const firstLink = mainNav.querySelector('a');
@@ -71,6 +84,7 @@
     mainNav.classList.remove('is-open');
     navOverlay.classList.remove('is-active');
     document.body.style.overflow = '';
+    syncMobileNavAccessibility();
     hamburger.focus();
   }
 
@@ -84,6 +98,14 @@
   }
 
   if (hamburger && mainNav) {
+    syncMobileNavAccessibility();
+
+    if (mobileNavMedia.addEventListener) {
+      mobileNavMedia.addEventListener('change', syncMobileNavAccessibility);
+    } else {
+      mobileNavMedia.addListener(syncMobileNavAccessibility);
+    }
+
     hamburger.addEventListener('click', toggleMenu);
 
     if (navOverlay) {
