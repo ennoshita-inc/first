@@ -33,7 +33,8 @@ get_header();
         <p class="hero__label">Consulting for Growth</p>
         <h1 class="hero__title">
           <?php
-          $hero_title = get_theme_mod('ennoshita_hero_title', "研修を、やりっぱなしにしない。\n組織の変化を、データで見届ける。");
+          // 既定値は inc/customizer.php と必ずそろえる（ずれるとプレビューと公開画面で見出しが変わる）
+          $hero_title = get_theme_mod('ennoshita_hero_title', "人・職場・組織を支え、\nリーダーの心技体を育む");
           $lines = explode("\n", $hero_title);
           $hero_html = '';
           foreach ($lines as $line) {
@@ -52,7 +53,7 @@ get_header();
           ?>
         </h1>
         <p class="hero__description">
-          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱でリーダーの心技体を育む。組織活力調査「En-Dock」で研修の成果を見える化し、行動が変わるまで伴走します。')); ?>
+          <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。')); ?>
         </p>
         <div class="hero__buttons">
           <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">
