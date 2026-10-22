@@ -18,15 +18,19 @@ get_header();
 ?>
 
   <!-- ===== 1. ヒーローセクション ===== -->
-  <?php $hero_image = get_theme_mod('ennoshita_hero_image'); ?>
-  <section class="hero">
-    <?php if ($hero_image) : ?>
+  <?php
+  $hero_image = get_theme_mod('ennoshita_hero_image');
+  // 既定は「添え木をした苗木」の線画。カスタマイザーで写真に戻せる
+  $hero_is_photo = (get_theme_mod('ennoshita_hero_visual', 'illustration') === 'photo') && $hero_image;
+  ?>
+  <section class="hero<?php echo $hero_is_photo ? '' : ' hero--illust'; ?>">
+    <?php if ($hero_is_photo) : ?>
       <div class="hero__bg" style="background-image:url('<?php echo esc_url($hero_image); ?>')" aria-hidden="true"></div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__decoration" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
     <?php endif; ?>
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__decoration" aria-hidden="true">
-      <span></span><span></span><span></span>
-    </div>
 
     <div class="container hero__inner">
       <div class="hero__content">
@@ -56,16 +60,40 @@ get_header();
           <?php echo esc_html(get_theme_mod('ennoshita_hero_description', '「人が育てば組織が変わる」――岡山を拠点に、人材育成・人事制度構築・組織開発の3つの柱で、100社以上の企業様の組織変革を支援してきました。')); ?>
         </p>
         <div class="hero__buttons">
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--white btn--large">
+          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn <?php echo $hero_is_photo ? 'btn--white' : 'btn--primary'; ?> btn--large">
             無料相談はこちら
             <svg class="btn__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
-          <a href="#services" class="btn btn--outline-white btn--large">
+          <a href="#services" class="btn <?php echo $hero_is_photo ? 'btn--outline-white' : 'btn--outline'; ?> btn--large">
             サービスを見る
           </a>
         </div>
       </div>
     </div>
+
+
+    <?php if (!$hero_is_photo) : ?>
+      <div class="hero__illust" aria-hidden="true">
+        <svg viewBox="40 -14 440 268" fill="none" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+          <line class="hero__illust-ground" x1="40" y1="240" x2="480" y2="240"/>
+          <g transform="translate(262 240) scale(1.55) translate(-262 -240)">
+            <path class="hero__illust-mound" d="M200 240 Q262 214 324 240Z"/>
+            <path class="hero__illust-line hero__illust-stake" d="M285 104 L294 96 L294 238 L285 238Z"/>
+            <path class="hero__illust-line" d="M285 130 h9 M285 133 h9 M285 166 h9 M285 169 h9 M285 204 h9 M285 207 h9"/>
+            <path class="hero__illust-grain" d="M289.5 112 v14 M289.5 140 v20 M289.5 176 v22"/>
+            <path class="hero__illust-line" d="M262 236 C258 200 266 160 260 112"/>
+            <g class="hero__illust-leaf">
+              <path transform="translate(260 112) rotate(-120)" d="M0 0 C8 -10 22 -10 28 0 C22 10 8 10 0 0Z"/>
+              <path transform="translate(260 112) rotate(-60)" d="M0 0 C8 -10 22 -10 28 0 C22 10 8 10 0 0Z"/>
+              <path transform="translate(262 140) rotate(-160) scale(.85)" d="M0 0 C8 -10 22 -10 28 0 C22 10 8 10 0 0Z"/>
+              <path transform="translate(262 150) rotate(-20) scale(.85)" d="M0 0 C8 -10 22 -10 28 0 C22 10 8 10 0 0Z"/>
+              <path transform="translate(259 176) rotate(-150) scale(.7)" d="M0 0 C8 -10 22 -10 28 0 C22 10 8 10 0 0Z"/>
+            </g>
+            <path class="hero__illust-tie" d="M262 152 C270 146 278 158 286 152 C290 149 290 156 286 156 C278 160 270 146 262 152 M262 198 C270 192 278 204 286 198 C290 195 290 202 286 202 C278 206 270 192 262 198"/>
+          </g>
+        </svg>
+      </div>
+    <?php endif; ?>
 
     <div class="hero__scroll" aria-hidden="true">
       <span>SCROLL</span>

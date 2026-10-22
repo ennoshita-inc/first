@@ -3,7 +3,7 @@ Theme Name: 株式会社えんのした
 Theme URI: https://ennoshita.co.jp
 Author: 株式会社えんのした
 Description: 人・職場・組織を支える — 岡山発の人材育成・組織開発コンサルティング会社の公式テーマ
-Version: 4.4.1
+Version: 4.5.0
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -4124,3 +4124,73 @@ a.blog-filter__item--active:hover {
 
 /* プラグイン出力のPAGE TOPボタンを無効化（テーマのback-to-topと二重表示になるため） */
 #page_top, .page_top_btn { display: none !important; }
+
+/* ==========================================================================
+   Hero（イラスト版）v4.5.0
+   生成りの地に、添え木をした苗木の線画。写真版は .hero--illust が付かない
+   ========================================================================== */
+.hero--illust {
+  background: #faf8f4;
+}
+
+.hero--illust .hero__content {
+  color: var(--color-text);
+  max-width: 560px;
+}
+
+.hero--illust .hero__label {
+  color: var(--color-primary);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.hero--illust .hero__title-accent {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--color-primary);
+  font-style: normal;
+}
+
+.hero--illust .hero__description {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.hero--illust .hero__scroll { display: none; }
+
+.hero__illust {
+  position: absolute;
+  z-index: 1;
+  right: max(var(--container-padding), calc((100vw - var(--container-max)) / 2));
+  bottom: 120px;
+  width: clamp(300px, 40vw, 560px);
+  pointer-events: none;
+}
+
+.hero__illust svg { display: block; width: 100%; height: auto; }
+
+.hero__illust-line { stroke: var(--color-primary); stroke-width: 1; fill: none; }
+.hero__illust-stake { fill: #fff; }
+.hero__illust-leaf path { stroke: var(--color-primary); stroke-width: 0.8; fill: #f3ece4; }
+.hero__illust-grain { stroke: var(--color-primary); stroke-width: 0.4; opacity: 0.5; }
+.hero__illust-tie { stroke: var(--color-accent); stroke-width: 0.9; fill: none; }
+.hero__illust-mound { stroke: var(--color-accent); stroke-width: 0.9; fill: #fdf8eb; }
+.hero__illust-ground { stroke: var(--color-accent); stroke-width: 1; }
+
+@media (max-width: 1024px) {
+  .hero--illust .hero__content { max-width: 52%; }
+  .hero__illust { width: 40vw; }
+}
+
+/* スマホ・タブレット縦：文字の下に苗木を置く縦並び */
+@media (max-width: 768px) {
+  .hero--illust { flex-direction: column; align-items: stretch; padding-bottom: 96px; }
+  .hero--illust .hero__content { max-width: 100%; }
+  .hero__illust {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(78%, 360px);
+    margin: var(--space-xl) auto 0;
+  }
+}

@@ -12,6 +12,22 @@ function ennoshita_customize_register($wp_customize) {
         'priority' => 30,
     ]);
 
+    $wp_customize->add_setting('ennoshita_hero_visual', [
+        'default'           => 'illustration',
+        'sanitize_callback' => function ($value) {
+            return in_array($value, ['illustration', 'photo'], true) ? $value : 'illustration';
+        },
+    ]);
+    $wp_customize->add_control('ennoshita_hero_visual', [
+        'label'   => 'ヒーローのビジュアル',
+        'section' => 'ennoshita_hero',
+        'type'    => 'radio',
+        'choices' => [
+            'illustration' => 'イラスト（添え木をした苗木）',
+            'photo'        => '写真（下の「ヒーロー画像」を使う）',
+        ],
+    ]);
+
     $wp_customize->add_setting('ennoshita_hero_image', ['default' => '']);
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ennoshita_hero_image', [
         'label'   => 'ヒーロー画像',
