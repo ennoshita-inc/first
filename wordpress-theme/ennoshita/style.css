@@ -4158,14 +4158,16 @@ a.blog-filter__item--active:hover {
 
 .hero--illust .hero__scroll { display: none; }
 
+/* .hero__inner（コンテナ）の右下に置く */
 .hero__illust {
   position: absolute;
-  z-index: 1;
-  right: max(var(--container-padding), calc((100vw - var(--container-max)) / 2));
-  bottom: 120px;
+  z-index: 0;
+  right: 0;
+  bottom: var(--space-2xl);
   width: clamp(300px, 40vw, 560px);
   pointer-events: none;
 }
+.hero--illust .hero__content { position: relative; z-index: 1; }
 
 .hero__illust svg { display: block; width: 100%; height: auto; }
 
@@ -4182,15 +4184,24 @@ a.blog-filter__item--active:hover {
   .hero__illust { width: 40vw; }
 }
 
-/* スマホ・タブレット縦：文字の下に苗木を置く縦並び */
+/* スマホ・タブレット縦：文字の幅を見出しにそろえ、苗木は右側に文字と少し重ねて置く */
 @media (max-width: 768px) {
-  .hero--illust { flex-direction: column; align-items: stretch; padding-bottom: 96px; }
-  .hero--illust .hero__content { max-width: 100%; }
+  .hero--illust { padding-bottom: 110px; }
+  .hero--illust .hero__content { width: fit-content; max-width: 100%; }
+  /* 説明文とボタンは見出しの幅で折り返す */
+  .hero--illust .hero__description,
+  .hero--illust .hero__buttons { width: 0; min-width: 100%; }
+  .hero--illust .hero__description { word-break: auto-phrase; text-wrap: pretty; }
+  .hero--illust .hero__buttons .btn { max-width: none; }
+  .hero--illust .hero__description { line-height: 1.95; }
+  /* 横長の絵を右へはみ出させ、苗木だけが画面の右端に立つようにする */
   .hero__illust {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: min(78%, 360px);
-    margin: var(--space-xl) auto 0;
+    /* ボタン2つ（約120px）＋余白の上に地面が来る位置 */
+    right: -24vw;
+    bottom: 150px;
+    width: 80vw;
+    max-width: none;
+    opacity: 0.55;
+    z-index: 0;
   }
 }

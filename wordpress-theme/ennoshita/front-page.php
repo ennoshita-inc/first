@@ -69,8 +69,6 @@ get_header();
           </a>
         </div>
       </div>
-    </div>
-
 
     <?php if (!$hero_is_photo) : ?>
       <div class="hero__illust" aria-hidden="true">
@@ -94,6 +92,7 @@ get_header();
         </svg>
       </div>
     <?php endif; ?>
+    </div>
 
     <div class="hero__scroll" aria-hidden="true">
       <span>SCROLL</span>
